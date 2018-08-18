@@ -1,8 +1,8 @@
 # Rhythm UI
 
-> 👷‍ PLEASE NOTE: This library is currently in early development and all api's are subject to change without notice. Use with caution.
+> 👷‍ PLEASE NOTE: This library is currently still in development and all api's are subject to change.️ Please use with caution.
 
-Rhythm is a library currently in development for building enterprise design systems. It enables us to create consistent and 
+Rhythm UI is a library currently in development for building enterprise design systems. It enables us to create consistent and 
 delightful user experiences that are battle tested, future proof and scalable.
 
 Rhythm is designed to be integrated as easily as possible into any and all web frameworks.
@@ -10,18 +10,19 @@ Rhythm is designed to be integrated as easily as possible into any and all web f
 ## Contributing
     
 The main purpose of this repository is to continue to evolve Rhythm UI, making it better and easier to use. Development of 
-Rhythm happens on GitHub, and we are grateful for any contributions, bug fixes and improvements. 
+Rhythm happens on GitHub, and we welcome any contributions, bug fixes and improvements. 
 Please read below to learn how you can take part in improving Rhythm.
 
-### [Code of Conduct](https://github.com/DeloitteDigitalAPAC/rhythm-ui/blob/master/CODE_OF_CONDUCT.md)
+### Code of Conduct
 
 Deloitte Digital has adopted a Code of Conduct that we expect project participants to adhere to. Please read 
-[the full text](/CODE_OF_CONDUCT.md) so that you can understand what actions will and will not be tolerated.
+[the code of conduct](https://github.com/DeloitteDigitalAPAC/rhythm-ui/blob/master/CODE_OF_CONDUCT.md) so that you can 
+understand what actions will and will not be tolerated.
 
-### [Contributing Guide](https://github.com/DeloitteDigitalAPAC/rhythm-ui/blob/master/CONTRIBUTING.md)
+### Contributing Guide
 
-Read our [contributing guide](#) to learn about our development process, how to propose bugfixes and improvements, and 
-how to build and test your changes to Rhythm.
+Read our [contributing guide](https://github.com/DeloitteDigitalAPAC/rhythm-ui/blob/master/CONTRIBUTING.md) to learn about 
+our development process, how to propose bugfixes and improvements, and how to build and test your changes to Rhythm.
 
 ## Who is Deloitte Digital?
 
