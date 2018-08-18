@@ -2,8 +2,8 @@
 
 > 👷‍ PLEASE NOTE: This library is currently still in development and all api's are subject to change.️ Please use with caution.
 
-Rhythm UI is a library currently in development for building enterprise design systems. It enables us to create consistent and 
-delightful user experiences that are battle tested, future proof and scalable.
+Rhythm UI is a white-label product currently in development for building enterprise design systems. It enables us to create consistent and 
+delightful user experiences that are battle tested, future proof and scalable that can be branded easily.
 
 Rhythm is designed to be integrated as easily as possible into any and all web frameworks.
 

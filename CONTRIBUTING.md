@@ -35,8 +35,8 @@ Rhythm is split into multiple [packages](#https://github.com/DeloitteDigitalAPAC
 
 Each package falls into one of the following categories:
 
-- **Subsystem:** A package that contains common functionality and/or business logic used by multiple components.
-- **Base Component:** A package that contains only Sass and/or *vanilla* business logic Javascript. 
+- **Subsystem:** A package that contains common functionality and/or business logic used by multiple base components.
+- **Base Component:** A package that contains only Sass and/or vanilla Javascript. 
 - **Adapter:** A Package that encapsulates a base component for a specific framework. eg React, Vue or even jQuery.
 
 ## Sass
