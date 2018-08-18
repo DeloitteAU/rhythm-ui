@@ -1,0 +1,21 @@
+// ==========================================================================
+// DOCUMENT STYLES
+// ==========================================================================
+
+html {
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: rgba($link-color-hover, 0.5);
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+hr {
+	margin: 30px 0;
+	border: none;
+	background-color: $grey-border;
+	height: 1px;
+}

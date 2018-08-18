@@ -1,0 +1,57 @@
+// ==========================================================================
+// PROPERTY HELPERS
+// ==========================================================================
+
+// Examples:
+//   trbl(15px, left)           => 15px
+//   trbl(15px 20px, left)      => 20px
+//   trbl(15px 20px 60px, left) => 20px
+//   bottom(1.5em)              => 1.5em
+//   bottom(1.5em 4em)          => 1.5em
+//   bottom(10px 20px 15px)     => 15px
+
+@function trbl($declaration, $property) {
+	@if (length($declaration) == 1) {
+		@return $declaration;
+	} @else if (length($declaration) == 2) {
+		@if ($property == top) or ($property == bottom) {
+			@return nth($declaration, 1);
+		} @else if ($property == left) or ($property == right) {
+			@return nth($declaration, 2);
+		}
+	} @else if (length($declaration) == 3) {
+		@if ($property == top) {
+			@return nth($declaration, 1);
+		} @else if ($property == left) or ($property == right) {
+			@return nth($declaration, 2);
+		} @else if ($property == bottom) {
+			@return nth($declaration, 3);
+		}
+	} @else if (length($declaration) == 4) {
+		@if ($property == top) {
+			@return nth($declaration, 1);
+		} @else if ($property == left) {
+			@return nth($declaration, 2);
+		} @else if ($property == bottom) {
+			@return nth($declaration, 3);
+		} @else if ($property == right) {
+			@return nth($declaration, 4);
+		}
+	}
+}
+
+@function top($property) {
+	@return trbl($property, top);
+}
+
+@function left($property) {
+	@return trbl($property, left);
+}
+
+@function right($property) {
+	@return trbl($property, right);
+}
+
+@function bottom($property) {
+	@return trbl($property, bottom);
+}

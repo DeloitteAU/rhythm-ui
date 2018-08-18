@@ -1,0 +1,101 @@
+// The naming convention for these variables is element-property
+
+// TODO: REVIEW inhouse build tools
+// Build setting
+$IS_DEBUG: true;
+
+$rhythm-prefix: '';
+// ==========================================================================
+// BREAKPOINTS
+// ==========================================================================
+
+// PRE-REQUISITES
+
+// The DDBreakpoints' `bp` mixin requires these variables to be set
+$IS_RESPONSIVE: true !default;
+$FONT_BASE: 16 !default; // DEPRECATE for $font-size-base in typography
+
+$rhythm-xxs-min: 359 !default;
+$rhythm-xs-min: 480 !default;
+$rhythm-s-min: 640 !default;
+$rhythm-m-min: 768 !default;
+$rhythm-l-min: 1024 !default;
+$rhythm-xl-min: 1244 !default;
+$rhythm-xxl-min: 1410 !default;
+
+$bp-xxs-min: $rhythm-xxs-min;
+$bp-xs-min: $rhythm-xs-min;
+$bp-s-min: $rhythm-s-min;
+$bp-m-min: $rhythm-m-min;
+$bp-l-min: $rhythm-l-min;
+$bp-xl-min: $rhythm-xl-min;
+$bp-xxl-min: $rhythm-xxl-min;
+
+// This is the range for the print stylesheet to use
+// It applies @media screen to breakpoints outside of this
+$bp-print-min: 0 !default;
+$bp-print-max: 550 !default;
+
+$cursor-disabled: not-allowed !default;
+
+// ==========================================================================
+// COLOURS
+// ==========================================================================
+
+$print-black: #000 !default;
+$print-grey: #999 !default;
+
+// BRAND
+
+$brand-primary: #5FCF80 !default;
+$brand-secondary: #7B97AF !default;
+
+$white: #FFF !default;
+$black: #000 !default;
+
+$grey-lighter: #F2F2F2 !default;
+$grey-light: #E5E5E5 !default;
+$grey: #BBB !default;
+$grey-dark: #666 !default;
+$grey-border: #DDD !default;
+
+// SITE
+
+// $paragraph-color: $black !default;
+// $paragraph-color-on-dark: $white !default;
+
+$overlay-bg: $black !default;
+
+// LINKS
+
+$link-color-default: $grey-dark !default;
+$link-color-visited: $grey-dark !default;
+$link-color-hover: $brand-primary !default;
+$link-color-active: darken($brand-primary, 10%) !default;
+
+$site-base-transition: 0ms !default;
+
+// ==========================================================================
+// SIZES
+// ==========================================================================
+
+$nav-offscreen-width: 270px !default;
+$complementary-width: 220px !default;
+$aside-width: 220px !default;
+
+$layout-padding: 20px !default;
+$layout-padding-xl: 36px !default;
+
+$layout-margins: 36px !default;
+
+$module-padding-small: 20px 20px 25px !default;
+$module-padding-large: 40px 40px 50px !default;
+
+$layout-m-width: $bp-m-min - ($layout-padding * 2) !default;
+$layout-l-width: $bp-l-min - ($layout-padding * 2) !default;
+$layout-xl-width: $bp-xl-min - ($layout-padding-xl * 2) !default;
+$layout-xxl-width: $bp-xxl-min - ($layout-padding-xl * 2) !default;
+
+// ==========================================================================
+// TYPOGRAPHY
+// ==========================================================================

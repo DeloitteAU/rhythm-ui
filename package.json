@@ -1,0 +1,31 @@
+{
+  "name": "@deloitte-digital-au/rhythm-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "workspaces": {
+    "packages": ["packages/*"],
+    "nohoist": [
+      "**/saxicon"
+    ]
+  },
+  "scripts": {
+    "start": "lerna run start --scope rhythm-site --stream",
+    "lint": "./node_modules/.bin/eslint packages/**/src/** --ext .js --ext .jsx",
+    "bootstrap": "./node_modules/.bin/lerna bootstrap",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:DeloitteDigitalAPAC/rhythm-ui.git"
+  },
+  "author": "Deloitte Digital AU",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "eslint": "^4.15.0",
+    "eslint-config-deloitte-react": "^3.1.1",
+    "lerna": "^2.9.0"
+  },
+  "dependencies": {}
+}

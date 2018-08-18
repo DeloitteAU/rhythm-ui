@@ -1,0 +1,124 @@
+// LABEL
+$formlabel-font-size: 16px !default;
+$formlabel-line-height: 1.875 !default;
+$formlabel-margin: 0 0 5px 0 !default;
+$formlabel-color: black !default;
+$formlabel-font-weight: 500 !default;
+$formlabel-required-color: red !default;
+
+// INLINE LABEL
+$formlabel-inline-at: 1024px !default;
+$formlabel-inline-width: 200px !default;
+$formlabel-inline-text-align: right !default;
+$formlabel-inline-top-adjust: 0 !default;
+$formlabel-inline-spacing: 20px !default;
+
+// FORM FIELD
+$formfield-padding: 10px !default;
+$formfield-font-size: 16px !default;
+$formfield-line-height: 2.5 !default;
+$formfield-color: black !default;
+$formfield-background: #FFF !default;
+$formfield-background-focus: #fbf5ff !default;
+$formfield-border-color: #DDD !default;
+$formfield-border-color-focus: #802cb0 !default;
+$formfield-placeholder-color: #EEE !default;
+$formfield-border-radius: 0 !default;
+$formfield-addon-background: #EEE !default;
+
+$formfield-disabled-color: #666 !default;
+$formfield-disabled-background: #EFEFEF !default;
+$formfield-disabled-border-color: $formfield-border-color !default;
+
+$formfield-small-width-until: 320px !default;
+$formfield-horizontal-at: 320px !default;
+
+// HELP TEXT
+$helptext-color: black !default;
+$helptext-font-size: 13px !default;
+$helptext-line-height: 1.6154 !default;
+$helptext-font-weight: normal !default;
+$helptext-font-style: italic !default;
+
+// ERROR/SUCCESS STATES
+$rhythm-error-highlight-color: #CF0000 !default;
+$rhythm-warning-highlight-color: #FF6600 !default;
+$rhythm-info-highlight-color: #76C0DC !default;
+$rhythm-success-highlight-color: #22823B !default;
+
+$formfield-status-message-font-size: 12px !default;
+
+// error
+$formfield-error-color: $rhythm-error-highlight-color !default;
+$formfield-error-background: $formfield-background !default;
+$formfield-error-border-color: $rhythm-error-highlight-color !default;
+
+$formfield-error-message-color: #FFF !default;
+$formfield-error-message-background: $rhythm-error-highlight-color !default;
+
+// warning
+$formfield-warning-color: $rhythm-warning-highlight-color !default;
+$formfield-warning-background: $formfield-background !default;
+$formfield-warning-border-color: $rhythm-warning-highlight-color !default;
+
+$formfield-warning-message-color: #FFF !default;
+$formfield-warning-message-background: $rhythm-warning-highlight-color !default;
+
+// info
+$formfield-info-color: $rhythm-info-highlight-color !default;
+$formfield-info-background: $formfield-background !default;
+$formfield-info-border-color: $rhythm-info-highlight-color !default;
+
+$formfield-info-message-color: #FFF !default;
+$formfield-info-message-background: $rhythm-info-highlight-color !default;
+
+// info
+$formfield-success-color: $rhythm-success-highlight-color !default;
+$formfield-success-background: $formfield-background !default;
+$formfield-success-border-color: $rhythm-success-highlight-color !default;
+
+$formfield-success-message-color: #FFF !default;
+$formfield-success-message-background: $rhythm-success-highlight-color !default;
+
+// disabled
+$formfield-disabled-color: #666 !default;
+$formfield-disabled-background: #EFEFEF !default;
+$formfield-disabled-border-color: $formfield-border-color !default;
+
+// FORM SUMMARY
+// ==========================================================================
+
+$form-summary-text-color: black !default;
+$form-summary-background-color: #efefef !default;
+
+$form-summary-default-highlight-color: #ddd !default;
+$form-summary-default-text-color: black !default;
+
+$form-summary-error-highlight-color: $rhythm-error-highlight-color !default;
+$form-summary-error-text-color: white !default;
+
+$form-summary-warning-highlight-color: $rhythm-warning-highlight-color !default;
+$form-summary-warning-text-color: white !default;
+
+$form-summary-info-highlight-color: $rhythm-info-highlight-color !default;
+$form-summary-info-text-color: white !default;
+
+$form-summary-success-highlight-color: $rhythm-success-highlight-color !default;
+$form-summary-success-text-color: white !default;
+
+// TOOLTIPS
+$tooltip-arrow-width: 20px;
+$tooltip-arrow-height: 10px;
+$tooltip-bg-color: #000 !default;
+$tooltip-text-color: #FFF !default;
+$tooltip-border-radius: 6px !default;
+$tooltip-font-size: 14px !default;
+$z-index-tooltip: 700;
+
+// FIELD WIDTHS
+$formfield-width-xl: 450px !default;
+$formfield-width-l: 350px !default;
+$formfield-width-m: 250px !default;
+$formfield-width-s: 150px !default;
+$formfield-width-xs: 80px !default;
+$formfield-width-xxs: 55px !default;

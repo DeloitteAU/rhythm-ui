@@ -1,0 +1,117 @@
+@import "../../utils/exports";
+@import "../../utils/defaults";
+@import "../../utils/triangles";
+
+// See '../../utils/defaults' for a list of available variables, these defaults will
+// be overridden by users of the library.
+
+.tooltip-btn,
+.tooltip-container {
+	display: inline-block;
+	margin-left: 5px;
+	margin-right: 5px;
+	position: relative;
+}
+
+.tooltip-btn {
+	font-size: 11px;
+	line-height: normal;
+	background-color: #000;
+	color: white;
+	padding: 4px;
+	border-radius: 3px;
+	border: none;
+	vertical-align: top;
+	cursor: pointer;
+	outline: none;
+	text-decoration: none;
+}
+
+.tooltip-container .tooltip-btn {
+	display: block;
+	margin: 0;
+}
+
+.tooltip {
+	z-index: $z-index-tooltip;
+
+	.tooltip-content {
+		padding: 15px 24px;
+		color: $tooltip-text-color;
+		background: $tooltip-bg-color;
+
+		// TODO auto calculate the width
+		width: 300px;
+
+		max-width: calc(100vw - 20px);
+		z-index: 0;
+		position: relative;
+		border-radius: $tooltip-border-radius;
+		box-shadow: 1px 0 10px rgba(0, 0, 0, 0.43);
+		display: block;
+
+		p {
+			font-size: $tooltip-font-size;
+			margin: 0;
+			line-height: 1.4;
+			font-weight: normal;
+		}
+	}
+}
+
+.tooltip-arrow {
+	position: absolute;
+	pointer-events: none;
+}
+
+.tooltip[data-placement^="top"] {
+	.tooltip-arrow {
+		@include triangle(bottom, $tooltip-bg-color, $tooltip-arrow-width, $tooltip-arrow-height);
+		margin-left: -10px
+	}
+}
+
+.tooltip[data-placement^="bottom"] {
+	.tooltip-arrow {
+		@include triangle(top, $tooltip-bg-color, $tooltip-arrow-width, $tooltip-arrow-height);
+		margin-left: -10px
+	}
+}
+
+.tooltip-anim {
+	.tooltip-anim-wrapper {
+		opacity: 0;
+		pointer-events: none;
+	}
+}
+
+.tooltip-anim-enter {
+	.tooltip-anim-wrapper {
+		transform: translateY(10px);
+		opacity: 0;
+	}
+}
+.tooltip-anim-enter-active {
+	.tooltip-anim-wrapper {
+		opacity: 1;
+		transform: translateY(0);
+		transition: all 300ms ease-out;
+	}
+}
+.tooltip-anim-enter-done {
+	.tooltip-anim-wrapper {
+		opacity: 1;
+	}
+}
+.tooltip-anim-exit {
+	.tooltip-anim-wrapper {
+		opacity: 1;
+	}
+}
+.tooltip-anim-exit-active {
+	.tooltip-anim-wrapper {
+		opacity: 0;
+		transition: all 300ms ease-out;
+	}
+}
+

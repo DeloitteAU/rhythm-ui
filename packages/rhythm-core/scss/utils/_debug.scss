@@ -1,0 +1,49 @@
+// ==========================================================================
+// DEBUG
+// ==========================================================================
+
+// TODO: Will our build tools also be available?
+@if $IS_DEBUG == true {
+	body::after {
+		color: $black;
+		background-color: $white;
+		opacity: 0.5;
+		font-size: 10px;
+		display: block;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 9999999;
+		padding: 0 5px;
+		font-family: monospace;
+		content: "none";
+
+		@include bp(xxs) {
+			content: "xxs";
+		}
+
+		@include bp(xs) {
+			content: "xs";
+		}
+
+		@include bp(s) {
+			content: "s";
+		}
+
+		@include bp(m) {
+			content: "m";
+		}
+
+		@include bp(l) {
+			content: "l";
+		}
+
+		@include bp(xl) {
+			content: "xl";
+		}
+
+		@include bp(xxl) {
+			content: "xxl";
+		}
+	}
+}

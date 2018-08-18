@@ -1,0 +1,33 @@
+@import "../../utils/exports";
+@import "../../utils/mixins";
+@import "../../utils/defaults";
+
+// See '../../utils/defaults' for a list of available variables, these defaults will
+// be overridden by users of the library.
+
+// Your styles go here
+.options {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	&.is-horizontal {
+		@include breakAt($formfield-horizontal-at) {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+
+			.option {
+				margin: 0 10px 0 0;
+			}
+
+			label,
+			.label,
+			.ctrl-label {
+				width: auto;
+				max-width: none;
+				padding-right: 30px;
+			}
+		}
+	}
+}

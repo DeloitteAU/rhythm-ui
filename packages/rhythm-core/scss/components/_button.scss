@@ -1,0 +1,94 @@
+/**
+ * Copyright 2017-present, Deloitte Digital.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-3-Clause license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+// VARIABLES
+
+//$btn-spacing: 10px !default;
+
+$btn-base-padding: 12px 40px !default;
+$btn-base-font-size: $font-size-base !default;
+$btn-base-line-height: $line-height-base !default;
+
+$btn-small-padding: 3px 15px !default;
+$btn-small-font-size: $font-size-s !default;
+$btn-small-line-height: $line-height-s !default;
+
+$btn-primary-color: $white !default;
+$btn-primary-background: $brand-primary !default;
+$btn-primary-hover-color: null !default;
+$btn-primary-hover-background: darken($brand-primary, 12%) !default;
+$btn-primary-active-color: null !default;
+$btn-primary-active-background: darken($brand-primary, 6%) !default;
+
+$btn-secondary-color: $white !default;
+$btn-secondary-background: $brand-secondary !default;
+$btn-secondary-hover-color: $white !default;
+$btn-secondary-hover-background: darken($brand-secondary, 12%) !default;
+$btn-secondary-active-color: null !default;
+$btn-secondary-active-background: darken($brand-secondary, 6%) !default;
+
+$btn-disabled-color: $grey !default;
+$btn-disabled-background: $grey-lighter !default;
+$btn-disabled-cursor: $cursor-disabled !default;
+
+.btn {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	text-decoration: none;
+	user-select: none;
+	cursor: pointer;
+	width: 100%;
+
+	// Normalise these browser styles
+	background: $grey;
+	color: $black;
+	border: 0 none;
+
+	@include bp(m) {
+		width: auto;
+	}
+
+	@include btn-size($btn-base-font-size, $btn-base-line-height, $btn-base-padding);
+	@if mixin-exists(extend-btn) { @include extend-btn(); }
+}
+
+.btn--primary {
+	@include btn-variation(
+		($btn-primary-color, $btn-primary-background),					// Default
+		($btn-primary-hover-color, $btn-primary-hover-background),		// Hover/Focus
+		($btn-primary-active-color, $btn-primary-active-background)		// Active
+	);
+	@if mixin-exists(extend-btn--primary) { @include extend-btn--primary(); }
+}
+
+.btn--secondary {
+	@include btn-variation(
+		($btn-secondary-color, $btn-secondary-background),					// Default
+		($btn-secondary-hover-color, $btn-secondary-hover-background),		// Hover/Focus
+		($btn-secondary-active-color, $btn-secondary-active-background)		// Active
+	);
+	@if mixin-exists(extend-btn--secondary) { @include extend-btn--secondary(); }
+}
+
+.btn--small {
+	@include btn-size($btn-small-font-size, $btn-small-line-height, $btn-small-padding);
+	@if mixin-exists(extend-btn--small) { @include extend-btn--small(); }
+}
+
+.btn--disabled,
+.btn[disabled] {
+	cursor: $btn-disabled-cursor;
+
+	@include btn-variation(
+		($btn-disabled-color, $btn-disabled-background),					// Default
+		($btn-disabled-color, $btn-disabled-background),		// Hover/Focus
+		($btn-disabled-color, $btn-disabled-background)		// Active
+	);
+	@if mixin-exists(extend-btn--disabled) { @include extend-btn--disabled(); }
+}

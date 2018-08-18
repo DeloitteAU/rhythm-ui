@@ -1,0 +1,32 @@
+{
+  "name": "@deloitte-digital-au/rhythm-core",
+  "version": "0.0.1",
+  "description": "TODO",
+  "main": "scss/index.scss",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@hub.deloittedigital.com.au:7999/rthm/rhythm-core.git"
+  },
+  "keywords": [
+    "css",
+    "sass",
+    "mobile-first",
+    "responsive",
+    "pwa",
+    "web",
+    "front-end",
+    "framework"
+  ],
+  "author": "Deloitte Digital AU",
+  "license": "BSD-3-Clause",
+  "peerDependencies": {
+    "ddbreakpoints": "^1.1.1",
+    "normalize-scss": "^7.0.0"
+  },
+  "devDependencies": {
+
+  }
+}

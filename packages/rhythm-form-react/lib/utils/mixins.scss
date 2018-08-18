@@ -1,0 +1,45 @@
+@mixin rhythm-input() {
+	width: 100%;
+
+	font-size: $formfield-font-size;
+	line-height: normal;
+
+	padding: $formfield-padding;
+	margin: 0; // Remove random margin that safari adds
+
+	display: block;
+	color: $formfield-color;
+	background-color: $formfield-background;
+	border: 1px solid $formfield-border-color;
+	outline: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border-radius: $formfield-border-radius;
+
+	.lt-ie10 & {
+		min-height: 0;
+	}
+
+	&:focus {
+		border-color: $formfield-border-color-focus;
+		background-color: $formfield-background-focus;
+	}
+
+	&:disabled {
+		border: 1px solid $formfield-disabled-border-color;
+		background-color: $formfield-disabled-background;
+	}
+}
+
+@mixin breakAt($break-at) {
+	@if mixin-exists(bp) {
+		@include bp($break-at) {
+			@content;
+		}
+	} @else {
+		@media only screen and (min-width: $break-at) {
+			@content;
+		}
+	}
+}

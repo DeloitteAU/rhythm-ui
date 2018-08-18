@@ -1,0 +1,72 @@
+{
+  "name": "@deloitte-digital-au/rhythm-form-react",
+  "version": "0.3.1",
+  "description": "Form component library for React projects.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node_modules/.bin/rhythm-dev-server",
+    "build": "gulp build",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint ./src --ext js --ext jsx",
+    "lint:fix": "eslint ./src --fix --ext js --ext jsx",
+    "generate": "plop --plopfile generators/index.js",
+    "docgen": "react-docgen src --out docgen"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@hub.deloittedigital.com.au:7999/rthm/rhythm-form-react.git"
+  },
+  "keywords": [
+    "forms",
+    "reusable",
+    "react"
+  ],
+  "author": "Deloitte Digital AU",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "del": "^3.0.0",
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-16": "^1.0.2",
+    "eslint": "^4.9.0",
+    "eslint-config-deloitte-react": "^3.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "jest": "^21.2.1",
+    "jest-enzyme": "^4.0.1",
+    "plop": "^1.9.0",
+    "raw-loader": "^0.5.1",
+    "react": "^16.0.0",
+    "react-docgen": "^2.19.0",
+    "run-sequence": "^2.2.0",
+    "stylelint": "^8.2.0",
+    "stylelint-config-deloitte": "^1.0.1",
+    "prop-types": "^15.6.0"
+  },
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "react-popper": "^1.0.0",
+    "react-transition-group": "^2.4.0"
+  },
+  "peerDependencies": {
+    "react": ">=15.0.0 <17.0.0",
+    "react-dom": ">=15.0.0 <17.0.0"
+  },
+  "files": [
+    "lib/"
+  ],
+  "jest": {
+    "setupFiles": [
+      "./test/jestsetup.js"
+    ]
+  }
+}

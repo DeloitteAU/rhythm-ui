@@ -1,0 +1,41 @@
+// ==========================================================================
+// BASE LIST STYLES
+// ==========================================================================
+
+li {
+	margin-top: 10px;
+
+	&:first-child {
+		margin-top: 0;
+	}
+
+	li:first-child {
+		margin-top: 10px;
+	}
+}
+
+ul,
+ol {
+	padding-left: 35px;
+
+	ul,
+	ol {
+		margin-bottom: 0;
+	}
+}
+
+dl {
+	dt {
+		color: $heading-color;
+		font-weight: bold;
+		margin-top: 10px;
+
+		& + dt {
+			margin-top: 0;
+		}
+	}
+
+	dd {
+		margin-left: 0;
+	}
+}

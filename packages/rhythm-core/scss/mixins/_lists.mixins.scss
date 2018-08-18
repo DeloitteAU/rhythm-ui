@@ -1,0 +1,22 @@
+// ==========================================================================
+// LIST FUNCTIONS
+// ==========================================================================
+
+@mixin list-reset() {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+@mixin list-horizontal($reset: false) {
+	@include clearfix-micro();
+
+	@if $reset == true {
+		@include list-reset();
+	}
+
+	& > li {
+		float: left;
+		margin-top: 0;
+	}
+}

@@ -1,0 +1,63 @@
+@import "../../utils/exports";
+@import "../../utils/defaults";
+
+// Styles for an inline control layout
+@mixin inlined() {
+	display: flex;
+
+	& > label,
+	& > .ctrl-label {
+		width: $formlabel-inline-width;
+		text-align: $formlabel-inline-text-align;
+		padding-right: $formlabel-inline-spacing;
+
+		position: relative;
+		top: $formlabel-inline-top-adjust;
+	}
+
+	& > .ctrl {
+		flex-grow: 1;
+	}
+}
+
+.ctrl-holder {
+	margin: 30px 0;
+
+	&:first-child {
+		margin-top: 0;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	&.is-inline {
+		@include breakAt($formlabel-inline-at) {
+			@include inlined;
+		}
+	}
+}
+
+@mixin form-element-widths($size-name, $width, $width-small: 100%) {
+	.ctrl-holder.width-#{$size-name} > .ctrl > .ctrl__width-wrap {
+		width: $width-small;
+		max-width: none;
+
+		@if $formfield-small-width-until != nil {
+			@include breakAt($formfield-small-width-until) {
+				@if unit($width-small) == "%" {
+					max-width: $width;
+				} @else {
+					width: $width;
+				}
+			}
+		}
+	}
+}
+
+@include form-element-widths(xl, $formfield-width-xl);
+@include form-element-widths(l, $formfield-width-l);
+@include form-element-widths(m, $formfield-width-m);
+@include form-element-widths(s, $formfield-width-s);
+@include form-element-widths(xs, $formfield-width-xs);
+@include form-element-widths(xxs, $formfield-width-xxs);

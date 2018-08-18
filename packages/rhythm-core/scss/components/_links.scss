@@ -1,0 +1,89 @@
+// ==========================================================================
+// LINKS
+// ==========================================================================
+
+a,
+.faux-link {
+	color: $link-color-default;
+	text-decoration: underline;
+	transition-duration: $site-base-transition;
+	transition-property: color, background-color, border-color;
+	font-weight: 500;
+}
+
+a {
+	&:focus,
+	&:hover {
+		color: $link-color-hover;
+	}
+
+	&:active {
+		color: $link-color-active;
+	}
+}
+
+// LINKS WITH ICONS
+
+.link-caret,
+.link-external {
+	.link-icon {
+		@include peicon-dual(20px, 20px, right, center);
+		padding-right: 20px;
+		position: relative;
+	}
+
+	&:hover,
+	&:focus {
+		.link-icon {
+			@include peicon-dual-active();
+		}
+	}
+}
+
+.link-caret-block {
+	@include peicon-dual(20px, 20px, right, center, true);
+	padding-right: 30px;
+	position: relative;
+}
+
+.link-icon {
+	border: none;
+	padding: 0;
+	background: transparent;
+	width: 44px;
+	height: 40px;
+	position: relative;
+	outline: none;
+	line-height: 1;
+
+	.icon {
+		width: 20px;
+		height: 20px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -10px;
+		margin-left: -10px;
+
+		& + .icon {
+			display: none;
+		}
+	}
+
+	path {
+		transition: fill $site-base-transition;
+	}
+
+	&:hover,
+	&:focus {
+		path {
+			fill: $link-color-hover;
+		}
+	}
+
+	&:active {
+		path {
+			fill: $link-color-active;
+		}
+	}
+}

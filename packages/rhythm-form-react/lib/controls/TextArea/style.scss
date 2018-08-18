@@ -1,0 +1,55 @@
+@import "../../utils/exports";
+@import "../../utils/defaults";
+@import "../../utils/mixins";
+
+// See '../../utils/defaults' for a list of available variables, these defaults will
+// be overridden by users of the library.
+
+// Your styles go here
+.textarea-input {
+	display: flex;
+
+	textarea {
+		@include rhythm-input();
+
+		line-height: 1.5;
+		overflow: auto; // Removes vertical scrollbars in IE11
+
+		height: auto;
+		min-height: 120px;
+		resize: none;
+
+		.lt-ie10 & {
+			min-height: 0;
+			height: 200px;
+		}
+	}
+}
+
+.textarea-input--error {
+	textarea {
+		background-color: $formfield-error-background;
+		border-color: $formfield-error-border-color;
+	}
+}
+
+.textarea-input--warning {
+	textarea {
+		background-color: $formfield-warning-background;
+		border-color: $formfield-warning-border-color;
+	}
+}
+
+.textarea-input--info {
+	textarea {
+		background-color: $formfield-info-background;
+		border-color: $formfield-info-border-color;
+	}
+}
+
+.textarea-input--success {
+	textarea {
+		background-color: $formfield-success-background;
+		border-color: $formfield-success-border-color;
+	}
+}

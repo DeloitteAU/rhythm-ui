@@ -1,0 +1,24 @@
+// ==========================================================================
+// FIGURES
+// ==========================================================================
+
+figure {
+	margin: 40px 0;
+	position: relative;
+
+	img {
+		display: block;
+		max-width: 100%;
+		margin: 0 auto;
+	}
+
+	figcaption {
+		font-size: 12px;
+		line-height: 1.33;
+		margin-top: 10px;
+
+		p {
+			margin: 0;
+		}
+	}
+}

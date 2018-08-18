@@ -1,0 +1,87 @@
+// ==========================================================================
+// AUTOMATIC TEXT COLOR PICKER
+// ==========================================================================
+
+// Equation from: http://robots.thoughtbot.com/closer-look-color-lightness
+@function luma($colour) {
+	$red: red(rgba($colour, 1));
+	$green: green(rgba($colour, 1));
+	$blue: blue(rgba($colour, 1));
+
+	@return ((0.2126 * $red) + (0.7152 * $green) + (0.0722 * $blue)) / 255;
+}
+
+@function get-contrasting-color($colour, $light: #FFF, $dark: #000) {
+	$base-luma: luma($colour);
+	$light-luma: luma($light);
+	$dark-luma: luma($dark);
+
+	$light-diff: abs($base-luma - $light-luma);
+	$dark-diff: abs($base-luma - $dark-luma);
+
+	@if $light-diff > $dark-diff {
+		@return $light;
+	} @else {
+		@return $dark;
+	}
+}
+
+// ==========================================================================
+// CLEARFIX
+// ==========================================================================
+
+@mixin clearfix-micro() {
+	&::before,
+	&::after {
+		content: " ";
+		display: table;
+	}
+
+	&::after {
+		clear: both;
+	}
+}
+
+@mixin cf() {
+	@include clearfix-micro();
+}
+
+// ==========================================================================
+// VISUALLY HIDDEN
+// ==========================================================================
+
+@mixin visuallyhidden() {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	white-space: nowrap;
+}
+
+@mixin undovisuallyhidden() {
+	clip: auto;
+	height: auto;
+	margin: 0;
+	overflow: visible;
+	position: static;
+	width: auto;
+	white-space: inherit;
+}
+
+// ==========================================================================
+// WEBKIT ANIMATION FLICKER FIX
+// ==========================================================================
+
+@mixin animation-flicker-fix() {
+	transform: translate3d(0, 0, 0);
+}
+
+@mixin animation-flicker-fix-harsh() {
+	perspective: 0;
+	backface-visibility: hidden;
+	transform: translateZ(0);
+}

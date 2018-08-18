@@ -1,0 +1,58 @@
+@import "../../utils/exports";
+@import "../../utils/defaults";
+@import "../../utils/mixins";
+
+.text-input {
+	display: flex;
+
+	input {
+		@include rhythm-input();
+	}
+}
+
+.text-input__pre,
+.text-input__post {
+	flex-shrink: 0;
+
+	background-color: $formfield-addon-background;
+	border: 1px solid $formfield-border-color;
+	padding: $formfield-padding;
+	text-align: center;
+	line-height: normal;
+}
+
+.text-input__pre {
+	border-right: none;
+}
+
+.text-input__post {
+	border-left: none;
+}
+
+.text-input--error {
+	input {
+		background-color: $formfield-error-background;
+		border-color: $formfield-error-border-color;
+	}
+}
+
+.text-input--warning {
+	input {
+		background-color: $formfield-warning-background;
+		border-color: $formfield-warning-border-color;
+	}
+}
+
+.text-input--info {
+	input {
+		background-color: $formfield-info-background;
+		border-color: $formfield-info-border-color;
+	}
+}
+
+.text-input--success {
+	input {
+		background-color: $formfield-success-background;
+		border-color: $formfield-success-border-color;
+	}
+}
