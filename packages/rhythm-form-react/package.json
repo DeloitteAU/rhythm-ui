@@ -1,5 +1,5 @@
 {
-  "name": "rhythm-form-react",
+  "name": "@deloitte-digital-au/rhythm-form-react",
   "version": "0.3.1",
   "description": "Form component library for React projects.",
   "main": "index.js",
@@ -54,13 +54,13 @@
     "prop-types": "^15.6.0"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
     "react-popper": "^1.0.0",
     "react-transition-group": "^2.4.0"
   },
   "peerDependencies": {
     "react": ">=15.0.0 <17.0.0",
-    "react-dom": ">=15.0.0 <17.0.0"
+    "react-dom": ">=15.0.0 <17.0.0",
+    "classnames": ">=2.0.0 <3.0.0"
   },
   "files": [
     "lib/"
