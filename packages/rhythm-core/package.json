@@ -25,5 +25,6 @@
   "peerDependencies": {
     "ddbreakpoints": "^1.1.1",
     "normalize-scss": "^7.0.0"
-  }
+  },
+  "gitHead": "9f0abef42fc07d5932a343e898291957b32d7696"
 }
