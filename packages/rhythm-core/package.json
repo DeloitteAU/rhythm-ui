@@ -1,6 +1,6 @@
 {
   "name": "@deloitte-digital-au/rhythm-core",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "TODO",
   "main": "scss/index.scss",
   "scripts": {
@@ -25,8 +25,5 @@
   "peerDependencies": {
     "ddbreakpoints": "^1.1.1",
     "normalize-scss": "^7.0.0"
-  },
-  "devDependencies": {
-
   }
 }

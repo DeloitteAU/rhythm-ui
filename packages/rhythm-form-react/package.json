@@ -1,6 +1,6 @@
 {
   "name": "@deloitte-digital-au/rhythm-form-react",
-  "version": "0.3.1",
+  "version": "0.1.0",
   "description": "Form component library for React projects.",
   "main": "index.js",
   "scripts": {
@@ -44,22 +44,22 @@
     "jest": "^21.2.1",
     "jest-enzyme": "^4.0.1",
     "plop": "^1.9.0",
+    "prop-types": "^15.6.0",
     "raw-loader": "^0.5.1",
     "react": "^16.0.0",
     "react-docgen": "^2.19.0",
     "run-sequence": "^2.2.0",
     "stylelint": "^8.2.0",
-    "stylelint-config-deloitte": "^1.0.1",
-    "prop-types": "^15.6.0"
+    "stylelint-config-deloitte": "^1.0.1"
   },
   "dependencies": {
     "react-popper": "^1.0.0",
     "react-transition-group": "^2.4.0"
   },
   "peerDependencies": {
+    "classnames": ">=2.0.0 <3.0.0",
     "react": ">=15.0.0 <17.0.0",
-    "react-dom": ">=15.0.0 <17.0.0",
-    "classnames": ">=2.0.0 <3.0.0"
+    "react-dom": ">=15.0.0 <17.0.0"
   },
   "files": [
     "lib/"
