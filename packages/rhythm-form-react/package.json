@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@hub.deloittedigital.com.au:7999/rthm/rhythm-form-react.git"
+    "url": "ssh://git@github.com:DeloitteDigitalAPAC/rhythm-ui.git"
   },
   "keywords": [
     "forms",
@@ -47,7 +47,6 @@
     "raw-loader": "^0.5.1",
     "react": "^16.0.0",
     "react-docgen": "^2.19.0",
-    "rhythm-dev-server": "git+ssh://git@hub.deloittedigital.com.au:7999/rthm/rhythm-dev-server.git",
     "run-sequence": "^2.2.0",
     "stylelint": "^8.2.0",
     "stylelint-config-deloitte": "^1.0.1",

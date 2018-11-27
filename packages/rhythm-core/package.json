@@ -1,6 +1,7 @@
 {
   "name": "@deloitte-digital-au/rhythm-core",
   "version": "0.0.1",
+  "private": true,
   "description": "TODO",
   "main": "scss/index.scss",
   "scripts": {
@@ -8,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@hub.deloittedigital.com.au:7999/rthm/rhythm-core.git"
+    "url": "ssh://git@github.com:DeloitteDigitalAPAC/rhythm-ui.git"
   },
   "keywords": [
     "css",
