@@ -180,6 +180,7 @@ describe('TextArea', () => {
 
 	it('`aria-describedby` is set on the input, based on the `name` prop', () => {
 		const component = textArea({
+			statusMessage: 'Aria attribute added if there is a status message',
 			name: 'testName',
 		});
 		const input = component.find('textarea');

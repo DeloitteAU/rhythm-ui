@@ -18,6 +18,8 @@ const Control = ({
 	isInline,
 	width,
 
+	tag: Tag,
+
 	cssModule,
 
 	required,
@@ -54,7 +56,7 @@ const Control = ({
 	}
 
 	return (
-		<div {...attrs} className={classes}>
+		<Tag {...attrs} className={classes}>
 			{(label || tooltip) &&
 				<Label
 					htmlFor={name}
@@ -90,7 +92,7 @@ const Control = ({
 					<HelpText>{helpText}</HelpText>
 				}
 			</div>
-		</div>
+		</Tag>
 	);
 };
 
@@ -98,6 +100,8 @@ Control.defaultProps = {
 	className: null,
 	isInline: false,
 	width: null,
+
+	tag: 'div',
 
 	required: false,
 	requiredText: null,
@@ -185,6 +189,7 @@ Control.propTypes = {
 	 */
 	statusMessage: PropTypes.node,
 	cssModule: PropTypes.object,
+	tag: PropTypes.string,
 };
 
 export default Control;

@@ -232,6 +232,7 @@ describe('Select', () => {
 
 	it('`aria-describedby` is set on the input, based on the `name` prop', () => {
 		const component = select({
+			statusMessage: 'Aria attribute added if there is a status message',
 			name: 'testName',
 		});
 		const input = component.find('select');

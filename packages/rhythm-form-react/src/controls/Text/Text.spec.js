@@ -228,6 +228,7 @@ describe('Text', () => {
 
 	it('`aria-describedby` is set on the input, based on the `name` prop', () => {
 		const component = text({
+			statusMessage: 'Aria attribute added if there is a status message',
 			name: 'testName',
 		});
 		const input = component.find('input');

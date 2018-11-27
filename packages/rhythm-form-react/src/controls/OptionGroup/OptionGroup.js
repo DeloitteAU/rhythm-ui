@@ -73,6 +73,8 @@ class OptionGroup extends React.Component {
 			status,
 			statusMessage,
 
+			renderOption,
+
 			...attrs
 		} = this.props;
 
@@ -115,37 +117,31 @@ class OptionGroup extends React.Component {
 					className={inputClasses}
 					{...attrs}
 				>
-					{(options || []).map(({id: optionId, value: optValue, ...opt}) => {
+					{(options || []).map(option => {
 
 						let checked = false;
-
 						if (type === 'radio') {
-							checked = value === optValue;
+							checked = value === option.value;
 						} if (type === 'checkbox' && Array.isArray(value)) {
-							checked = value.indexOf(optValue) >= 0;
+							checked = value.indexOf(option.value) >= 0;
 						}
 
-						return (
-							<Option
-								key={optionId}
-								tag="li"
-								type={type}
-								id={`${inputId}__${optionId}`}
-								name={name}
-								checked={checked}
-								disabled={disabled}
-								onChange={e => {
-									this.handleOptionChange(optValue);
-								}}
-								{...opt}
-							/>
-						);
+						return renderOption({
+							...option,
+							id: `${inputId}__${option.id}`,
+							type,
+							name,
+							checked,
+							disabled,
+							handleOptionChange: e => {
+								this.handleOptionChange(option.value);
+							},
+						});
 					})}
 				</ul>
 			</Control>
 		);
 	}
-
 };
 
 OptionGroup.defaultProps = {
@@ -179,6 +175,33 @@ OptionGroup.defaultProps = {
 	error: null,
 	status: null,
 	statusMessage: null,
+
+	renderOption: optionProps => {
+		const {
+			id,
+			type,
+			name,
+			checked,
+			value,
+			disabled,
+			handleOptionChange,
+			...attrs
+		} = optionProps;
+
+		return (
+			<Option
+				key={id}
+				tag="li"
+				type={type}
+				id={id}
+				name={name}
+				checked={checked}
+				disabled={disabled}
+				onChange={handleOptionChange}
+				{...attrs}
+			/>
+		);
+	},
 };
 
 OptionGroup.propTypes = {
@@ -199,7 +222,7 @@ OptionGroup.propTypes = {
 	 */
 	name: PropTypes.string.isRequired,
 	/**
-	 * Takes options options of the form: { label: <string>, value: <any, ...extraProps }. Ignored if `children` are passed in.
+	 * Takes options of the form: { label: <string>, value: <any, ...extraProps }. Ignored if `children` are passed in.
 	 */
 	options: PropTypes.array,
 	/**
@@ -246,13 +269,18 @@ OptionGroup.propTypes = {
 	cssModule: PropTypes.object,
 	onChange: PropTypes.func,
 	/**
-	 * Expects a string for radio buttons and an array of values for checkboxes
+	 * Expects a string/bool for radio buttons and an array of values for checkboxes
 	 */
 	value: PropTypes.oneOfType([
 		PropTypes.string,
+		PropTypes.bool,
 		PropTypes.array,
 	]),
 	disabled: PropTypes.bool,
+	/**
+	 * Render prop for option item
+	 */
+	renderOption: PropTypes.func,
 };
 
 export default OptionGroup;

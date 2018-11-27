@@ -34,7 +34,7 @@ describe('OptionGroup', () => {
 	});
 
 	it('the \'options\' list has a role of \'radiogroup\'', () => {
-		expect(optionGroup().find('.options').prop('role')).toEqual('radiogroup');
+		expect(optionGroup().prop('role')).toEqual('group');
 	});
 
 	it('unused attributes are passed to the \'.options\' list', () => {

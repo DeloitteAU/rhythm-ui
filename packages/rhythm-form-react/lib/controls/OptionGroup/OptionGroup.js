@@ -111,7 +111,8 @@ var OptionGroup = function (_React$Component) {
 			    error = _props2.error,
 			    status = _props2.status,
 			    statusMessage = _props2.statusMessage,
-			    attrs = _objectWithoutProperties(_props2, ['className', 'id', 'name', 'isInline', 'disabled', 'cssModule', 'isHorizontal', 'type', 'options', 'optionsClassName', 'required', 'requiredText', 'label', 'labelProps', 'tooltip', 'tooltipProps', 'value', 'onChange', 'helpText', 'error', 'status', 'statusMessage']);
+			    renderOption = _props2.renderOption,
+			    attrs = _objectWithoutProperties(_props2, ['className', 'id', 'name', 'isInline', 'disabled', 'cssModule', 'isHorizontal', 'type', 'options', 'optionsClassName', 'required', 'requiredText', 'label', 'labelProps', 'tooltip', 'tooltipProps', 'value', 'onChange', 'helpText', 'error', 'status', 'statusMessage', 'renderOption']);
 
 			var _status = status;
 			var _statusMessage = statusMessage;
@@ -150,31 +151,25 @@ var OptionGroup = function (_React$Component) {
 					_extends({
 						className: inputClasses
 					}, attrs),
-					(options || []).map(function (_ref) {
-						var optionId = _ref.id,
-						    optValue = _ref.value,
-						    opt = _objectWithoutProperties(_ref, ['id', 'value']);
+					(options || []).map(function (option) {
 
 						var checked = false;
-
 						if (type === 'radio') {
-							checked = value === optValue;
+							checked = value === option.value;
 						}if (type === 'checkbox' && Array.isArray(value)) {
-							checked = value.indexOf(optValue) >= 0;
+							checked = value.indexOf(option.value) >= 0;
 						}
 
-						return _react2.default.createElement(_Option2.default, _extends({
-							key: optionId,
-							tag: 'li',
+						return renderOption(_extends({}, option, {
+							id: inputId + '__' + option.id,
 							type: type,
-							id: inputId + '__' + optionId,
 							name: name,
 							checked: checked,
 							disabled: disabled,
-							onChange: function onChange(e) {
-								_this2.handleOptionChange(optValue);
+							handleOptionChange: function handleOptionChange(e) {
+								_this2.handleOptionChange(option.value);
 							}
-						}, opt));
+						}));
 					})
 				)
 			);
@@ -216,7 +211,29 @@ OptionGroup.defaultProps = {
 
 	error: null,
 	status: null,
-	statusMessage: null
+	statusMessage: null,
+
+	renderOption: function renderOption(optionProps) {
+		var id = optionProps.id,
+		    type = optionProps.type,
+		    name = optionProps.name,
+		    checked = optionProps.checked,
+		    value = optionProps.value,
+		    disabled = optionProps.disabled,
+		    handleOptionChange = optionProps.handleOptionChange,
+		    attrs = _objectWithoutProperties(optionProps, ['id', 'type', 'name', 'checked', 'value', 'disabled', 'handleOptionChange']);
+
+		return _react2.default.createElement(_Option2.default, _extends({
+			key: id,
+			tag: 'li',
+			type: type,
+			id: id,
+			name: name,
+			checked: checked,
+			disabled: disabled,
+			onChange: handleOptionChange
+		}, attrs));
+	}
 };
 
 OptionGroup.propTypes = {
@@ -234,7 +251,7 @@ OptionGroup.propTypes = {
   */
 	name: _propTypes2.default.string.isRequired,
 	/**
-  * Takes options options of the form: { label: <string>, value: <any, ...extraProps }. Ignored if `children` are passed in.
+  * Takes options of the form: { label: <string>, value: <any, ...extraProps }. Ignored if `children` are passed in.
   */
 	options: _propTypes2.default.array,
 	/**
@@ -276,10 +293,14 @@ OptionGroup.propTypes = {
 	cssModule: _propTypes2.default.object,
 	onChange: _propTypes2.default.func,
 	/**
-  * Expects a string for radio buttons and an array of values for checkboxes
+  * Expects a string/bool for radio buttons and an array of values for checkboxes
   */
-	value: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.array]),
-	disabled: _propTypes2.default.bool
+	value: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.bool, _propTypes2.default.array]),
+	disabled: _propTypes2.default.bool,
+	/**
+  * Render prop for option item
+  */
+	renderOption: _propTypes2.default.func
 };
 
 exports.default = OptionGroup;

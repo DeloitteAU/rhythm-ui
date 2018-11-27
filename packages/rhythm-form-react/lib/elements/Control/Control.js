@@ -56,6 +56,7 @@ var Control = function Control(_ref) {
 	    name = _ref.name,
 	    isInline = _ref.isInline,
 	    width = _ref.width,
+	    Tag = _ref.tag,
 	    cssModule = _ref.cssModule,
 	    required = _ref.required,
 	    requiredText = _ref.requiredText,
@@ -67,7 +68,7 @@ var Control = function Control(_ref) {
 	    children = _ref.children,
 	    status = _ref.status,
 	    statusMessage = _ref.statusMessage,
-	    attrs = _objectWithoutProperties(_ref, ['className', 'name', 'isInline', 'width', 'cssModule', 'required', 'requiredText', 'label', 'labelProps', 'tooltip', 'tooltipProps', 'helpText', 'children', 'status', 'statusMessage']);
+	    attrs = _objectWithoutProperties(_ref, ['className', 'name', 'isInline', 'width', 'tag', 'cssModule', 'required', 'requiredText', 'label', 'labelProps', 'tooltip', 'tooltipProps', 'helpText', 'children', 'status', 'statusMessage']);
 
 	var classes = (0, _mapToCssModules2.default)((0, _classnames2.default)(className, (_classNames = {
 		'ctrl-holder': true,
@@ -89,7 +90,7 @@ var Control = function Control(_ref) {
 	}
 
 	return _react2.default.createElement(
-		'div',
+		Tag,
 		_extends({}, attrs, { className: classes }),
 		(label || tooltip) && _react2.default.createElement(
 			_Label2.default,
@@ -130,6 +131,8 @@ Control.defaultProps = {
 	className: null,
 	isInline: false,
 	width: null,
+
+	tag: 'div',
 
 	required: false,
 	requiredText: null,
@@ -204,7 +207,8 @@ Control.propTypes = {
   * The status message displayed below the field, used for error/validation messages etc.
   */
 	statusMessage: _propTypes2.default.node,
-	cssModule: _propTypes2.default.object
+	cssModule: _propTypes2.default.object,
+	tag: _propTypes2.default.string
 };
 
 exports.default = Control;
