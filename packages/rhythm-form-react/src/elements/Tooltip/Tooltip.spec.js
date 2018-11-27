@@ -26,4 +26,5 @@ describe('Tooltip', () => {
 		// TIP: You can get the enzyme ReactWrapper by calling tooltip()
 		expect(true).toBe(false);
 	});
+
 });
