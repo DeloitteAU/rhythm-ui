@@ -1,7 +1,7 @@
 {
   "name": "@deloitte-digital-au/rhythm-form-react",
   "version": "0.1.4",
-  "description": "Form component library for React projects.",
+  "description": "Form component library for React projects",
   "main": "index.js",
   "publishConfig": {
     "access": "public"
