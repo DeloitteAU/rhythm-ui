@@ -1,6 +1,6 @@
 {
   "name": "@deloitte-digital-au/rhythm-core",
-  "version": "0.1.2",
+  "version": "0.1.6",
   "description": "TODO",
   "private": true,
   "main": "scss/index.scss",
