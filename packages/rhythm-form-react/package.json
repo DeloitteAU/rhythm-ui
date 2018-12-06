@@ -1,7 +1,7 @@
 {
   "name": "@deloitte-digital-au/rhythm-form-react",
   "version": "0.1.5",
-  "description": "Form component library for React projects",
+  "description": "Form component library for React projects.",
   "main": "index.js",
   "publishConfig": {
     "access": "public"
@@ -72,5 +72,5 @@
       "./test/jestsetup.js"
     ]
   },
-  "gitHead": "e4f149179f5c0cf5ab2834b3760ac8a81320386e"
+  "gitHead": "6164b025a7463fccf9555bd2dc7ccc59d0d2b4e8"
 }
