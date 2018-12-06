@@ -1,5 +1,6 @@
 dist/
 .cache/
+.npmrc
 
 ### Code ###
 # Visual Studio Code - https://code.visualstudio.com/
