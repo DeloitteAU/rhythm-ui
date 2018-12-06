@@ -75,3 +75,15 @@ automatic commit that increments the version numbers. You don't need to commit t
 ## License
 
 By contributing your code to the Rhythm GitHub repository, you agree to license your contribution under the BSD-3-Clause license.
+
+## Publishing
+
+Instructions for publishing new releases:
+
+1. Check out the master branch.
+1. Do not manually change version numbers in lerna.json or package.json files (they are updated programatically).
+1. Update the CHANGELOG.md file and add the changes to the git staging area. These changes will be included in the automatic commit that increments the version numbers. You don't need to commit them separately.
+1. Run Lerna's publish command, and pass in your One Time Password for npm as an environment variable: NPM_CONFIG_OTP=yourtoken lerna publish.
+1. Select the new version (or enter a custom one) adhering to the principles of semantic versioning.
+
+Lerna will create a new release of the packages that have been updated. It will create a new git commit/tag and publish to npm.
