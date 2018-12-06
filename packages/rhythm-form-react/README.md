@@ -56,4 +56,4 @@ import Text from '../forms/styled/Text';
 
 It's important to note that the components inside the <Text /> component won't be passed the CSS module. This means that things like the <Label /> won't be styled.
 
-You will need to individually hook up each component from this library with it's own CSS module.
+You will need to individually hook up each component from this library with it's own CSS module
