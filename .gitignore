@@ -1,3 +1,7 @@
+# we favour yarn here
+package-lock.json
+
+lib/
 dist/
 .cache/
 .npmrc

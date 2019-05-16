@@ -1,0 +1,19 @@
+{
+	"name": "@rhythm-ui/button",
+	"version": "1.0.0",
+	"main": "lib/index.js",
+	"scripts": {
+		"clean": "rimraf lib",
+		"build": "yarn clean && yarn build:types && babel -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --copy-files",
+		"build:types": "tsc --emitDeclarationOnly -d --noEmit false --declarationDir lib"
+	},
+	"files": [
+		"lib/"
+	],
+	"devDependencies": {
+		"babel-preset-rhythm-ui": "^1.0.0"
+	},
+	"dependencies": {
+		"lit-element": "^2.1.0"
+	}
+}

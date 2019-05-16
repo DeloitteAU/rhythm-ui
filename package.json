@@ -6,17 +6,25 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "packages/*"
+      "packages/*",
+      "www"
     ],
     "nohoist": [
-      "**/saxicon"
+      "**/gatsby",
+      "**/gatsby-**",
+      "**/rollup-plugin--**"
     ]
   },
   "scripts": {
-    "start": "lerna run start --scope rhythm-site --stream",
     "lint": "./node_modules/.bin/eslint packages/**/src/** --ext .js --ext .jsx",
     "bootstrap": "./node_modules/.bin/lerna bootstrap",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "yarn test:types",
+    "test:types": "tsc --noEmit",
+    "build": "lerna run build --scope @rhythm-ui/button",
+    "build:declarations": "tsc --emitDeclarationOnly -d --noEmit false --declarationDir lib",
+    "start": "lerna run start --scope @rhythm-ui/site",
+    "start:site": "cd www && yarn start",
+    "format": "prettier --write src/**/*.{js,jsx}"
   },
   "repository": {
     "type": "git",
@@ -25,9 +33,13 @@
   "author": "Deloitte Digital AU",
   "license": "BSD-3-Clause",
   "devDependencies": {
+    "concurrently": "^4.1.0",
     "eslint": "^4.15.0",
     "eslint-config-deloitte-react": "^3.1.1",
-    "lerna": "^3.5.1"
+    "lerna": "^3.5.1",
+    "prettier": "^1.17.0",
+    "rimraf": "^2.6.3",
+    "typescript": "^3.4.5"
   },
   "dependencies": {}
 }
