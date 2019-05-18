@@ -11,7 +11,8 @@
     ],
     "nohoist": [
       "**/gatsby",
-      "**/gatsby-**"
+      "**/gatsby-**",
+      "**/webpack-cli"
     ]
   },
   "scripts": {
@@ -21,8 +22,9 @@
     "test": "yarn test:types",
     "test:types": "tsc --noEmit",
     "build": "lerna run build --scope @rhythm-ui/button",
+    "build:wp": "lerna run build --scope test",
     "build:declarations": "tsc --emitDeclarationOnly -d --noEmit false --declarationDir lib",
-    "start": "lerna run start --scope www",
+    "start": "lerna run start --scope www --include-filtered-dependencies --parallel --stream",
     "start:site": "cd www && yarn start",
     "format": "prettier --write src/**/*.{js,jsx}"
   },
@@ -39,7 +41,8 @@
     "lerna": "^3.5.1",
     "prettier": "^1.17.0",
     "rimraf": "^2.6.3",
-    "typescript": "^3.4.5"
+    "typescript": "^3.4.5",
+    "webpack-cli": "^3.3.2"
   },
   "dependencies": {}
 }

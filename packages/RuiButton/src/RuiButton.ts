@@ -1,55 +1,90 @@
 import { LitElement, html, customElement, property} from 'lit-element';
-import styles from './RuiButton.styles';
+import styles, {variables} from './RuiButton.styles';
 
 /**
  * RuiButton
- * @slot start - Content is placed at the begining in LTR or at the end in RTL
  */
 export class RuiButton extends LitElement {
 
+  /* #region Properties */
+
   /**
-   * The type of the button.
+   * The underlying type of the button.
    */
-  @property() type: 'submit' | 'reset' | 'button' = 'button';
+  @property() behaviour: 'submit' | 'reset' | 'button' | 'anchor' = 'button';
 
-  @property({type : String}) color?: 'primary' | 'secondary' | 'tertiary' | 'inverted';
+  /**
+   * The theme type of the button
+   */
+  @property({type : String}) type?: 'default' | 'primary' | 'secondary' | 'tertiary' = 'primary';
 
-  @property({type : Boolean}) disabled? = false;
+    /**
+   * The variant style of the button
+   */
+  @property({type : String}) variant?: 'outline' | 'ghost' | 'fill' = 'fill';
 
-  @property({type : String}) href?: string;
+  /**
+   * Set to true if the button should be disabled
+   */
+  @property({type : Boolean}) disabled: boolean = false;
 
-  @property({type : String}) size?: string;
+  /**
+   * Optional href location for the button using an anchor tag
+   */
+  @property({type : String}) href?: string = undefined;
 
+  /**
+   * The size of the button
+   */
+  @property({type : String}) size?: 'normal' | 'small' | 'large';
+
+  /**
+   * Default styles for button
+   */
   static get styles() {
-    return styles;
+    return [variables, styles];
   }
 
+  /**
+   * Default html tag for the button
+   */
   static get tag() {
     return 'rui-button';
   }
 
+  /* #endregion */
+
+  /* #region Methods */
+
+  /**
+   * Render method
+   */
   public render() {
 
-    if (this.href === undefined) {
+    // If href has not been defined use <button>
+    if (!this.href && this.behaviour !== 'anchor') {
       return html`
-      <button
-        class="btn"
-        type=${this.type}
-        ?disabled=${this.disabled}
-      >
-        <slot></slot>
-      </button>
+        <button
+          class="btn"
+          type=${this.behaviour}
+          disabled=${this.disabled}
+        >
+          <slot></slot>
+        </button>
     `;
     }
 
+    // Use <a>
     return html`
       <a
-        sclass="btn"
-        type=${this.type}
+        class="btn"
         href=${this.href}
       >
         <slot></slot>
       </a>
     `;
   }
+
+  /* #endregion */
+
 }

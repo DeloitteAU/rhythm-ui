@@ -149,15 +149,15 @@ exports.createPages = ({ actions, graphql }) => {
 
 const resolvableExtensions = () => ['.ts', '.tsx'];
 
-function onCreateBabelConfig({ actions }) {
-	actions.setBabelPreset({
-		name: '@babel/preset-typescript',
-		options: {
-			isTSX: true,
-			allExtensions: true,
-		},
-	});
-};
+// function onCreateBabelConfig({ actions }) {
+// 	actions.setBabelPreset({
+// 		name: '@babel/preset-typescript',
+// 		options: {
+// 			isTSX: true,
+// 			allExtensions: true,
+// 		},
+// 	});
+// };
 
 function onCreateWebpackConfig({ actions, loaders }) {
 	const jsLoader = loaders.js();
@@ -179,5 +179,5 @@ function onCreateWebpackConfig({ actions, loaders }) {
 }
 
 exports.resolvableExtensions = resolvableExtensions;
-exports.onCreateBabelConfig = onCreateBabelConfig;
+//exports.onCreateBabelConfig = onCreateBabelConfig;
 exports.onCreateWebpackConfig = onCreateWebpackConfig;

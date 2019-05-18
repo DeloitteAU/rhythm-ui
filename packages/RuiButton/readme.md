@@ -3,8 +3,72 @@ package: "@rhythm-ui/button"
 title: "RuiButton"
 ---
 
-# rui-button
+# button
 
 Buttons provide a clickable element, which can be used in forms, or anywhere that needs simple, standard button functionality. They may display text, icons, or both. Buttons can be styled with several attributes to look a specific way.
 
-fdsafds
+## Types
+
+<rui-button>Default</rui-button>
+<rui-button type="primary">Primary</rui-button>
+<rui-button type="secondary">Secondary</rui-button>
+<rui-button type="tertiary">Tertiary</rui-button>
+
+```html
+<rui-button>Default</rui-button>
+<rui-button type="primary">Primary</rui-button>
+<rui-button type="secondary">Secondary</rui-button>
+<rui-button type="tertiary">Tertiary</rui-button>
+```
+
+## Variants
+
+<rui-button variant="fill">Fill (default)</rui-button>
+<rui-button variant="outline">Outline</rui-button>
+<rui-button variant="ghost">Ghost</rui-button>
+
+```html
+<rui-button variant="fill">Fill (default)</rui-button>
+<rui-button variant="outline">Outline</rui-button>
+<rui-button variant="ghost">Ghost</rui-button>
+```
+
+## Behaviour
+
+<rui-button behaviour="button">Button (default)</rui-button>
+<rui-button behaviour="submit">Form Submit</rui-button>
+<rui-button behaviour="reset">Form Reset</rui-button>
+<rui-button behaviour="anchor">Anchor</rui-button>
+<rui-button href="#">Href</rui-button>
+
+```html
+<rui-button behaviour="button">Button (default)</rui-button>
+<rui-button behaviour="submit">Form Submit</rui-button>
+<rui-button behaviour="reset">Form Reset</rui-button>
+<rui-button behaviour="anchor">Anchor</rui-button>
+<rui-button href="#">Href</rui-button>
+```
+
+## Disabled
+
+<rui-button disabled>Disabled</rui-button>
+<rui-button variant="outline" disabled>Outline</rui-button>
+<rui-button variant="ghost" disabled>Ghost</rui-button>
+
+```html
+<rui-button disabled>Disabled</rui-button>
+<rui-button variant="outline" disabled>Outline</rui-button>
+<rui-button variant="ghost" disabled>Ghost</rui-button>
+```
+
+## Sizes
+
+<rui-button size="small">Small</rui-button>
+<rui-button size="normal">Normal (default)</rui-button>
+<rui-button size="large">Large</rui-button>
+
+```html
+<rui-button size="small">Small</rui-button>
+<rui-button size="normal">Normal (default)</rui-button>
+<rui-button size="large">Large</rui-button>
+```
