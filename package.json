@@ -17,6 +17,7 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint packages/**/src/** --ext .js --ext .jsx",
     "bootstrap": "./node_modules/.bin/lerna bootstrap",
+    "unstrap": "./node_modules/.bin/lerna clean",
     "test": "yarn test:types",
     "test:types": "tsc --noEmit",
     "build": "lerna run build --scope @rhythm-ui/button",
