@@ -2,6 +2,11 @@
 
 Thank you for helping. Here are a few guidelines that will help you along the way.
 
+## Reading Guides
+
+- https://lit-element.polymer-project.org/guide/start
+  - https://developers.google.com/web/fundamentals/web-components/
+
 ## Submitting a Pull Request
 
 If you decide to fix an issue, please be sure to check the comment thread in case somebody is already working on a fix. 

@@ -22,8 +22,56 @@ module.exports = {
 				path: `${__dirname}/../packages`,
 			},
 		},
-
-		'gatsby-mdx',
+		{
+			resolve: 'gatsby-source-filesystem',
+			options: {
+				name: 'docs',
+				path: `${__dirname}/src/docs`,
+			},
+		},
+		{
+			resolve: 'gatsby-transformer-remark',
+			options: {
+			  plugins: [
+				{
+				  resolve: 'gatsby-remark-autolink-headers',
+				  options: {
+					icon: false,
+				  },
+				},
+				{
+				  // For including gif files
+				  resolve: 'gatsby-remark-copy-linked-files',
+				}
+			  ],
+			},
+		  },
+		{
+			resolve: 'gatsby-mdx',
+			options: {
+			  extensions: ['.md', '.mdx'],
+			  gatsbyRemarkPlugins: [
+				{ resolve: 'gatsby-remark-autolink-headers' },
+				// gatsby-remark-relative-images must
+				// go before gatsby-remark-images
+				{ resolve: 'gatsby-remark-relative-images' },
+				{
+				  resolve: 'gatsby-remark-images',
+				  options: {
+					// It's important to specify the maxWidth (in pixels) of
+					// the content container as this plugin uses this as the
+					// base for generating different widths of each image.
+					// Note: we also set the max width in the Content of the Layout component
+					linkImagesToOriginal: false,
+					maxWidth: 960,
+					quality: 80,
+					wrapperStyle: '',
+				  },
+				},
+				{ resolve: 'gatsby-remark-copy-linked-files' }
+			  ]
+			},
+		  },
 		{
 			resolve: 'gatsby-plugin-manifest',
 			options: {
@@ -36,13 +84,6 @@ module.exports = {
 				icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
 			},
 		},
-		// {
-		// 	resolve: `gatsby-plugin-typescript`,
-		// 	options: {
-		// 	  isTSX: true, // defaults to false
-		// 	  jsxPragma: `jsx`, // defaults to "React"
-		// 	  allExtensions: true, // defaults to false
-		// 	},
 		//   },
 		// this (optional) plugin enables Progressive Web App + Offline functionality
 		// To learn more, visit: https://gatsby.dev/offline
