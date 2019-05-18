@@ -5,6 +5,7 @@
 	"scripts": {
 		"clean": "rimraf lib",
 		"build": "yarn clean && yarn build:types && babel -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --copy-files",
+		"start": "yarn clean && babel -w -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --copy-files",
 		"build:types": "tsc --emitDeclarationOnly -d --noEmit false --declarationDir lib"
 	},
 	"files": [

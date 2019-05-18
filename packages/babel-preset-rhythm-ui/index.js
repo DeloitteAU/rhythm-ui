@@ -31,6 +31,7 @@ module.exports = function() {
 					loose: true,
 				},
 			],
+			require('@babel/plugin-syntax-dynamic-import').default,
 		].filter(Boolean),
 	};
 };
