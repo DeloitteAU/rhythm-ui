@@ -11,8 +11,7 @@
     ],
     "nohoist": [
       "**/gatsby",
-      "**/gatsby-**",
-      "**/rollup-plugin--**"
+      "**/gatsby-**"
     ]
   },
   "scripts": {
@@ -22,7 +21,7 @@
     "test:types": "tsc --noEmit",
     "build": "lerna run build --scope @rhythm-ui/button",
     "build:declarations": "tsc --emitDeclarationOnly -d --noEmit false --declarationDir lib",
-    "start": "lerna run start --scope @rhythm-ui/site",
+    "start": "lerna run start --scope www",
     "start:site": "cd www && yarn start",
     "format": "prettier --write src/**/*.{js,jsx}"
   },
