@@ -5,7 +5,6 @@ import styles from './RuiButton.styles';
  * RuiButton
  * @slot start - Content is placed at the begining in LTR or at the end in RTL
  */
-@customElement('rui-button')
 export class RuiButton extends LitElement {
 
   /**
@@ -23,6 +22,10 @@ export class RuiButton extends LitElement {
 
   static get styles() {
     return styles;
+  }
+
+  static get tag() {
+    return 'rui-button';
   }
 
   public render() {

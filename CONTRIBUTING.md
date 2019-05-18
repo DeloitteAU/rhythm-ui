@@ -18,7 +18,7 @@ Patches or hotfix releases are prepared on an independent branch.
 
 ## Getting started
 
-Please create a new branch or form from master, however hotfixes should be branched off the relevent tag rather than master.
+Please create a new branch from master, however hotfixes should be branched off the relevent tag rather than master.
 
 ### Testing the documentation site
 
