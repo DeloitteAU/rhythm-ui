@@ -86,3 +86,14 @@ export class MyBUtton extends RuiButton {
 
 customComponents.define(MyButton, MyButton.tag)
 ```
+
+## Variables
+| CSS Variable | Default Value | Description |
+| --- | --- | --- |
+| --font-size | 1rem | The default font size  | 
+| --font-size-large | 1.1rem | The font size when large  | 
+| --border-radius | 4px | The border radius  | 
+| --padding-small | 8px 15px | The small button padding  | 
+| --color | #fff | The button font colour  | 
+| --color-disabled | #ccc | The disabled button font color  | 
+| --background | #595457 | The button accent colour  | 

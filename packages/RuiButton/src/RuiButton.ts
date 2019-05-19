@@ -1,5 +1,6 @@
-import { LitElement, html, customElement, property} from 'lit-element';
-import styles, {variables} from './RuiButton.styles';
+import { LitElement, html, property} from 'lit-element';
+import variables from './css.variables';
+import layout from './css.layout';
 
 /**
  * RuiButton
@@ -29,9 +30,11 @@ export class RuiButton extends LitElement {
   @property({type : Boolean}) disabled: boolean = false;
 
   /**
-   * Optional href location for the button using an anchor tag
+   * Href location for the button
+   * @remarks
+   * This forces the element to render using an anchor tag in the shadow dom
    */
-  @property({type : String}) href?: string = undefined;
+  @property({type : String}) href? = null;
 
   /**
    * The size of the button
@@ -39,14 +42,17 @@ export class RuiButton extends LitElement {
   @property({type : String}) size?: 'normal' | 'small' | 'large';
 
   /**
-   * Default styles for button
+   * 
+   * The styles for button
+   * @remarks
+   * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
    */
   static get styles() {
-    return [variables, styles];
+    return [variables, layout];
   }
 
   /**
-   * Default html tag for the button
+   * The html tag for the button
    */
   static get tag() {
     return 'rui-button';
@@ -58,6 +64,7 @@ export class RuiButton extends LitElement {
 
   /**
    * Render method
+   * @slot This is a slot test
    */
   public render() {
 
