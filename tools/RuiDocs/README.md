@@ -1,3 +1,3 @@
+# ruidocs
 
-
-# This is a test
+Custom tool for generating our documentation.

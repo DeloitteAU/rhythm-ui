@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "private": true,
+  "author": "Deloitte Digital AU",
+  "license": "BSD-3-Clause",
   "workspaces": {
     "packages": [
       "components/*",
@@ -17,9 +19,11 @@
     ]
   },
   "scripts": {
-    "lint": "./node_modules/.bin/eslint packages/**/src/** --ext .js --ext .jsx",
-    "bootstrap": "./node_modules/.bin/lerna bootstrap",
-    "unstrap": "./node_modules/.bin/lerna clean",
+    "lint": "yarn lint:css && yarn lint:ts",
+    "lint:ts": "yarn eslint components/**/src/** --ext .ts",
+    "lint:css": "yarn stylelint \"components/**/*.ts\"",
+    "bootstrap": "lerna bootstrap",
+    "unstrap": "lerna clean",
     "test": "yarn test:types",
     "test:types": "tsc --noEmit",
     "build": "lerna run build --scope @rhythm-ui/button",
@@ -33,15 +37,32 @@
     "type": "git",
     "url": "ssh://git@github.com:DeloitteDigitalAPAC/rhythm-ui.git"
   },
-  "author": "Deloitte Digital AU",
-  "license": "BSD-3-Clause",
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint-staged",
+      "pre-push": "yarn test"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "*.{ts,js}": ["eslint", "git add"]
+    }
+  },
   "devDependencies": {
+    "@deloitte-digital-au/stylelint-config": "^2.0.1",
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "@typescript-eslint/parser": "^1.9.0",
     "concurrently": "^4.1.0",
-    "eslint": "^4.15.0",
-    "eslint-config-deloitte-react": "^3.1.1",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^2.3.0",
     "lerna": "^3.5.1",
+    "lint-staged": "^8.1.7",
     "prettier": "^1.17.0",
     "rimraf": "^2.6.3",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.7.0",
     "typescript": "^3.4.5",
     "webpack-cli": "^3.3.2"
   },
