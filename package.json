@@ -44,9 +44,9 @@
     }
   },
   "lint-staged": {
-    "linters": {
-      "*.{ts,js}": ["eslint", "git add"]
-    }
+    "*.{json,scss,md}": ["git add"],
+    "*.{ts,js}": ["eslint", "stylelint", "git add"],
+    "*.{scss,css}": ["stylelint", "git add"]
   },
   "devDependencies": {
     "@deloitte-digital-au/stylelint-config": "^2.0.1",

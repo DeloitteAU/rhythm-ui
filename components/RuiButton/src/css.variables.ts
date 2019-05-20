@@ -48,7 +48,7 @@ export default css`
 		/**
 		 * @variable The button font colour
 		 */
-		--color: #fff;
+		--color: #FFF;
 
 		/**
 		 * @variable The active font colour
@@ -58,12 +58,12 @@ export default css`
 		/**
 		 * @variable The disabled button font color
 		 */
-		--color-disabled: #ccc;
+		--color-disabled: #CCC;
 
 		/**
 		 * @variable The disabled button background color
 		 */
-		--background-disabled: #ddd;
+		--background-disabled: #DDD;
 
 		/**
 		 * @variable The button accent colour
@@ -79,17 +79,17 @@ export default css`
 	/* Themes */
 
 	:host([type="primary"]) {
-		--color: #fff;
+		--color: #FFF;
 		--background: #4D6CFA;
 	}
 
 	:host([type="secondary"]) {
-		--color: #fff;
+		--color: #FFF;
 		--background: #DE0D92;
 	}
 
 	:host([type="tertiary"]) {
-		--color: #fff;
+		--color: #FFF;
 		--background: #9E1946;
 	}
 
@@ -97,7 +97,7 @@ export default css`
 
 	:host([variant="ghost"]) .btn {
 		--color: var(--background);
-		--color-active: #fff;
+		--color-active: #FFF;
 	}
 
 	/* Sizes */

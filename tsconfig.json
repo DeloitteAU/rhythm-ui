@@ -18,9 +18,9 @@
 		"experimentalDecorators": true
 	},
 	"include": [
-		"packages",
+		"components",
 	], 
 	"exclude": [
-		"packages/babel-**"
+		"components/babel-**"
 	]
 }
