@@ -25,13 +25,10 @@
     "lint:css": "yarn stylelint \"components/**/*.ts\"",
     "bootstrap": "lerna bootstrap",
     "unstrap": "lerna clean",
-    "test": "yarn test:types",
+    "test": "yarn test:types && lerna run test",
     "test:types": "tsc --noEmit",
-    "build": "lerna run build --scope @rhythm-ui/button",
-    "build:wp": "lerna run build --scope test",
-    "build:declarations": "tsc --emitDeclarationOnly -d --noEmit false --declarationDir lib",
+    "build": "lerna run build",
     "start": "lerna run start --scope www --include-filtered-dependencies --parallel --stream",
-    "start:site": "cd www && yarn start",
     "format": "prettier --write src/**/*.{js,jsx}"
   },
   "repository": {
