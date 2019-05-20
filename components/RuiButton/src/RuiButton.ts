@@ -1,4 +1,4 @@
-import { LitElement, html, property, CSSResultArray, Template} from 'lit-element';
+import { LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
 import variables from './css.variables';
 import layout from './css.layout';
 
@@ -72,7 +72,7 @@ export class RuiButton extends LitElement {
    * Render method
    * @slot This is a slot test
    */
-  public render(): Template {
+  public render(): TemplateResult {
 
     // If href has not been defined use <button>
     if (!this.href && this.behaviour !== 'anchor') {
