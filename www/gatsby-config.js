@@ -19,7 +19,8 @@ module.exports = {
 			resolve: 'gatsby-source-filesystem',
 			options: {
 				name: 'components',
-				path: `${__dirname}/../packages`,
+				path: `${__dirname}/../components`,
+				ignore: ['**/README.md', '**/readme.md'],
 			},
 		},
 		{

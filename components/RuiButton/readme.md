@@ -1,6 +1,6 @@
 ---
-package: "@rhythm-ui/button"
-title: "RuiButton"
+package: "@rhythm-ui"
+title: "rui-button"
 ---
 
 # button
