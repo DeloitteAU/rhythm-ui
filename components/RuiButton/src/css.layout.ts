@@ -23,7 +23,6 @@ export default css`
 		pointer-events: auto;
 		font-kerning: none;
 		outline: none;
-		background-color: transparent;
 
 		display: flex;
 		flex-direction: row;

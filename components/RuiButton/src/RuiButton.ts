@@ -1,4 +1,4 @@
-import { LitElement, html, property} from 'lit-element';
+import { LitElement, html, property, CSSResultArray, Template} from 'lit-element';
 import variables from './css.variables';
 import layout from './css.layout';
 
@@ -12,34 +12,40 @@ export class RuiButton extends LitElement {
   /**
    * The underlying type of the button.
    */
-  @property() behaviour: 'submit' | 'reset' | 'button' | 'anchor' = 'button';
+  @property()
+  public behaviour: 'submit' | 'reset' | 'button' | 'anchor' = 'button';
 
   /**
    * The theme type of the button
    */
-  @property({type : String}) type?: 'default' | 'primary' | 'secondary' | 'tertiary' = 'primary';
+  @property({type : String})
+  public type?: 'default' | 'primary' | 'secondary' | 'tertiary' = 'primary';
 
     /**
    * The variant style of the button
    */
-  @property({type : String}) variant?: 'outline' | 'ghost' | 'fill' = 'fill';
+  @property({type : String})
+  public variant?: 'outline' | 'ghost' | 'fill' = 'fill';
 
   /**
    * Set to true if the button should be disabled
    */
-  @property({type : Boolean}) disabled: boolean = false;
+  @property({type : Boolean})
+  public disabled: boolean = false;
 
   /**
    * Href location for the button
    * @remarks
    * This forces the element to render using an anchor tag in the shadow dom
    */
-  @property({type : String}) href? = null;
+  @property({type : String})
+  public href? = null;
 
   /**
    * The size of the button
    */
-  @property({type : String}) size?: 'normal' | 'small' | 'large';
+  @property({type : String})
+  public size?: 'normal' | 'small' | 'large';
 
   /**
    * 
@@ -47,14 +53,14 @@ export class RuiButton extends LitElement {
    * @remarks
    * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
    */
-  static get styles() {
+  public static get styles(): CSSResultArray {
     return [variables, layout];
   }
 
   /**
    * The html tag for the button
    */
-  static get tag() {
+  public static get tag(): string {
     return 'rui-button';
   }
 
@@ -66,7 +72,7 @@ export class RuiButton extends LitElement {
    * Render method
    * @slot This is a slot test
    */
-  public render() {
+  public render(): Template {
 
     // If href has not been defined use <button>
     if (!this.href && this.behaviour !== 'anchor') {

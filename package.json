@@ -21,6 +21,7 @@
   "scripts": {
     "lint": "yarn lint:css && yarn lint:ts",
     "lint:ts": "yarn eslint components/**/src/** --ext .ts",
+    "lint:react": "yarn eslint www/src --ext .tsx",
     "lint:css": "yarn stylelint \"components/**/*.ts\"",
     "bootstrap": "lerna bootstrap",
     "unstrap": "lerna clean",
@@ -45,7 +46,7 @@
   },
   "lint-staged": {
     "*.{json,scss,md}": ["git add"],
-    "*.{ts,js}": ["eslint", "stylelint", "git add"],
+    "*.{ts,tsx,js,jsx}": ["eslint", "stylelint", "git add"],
     "*.{scss,css}": ["stylelint", "git add"]
   },
   "devDependencies": {
