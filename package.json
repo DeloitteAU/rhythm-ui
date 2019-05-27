@@ -15,7 +15,8 @@
     "nohoist": [
       "**/gatsby",
       "**/gatsby-**",
-      "**/webpack-cli"
+      "**/webpack-cli",
+      "@rhythm-ui/button"
     ]
   },
   "scripts": {
@@ -27,7 +28,7 @@
     "unstrap": "lerna clean",
     "test": "yarn test:types && lerna run test",
     "test:types": "tsc --noEmit",
-    "build": "lerna run build",
+    "build": "lerna run build --stream --scope rhythm-ui --include-filtered-dependencies",
     "start": "lerna run start --scope www --include-filtered-dependencies --parallel --stream",
     "format": "prettier --write src/**/*.{js,jsx}"
   },
@@ -42,9 +43,18 @@
     }
   },
   "lint-staged": {
-    "*.{json,scss,md}": ["git add"],
-    "*.{ts,tsx,js,jsx}": ["eslint", "stylelint", "git add"],
-    "*.{scss,css}": ["stylelint", "git add"]
+    "*.{json,scss,md}": [
+      "git add"
+    ],
+    "*.{ts,tsx,js,jsx}": [
+      "eslint",
+      "stylelint",
+      "git add"
+    ],
+    "*.{scss,css}": [
+      "stylelint",
+      "git add"
+    ]
   },
   "devDependencies": {
     "@deloitte-digital-au/stylelint-config": "^2.0.1",

@@ -1,4 +1,5 @@
 import { LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import { ifDefined } from 'lit-html/directives/if-defined.js';
 import variables from './css.variables';
 import layout from './css.layout';
 
@@ -39,7 +40,7 @@ export class RuiButton extends LitElement {
    * This forces the element to render using an anchor tag in the shadow dom
    */
   @property({type : String})
-  public href? = null;
+  public href? = undefined;
 
   /**
    * The size of the button
@@ -80,7 +81,7 @@ export class RuiButton extends LitElement {
         <button
           class="btn"
           type=${this.behaviour}
-          disabled=${this.disabled}
+          ?disabled=${this.disabled}
         >
           <slot></slot>
         </button>
@@ -91,7 +92,7 @@ export class RuiButton extends LitElement {
     return html`
       <a
         class="btn"
-        href=${this.href}
+        href=${ifDefined(this.href)}
       >
         <slot></slot>
       </a>

@@ -14,5 +14,8 @@ module.exports = {
   parserOptions: { 
     ecmaVersion: 2018,
     sourceType: 'module',
+  },
+  rules: {
+    '@typescript-eslint/interface-name-prefix': [2, 'always'],
   }
 }
