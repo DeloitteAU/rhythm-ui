@@ -56,7 +56,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 		// Remove any prefix numbers (e.g. in 01-getting-started)
 		let relativeUrlPath = relativeFilePath.replace(/\d\d-/g, '');
 
-		if (frontmatter.package.match(/^@rhythm-ui/) !== null) {
+		if (frontmatter && frontmatter.package && frontmatter.package.match(/^@rhythm-ui/) !== null) {
 			relativeUrlPath = `/docs/components/${relativeUrlPath.split('/').pop().toLowerCase()}`;
 		}
 
