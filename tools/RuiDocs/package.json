@@ -5,6 +5,7 @@
 	"license": "BSD-3-Clause",
 	"bin": "./index.js",
 	"dependencies": {
+		"front-matter": "^3.0.2",
 		"glob": "^7.1.4",
 		"multilang-extract-comments": "^0.3.2"
 	}

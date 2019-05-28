@@ -8,6 +8,7 @@ import Layout from "../components/layout"
 
 import "@webcomponents/webcomponentsjs/custom-elements-es5-adapter";
 import "@rhythm-ui/button";
+import "@rhythm-ui/grid";
 
 const IndexPage = () => (
   <Layout>
@@ -16,6 +17,9 @@ const IndexPage = () => (
     <p>Now go build something great.</p>
    
     <rui-button>This is a button</rui-button> 
+
+    
+
   </Layout>
 )
 
