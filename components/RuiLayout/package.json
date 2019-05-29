@@ -1,5 +1,5 @@
 {
-	"name": "@rhythm-ui/grid",
+	"name": "@rhythm-ui/layout",
 	"version": "1.0.0",
 	"main": "lib/index.js",
 	"scripts": {
