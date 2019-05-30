@@ -9,6 +9,7 @@ import Layout from "../components/layout"
 import "@webcomponents/webcomponentsjs/custom-elements-es5-adapter";
 import "@rhythm-ui/button";
 import "@rhythm-ui/grid";
+import "@rhythm-ui/news-listing-item";
 
 const IndexPage = () => (
   <Layout>

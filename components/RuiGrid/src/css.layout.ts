@@ -45,6 +45,7 @@ export default css`
 	${defineColumnsForSize('s')}
 
 	${bp('m', defineColumnsForSize('m'))}
+	${bp('m', css` border: 1px solid blue; `)}
 
 	${bp('l', defineColumnsForSize('l'))}
 
