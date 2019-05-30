@@ -1,11 +1,10 @@
 import { LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
-import { ifDefined } from 'lit-html/directives/if-defined.js';
-import { variables, layout } from './RuiGrid.css'
+import { variables, layout } from './RuiLayout.css'
 
 /**
- * RuiGrid
+ * RuiLayout
  */
-export class RuiGrid extends LitElement {
+export class RuiLayout extends LitElement {
 
   /* #region Properties */
 
@@ -30,7 +29,7 @@ export class RuiGrid extends LitElement {
    * The html tag for the button
    */
   public static get tag(): string {
-    return 'rui-grid';
+    return 'rui-layout';
   }
 
   /* #endregion */
