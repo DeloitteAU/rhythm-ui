@@ -4,7 +4,6 @@ import MDXRenderer from 'gatsby-mdx/mdx-renderer';
 import PropTypes from 'prop-types';
 import React from 'react';
 import slug from 'slug';
-import {Navigation} from '../components/Navigation';
 
 //import Code from '../components/Code'
 const preToCodeBlock = (preProps: any) => {
@@ -70,20 +69,11 @@ export default function Template({
   }
 
   return (
-    <rui-layout type="picasso">
-      <header>Header</header>
-      <nav><Navigation /></nav>
-      <main>
-        <rui-grid>
-        <div className="s-12" breadcrumbs={breadcrumbs} pageTitle={pageTitle} relativeUrlPath={relativeUrlPath}>
-                <MDXProvider components={mdxComponents}>
-                  <MDXRenderer>{body}</MDXRenderer>
-                </MDXProvider>
-        </div>
-        </rui-grid>
-      </main>
-      <footer>Footer</footer>
-    </rui-layout>
+    <div breadcrumbs={breadcrumbs} pageTitle={pageTitle} relativeUrlPath={relativeUrlPath}>
+            <MDXProvider components={mdxComponents}>
+              <MDXRenderer>{body}</MDXRenderer>
+            </MDXProvider>
+    </div>
   )
 }
 

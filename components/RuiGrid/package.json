@@ -8,7 +8,7 @@
 		"start": "yarn clean && yarn d && babel -w -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --copy-files",
 		"build:types": "tsc --emitDeclarationOnly -d --noEmit false --declarationDir lib",
 		"doc": "typedoc --ignoreCompilerErrors --module system  --exclude \"lit-element\" --theme markdown --out docs src",
-		"d": "ruidocs --files ./**/*.css.ts --out ./docs"
+		"d": "ruidocs --files ./**/*.variables.ts --out ./docs"
 	},
 	"files": [
 		"lib/"

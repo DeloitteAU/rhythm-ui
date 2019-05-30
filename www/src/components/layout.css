@@ -1,19 +1,13 @@
-html,
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
 body {
-    height: 100%; 
-    padding: 0;
-    margin: 0;
-    font-family: sans-serif;
-    -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-
-/* https://github.com/gatsbyjs/gatsby/issues/7310 */
-div[role="group"][tabindex],
-#___gatsby {
-  height: 100%;
-}
-
 article,
 aside,
 details,
@@ -626,23 +620,3 @@ pre tt:after {
     font-size: 100%;
   }
 }
-
-rui-grid {
-  margin-bottom: 30px;
-}
-
-.demo-grid rui-grid > div {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #000;
-  color: #FFF;
-  text-transform: uppercase;
-  padding: 19px;
-  font-weight: bold;
-}
-
-/* Debugging */
-/* rui-layout header { background: pink; }
-rui-layout footer { background: yellow; }
-rui-layout main {  background: lightblue; }
-rui-layout aside { background: lightcoral;  }
-rui-layout nav { background: cyan; } */

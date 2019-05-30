@@ -15,7 +15,6 @@
     "@rhythm-ui/button": "^1.0.0",
     "@rhythm-ui/grid": "^1.0.0",
     "@rhythm-ui/news-listing-item": "^1.0.0",
-    "@rhythm-ui/layout": "^1.0.0",
     "@webcomponents/webcomponentsjs": "^2.2.10",
     "babel-preset-gatsby": "^0.1.11",
     "gatsby": "^2.5.3",

@@ -7,16 +7,10 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { StaticQuery, graphql, Link } from "gatsby"
-import {Navigation} from './Navigation';
+import { StaticQuery, graphql } from "gatsby"
 
+import Header from "./header"
 import "./layout.css"
-
-import "@webcomponents/webcomponentsjs/custom-elements-es5-adapter";
-import "@rhythm-ui/button";
-import "@rhythm-ui/grid";
-import "@rhythm-ui/layout";
-import "@rhythm-ui/news-listing-item";
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -27,30 +21,15 @@ const Layout = ({ children }) => (
             title
           }
         }
-        allMdx {
-          nodes {
-            id
-            fields {
-              nodeTitle
-              relativeUrlPath
-            }
-          } 
-        }
       }
     `}
     render={data => (
-      <rui-layout type="picasso">
-        <header>
-          
-        </header>
-        <main>{children}</main>
-        <footer>
-          Footer
-        </footer>
-        <nav>
-          <Navigation />
-        </nav>
-      </rui-layout>
+      <>
+        <Header siteTitle={data.site.siteMetadata.title} />
+          <div>
+            <main>{children}</main>
+        </div>
+      </>
     )}
   />
 )
