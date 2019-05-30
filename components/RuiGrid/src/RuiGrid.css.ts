@@ -23,13 +23,13 @@ const defineColumns = () => columns.reduce((a, n) => css`
 const bp = (size: string, rules: CSSResult) => {
 	switch (size.toLowerCase()) {
 		case 'm':
-			return css` @media screen and (min-width: 800px) { ${rules} } `;
+			return css` @media screen and (min-width: 768px) { ${rules} } `;
 		case 'l':
-			return css` @media screen and (min-width: 1200px) { ${rules} } `;
+			return css` @media screen and (min-width: 1024px) { ${rules} } `;
 		case 'xl':
-			return css` @media screen and (min-width: 1400px) { ${rules} } `;
+			return css` @media screen and (min-width: 1440px) { ${rules} } `;
 		case 'xxl':
-			return css` @media screen and (min-width: 1800px) { ${rules} } `;
+			return css` @media screen and (min-width: 1920px) { ${rules} } `;
 		default:
 			return rules;
 	}

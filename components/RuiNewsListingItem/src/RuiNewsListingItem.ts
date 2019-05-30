@@ -1,6 +1,5 @@
 import { LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
-import variables from './css.variables';
-import layout from './css.layout';
+import { variables, layout } from './RuiNewsListingItem.css'
 
 /**
  * RuiNewsListingItem
