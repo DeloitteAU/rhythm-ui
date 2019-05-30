@@ -28,8 +28,6 @@ const bp = (size: string, rules: CSSResult) => {
 			return css` @media screen and (min-width: 1200px) { ${rules} } `;
 		case 'xl':
 			return css` @media screen and (min-width: 1400px) { ${rules} } `;
-		case 'xxl':
-			return css` @media screen and (min-width: 1800px) { ${rules} } `;
 		default:
 			return rules;
 	}
@@ -84,40 +82,13 @@ export const layout = css`
 
 	${defineColumns()}
 
-	${bp('s', css`
-		:host {
-			--container-width: 288px;
-		}
-		${defineColumnsForSize('s')}
-	`)}
+	${defineColumnsForSize('s')}
 
-	${bp('m', css`
-		:host {
-			--container-width: 720px;
-		}
-		${defineColumnsForSize('m')}
-	`)}
+	${bp('m', defineColumnsForSize('m'))}
 
-	${bp('l', css`
-		:host {
-			--container-width: 960px;
-		}
-		${defineColumnsForSize('l')}
-	`)}
+	${bp('l', defineColumnsForSize('l'))}
 
-	${bp('xl', css`
-		:host {
-			--container-width: 1216px;
-		}
-		${defineColumnsForSize('xl')}
-	`)}
-
-	${bp('xxl', css`
-		:host {
-			--container-width: 1640px;
-		}
-		${defineColumnsForSize('xxl')}
-	`)}
+	${bp('xl', defineColumnsForSize('xl'))}
 `;
 
 export default [variables, layout];
