@@ -1,4 +1,5 @@
 import {css} from 'lit-element';
+import {bp} from './css.layout';
 
 /**
  * RuiButton CSS Variables
@@ -6,121 +7,65 @@ import {css} from 'lit-element';
 export default css`
 	:host {
 		/**
-		 * @variable The default font size
+		 * @variable The default image background colour
 		 */
-		--font-size: 1rem;
+		--img-bg: #000;
 
 		/**
-		 * @variable The font size when small
+		 * @variable The height of the news item image
 		 */
-		--font-size-small: 0.9rem;
+		--img-height: 216px;
 
 		/**
-		 * @variable The font size when large
+		 * @variable The minimum height for the content of the news item
 		 */
-		--font-size-large: 1.1rem;
+		--min-content-height: 348px;
 
 		/**
-		 * @variable The font weight
+		 * @variable The padding for the top and bottom of the content
 		 */
-		--font-weight: 400;
+		--padding-top-bottom: 34px;
 
 		/**
-		 * @variable The border radius
+		 * @variable The padding for the sides of the content
 		 */
-		--border-radius: 4px;
+		--padding-sides: 24px;
 
 		/**
-		 * @variable The regular button padding
+		 * @variable The base bg of the news item
 		 */
-		--padding: 15px 25px;
+		--bg: #F2F2F2;
 
 		/**
-		 * @variable The small button padding
+		 * @variable The colour of the bottom border strip
 		 */
-		--padding-small: 8px 15px;
-
-		/**
-		 * @variable The large button padding
-		 */
-		--padding-large: 22px 38px;
-
-		/**
-		 * @variable The button font colour
-		 */
-		--color: #FFF;
-
-		/**
-		 * @variable The active font colour
-		 */
-		--color-active: var(--color);
-
-		/**
-		 * @variable The disabled button font color
-		 */
-		--color-disabled: #CCC;
-
-		/**
-		 * @variable The disabled button background color
-		 */
-		--background-disabled: #DDD;
-
-		/**
-		 * @variable The button accent colour
-		 */
-		--background: #595457;
-
-		/**
-		 * @variable The button border
-		 */
-		--border: 1px solid var(--background);
+		--bottom-border-color: #000;
 	}
 
-	/* Themes */
+	/* BP variable overrides */
+	${bp('m', css`
+		:host {
+			--img-height: 260px;
+		}
+	`)}
 
-	:host([type="primary"]) {
-		--color: #FFF;
-		--background: #4D6CFA;
-	}
+	${bp('l', css`
+		:host {
+			--img-height: 228px;
+		}
+	`)}
 
-	:host([type="secondary"]) {
-		--color: #FFF;
-		--background: #DE0D92;
-	}
+	${bp('xl', css`
+		:host {
+			--img-height: 288px;
+			--min-content-height: 352px; 
+			--padding-sides: 40px;
+		}
+	`)}
 
-	:host([type="tertiary"]) {
-		--color: #FFF;
-		--background: #9E1946;
-	}
-
-	/* Variants */
-
-	:host([variant="ghost"]) .btn {
-		--color: var(--background);
-		--color-active: #FFF;
-	}
-
-	/* Sizes */
-
-	:host([size="small"]) .btn {
-		--padding: var(--padding-small);
-		--font-size: var(--font-size-small);
-	}
-
-	:host([size="large"]) .btn {
-		--padding: var(--padding-large);
-		--font-size: var(--font-size-large);
-	}
-
-	/* Disabled */
-
-	:host([disabled]) .btn {
-		--background: var(--background-disabled);
-		--color: var(--color-disabled);
-	}
-
-	:host([variant="outline"][disabled]) .btn {
-		--background: transparent;
-		--color: var(--color-disabled);
-	}
+	${bp('xxl', css`
+		:host {
+			--img-height: 392px;
+		}
+	`)}
 `;
