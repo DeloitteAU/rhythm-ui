@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import slug from 'slug';
 import {Navigation} from '../components/Navigation';
+import {Code} from '../components/Code';
 
 //import Code from '../components/Code'
 const preToCodeBlock = (preProps: any) => {
@@ -20,6 +21,8 @@ const preToCodeBlock = (preProps: any) => {
       children: codeString,
       props
     } = preProps.children.props
+
+    console.log(codeString);
 
     return {
       codeString: codeString.trim(),
@@ -60,28 +63,47 @@ export default function Template({
     pre: (props: any) => {
       const preProps = preToCodeBlock(props)
 
+      console.log('PREPOPS: ====>', preProps);
+
       if (preProps) {
-		return <pre {...preProps} />
-        //return <Code {...preProps} />
+          return <Code {...preProps} />
       }
 
       return <pre {...props} />
+    },
+    code: (props: any) => {
+      debugger;
+      return <code {...props} />
+    },
+    h1: (props: any) => {
+      return <h1>fdsa
+
+      </h1>
     }
   }
 
+  const components = {
+    h1: (props: any) => {
+      return <h1>fdsa
+
+      </h1>
+    },
+  }
+
   return (
-    <rui-layout type="picasso">
+    <rui-layout type="vangogh">
       <header>Header</header>
       <nav><Navigation /></nav>
       <main>
         <rui-grid>
-        <div className="s-12" breadcrumbs={breadcrumbs} pageTitle={pageTitle} relativeUrlPath={relativeUrlPath}>
-                <MDXProvider components={mdxComponents}>
+          <div className="s-12" breadcrumbs={breadcrumbs} pageTitle={pageTitle} relativeUrlPath={relativeUrlPath}>
+                <MDXProvider components={components}>
                   <MDXRenderer>{body}</MDXRenderer>
                 </MDXProvider>
-        </div>
+          </div>
         </rui-grid>
       </main>
+      <aside>{pageHeadings.map(h => <div>{h.title}</div>)}</aside>
       <footer>Footer</footer>
     </rui-layout>
   )
