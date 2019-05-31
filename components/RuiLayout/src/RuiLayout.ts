@@ -49,12 +49,3 @@ export class RuiLayout extends LitElement {
   /* #endregion */
 
 }
-
-
-class MyLayout extends RuiLayout {
-
-  static styles() {
-    
-  }
-
-}

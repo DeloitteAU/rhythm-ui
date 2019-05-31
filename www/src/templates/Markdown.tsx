@@ -4,11 +4,8 @@ import MDXRenderer from 'gatsby-mdx/mdx-renderer';
 import PropTypes from 'prop-types';
 import React from 'react';
 import slug from 'slug';
-<<<<<<< HEAD
-import {Navigation} from '../components/Navigation';
-import {Code} from '../components/Code';
-=======
->>>>>>> 4ca3ca05ea4be97482e0fc6673b30255bc0dc08f
+import { Navigation } from '../components/Navigation';
+import { Code } from '../components/Code';
 
 //import Code from '../components/Code'
 const preToCodeBlock = (preProps: any) => {
@@ -69,7 +66,7 @@ export default function Template({
       console.log('PREPOPS: ====>', preProps);
 
       if (preProps) {
-          return <Code {...preProps} />
+        return <Code {...preProps} />
       }
 
       return <pre {...props} />
@@ -100,15 +97,15 @@ export default function Template({
       <main>
         <rui-grid>
           <div className="s-12" breadcrumbs={breadcrumbs} pageTitle={pageTitle} relativeUrlPath={relativeUrlPath}>
-                <MDXProvider components={components}>
-                  <MDXRenderer>{body}</MDXRenderer>
-                </MDXProvider>
+            <MDXProvider components={components}>
+              <MDXRenderer>{body}</MDXRenderer>
+            </MDXProvider>
           </div>
         </rui-grid>
       </main>
       <aside>{pageHeadings.map(h => <div>{h.title}</div>)}</aside>
-      <footer>Footer</footer>
-    </rui-layout>
+    <footer>Footer</footer>
+    </rui-layout >
   )
 }
 

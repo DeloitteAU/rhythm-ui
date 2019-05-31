@@ -23,7 +23,7 @@
     "lint": "yarn lint:css && yarn lint:ts",
     "lint:ts": "yarn eslint components/**/src/** --ext .ts",
     "lint:react": "yarn eslint www/src --ext .tsx",
-    "lint:css": "yarn stylelint \"components/**/*.ts\"",
+    "lint:css": "yarn stylelint \"components/**/*.ts\" --config .stylelintrc-ts.js",
     "bootstrap": "lerna bootstrap",
     "unstrap": "lerna clean",
     "test": "yarn test:types && lerna run test",
@@ -48,11 +48,11 @@
     ],
     "*.{ts,tsx,js,jsx}": [
       "eslint",
-      "stylelint",
+      "stylelint --config .stylelintrc-ts.js",
       "git add"
     ],
     "*.{scss,css}": [
-      "stylelint",
+      "stylelint --config .stylelintrc-css.js --fix",
       "git add"
     ]
   },

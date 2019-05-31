@@ -1,7 +1,6 @@
 import { LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
-import variables from './css.variables';
-import layout from './css.layout';
+import { variables, layout } from './RuiGrid.css'
 
 /**
  * RuiGrid
