@@ -4,8 +4,11 @@ import MDXRenderer from 'gatsby-mdx/mdx-renderer';
 import PropTypes from 'prop-types';
 import React from 'react';
 import slug from 'slug';
+<<<<<<< HEAD
 import {Navigation} from '../components/Navigation';
 import {Code} from '../components/Code';
+=======
+>>>>>>> 4ca3ca05ea4be97482e0fc6673b30255bc0dc08f
 
 //import Code from '../components/Code'
 const preToCodeBlock = (preProps: any) => {
