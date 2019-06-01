@@ -1,11 +1,19 @@
 import { MDXProvider } from '@mdx-js/tag';
 import { graphql } from 'gatsby';
 import MDXRenderer from 'gatsby-mdx/mdx-renderer';
-import PropTypes from 'prop-types';
+import RuiLayout from '@rhythm-ui/layout-react';
+import RuiGrid from '@rhythm-ui/grid-react';
 import React from 'react';
 import slug from 'slug';
-import { Navigation } from '../components/Navigation';
-import { Code } from '../components/Code';
+import {Header} from '../../components/Header';
+import {Footer} from '../../components/Footer';
+import { Navigation } from '../../components/Navigation';
+import { Code } from '../../components/Code';
+
+import './Markdown.css';
+
+// Import these so markdown files render if they are using these tags
+import '@rhythm-ui/button-react';
 
 //import Code from '../components/Code'
 const preToCodeBlock = (preProps: any) => {
@@ -91,26 +99,22 @@ export default function Template({
   }
 
   return (
-    <rui-layout type="vangogh">
-      <header>Header</header>
-      <nav><Navigation /></nav>
+    <RuiLayout type="picasso">
+      <Header />
+      <Navigation />
       <main>
-        <rui-grid>
+        <RuiGrid>
           <div className="s-12" breadcrumbs={breadcrumbs} pageTitle={pageTitle} relativeUrlPath={relativeUrlPath}>
             <MDXProvider components={components}>
               <MDXRenderer>{body}</MDXRenderer>
             </MDXProvider>
           </div>
-        </rui-grid>
+        </RuiGrid>
       </main>
       <aside>{pageHeadings.map(h => <div>{h.title}</div>)}</aside>
-    <footer>Footer</footer>
-    </rui-layout >
+      <Footer />
+    </RuiLayout>
   )
-}
-
-Template.propTypes = {
-  data: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
 }
 
 export const pageQuery = graphql`

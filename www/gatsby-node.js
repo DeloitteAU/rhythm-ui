@@ -6,7 +6,7 @@ const { createFilePath } = require('gatsby-source-filesystem');
 exports.createPages = ({ actions, graphql }) => {
 	const { createPage } = actions;
 
-	const mdxTemplate = path.resolve('src/templates/Markdown.tsx');
+	const mdxTemplate = path.resolve('src/templates/Markdown/Markdown.tsx');
 
 	return graphql(`{
 		allMdx {
@@ -151,6 +151,11 @@ function onCreateWebpackConfig({ actions, loaders }) {
 	}
 
 	actions.setWebpackConfig({
+		resolve: {
+			alias: {
+				"~": path.resolve(__dirname, "src")
+			}
+		},
 		module: {
 			rules: [
 				{

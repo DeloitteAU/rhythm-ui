@@ -20,14 +20,14 @@ module.exports = {
 			options: {
 				name: 'components',
 				path: `${__dirname}/../components`,
-				ignore: ['**/README.md', '**/readme.md'],
+				ignore: ['**/README.md', '**/readme.md', '**/readme.mdx'],
 			},
 		},
 		{
 			resolve: 'gatsby-source-filesystem',
 			options: {
 				name: 'docs',
-				path: `${__dirname}/src/docs`,
+				path: `${__dirname}/../docs`,
 			},
 		},
 		{
@@ -77,10 +77,10 @@ module.exports = {
 			resolve: 'gatsby-plugin-manifest',
 			options: {
 				name: 'gatsby-starter-default',
-				short_name: 'starter',
-				start_url: '/',
-				background_color: '#663399',
-				theme_color: '#663399',
+				short_name: 'starter', // eslint-disable-line @typescript-eslint/camelcase
+				start_url: '/', // eslint-disable-line @typescript-eslint/camelcase
+				background_color: '#663399', // eslint-disable-line @typescript-eslint/camelcase
+				theme_color: '#663399', // eslint-disable-line @typescript-eslint/camelcase
 				display: 'minimal-ui',
 				icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
 			},

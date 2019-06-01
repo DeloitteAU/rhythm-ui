@@ -1,6 +1,8 @@
 import React from "react"
 import { StaticQuery, graphql, Link } from "gatsby"
 
+import './Navigation.css';
+
 export const Navigation = () => (
   <StaticQuery
     query={graphql`
@@ -17,9 +19,11 @@ export const Navigation = () => (
       }
     `}
     render={data => (
-		<ul>
-		{data.allMdx.nodes.map(node => <li><Link to={node.fields.relativeUrlPath}>{node.fields.relativeUrlPath}</Link></li>)}
-	  </ul>
+      <nav>
+        <ul>
+        {data.allMdx.nodes.map(node => <li><Link to={node.fields.relativeUrlPath}>{node.fields.relativeUrlPath}</Link></li>)}
+        </ul>
+      </nav>
     )}
   />
 )

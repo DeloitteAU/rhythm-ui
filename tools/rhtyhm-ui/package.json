@@ -14,15 +14,15 @@
 		]
 	},
 	"devDependencies": {
+		"@babel/core": "7",
 		"@rhythm-ui/button": "^1.0.0",
+		"@rhythm-ui/grid": "^1.0.0",
+		"@rhythm-ui/layout": "^1.0.0",
 		"babel-preset-rhythm-ui": "^1.0.0",
 		"lit-element": "^2.1.0",
-		"rollup": "^1.12.3",
-		"rollup-plugin-babel": "^4.3.2"
-	},
-	"dependencies": {
-		"@babel/core": "7",
 		"rimraf": "^2.6.3",
+		"rollup": "^1.12.3",
+		"rollup-plugin-babel": "^4.3.2",
 		"rollup-plugin-babel-minify": "^8.0.0",
 		"rollup-plugin-node-resolve": "^5.0.0"
 	}

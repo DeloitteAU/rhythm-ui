@@ -1,0 +1,37 @@
+html,
+body {
+	font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	font-size: 16px;
+	-webkit-font-smoothing: antialiased;
+}
+
+h1 + p {
+	font-size: 24px;
+	font-weight: 300;
+	color: rgb(109, 109, 109);
+	line-height: 1.7;
+	max-width: 42em;
+}
+
+pre {
+	font-family: "Courier 10 Pitch", Courier, monospace;
+	font-size: 95%;
+	line-height: 140%;
+	white-space: pre;
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+}
+
+code {
+	font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+	font-size: 95%;
+	line-height: 140%;
+	white-space: pre;
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	background-color: rgb(245, 242, 240);
+	display: block;
+	padding: 15px 20px;
+}

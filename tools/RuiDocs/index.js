@@ -25,7 +25,13 @@ if (!fs.existsSync(outDir)) {
 
 console.log(pattern);
 
-const readme = fs.readFileSync('./readme.md', 'UTF8');
+let readme;
+
+try {
+	readme = fs.readFileSync('./readme.md', 'UTF8');
+} catch(err) {
+	readme = fs.readFileSync('./readme.mdx', 'UTF8');
+}
 
 let filename = 'readme';
 

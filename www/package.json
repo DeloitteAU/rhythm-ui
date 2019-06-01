@@ -4,6 +4,25 @@
   "description": "A simfsdafdsafdsaple starter to get up and developing quickly with Gatsby",
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write src/**/*.{js,jsx}",
+    "start": "yarn develop",
+    "serve": "gatsby serve",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+  },
+  "bugs": {
+    "url": "https://github.com/gatsbyjs/gatsby/issues"
+  },
   "dependencies": {
     "@babel/core": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
@@ -12,9 +31,9 @@
     "@mdx-js/mdx": "^1.0.0-rc.4",
     "@mdx-js/react": "^1.0.0-rc.5",
     "@mdx-js/tag": "^0.20.3",
-    "@rhythm-ui/button": "^1.0.0",
-    "@rhythm-ui/grid": "^1.0.0",
-    "@rhythm-ui/layout": "^1.0.0",
+    "@rhythm-ui/button-react": "^1.0.0",
+    "@rhythm-ui/grid-react": "^1.0.0",
+    "@rhythm-ui/layout-react": "^1.0.0",
     "@rhythm-ui/news-listing-item": "^1.0.0",
     "@webcomponents/webcomponentsjs": "^2.2.10",
     "babel-preset-gatsby": "^0.1.11",
@@ -41,24 +60,5 @@
   },
   "devDependencies": {
     "prettier": "^1.17.1"
-  },
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "MIT",
-  "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write src/**/*.{js,jsx}",
-    "start": "yarn develop",
-    "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
   }
 }

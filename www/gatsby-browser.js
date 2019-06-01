@@ -3,7 +3,10 @@
  *
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
+import "@webcomponents/webcomponentsjs/custom-elements-es5-adapter";
 
-// You can delete this file if you're not using it
+import "@rhythm-ui/news-listing-item";
 
-import '@webcomponents/webcomponentsjs/webcomponents-bundle';
+import "./src/css/normalize.css"
+import "./src/css/typography.css"
+import "./src/css/base.css"

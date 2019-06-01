@@ -2,24 +2,22 @@
 	"name": "@rhythm-ui/button",
 	"version": "1.0.0",
 	"main": "lib/index.js",
+	"license": "BSD-3-Clause",
 	"scripts": {
+		"start": "yarn clean && yarn build:docs && babel -w -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --copy-files",
 		"clean": "rimraf lib",
-		"build": "yarn clean && yarn build:types && babel -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --copy-files",
-		"start": "yarn clean && yarn d && babel -w -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --copy-files",
-		"build:types": "tsc --emitDeclarationOnly -d --noEmit false --declarationDir lib",
-		"doc": "typedoc --ignoreCompilerErrors --module system  --exclude \"lit-element\" --theme markdown --out docs src",
-		"d": "ruidocs --files ./**/*.variables.ts --out ./docs"
+		"build": "yarn clean && yarn build:babel && yarn build:docs",
+		"build:babel": "babel -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --ignore *.d.ts --copy-files",
+		"build:docs": "ruidocs --files ./**/*.variables.ts --out ./docs"
 	},
 	"files": [
 		"lib/"
 	],
 	"devDependencies": {
-		"babel-preset-rhythm-ui": "^1.0.0"
+		"babel-preset-rhythm-ui": "^1.0.0",
+		"ruidocs": "^1.0.0"
 	},
 	"dependencies": {
-		"ruidocs": "^1.0.0",
-		"lit-element": "^2.1.0",
-		"typedoc": "^0.14.2",
-		"typedoc-plugin-markdown": "^1.2.1"
+		"lit-element": "^2.1.0"
 	}
 }

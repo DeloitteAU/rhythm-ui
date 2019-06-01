@@ -15,9 +15,14 @@
 		// Import non-ES modules as default imports.
 		"esModuleInterop": true,
 
-		"experimentalDecorators": true
+		"experimentalDecorators": true,
+
+		"jsx": "preserve"
 	},
 	"include": [
 		"components/**/*",
-	]
+	],
+	"paths": {
+		"~/*": ["www/src/*"]
+	}
 }

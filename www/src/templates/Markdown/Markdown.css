@@ -1,0 +1,8 @@
+
+/* stylelint-disable */
+.demo-grid rui-grid div {
+	background: #000;
+	color: #FFF;
+	padding: 10px;
+}
+/* stylelint-enable */
