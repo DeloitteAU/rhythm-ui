@@ -19,6 +19,6 @@
 		"@rhythm-ui/button": "^1.0.0"
 	},
 	"peerDependencies": {
-		"react": ">= 16"
+		"react": ">= 16.0.0"
 	}
 }

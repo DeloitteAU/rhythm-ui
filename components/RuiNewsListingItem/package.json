@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "yarn clean && yarn build:docs && babel -w -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --copy-files",
 		"clean": "rimraf lib",
-		"build": "yarn clean && yarn build:babel && build:docs",
+		"build": "yarn clean && yarn build:babel && yarn build:docs",
 		"build:babel": "babel -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --ignore *.d.ts --copy-files",
 		"build:docs": "ruidocs --files ./**/*.variables.ts --out ./docs"
 	},

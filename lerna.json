@@ -1,8 +1,8 @@
 {
   "lerna": "2.7.1",
   "packages": [
-    "components/*",
-    "tools/*",
+    "components/**",
+    "tools/**",
     "www"
   ],
   "npmClient": "yarn",

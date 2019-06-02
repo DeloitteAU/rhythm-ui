@@ -8,8 +8,8 @@
   "license": "BSD-3-Clause",
   "workspaces": {
     "packages": [
-      "components/*",
-      "tools/*",
+      "components/**",
+      "tools/**",
       "www"
     ],
     "nohoist": [
@@ -24,7 +24,7 @@
     "lint:react": "yarn eslint www/src --ext .tsx",
     "lint:css": "yarn stylelint \"components/**/*.ts\" --config .stylelintrc-ts.js",
     "bootstrap": "lerna bootstrap",
-    "unstrap": "lerna clean",
+    "unstrap": "lerna clean --yes",
     "clean": "lerna run clean",
     "test": "yarn test:types && lerna run test",
     "test:types": "tsc --noEmit",
