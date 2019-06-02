@@ -1,30 +1,31 @@
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import React from 'react'
+import nightOwl from 'prism-react-renderer/themes/nightOwl';
 
-import theme from 'prism-react-renderer/themes/nightOwl'
+import './Code.css';
 
-// const Token = styled(Typography)`
-//   font-family: Consolas, monaco, monospace;
-// `
-
-export const Code = ({ codeString, language, ...props }: any) => (
-  <Highlight {...defaultProps} code={codeString} language={language} theme={theme}>
-    {({
-      className, tokens, getLineProps, getTokenProps
-    }: any) => (
-      <div className="gatsby-highlight">
-        <pre className={className}>
-          {tokens.map((line: any, i: number) => (
+export const Code = ({ codeString, language, preview, ...props }: any) => (
+  <>
+    {preview && <div className="code-preview" dangerouslySetInnerHTML={{__html: codeString}} />}
+    <Highlight
+      {...defaultProps}
+      code={codeString}
+      language={language}
+      theme={nightOwl}
+    >
+      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+        <pre className={className} style={style}>
+          {tokens.map((line, i) => (
             <div {...getLineProps({ line, key: i })}>
-              {line.map((token: any, key: number) => (
-                <div {...getTokenProps({ token, key })} />
+              {line.map((token, key) => (
+                <span {...getTokenProps({ token, key })} />
               ))}
             </div>
           ))}
         </pre>
-      </div>
-    )}
-  </Highlight>
+      )}
+    </Highlight>
+  </>
 )
 
 export default Code

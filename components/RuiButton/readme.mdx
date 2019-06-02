@@ -9,12 +9,7 @@ Buttons provide a clickable element, which can be used in forms, or anywhere tha
 
 ## Types
 
-<rui-button>Default</rui-button>
-<rui-button type="primary">Primary</rui-button>
-<rui-button type="secondary">Secondary</rui-button>
-<rui-button type="tertiary">Tertiary</rui-button>
-
-```html
+```html preview
 <rui-button>Default</rui-button>
 <rui-button type="primary">Primary</rui-button>
 <rui-button type="secondary">Secondary</rui-button>
@@ -23,11 +18,7 @@ Buttons provide a clickable element, which can be used in forms, or anywhere tha
 
 ## Variants
 
-<rui-button variant="fill">Fill (default)</rui-button>
-<rui-button variant="outline">Outline</rui-button>
-<rui-button variant="ghost">Ghost</rui-button>
-
-```html
+```html preview
 <rui-button variant="fill">Fill (default)</rui-button>
 <rui-button variant="outline">Outline</rui-button>
 <rui-button variant="ghost">Ghost</rui-button>
@@ -35,13 +26,7 @@ Buttons provide a clickable element, which can be used in forms, or anywhere tha
 
 ## Behaviour
 
-<rui-button behaviour="button">Button (default)</rui-button>
-<rui-button behaviour="submit">Form Submit</rui-button>
-<rui-button behaviour="reset">Form Reset</rui-button>
-<rui-button behaviour="anchor">Anchor</rui-button>
-<rui-button href="#">Href</rui-button>
-
-```html
+```html preview
 <rui-button behaviour="button">Button (default)</rui-button>
 <rui-button behaviour="submit">Form Submit</rui-button>
 <rui-button behaviour="reset">Form Reset</rui-button>
@@ -51,11 +36,7 @@ Buttons provide a clickable element, which can be used in forms, or anywhere tha
 
 ## Disabled
 
-<rui-button disabled>Disabled</rui-button>
-<rui-button variant="outline" disabled>Outline</rui-button>
-<rui-button variant="ghost" disabled>Ghost</rui-button>
-
-```html
+```html preview
 <rui-button disabled>Disabled</rui-button>
 <rui-button variant="outline" disabled>Outline</rui-button>
 <rui-button variant="ghost" disabled>Ghost</rui-button>
@@ -63,11 +44,7 @@ Buttons provide a clickable element, which can be used in forms, or anywhere tha
 
 ## Sizes
 
-<rui-button size="small">Small</rui-button>
-<rui-button size="normal">Normal (default)</rui-button>
-<rui-button size="large">Large</rui-button>
-
-```html
+```html preview
 <rui-button size="small">Small</rui-button>
 <rui-button size="normal">Normal (default)</rui-button>
 <rui-button size="large">Large</rui-button>

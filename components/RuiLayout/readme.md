@@ -2,7 +2,6 @@
 package: "@rhythm-ui"
 title: "rui-layout"
 ---
-
 # layout
 
 ```html
@@ -18,44 +17,67 @@ title: "rui-layout"
 
 ### Monet (Default)
 
-```html
+```html preview
 <rui-layout type="monet">
-	<header></header>
-	<main></main>
-	<footer></footer>
-</rui-layout>
-```
-
-### Van Gogh
-
-```html
-<rui-layout type="vangogh">
-	<header></header>
-	<nav></nav>
-	<main></main>
-	<aside></aside>
-	<footer></footer>
+	<header>Header</header>
+	<main>Main</main>
+	<footer>Footer</footer>
 </rui-layout>
 ```
 
 ### Picasso
 
-```html
+```html preview
 <rui-layout type="picasso">
-	<header></header>
-	<nav></nav>
-	<main></main>
-	<footer></footer>
+	<header>Header</header>
+	<nav>Nav</nav>
+	<main>Main</main>
+	<footer>Footer</footer>
 </rui-layout>
 ```
 
 ### Da Vinci
 
-```html
+```html preview
 <rui-layout type="davinci">
-	<header></header>
-	<nav></nav>
-	<main></main>
-	<footer></footer>
+	<header>Header</header>
+	<nav>Nav</nav>
+	<main>Main</main>
+	<footer>Footer</footer>
+</rui-layout>
+```
+### Van Gogh
+
+```html preview
+<rui-layout type="vangogh">
+	<header>Header</header>
+	<nav>Nav</nav>
+	<main>Main</main>
+	<aside>Aside</aside>
+	<footer>Footer</footer>
+</rui-layout>
+```
+
+### Morisot
+
+```html preview
+<rui-layout type="morisot">
+	<header>Header</header>
+	<nav>Nav</nav>
+	<main>Main</main>
+	<aside>Aside</aside>
+	<footer>Footer</footer>
+</rui-layout>
+```
+
+### Rembrandt
+
+```html preview
+<rui-layout type="rembrandt">
+	<header>Header</header>
+	<nav>Nav</nav>
+	<main>Main</main>
+	<aside>Aside</aside>
+	<footer>Footer</footer>
 </rui-layout>
 ```

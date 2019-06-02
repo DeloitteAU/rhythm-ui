@@ -30,49 +30,49 @@ module.exports = {
 				path: `${__dirname}/../docs`,
 			},
 		},
-		{
-			resolve: 'gatsby-transformer-remark',
-			options: {
-			  plugins: [
-				{
-				  resolve: 'gatsby-remark-autolink-headers',
-				  options: {
-					icon: false,
-				  },
-				},
-				{
-				  // For including gif files
-				  resolve: 'gatsby-remark-copy-linked-files',
-				}
-			  ],
-			},
-		  },
+		// {
+		// 	resolve: 'gatsby-transformer-remark',
+		// 	options: {
+		// 		plugins: [
+		// 			{
+		// 				resolve: 'gatsby-remark-autolink-headers',
+		// 				options: {
+		// 					icon: false,
+		// 				},
+		// 			},
+		// 			{
+		// 				// For including gif files
+		// 				resolve: 'gatsby-remark-copy-linked-files',
+		// 			}
+		// 		],
+		// 	},
+		// },
 		{
 			resolve: 'gatsby-mdx',
 			options: {
-			  extensions: ['.md', '.mdx'],
-			  gatsbyRemarkPlugins: [
-				{ resolve: 'gatsby-remark-autolink-headers' },
-				// gatsby-remark-relative-images must
-				// go before gatsby-remark-images
-				{ resolve: 'gatsby-remark-relative-images' },
-				{
-				  resolve: 'gatsby-remark-images',
-				  options: {
-					// It's important to specify the maxWidth (in pixels) of
-					// the content container as this plugin uses this as the
-					// base for generating different widths of each image.
-					// Note: we also set the max width in the Content of the Layout component
-					linkImagesToOriginal: false,
-					maxWidth: 960,
-					quality: 80,
-					wrapperStyle: '',
-				  },
-				},
-				{ resolve: 'gatsby-remark-copy-linked-files' }
-			  ]
+				extensions: ['.md', '.mdx'],
+				gatsbyRemarkPlugins: [
+					{ resolve: 'gatsby-remark-autolink-headers' },
+					// gatsby-remark-relative-images must
+					// go before gatsby-remark-images
+					{ resolve: 'gatsby-remark-relative-images' },
+					{
+						resolve: 'gatsby-remark-images',
+						options: {
+							// It's important to specify the maxWidth (in pixels) of
+							// the content container as this plugin uses this as the
+							// base for generating different widths of each image.
+							// Note: we also set the max width in the Content of the Layout component
+							linkImagesToOriginal: false,
+							maxWidth: 960,
+							quality: 80,
+							wrapperStyle: '',
+						},
+					},
+					{ resolve: 'gatsby-remark-copy-linked-files' },
+				]
 			},
-		  },
+		},
 		{
 			resolve: 'gatsby-plugin-manifest',
 			options: {

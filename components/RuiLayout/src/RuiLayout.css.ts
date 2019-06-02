@@ -48,12 +48,12 @@ export const variables = css`
 		/**
 		 * @variable The grids default template columns
 		 */
-		--template-columns: 336px minmax(0, 1fr) 336px;
+		--template-columns: 20% minmax(0, 1fr) 20%;
 
 		/**
 		 * @variable The grid row
 		 */
-		--template-rows: 80px 1fr 150px;
+		--template-rows: 80px 1fr auto;
 	}
 `;
 
@@ -87,6 +87,20 @@ export const layout = css`
 		grid-template-areas:
 			"header header header"
 			"nav main main"
+			"nav footer footer";
+	}
+
+	:host([type="morisot"]) {
+		grid-template-areas:
+			"header header header"
+			"nav main aside"
+			"nav footer aside";
+	}
+
+	:host([type="rembrandt"]) {
+		grid-template-areas:
+			"header header header"
+			"nav main aside"
 			"nav footer footer";
 	}
 

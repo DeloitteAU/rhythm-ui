@@ -1,6 +1,7 @@
-import { MDXProvider } from '@mdx-js/tag';
+import { MDXRenderer } from 'gatsby-mdx';
+import { MDXProvider } from '@mdx-js/react'
 import { graphql } from 'gatsby';
-import MDXRenderer from 'gatsby-mdx/mdx-renderer';
+
 import RuiLayout from '@rhythm-ui/layout-react';
 import RuiGrid from '@rhythm-ui/grid-react';
 import React from 'react';
@@ -10,6 +11,7 @@ import {Footer} from '../../components/Footer';
 import { Navigation } from '../../components/Navigation';
 import { Code } from '../../components/Code';
 
+//import './prism.css';
 import './Markdown.css';
 
 // Import these so markdown files render if they are using these tags
@@ -17,128 +19,114 @@ import '@rhythm-ui/button-react';
 
 //import Code from '../components/Code'
 const preToCodeBlock = (preProps: any) => {
-  if (
-    // children is MDXTag
-    preProps.children
-    // MDXTag props
-    && preProps.children.props
-    // if MDXTag is going to render a <code>
-    && preProps.children.props.name === 'code'
-  ) {
-    const {
-      children: codeString,
-      props
-    } = preProps.children.props
+	if (
+		// children is MDXTag
+		preProps.children
+		// MDXTag props
+		&& preProps.children.props
+		// if MDXTag is going to render a <code>
+		&& preProps.children.props.mdxType === 'code'
+	) {
+		const {
+			children: codeString,
+			props
+		} = preProps.children.props
 
-    console.log(codeString);
+		return {
+			codeString: codeString.trim(),
+			language: preProps.children.props.className && preProps.children.props.className.split('-')[1],
+			preview: !!preProps.children.props.preview,
+			...props
+		}
+	}
 
-    return {
-      codeString: codeString.trim(),
-      language: props.className && props.className.split('-')[1],
-      ...props
-    }
-  }
-
-  return null
+	return null
 }
 
 export default function Template({
-  data, // this prop will be injected by the GraphQL query below.
+	data, // this prop will be injected by the GraphQL query below.
 }: { data: any }) {
-  const { mdx } = data // data.markdownRemark holds our post data
-  const {
-    fields, frontmatter, headings, code
-  } = mdx
-  const { body } = code
-  const { breadcrumbs, relativeUrlPath } = fields
-  const { title: pageTitle } = frontmatter
+	const {mdx} = data; // data.markdownRemark holds our post data
+	const {fields, frontmatter, headings} = mdx;
+	const {breadcrumbs, relativeUrlPath} = fields;
+	const {title: pageTitle} = frontmatter;
 
-  const pageHeadings = headings.map((heading: any) => {
-    const label = heading.value
+	const pageHeadings = headings.map((heading: any) => {
+		const label = heading.value;
 
-    // Make anchors consistent with gatsby-remark-autolink-headers
-    const anchor = slug(label, { lower: true })
+		// Make anchors consistent with gatsby-remark-autolink-headers
+		const anchor = slug(label, { lower: true });
 
-    const link = `${relativeUrlPath}#${anchor}`
+		const link = `${relativeUrlPath}#${anchor}`;
 
-    return {
-      label,
-      link
-    }
-  })
+		return {
+			label,
+			link
+		};
+	});
 
-  const mdxComponents = {
-    pre: (props: any) => {
-      const preProps = preToCodeBlock(props)
+	const mdxComponents = {
+		pre: (props: any) => {
+			const preProps = preToCodeBlock(props)
 
-      console.log('PREPOPS: ====>', preProps);
+			if (preProps) {
+				return <Code {...preProps} />
+			}
 
-      if (preProps) {
-        return <Code {...preProps} />
-      }
+			return <pre {...props} />
+		},
+	}
 
-      return <pre {...props} />
-    },
-    code: (props: any) => {
-      debugger;
-      return <code {...props} />
-    },
-    h1: (props: any) => {
-      return <h1>fdsa
+	// breadcrumbs={breadcrumbs} pageTitle={pageTitle} relativeUrlPath={relativeUrlPath}
 
-      </h1>
-    }
-  }
-
-  const components = {
-    h1: (props: any) => {
-      return <h1>fdsa
-
-      </h1>
-    },
-  }
-
-  return (
-    <RuiLayout type="picasso">
-      <Header />
-      <Navigation />
-      <main>
-        <RuiGrid>
-          <div className="s-12" breadcrumbs={breadcrumbs} pageTitle={pageTitle} relativeUrlPath={relativeUrlPath}>
-            <MDXProvider components={components}>
-              <MDXRenderer>{body}</MDXRenderer>
-            </MDXProvider>
-          </div>
-        </RuiGrid>
-      </main>
-      <aside>{pageHeadings.map(h => <div>{h.title}</div>)}</aside>
-      <Footer />
-    </RuiLayout>
-  )
+	return (
+			<RuiLayout type="rembrandt">
+				<Header />
+				<Navigation />
+				<main>
+					<RuiGrid>
+						<div className="s-11">
+							<MDXProvider components={mdxComponents}>
+								<MDXRenderer>{mdx.code.body}</MDXRenderer>
+							</MDXProvider>
+						</div>
+					</RuiGrid>
+				</main>
+				<aside>
+					{pageHeadings.map(h => (
+						<div key={h.link}>
+							<a href={h.link}>{h.label}</a>
+						</div>
+					))}
+				</aside>
+				<Footer />
+			</RuiLayout>
+	
+	)
 }
 
 export const pageQuery = graphql`
-  query($id: String!) {
-    mdx(id: { eq: $id }) {
-      id
-      headings(depth: h2) {
-        depth
-        value
-      }
-      fields {
-        breadcrumbs {
-          nodeName
-          label
-          href
-        }
-        relativeUrlPath
-      }
-      code {
-        body
-      }
-      frontmatter {
-        title
-      }
-    }
-  }
+	query MDXQuery($id: String!) {
+		mdx(id: { eq: $id }) {
+			id
+			code {
+				body
+			}
+			headings(depth: h2) {
+				depth
+				value
+			}
+			fields {
+				breadcrumbs {
+					nodeName
+					label
+					href
+				}
+				relativeUrlPath
+			}
+			frontmatter {
+				title
+			}
+		}
+	}
 `

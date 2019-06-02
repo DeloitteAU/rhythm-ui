@@ -6,3 +6,28 @@
 	padding: 10px;
 }
 /* stylelint-enable */
+
+.anchor {
+	visibility: hidden;
+	float: left;
+	line-height: 1;
+	margin-left: -20px;
+	padding-right: 4px;
+}
+
+h1:hover .anchor,
+h2:hover .anchor,
+h3:hover .anchor,
+h4:hover .anchor,
+h5:hover .anchor {
+	visibility: visible;
+}
+
+pre {
+	border-radius: 3px;
+	font-size: 85%;
+	line-height: 1.45;
+	overflow: auto;
+	padding: 16px;
+	font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+}

@@ -1,0 +1,20 @@
+
+.code-preview {
+	padding: 16px;
+	border: 1px solid #CCC;
+	border-bottom: 0 none;
+}
+
+.code-preview header,
+.code-preview footer,
+.code-preview main,
+.code-preview nav,
+.code-preview aside {
+	border: 1px solid #555;
+	background: #F5F5F5;
+	padding: 15px;
+	height: auto;
+	width: auto;
+	border-radius: 2px;
+	margin: 1px;
+}
