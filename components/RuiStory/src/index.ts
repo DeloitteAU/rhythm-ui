@@ -5,9 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {RuiNewsListingItem} from './RuiNewsListingItem';
+import {RuiStory} from './RuiStory';
 
 // Register the new element with the browser.
-customElements.define(RuiNewsListingItem.tag, RuiNewsListingItem);
+customElements.define(RuiStory.tag, RuiStory);
 
-export default RuiNewsListingItem;
+export default RuiStory;

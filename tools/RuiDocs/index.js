@@ -11,7 +11,7 @@ const extract = require('multilang-extract-comments');
 const args = process.argv;
 
 const banner = '<!-- THIS IS AN AUTO GENERATED FILE. CHANGES WILL BE BANISHED -->';
-const cssVarRegex = /(--.+)\:\s?(.+)\;/g;
+const cssVarRegex = /(--.+)\:\s?(.+)\;/;
 
 const fIndex = args.indexOf('--files');
 const pattern = args[fIndex + 1];
@@ -22,8 +22,6 @@ const outDir = args[oIndex + 1];
 if (!fs.existsSync(outDir)) {
 	fs.mkdirSync(outDir);
 }
-
-console.log(pattern);
 
 let readme;
 
@@ -56,7 +54,9 @@ glob(pattern, {}, (er, files) => {
 
 		// Build markdown table with @variable comments
 		const markdown = Object.values(comments).reduce((md, block) => {
+			
 			const parts = cssVarRegex.exec(block.code);
+			console.log(`executing regex on ${block.code}, received: ${parts}`)
 			if (Array.isArray(parts)) {
 				const name = parts[1];
 				const v = parts[2];

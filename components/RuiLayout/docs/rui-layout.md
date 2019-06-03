@@ -87,5 +87,8 @@ title: "rui-layout"
 | CSS Variable | Default Value | Description |
 | --- | --- | --- |
 | --container-width | 1216px | The max container width  | 
+| --columns | 12 | The default number of columns (must be in range 1 to 16)  | 
 | --column-gap | 32px | The gap between columns  | 
+| --row-gap | var(--column-gap) | The gap between rows  | 
 | --template-columns | 20% minmax(0, 1fr) 20% | The grids default template columns  | 
+| --template-rows | 80px 1fr auto | The grid row  | 

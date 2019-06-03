@@ -18,3 +18,13 @@
 	border-radius: 2px;
 	margin: 1px;
 }
+
+code[class*="language-"],
+pre[class*="language-"] {
+	white-space: nowrap;
+	overflow: scroll;
+}
+
+.token-line {
+	white-space: pre;
+}

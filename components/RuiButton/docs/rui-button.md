@@ -70,9 +70,16 @@ customComponents.define(MyButton, MyButton.tag)
 | CSS Variable | Default Value | Description |
 | --- | --- | --- |
 | --font-size | 1rem | The default font size  | 
+| --font-size-small | 0.9rem | The font size when small  | 
 | --font-size-large | 1.1rem | The font size when large  | 
+| --font-weight | 400 | The font weight  | 
 | --border-radius | 4px | The border radius  | 
+| --padding | 15px 25px | The regular button padding  | 
 | --padding-small | 8px 15px | The small button padding  | 
+| --padding-large | 22px 38px | The large button padding  | 
 | --color | #FFF | The button font colour  | 
+| --color-active | var(--color) | The active font colour  | 
 | --color-disabled | #CCC | The disabled button font color  | 
+| --background-disabled | #DDD | The disabled button background color  | 
 | --background | #595457 | The button accent colour  | 
+| --border | 1px solid var(--background) | The button border  | 
