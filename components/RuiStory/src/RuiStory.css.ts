@@ -28,6 +28,26 @@ const bp = (size: string, rules: CSSResult) => {
 export const variables = css`
 	:host {
 		/**
+		 * @variable The base bg of the news item
+		 */
+		--bg: #F2F2F2;
+
+		/**
+		 * @variable The colour of the bottom border strip
+		 */
+		--bottom-border-color: #000;
+
+		/**
+		 * @variable The default colour of the story content
+		 */
+		--content-colour: #5F5F5F;
+
+		/**
+		 * @variable The default hover colour of the cta
+		 */
+		--cta-colour-hover: #5F5F5F;
+
+		/**
 		 * @variable The default image background colour
 		 */
 		--img-bg: #000;
@@ -43,24 +63,19 @@ export const variables = css`
 		--min-content-height: 348px;
 
 		/**
-		 * @variable The padding for the top and bottom of the content
-		 */
-		--padding-top-bottom: 34px;
-
-		/**
 		 * @variable The padding for the sides of the content
 		 */
 		--padding-sides: 24px;
 
 		/**
-		 * @variable The base bg of the news item
+		 * @variable The padding for the top and bottom of the content
 		 */
-		--bg: #F2F2F2;
+		--padding-top-bottom: 34px;
 
 		/**
-		 * @variable The colour of the bottom border strip
+		 * @variable The default colour for cta
 		 */
-		--bottom-border-color: #000;
+		--title-colour: #000;
 
 		/**
 		 * @variable The font size of the title
@@ -71,21 +86,6 @@ export const variables = css`
 		 * @variable The letter spacing of the title
 		 */
 		--title-letter-spacing: 26px;
-
-		/**
-		 * @variable The default colour for cta
-		 */
-		--title-colour: #000;
-
-		/**
-		 * @variable The default hover colour of the cta
-		 */
-		--cta-colour-hover: #5F5F5F;
-
-		/**
-		 * @variable The default colour of the story content
-		 */
-		--content-colour: #5F5F5F;
 	}
 
 	/* BP variable overrides */

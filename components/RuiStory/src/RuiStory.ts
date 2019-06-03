@@ -67,7 +67,7 @@ export class RuiStory extends LitElement {
             <slot name="content"></slot>
           </div>
           <div class="cta-container">
-            <slot name="cta"></slot>
+            <slot class="cta-container" name="cta"></slot>
           </div>
         </div>
       </article>
