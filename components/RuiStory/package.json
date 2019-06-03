@@ -1,5 +1,5 @@
 {
-	"name": "@rhythm-ui/news-listing-item",
+	"name": "@rhythm-ui/story",
 	"version": "1.0.0",
 	"main": "lib/index.js",
 	"license": "BSD-3-Clause",

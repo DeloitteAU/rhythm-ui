@@ -6,12 +6,12 @@
  */
 
 import { LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
-import { variables, layout } from './RuiNewsListingItem.css'
+import { variables, layout } from './RuiStory.css'
 
 /**
- * RuiNewsListingItem
+ * RuiStory
  */
-export class RuiNewsListingItem extends LitElement {
+export class RuiStory extends LitElement {
 
   /* #region Properties */
 
@@ -22,7 +22,7 @@ export class RuiNewsListingItem extends LitElement {
   public domain = '';
 
   /**
-   * The title of the news item
+   * The title of the story
    */
   @property({type : String})
   public title = '';
@@ -42,7 +42,7 @@ export class RuiNewsListingItem extends LitElement {
    * The html tag for the button
    */
   public static get tag(): string {
-    return 'rui-news-listing-item';
+    return 'rui-story';
   }
 
   /* #endregion */
@@ -56,7 +56,7 @@ export class RuiNewsListingItem extends LitElement {
   public render(): TemplateResult {
 
     return html`
-      <article class="news-listing-item">
+      <article class="story">
         <div class="img-container">
           <slot name="img"></slot>
         </div>
@@ -66,7 +66,9 @@ export class RuiNewsListingItem extends LitElement {
           <div class="dynamic-content">
             <slot name="content"></slot>
           </div>
-          <slot name="cta"></slot>
+          <div class="cta-container">
+            <slot name="cta"></slot>
+          </div>
         </div>
       </article>
     `;

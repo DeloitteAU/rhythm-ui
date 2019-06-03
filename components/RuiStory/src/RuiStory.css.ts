@@ -23,7 +23,7 @@ const bp = (size: string, rules: CSSResult) => {
 }
 
 /**
- *  RuiNewsListingItem Variables
+ *  RuiStory Variables
  */
 export const variables = css`
 	:host {
@@ -33,12 +33,12 @@ export const variables = css`
 		--img-bg: #000;
 
 		/**
-		 * @variable The height of the news item image
+		 * @variable The height of the story image
 		 */
 		--img-height: 216px;
 
 		/**
-		 * @variable The minimum height for the content of the news item
+		 * @variable The minimum height for the content of the story
 		 */
 		--min-content-height: 348px;
 
@@ -61,6 +61,31 @@ export const variables = css`
 		 * @variable The colour of the bottom border strip
 		 */
 		--bottom-border-color: #000;
+
+		/**
+		 * @variable The font size of the title
+		 */
+		--title-font-size: 22px;
+
+		/**
+		 * @variable The letter spacing of the title
+		 */
+		--title-letter-spacing: 26px;
+
+		/**
+		 * @variable The default colour for cta
+		 */
+		--title-colour: #000;
+
+		/**
+		 * @variable The default hover colour of the cta
+		 */
+		--cta-colour-hover: #5F5F5F;
+
+		/**
+		 * @variable The default colour of the story content
+		 */
+		--content-colour: #5F5F5F;
 	}
 
 	/* BP variable overrides */
@@ -81,6 +106,8 @@ export const variables = css`
 			--img-height: 288px;
 			--min-content-height: 352px; 
 			--padding-sides: 40px;
+			--title-font-size: 28px;
+			--title-letter-spacing: 36px;
 		}
 	`)}
 
@@ -92,13 +119,16 @@ export const variables = css`
 `;
 
 /**
- * RuiNewsListingItem CSS
+ * RuiStory CSS
  */
 export const layout = css`
-	.news-listing-item {
+	.story {
 		width: 100%;
 		background-color: var(--bg);
 		border-bottom: 4px solid var(--bottom-border-color);
+		height: 100%;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.img-container {
@@ -110,6 +140,7 @@ export const layout = css`
 	.content-container {
 		padding: var(--padding-top-bottom) var(--padding-sides);
 		min-height: calc(var(--min-content-height) - (2 * var(--padding-top-bottom)));
+		flex: 1;
 		display: flex;
 		flex-direction: column;
 	}
@@ -122,15 +153,39 @@ export const layout = css`
 	}
 
 	.title {
-		font-size: 28px;
-		line-height: 36px;
+		font-size: var(--title-font-size);
+		line-height: var(--title-letter-spacing);
 		letter-spacing: -0.5px;
 		margin: 6px 0 10px 0;
 		font-weight: bold;
+		overflow: hidden;
+		word-break: break-word;
 	}
 
 	.dynamic-content {
 		flex: 1;
+		color: var(--content-colour);
+		font-size: 16px;
+	}
+
+	.img-container > ::slotted(img) {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.cta-container > ::slotted(a) {
+		color: var(--cta-colour);
+		text-decoration: none;
+		font-size: 14px;
+		font-weight: bold;
+		line-height: 1.43;
+		letter-spacing: -0.1px;
+	}
+
+	.cta-container > ::slotted(a:hover) {
+		color: var(--cta-colour-hover);
 	}
 `;
 

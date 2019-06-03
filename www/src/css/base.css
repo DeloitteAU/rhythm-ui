@@ -8,3 +8,24 @@ body,
 .cm {
 	padding: 30px;
 }
+
+rui-story .cm {  /* stylelint-disable-line selector-type-no-unknown */
+	padding: 0;
+}
+
+rui-story .story-cta > .plus-icon {  /* stylelint-disable-line selector-type-no-unknown */
+	margin-left: 5px;
+}
+
+rui-story .story-cta > .plus-icon:after {  /* stylelint-disable-line selector-type-no-unknown */
+	content: url(../images/plus.svg);
+}
+
+.example-image-el {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	color: white;
+	justify-content: center;
+	align-items: center;
+}
