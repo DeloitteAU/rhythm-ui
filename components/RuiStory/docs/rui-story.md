@@ -4,10 +4,10 @@ title: "rui-story"
 ---
 
 # Story
-News listing items provide an simple way to surface some content to a user with an optional cta if you need.
+Stories provide an simple way to surface some content to a user with an optional cta if you need.
 
 ## Display
-News listing items take up the width of their containers, they are best displayed in a `rui-grid`. 
+Stories take up the width of their containers, they are best displayed in a `rui-grid`. 
 
 <rui-grid>
     <div class="s-12 m-6 l-4 xl-4 xxl-4">
@@ -70,7 +70,7 @@ News items look their best when given an image, title and some content. However 
 
 
 ## Example
-Below is a fully populated row of news listing items, along with some externally styled content/images.
+Below is a fully populated row of stories, along with some externally styled content/images.
 
 <rui-grid>
     <div class="s-12 m-6 l-4 xl-4 xxl-4">
