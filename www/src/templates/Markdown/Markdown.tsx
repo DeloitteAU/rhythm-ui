@@ -4,6 +4,7 @@ import { graphql } from 'gatsby';
 
 import RuiLayout from '@rhythm-ui/layout-react';
 import RuiGrid from '@rhythm-ui/grid-react';
+import RuiSkipLinks from '@rhythm-ui/skip-links-react';
 import React from 'react';
 import slug from 'slug';
 import {Header} from '../../components/Header';
@@ -81,10 +82,12 @@ export default function Template({
 	// breadcrumbs={breadcrumbs} pageTitle={pageTitle} relativeUrlPath={relativeUrlPath}
 
 	return (
+		<React.Fragment>
+			<RuiSkipLinks />
 			<RuiLayout type="rembrandt">
 				<Header />
 				<Navigation />
-				<main>
+				<main id="main">
 					<RuiGrid>
 						<div className="s-11">
 							<MDXProvider components={mdxComponents}>
@@ -102,7 +105,7 @@ export default function Template({
 				</aside>
 				<Footer />
 			</RuiLayout>
-	
+		</React.Fragment>
 	)
 }
 

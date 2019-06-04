@@ -123,20 +123,19 @@ Below is a fully populated row of stories, along with some externally styled con
 </rui-grid>
 ```
 
-
  ## Variables
 
 | CSS Variable | Default Value | Description |
 | --- | --- | --- |
+| --bg | #F2F2F2 | The base bg of the news item  | 
+| --bottom-border-color | #000 | The colour of the bottom border strip  | 
+| --content-colour | #5F5F5F | The default colour of the story content  | 
+| --cta-colour-hover | #5F5F5F | The default hover colour of the cta  | 
 | --img-bg | #000 | The default image background colour  | 
 | --img-height | 216px | The height of the story image  | 
 | --min-content-height | 348px | The minimum height for the content of the story  | 
-| --padding-top-bottom | 34px | The padding for the top and bottom of the content  | 
 | --padding-sides | 24px | The padding for the sides of the content  | 
-| --bg | #F2F2F2 | The base bg of the news item  | 
-| --bottom-border-color | #000 | The colour of the bottom border strip  | 
+| --padding-top-bottom | 34px | The padding for the top and bottom of the content  | 
+| --title-colour | #000 | The default colour for cta  | 
 | --title-font-size | 22px | The font size of the title  | 
 | --title-letter-spacing | 26px | The letter spacing of the title  | 
-| --title-colour | #000 | The default colour for cta  | 
-| --cta-colour-hover | #5F5F5F | The default hover colour of the cta  | 
-| --content-colour | #5F5F5F | The default colour of the story content  | 
