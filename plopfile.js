@@ -60,7 +60,7 @@ const fileExists = value => {
 	if (checkFile(`src/components/${value}`)) {return  `${value} is not a component, check spelling and try again` }
 	if (checkFile(`src/components/vue/${value}Vue`)) { return `${value} is already a vue component adaptor` }
 
-	return checkFile(`src/components/react/${value}React`) ? true : `${value} is already a react component adaptor`;
+	return checkFile(`src/components/react/${value}React`) ? `${value} is already a react component adaptor`: true;
 };
 
 
