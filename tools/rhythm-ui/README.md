@@ -25,7 +25,7 @@ or
 ```
 
 ### Browser Support
-Please note that support for web components is still limited and will require polyfills.
+Please note that support for web components is still limited and will require polyfills for older browsers.
 
 * Browser compatibility table available [here](https://caniuse.com/#search=components)
 * Polyfill download and inclusion instructions are available [here](https://www.webcomponents.org/polyfills)
