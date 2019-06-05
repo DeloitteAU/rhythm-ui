@@ -6,20 +6,23 @@ title: "rui-expand-collapse"
 # Expand Collapse
 
 
-## Example
+### Base internally controlled
+```html preview
 <rui-expand-collapse>
-    <p slot="summary-content">Example expand collapse</p>
-    <span slot="icon" class="expand-collapse-icon"></span>
-    <p slot="details-content">Expand collapse content</p>
+    <span slot="icon" class="chevron-down"></span>
+    <p slot="summary-content">Expander summary</p>
+    <p slot="details-content">Expanded content</p>
 </rui-expand-collapse>
+```
 
-
-## Controlled
-<rui-expand-collapse initallyOpen>
-    <p slot="summary-content">Example expand collapse</p>
-    <span slot="icon" class="expand-collapse-icon"></span>
-    <p slot="details-content">Expand collapse content</p>
+### Base internally initially open
+```html preview
+<rui-expand-collapse initiallyopen>
+    <span slot="icon" class="chevron-down"></span>
+    <p slot="summary-content">Expander summary</p>
+    <p slot="details-content">Expanded content</p>
 </rui-expand-collapse>
+```
 
  ## Variables
 

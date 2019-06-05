@@ -11,38 +11,38 @@ import { variables, layout } from './RuiExpandCollapse.css'
 /**
  * RuiStory
  */
-export class RuiExpandCollapse extends LitElement {
-  /* #region Properties */
-
+export class RuiExpandCollapse extends LitElement {  
   /**
-   * The underlying type of the button.
+   * Controls whether the expand collapse is open initially
    */
-  @property({type : Boolean})
-  public initallyOpen = false;
+  @property({type : Boolean })
+  public initiallyOpen = false;
+
+  @property({type : Boolean })
+  public open = false;
 
 
-  /**
-   * The underlying type of the button.
-   */
-  @property({type : Boolean})
-  private _open = this.initallyOpen;
-
-  /**
-   * 
-   */
-  protected get open(): boolean {
+  /*
+  @property({type : Boolean })
+  public get open(): boolean {
     return this._open;
   }
 
-  protected set open(isOpen: boolean) {
-    let oldVal = this._open;
+  public set open(isOpen: boolean) {
+    let oldVal = this.open;
     this._open = isOpen;
     this.requestUpdate('open', oldVal);
   }
 
+  */
+  /**
+   * Internal open state of component
+   */
+  //_open: boolean = false;
+
   /**
    * 
-   * The styles for button
+   * The styles for the expand collapse
    * @remarks
    * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
    */
@@ -51,7 +51,7 @@ export class RuiExpandCollapse extends LitElement {
   }
 
   /**
-   * The html tag for the button
+   * The html tag for the expand collapse
    */
   public static get tag(): string {
     return 'rui-expand-collapse';
@@ -61,19 +61,24 @@ export class RuiExpandCollapse extends LitElement {
 
   /* #region Methods */
 
+  /**
+   * Default handler for when the expand collapse is clicked
+   */
   private handleClick() {
     this.open = !this.open;
   }
 
   /**
+   * We initialise open to be the value given by initially open attribute
+   */
+  public firstUpdated() {
+    this.open = this.initiallyOpen;
+  }
+
+  /**
    * Render method
-   * @slot This is a slot test
    */
   public render(): TemplateResult {
-    console.log('-----')
-    console.log(this.open)
-    console.log(this.initallyOpen)
-    console.log(this._open)
     return html`
       <section class=${`expand-collapse${this.open ?  ' is-open' : '' }`}>
         <div @click="${this.handleClick}" class="summary">
