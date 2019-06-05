@@ -16,6 +16,7 @@ import './Markdown.css';
 
 // Import these so markdown files render if they are using these tags
 import '@rhythm-ui/button-react';
+import '@rhythm-ui/expand-collapse-react';
 import '@rhythm-ui/story-react';
 
 //import Code from '../components/Code'

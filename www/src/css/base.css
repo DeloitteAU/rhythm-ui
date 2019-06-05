@@ -9,16 +9,21 @@ body,
 	padding: 30px;
 }
 
+.plus-icon:after {
+	width: 20px;
+	content: url(../images/plus.svg);
+}
+
+.expand-collapse-icon:after {
+	content: url(../images/chevron-down.svg);
+}
+
 rui-story .cm {  /* stylelint-disable-line selector-type-no-unknown */
 	padding: 0;
 }
 
 rui-story .story-cta > .plus-icon {  /* stylelint-disable-line selector-type-no-unknown */
 	margin-left: 5px;
-}
-
-rui-story .story-cta > .plus-icon:after {  /* stylelint-disable-line selector-type-no-unknown */
-	content: url(../images/plus.svg);
 }
 
 .example-image-el {
