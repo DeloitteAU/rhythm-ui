@@ -17,6 +17,7 @@
   <!--[if IE]>
 	<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
+  <script type="text/javascript" src="./dist/module/rhythm-ui.1.0.0.js"></script>
   <rui-layout>
     <header style="border: 1px solid blue;">
       <p>This is the header</p>
@@ -28,15 +29,13 @@
                     title="Technology, media & telecommunications"
                     domain="Perspectives"
                 >
-                    <img slot="img" class="story-img" src="https://bit.ly/313MP5R" />
-                    <div slot="content" class="cm cm-rich-text">
+                    <img slot="img" src="https://bit.ly/313MP5R" />
+                    <div slot="content">
                         <p>At Deloitte we help our clients navigate complex challenges 
                             brought about by technological innovation and changes in consumer behaviour.
                         </p>
                     </div>
-                    <a class="story-cta" href="http://localhost:8000" slot="cta">
-                        Explore our latest research <span class="plus-icon"></span>
-                    </a>
+                    <a href="index.html" slot="cta">Explore our latest research</a>
                 </rui-story>
             </div>
             <div class="s-12 m-6 l-4 xl-4 xxl-4">
@@ -44,14 +43,14 @@
                     title="Go from linear to accelerated growth."
                     domain="Ready. Set. Emerge!"
                 >
-                    <img slot="img" class="story-img" src="https://bit.ly/2QIxoeD" />
-                    <div slot="content" class="cm cm-rich-text">
+                    <img slot="img" src="https://bit.ly/2QIxoeD" />
+                    <div slot="content">
                         <p>Emerging technoligies are significantly transforming our
                             lives and organisations. How do we manage this growth, and harness it?
                         </p>
                     </div>
-                    <a class="story-cta" href="http://localhost:8000" slot="cta">
-                        Connect with tech <span class="plus-icon"></span>
+                    <a href="index.html" slot="cta">
+                        Connect with tech
                     </a>
                 </rui-story>
             </div>
@@ -60,23 +59,25 @@
                     title="A future focused Australia"
                     domain="Energy Accelerated"
                 >
-                    <img slot="img" class="story-img" src="https://bit.ly/2Xio7ws" />
-                    <div slot="content" class="cm cm-rich-text">
+                    <img slot="img" src="https://bit.ly/2Xio7ws" />
+                    <div slot="content">
                         <p>We are in the middle of an energy transition. What will you 
                             do today to embrace the enery transition and shape the future of energy?
                         </p>
                     </div>
-                    <a class="story-cta" href="http://localhost:8000" slot="cta">
-                        Four future energy scenarios <span class="plus-icon"></span>
+                    <a class="story-cta" href="index.html" slot="cta">
+                        Four future energy scenarios
                     </a>
                 </rui-story>
             </div>
+            <div class="s-12 m-12 l-12 xl-12 xxl-12">
+                <rui-button type="primary">Primary</rui-button>
+            </div>
         </rui-grid>
-        <rui-button type="primary">Primary</rui-button>
+        
     </main>
     <footer style="border: 1px solid red;"><p>This is the footer</p></footer>
   </rui-layout>
-  <script type="text/javascript" src="./dist/module/rhythm-ui.1.0.0.js"></script>
 </body>
 
 </html>
