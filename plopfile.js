@@ -1,7 +1,7 @@
 const fs = require('fs'); // eslint-disable-line
-const PATH = 'components/Rui{{pascalCase name}}';
-const REACT_PATH = 'components/react/Rui{{pascalCase name}}React';
-const VUE_PATH =  'components/vue/Rui{{pascalCase name}}Vue';
+const PATH = 'components/{{pascalCase name}}';
+const REACT_PATH = 'reactComponents/{{pascalCase name}}React';
+const VUE_PATH =  'vueComppnents/{{pascalCase name}}Vue';
 const PLOP_PATH = 'plopTemplates/Component';
 const PLOP_REACT = 'plopTemplates/reactAdapters';
 const PLOP_VUE = 'plopTemplates/vueAdapters';
@@ -9,7 +9,7 @@ const PLOP_VUE = 'plopTemplates/vueAdapters';
 const reactActions = [
 	{
 		type: 'add',
-		path: `${REACT_PATH}/src/Rui{{pascalCase name}}.tsx`,
+		path: `${REACT_PATH}/src/{{pascalCase name}}.tsx`,
 		templateFile: `${PLOP_REACT}/src/Component.tsx.hbs`
 	},
 	{
@@ -32,7 +32,7 @@ const reactActions = [
 const vueActions = [
 	{
 		type: 'add',
-		path: `${VUE_PATH}/Rui{{pascalCase name}}Vue.ts`,
+		path: `${VUE_PATH}/{{pascalCase name}}Vue.ts`,
 		templateFile: `${PLOP_VUE}/readme.md.hbs`
 	}
 ];
@@ -52,17 +52,19 @@ const checkFile = file => {
 	}
 };
 
-const fileExists = value => {
-	//check value is not empty
-	if(value.length === 0) {return `component name is required`}
-
-	value = `Rui${value}`;
-	if (checkFile(`src/components/${value}`)) {return  `${value} is not a component, check spelling and try again` }
-	if (checkFile(`src/components/vue/${value}Vue`)) { return `${value} is already a vue component adaptor` }
-
-	return checkFile(`src/components/react/${value}React`) ? `${value} is already a react component adaptor`: true;
+const checkComponent = () => {
+	let choices = [];
+	fs
+		.readdirSync('./components')
+		.forEach(file => {
+			if (!checkFile(`reactComponents/${file}React`)) {
+				choices.push(file)
+			}
+		});
+	return choices
 };
 
+const ensureRui = text => `rui ${text.replace(/Rui/gi, "")}`;
 
 module.exports = plop => {
     plop.setGenerator('component', {
@@ -79,12 +81,14 @@ module.exports = plop => {
                 message: 'What is your component name?',
                 // validate the field is not empty
                 validate: isNotEmpty( 'name'),
+				//format the component to have Rui
+				filter: ensureRui
             },
             {
                 type: 'list',
                 name: 'adapter',
                 message: 'Do you also need an adapter?',
-                choices: ['Not yet', 'React', 'Vue (unavailable)', 'Both (unavailable)'],
+                choices: ['Not yet', 'React'],
             },
         ],
         actions: data => {
@@ -113,12 +117,12 @@ module.exports = plop => {
                 //src files - component, css and index
                 {
                     type: 'add',
-                    path: `${PATH}/src/Rui{{pascalCase name}}.ts`,
+                    path: `${PATH}/src/{{pascalCase name}}.ts`,
                     templateFile: `${PLOP_PATH}/src/Component.ts.hbs`
                 },
                 {
                     type: 'add',
-                    path: `${PATH}/src/Rui{{pascalCase name}}.css.ts`,
+                    path: `${PATH}/src/{{pascalCase name}}.css.ts`,
                     templateFile: `${PLOP_PATH}/src/Component.css.ts.hbs`
                 },
                 {
@@ -142,19 +146,19 @@ module.exports = plop => {
 
         //prompts are user inputs that provided as arguments to the templates
         prompts: [
+			{
+				type: 'list',
+				name: 'adapter',
+				message: 'Please chose your component',
+				choices: () => {
+					return checkComponent()
+				},
+			},
             {
                 type: 'list',
                 name: 'adapter',
                 message: 'Please chose an adapter',
-                choices: ['React', 'Vue', 'Both'],
-            },
-            {
-                type: 'input',
-                name: 'name',
-                message: 'and what is your component name (do not include Rui prefix)?',
-                validate: function (value) {
-                     return fileExists(value)
-                },
+				choices: ['React'],
             },
         ],
 

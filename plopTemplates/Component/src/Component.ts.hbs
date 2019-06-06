@@ -6,10 +6,10 @@
 */
 
 import { LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
-import { variables, layout } from './Rui{{pascalCase name}}.css'
+import { variables, layout } from './{{pascalCase name}}.css'
 
 
-export class Rui{{pascalCase name}} extends LitElement {
+export class {{pascalCase name}} extends LitElement {
 
     /**
     *
@@ -25,7 +25,7 @@ export class Rui{{pascalCase name}} extends LitElement {
     * The html tag for the button
     */
     public static get tag(): string {
-        return 'rui-{{kebabCase name}}';
+        return '{{kebabCase name}}';
     }
 
     /* #endregion */

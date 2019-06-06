@@ -7,17 +7,19 @@ Plop is a small component generator that can be used to quickly set up our web-c
 To use plop to generate a component follow these steps:
 
 ````
-1. $ npm run generate component
+1. $ yarn generate component
 2. Choose a component name. i.e Button (please leave out Rui or any prefix at this stage)
 3. Chose if you would like to add an adapter. If you choose no, this can be done at a later stage.
 ````
+*note: If writing a component with more than one word, please write it separated i.e 'icon list', not icon-list or iconList.
+
 Hey presto! Your component can now be fount in the components directory.
 
 ##### Adapter
 The adapters are React and Vue.js wrappers for our web components. To create an adaptor for your component follow these steps.
 
 ````
-  1. $ npm run generate adapter
+  1. $ yarn generate adapter
   2. Select which adapter you require. (React, Vue or both)
   3. Enter name of component you wish to create an adaptor for (leaving off any Rui prefix).
 ````

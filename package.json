@@ -9,6 +9,8 @@
   "workspaces": {
     "packages": [
       "components/**",
+      "reactComponents/**",
+      "vueComponents/**",
       "tools/**",
       "www"
     ],

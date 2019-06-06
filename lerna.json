@@ -1,9 +1,11 @@
 {
   "lerna": "2.7.1",
   "packages": [
-    "components/**",
-    "tools/**",
-    "www"
+	  "components/**",
+	  "reactComponents/**",
+	  "vueComponents/**",
+	  "tools/**",
+	  "www"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
