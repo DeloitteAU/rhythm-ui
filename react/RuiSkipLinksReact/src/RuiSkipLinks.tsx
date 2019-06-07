@@ -6,14 +6,14 @@
  */
 
 import React from 'react';
-import '@rhythm-ui/button';
+import '@rhythm-ui/skip-links';
 
-export class RuiButton extends React.Component {
+export class RuiSkipLinks extends React.Component {
 	public render() {
 		return (
-			<rui-button {...this.props}>
+			<rui-skip-links {...this.props}>
 				{this.props.children}
-			</rui-button>
+			</rui-skip-links>
 		);
 	}
 }

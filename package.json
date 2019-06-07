@@ -9,7 +9,8 @@
   "workspaces": {
     "packages": [
       "components/**",
-      "reactComponents/**",
+      "react/**",
+      "vue/**",
       "tools/**",
       "www"
     ],
@@ -34,7 +35,8 @@
     "build:vanilla": "lerna run build --stream --scope rhythm-ui --include-filtered-dependencies",
     "start": "lerna run start --scope www --include-filtered-dependencies --parallel --stream",
     "format": "prettier --write src/**/*.{js,jsx}",
-    "storybook": "start-storybook"
+    "storybook": "start-storybook",
+    "generate": "plop"
   },
   "repository": {
     "type": "git",
@@ -78,6 +80,8 @@
     "husky": "^2.3.0",
     "lerna": "^3.5.1",
     "lint-staged": "^8.1.7",
+    "lit-element": "^2.1.0",
+    "plop": "^2.3.0",
     "prettier": "^1.17.0",
     "react-docgen-typescript-loader": "^3.1.0",
     "react-docgen-typescript-webpack-plugin": "^1.1.0",
