@@ -2,8 +2,8 @@
   "lerna": "2.7.1",
   "packages": [
 	  "components/**",
-	  "reactComponents/**",
-	  "vueComponents/**",
+	  "react/**",
+	  "vue/**",
 	  "tools/**",
 	  "www"
   ],
