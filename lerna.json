@@ -3,7 +3,8 @@
   "packages": [
     "components/**",
     "tools/**",
-    "www"
+	  "reactComponents/**",
+	  "www"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,

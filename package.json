@@ -9,6 +9,7 @@
   "workspaces": {
     "packages": [
       "components/**",
+      "reactComponents/**",
       "tools/**",
       "www"
     ],
@@ -32,7 +33,8 @@
     "build:site": "lerna run build --scope www --include-filtered-dependencies --parallel --stream",
     "build:vanilla": "lerna run build --stream --scope rhythm-ui --include-filtered-dependencies",
     "start": "lerna run start --scope www --include-filtered-dependencies --parallel --stream",
-    "format": "prettier --write src/**/*.{js,jsx}"
+    "format": "prettier --write src/**/*.{js,jsx}",
+    "storybook": "start-storybook"
   },
   "repository": {
     "type": "git",
@@ -59,11 +61,17 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.4.5",
     "@deloitte-digital-au/stylelint-config": "^2.0.1",
+    "@storybook/react": "^5.1.3",
+    "@types/react": "^16.8.19",
+    "@types/storybook__react": "^4.0.2",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
-    "@types/react": "^16.8.19",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.6",
     "concurrently": "^4.1.0",
+    "core-js": "^3.1.3",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-prettier": "^3.1.0",
@@ -71,6 +79,8 @@
     "lerna": "^3.5.1",
     "lint-staged": "^8.1.7",
     "prettier": "^1.17.0",
+    "react-docgen-typescript-loader": "^3.1.0",
+    "react-docgen-typescript-webpack-plugin": "^1.1.0",
     "rimraf": "^2.6.3",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.7.0",
