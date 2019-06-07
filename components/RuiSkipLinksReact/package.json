@@ -1,0 +1,24 @@
+{
+	"name": "@rhythm-ui/skip-links-react",
+	"version": "1.0.0",
+	"main": "lib/index.js",
+	"scripts": {
+		"start": "yarn clean && babel -w -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --copy-files",
+		"build": "yarn build:babel",
+		"build:babel": "babel -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --ignore *.d.ts --copy-files",
+		"clean": "rimraf lib"
+	},
+	"files": [
+		"lib/"
+	],
+	"devDependencies": {
+		"babel-preset-rhythm-ui-react": "^1.0.0",
+		"react": "^16.8.6"
+	},
+	"dependencies": {
+		"@rhythm-ui/skip-links": "^1.0.0"
+	},
+	"peerDependencies": {
+		"react": ">= 16.0.0"
+	}
+}

@@ -19,7 +19,7 @@ export const Navigation = () => (
       }
     `}
     render={data => (
-      <nav className=".nav">
+      <nav id="nav" className=".nav">
         <ul>
           {data.allMdx.nodes.map(node => <li key={node.id}><Link to={node.fields.relativeUrlPath}>{node.fields.relativeUrlPath}</Link></li>)}
         </ul>
