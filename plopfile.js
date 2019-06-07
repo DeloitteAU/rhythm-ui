@@ -27,6 +27,11 @@ const reactActions = [
 		path: `${REACT_PATH}/package.json`,
 		templateFile: `${PLOP_REACT}/package.json.hbs`
 	},
+	{
+		type: 'add',
+		path: `${REACT_PATH}/index.stories.tsx`,
+		templateFile: `${PLOP_REACT}/index.stories.tsx.hbs`
+	}
 ];
 
 const vueActions = [
