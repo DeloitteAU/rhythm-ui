@@ -44,8 +44,13 @@ export const layout = css`
 		right: 10px;
 	}
 
-	.is-open > .details {
+	.details {
 		padding: 10px 20px;
+		display: none;
+	}
+
+	.is-open > .details {
+		display: block;
 	}
 `;
 

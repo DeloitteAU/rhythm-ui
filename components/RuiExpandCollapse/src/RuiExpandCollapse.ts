@@ -19,11 +19,6 @@ export class RuiExpandCollapse extends LitElement {
   public initiallyOpen = false;
 
   @property({type : Boolean })
-  public open = false;
-
-
-  /*
-  @property({type : Boolean })
   public get open(): boolean {
     return this._open;
   }
@@ -34,11 +29,10 @@ export class RuiExpandCollapse extends LitElement {
     this.requestUpdate('open', oldVal);
   }
 
-  */
   /**
    * Internal open state of component
    */
-  //_open: boolean = false;
+  private _open: boolean = false;
 
   /**
    * 
