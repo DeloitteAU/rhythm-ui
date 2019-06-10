@@ -16,7 +16,6 @@ Below the skip links are included, the links are hidden until they are focused -
 ```
 
 
-
  ## Variables
 
 | CSS Variable | Default Value | Description |

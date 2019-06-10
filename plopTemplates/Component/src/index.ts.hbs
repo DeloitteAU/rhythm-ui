@@ -8,7 +8,9 @@
 import { {{pascalCase name}} } from './{{pascalCase name}}';
 
 // Register the new element with the browser.
-customElements.define({{pascalCase name}}.tag, {{pascalCase name}});
+if (typeof window !== 'undefined' && !window.customElements.get({{pascalCase name}}.tag)) {
+	customElements.define({{pascalCase name}}.tag, {{pascalCase name}});
+}
 
 export default {{pascalCase name}};
 

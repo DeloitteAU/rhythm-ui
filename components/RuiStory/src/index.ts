@@ -8,6 +8,8 @@
 import {RuiStory} from './RuiStory';
 
 // Register the new element with the browser.
-customElements.define(RuiStory.tag, RuiStory);
+if (typeof window !== 'undefined' && !window.customElements.get(RuiStory.tag)) {
+	customElements.define(RuiStory.tag, RuiStory);
+}
 
 export default RuiStory;

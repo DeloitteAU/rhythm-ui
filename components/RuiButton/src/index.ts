@@ -7,6 +7,8 @@
 import {RuiButton} from './RuiButton';
 
 // Register the new element with the browser.
-customElements.define(RuiButton.tag, RuiButton);
+if (typeof window !== 'undefined' && !window.customElements.get(RuiButton.tag)) {
+	customElements.define(RuiButton.tag, RuiButton);
+}
 
 export default RuiButton;

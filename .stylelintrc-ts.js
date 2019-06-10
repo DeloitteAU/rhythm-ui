@@ -13,4 +13,9 @@ module.exports = {
 			}
 		]
 	],
+	rules: {
+		'selector-type-no-unknown': [true, {
+			ignore: ['custom-elements', 'default-namespace']
+		}],
+	}
 };
