@@ -153,7 +153,7 @@ module.exports = plop => {
         prompts: [
 			{
 				type: 'list',
-				name: 'adapter',
+				name: 'name',
 				message: 'Please chose your component',
 				choices: () => {
 					return checkComponent()
