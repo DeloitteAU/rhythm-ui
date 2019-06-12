@@ -101,8 +101,8 @@ module.exports = plop => {
             actions = actions.concat([
                 {
                     type: 'add',
-                    path: `${PATH}/index.d.ts`,
-                    templateFile: `${PLOP_PATH}/index.d.ts.hbs`
+                    path: `${PATH}/tsconfig.json`,
+                    templateFile: `${PLOP_PATH}/tsconfig.json.hbs`
                 },
                 {
                     type: 'add',

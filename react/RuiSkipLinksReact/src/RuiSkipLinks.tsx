@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import '@rhythm-ui/skip-links'
+import '@rhythm-ui/skip-links';
 
 export class RuiSkipLinks extends React.Component {
 	public render() {

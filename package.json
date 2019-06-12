@@ -28,9 +28,8 @@
     "bootstrap": "lerna bootstrap",
     "unstrap": "lerna clean --yes",
     "clean": "lerna run clean",
-    "test": "yarn test:types && lerna run test",
-    "test:types": "tsc --noEmit",
-    "build": "yarn test:types && yarn build:site",
+    "test": "lerna run test",
+    "build": "yarn build:site",
     "build:site": "lerna run build --scope www --include-filtered-dependencies --parallel --stream",
     "build:vanilla": "lerna run build --stream --scope rhythm-ui --include-filtered-dependencies",
     "start": "lerna run start --scope www --include-filtered-dependencies --parallel --stream",
@@ -44,7 +43,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint-staged && yarn test:types",
+      "pre-commit": "yarn lint-staged",
       "pre-push": "yarn test"
     }
   },
