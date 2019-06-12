@@ -4,12 +4,11 @@
  * This source code is licensed under the BSD-3-Clause license found in the
  * LICENSE file in the root directory of this source tree.
  */
-
-import {RuiLayout} from './RuiLayout'
+export const tag = 'rui-grid';
 
 // Register the new element with the browser.
-if (typeof window !== 'undefined' && !window.customElements.get(RuiLayout.tag)) {
-	customElements.define(RuiLayout.tag, RuiLayout);
+if (typeof window !== 'undefined' && !window.customElements.get(tag)) {
+	import('./RuiLayout').then(module => {
+		customElements.define(tag, module.RuiLayout);
+	});
 }
-
-export default RuiLayout;

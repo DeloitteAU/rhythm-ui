@@ -4,12 +4,11 @@
  * This source code is licensed under the BSD-3-Clause license found in the
  * LICENSE file in the root directory of this source tree.
  */
-
-import {RuiStory} from './RuiStory';
+export const tag = 'rui-story';
 
 // Register the new element with the browser.
-if (typeof window !== 'undefined' && !window.customElements.get(RuiStory.tag)) {
-	customElements.define(RuiStory.tag, RuiStory);
+if (typeof window !== 'undefined' && !window.customElements.get(tag)) {
+	import('./RuiStory').then(module => {
+		customElements.define(tag, module.RuiStory);
+	});
 }
-
-export default RuiStory;

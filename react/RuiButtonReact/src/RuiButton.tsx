@@ -6,7 +6,8 @@
  */
 
 import React from 'react';
-import '@rhythm-ui/button';
+import {register} from '@rhythm-ui/button';
+register();
 
 export class RuiButton extends React.Component {
 	public render() {

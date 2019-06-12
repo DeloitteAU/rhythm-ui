@@ -1,9 +1,11 @@
 {
 	"compilerOptions": {
 		// Target latest version of ECMAScript.
-		"target": "esnext",
+		"target": "esNext",
 		// Search under node_modules for non-relative imports.
 		"moduleResolution": "node",
+		// Specify module code generation
+		"module": "esNext",
 		// Process & infer types from .js files.
 		"allowJs": false,
 		// Don't emit; allow Babel to transform files.
@@ -20,7 +22,7 @@
 		"jsx": "preserve"
 	},
 	"include": [
-		"components/**/*",
+		"components/**/*"
 	],
 	"paths": {
 		"~/*": ["www/src/*"]

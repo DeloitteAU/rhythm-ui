@@ -4,10 +4,11 @@
  * This source code is licensed under the BSD-3-Clause license found in the
  * LICENSE file in the root directory of this source tree.
  */
-
-import {RuiSkipLinks} from './RuiSkipLinks';
+export const tag = 'rui-skip-links';
 
 // Register the new element with the browser.
-customElements.define(RuiSkipLinks.tag, RuiSkipLinks);
-
-export default RuiSkipLinks;
+if (typeof window !== 'undefined' && !window.customElements.get(tag)) {
+	import('./RuiSkipLinks').then(module => {
+		customElements.define(tag, module.RuiSkipLinks);
+	});
+}
