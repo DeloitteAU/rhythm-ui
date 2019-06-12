@@ -10,6 +10,7 @@ If you do not need to implement any custom logic, then you just need to provide 
 
 ```html preview
 <rui-expand-collapse>
+    <span slot="icon" class="expand-collapse-icon"></span>
     <p slot="summary-content">Expander summary</p>
     <p slot="details-content">Expanded content</p>
 </rui-expand-collapse>
@@ -18,6 +19,7 @@ If you do not need to implement any custom logic, then you just need to provide 
 If you wish for the expand collapse to default to open, use the below:
 ```html preview
 <rui-expand-collapse open="true">
+    <span slot="icon" class="expand-collapse-icon"></span>
     <p slot="summary-content">Expander summary</p>
     <p slot="details-content">Expanded content</p>
 </rui-expand-collapse>
@@ -51,7 +53,7 @@ The component's onExpandCollapse function should be overriden in this case.
 
 | CSS Variable | Default Value | Description |
 | --- | --- | --- |
-| --bg | #F2F2F2 | The default expanded section background colour  | 
-| --txt | #000000 | The default exapnd section text colour  | 
-| --summary-txt | #FFFFFF | The default summary section text colour  | 
-| --summary-bg | #000000 | The default summary section background colour  | 
+| --bg | #F2F2F2 | The expanded section background colour  | 
+| --txt | #000000 | The exapnd section text colour  | 
+| --summary-txt | #FFFFFF | The summary section text colour  | 
+| --summary-bg | #000000 | The summary section background colour  | 

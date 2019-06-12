@@ -56,7 +56,10 @@ export const layout = css`
 
 	.icon-container {
 		position: absolute;
-		right: 10px;
+		right: 20px;
+		width: 20px;
+		height: 20px;
+		transition: transform 500ms ease;
 	}
 
 	.details {
@@ -66,6 +69,11 @@ export const layout = css`
 
 	.is-open > .details {
 		display: block;
+	}
+
+	.is-open .icon-container {
+		transform-origin: center;
+		transform: rotate3d(1, 0, 0, 180deg);
 	}
 `;
 
