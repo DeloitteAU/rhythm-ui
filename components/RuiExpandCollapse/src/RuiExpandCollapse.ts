@@ -9,9 +9,9 @@ import { LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-e
 import { variables, layout } from './RuiExpandCollapse.css'
 
 /**
- * RuiStory
+ * RuiExpandCollapse
  */
-export class RuiExpandCollapse extends LitElement {  
+export class RuiExpandCollapse extends LitElement { 
   /**
    * Controls whether the expand collapse is open initially
    */
@@ -19,6 +19,12 @@ export class RuiExpandCollapse extends LitElement {
   public initiallyOpen = false;
 
   @property({type : Boolean })
+  public controlled = false;
+
+  @property({
+    type : Boolean,
+    converter: (value): boolean => value === 'true',
+  })
   public get open(): boolean {
     return this._open;
   }
@@ -28,6 +34,9 @@ export class RuiExpandCollapse extends LitElement {
     this._open = isOpen;
     this.requestUpdate('open', oldVal);
   }
+
+  @property()
+  public onExpandCollapse = ():void => {};
 
   /**
    * Internal open state of component
@@ -58,20 +67,26 @@ export class RuiExpandCollapse extends LitElement {
   /**
    * Default handler for when the expand collapse is clicked
    */
-  private handleClick() {
-    this.open = !this.open;
+  private handleClick(): void {
+    if (this.controlled) {
+      this.open = !this.open;
+    } else {
+      this.onExpandCollapse();
+    }
   }
 
   /**
    * We initialise open to be the value given by initially open attribute
    */
-  public firstUpdated() {
-    this.open = this.initiallyOpen;
+  public firstUpdated(): void {
+    if (!this.controlled) {
+      this.open = this.initiallyOpen;
+    }
   }
 
   /**
    * Render method
-   */
+   */  
   public render(): TemplateResult {
     return html`
       <section class=${`expand-collapse${this.open ?  ' is-open' : '' }`}>

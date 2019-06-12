@@ -5,11 +5,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React from 'react';
+import React, { ReactNode } from 'react';
 import '@rhythm-ui/layout';
 
 export class RuiLayout extends React.Component {
-	public render() {
+	public render(): ReactNode {
 		return (
 			<rui-layout {...this.props}>
 				{this.props.children}

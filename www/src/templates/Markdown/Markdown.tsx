@@ -16,6 +16,7 @@ import './Markdown.css';
 
 // Import these so markdown files render if they are using these tags
 import '@rhythm-ui/button-react';
+import RuiExpandCollapse from '@rhythm-ui/expand-collapse-react';
 import '@rhythm-ui/expand-collapse-react';
 import '@rhythm-ui/story-react';
 
@@ -86,6 +87,14 @@ export default function Template({
 				<Header />
 				<Navigation />
 				<main>
+					<RuiExpandCollapse
+						controlled
+						open={true}
+						onChange={() => {console.log('changed')}}
+					>
+						<p slot="summary-content">Expander summary</p>
+   		 				<p slot="details-content">Expanded content</p>
+					</RuiExpandCollapse>
 					<RuiGrid>
 						<div className="s-11">
 							<MDXProvider components={mdxComponents}>

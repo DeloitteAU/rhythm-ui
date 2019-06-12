@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {css, CSSResult} from 'lit-element';
+import {css} from 'lit-element';
 
 /**
  *  RuiExpandCollapse Variables

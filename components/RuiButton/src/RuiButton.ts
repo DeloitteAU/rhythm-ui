@@ -20,7 +20,7 @@ export class RuiButton extends LitElement {
   /**
    * The underlying type of the button.
    */
-  @property()
+  @property({type : String})
   public behaviour: 'submit' | 'reset' | 'button' | 'anchor' = 'button';
 
   /**
