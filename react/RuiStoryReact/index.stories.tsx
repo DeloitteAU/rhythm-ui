@@ -1,12 +1,20 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
 import { storiesOf } from '@storybook/react';
 
 import { RuiStory } from './lib';
+import Readme from './README.md';
 
 
 storiesOf('Story', module)
+	.addParameters({
+		readme: {
+			// Show readme at the addons panel
+			content: Readme,
+		},
+	})
 	.add('this is a story', () => (
+		<Fragment>
 			<RuiStory
 				title="Title"
 				domain="Domain"
@@ -19,4 +27,5 @@ storiesOf('Story', module)
 					CTA Element
 				</a>
 			</RuiStory>
+		</Fragment>
 	));

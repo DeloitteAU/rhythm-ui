@@ -5,7 +5,6 @@ lib/
 dist/
 .cache/
 .npmrc
-yarn.lock
 
 #Gatsby
 www/public

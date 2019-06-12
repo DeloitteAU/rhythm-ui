@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import { storiesOf } from '@storybook/react';
 import { RuiButton } from './lib';
-import ButtonReadme from './README.md';
+import Readme from './README.md';
 
 import { withKnobs, text, boolean, number, select, optionsKnob} from '@storybook/addon-knobs';
 
@@ -21,10 +21,7 @@ const sizeOptions = {
 	Medium: 'medium',
 	Large: 'large'
 };
-const disabledOptions = {
-	Disabled: 'Disabled',
-	Active: 'active',
-};
+
 const optionsObj = {
 	display: 'radio'
 };
@@ -35,15 +32,17 @@ storiesOf('Button', module)
 	.addParameters({
 		readme: {
 			// Show readme at the addons panel
-			sidebar: ButtonReadme,
+			sidebar: Readme,
 		},
 	})
 	.addDecorator(withKnobs)
 	.add('Playground', () => (
 		<Fragment>
+			<h1> Buttons </h1>
 			<p>
 				Buttons provide a clickable element, which can be used in forms, or anywhere that needs simple, standard button functionality. They may display text, icons, or both. Buttons can be styled with several attributes to look a specific way
 			</p>
+			<p> Play around with these buttons using the variables in the side panel </p>
 			<RuiButton
 				type={select('Types', typeOptions)}
 				variant={select('Variants', variantsOptions)}
@@ -54,12 +53,12 @@ storiesOf('Button', module)
 		</Fragment>
 	))
 	.add('Types', () => (
-		<Fragment>
-			<RuiButton> Default </RuiButton>
-			<RuiButton type="primary">Primary</RuiButton>
-			<RuiButton type="secondary">Secondary</RuiButton>
-			<RuiButton type="tertiary">Tertiary</RuiButton>
-		</Fragment>
+		<div className="code-preview">
+				<RuiButton> Default </RuiButton>
+				<RuiButton type="primary">Primary</RuiButton>
+				<RuiButton type="secondary">Secondary</RuiButton>
+				<RuiButton type="tertiary">Tertiary</RuiButton>
+		</div>
 	))
 	.add('Variants', () => (
 		<Fragment>
