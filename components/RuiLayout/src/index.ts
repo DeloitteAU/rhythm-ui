@@ -8,6 +8,8 @@
 import {RuiLayout} from './RuiLayout'
 
 // Register the new element with the browser.
-customElements.define(RuiLayout.tag, RuiLayout);
+if (typeof window !== 'undefined' && !window.customElements.get(RuiLayout.tag)) {
+	customElements.define(RuiLayout.tag, RuiLayout);
+}
 
 export default RuiLayout;

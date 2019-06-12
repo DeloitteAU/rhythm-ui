@@ -26,6 +26,12 @@ understand what actions will and will not be tolerated.
 Read our [contributing guide](https://github.com/DeloitteDigitalAPAC/rhythm-ui/blob/master/CONTRIBUTING.md) to learn about 
 our development process, how to propose bugfixes and improvements, and how to build and test your changes to Rhythm.
 
+### Creating components with Plop
+
+Read our [guide on plop](https://github.com/DeloitteDigitalAPAC/rhythm-ui/blob/master/PLOP.md) to learn about how you can
+create components from templates that are consistent with our current components.
+
+
 ## Who is Deloitte Digital?
 
 **Part Business. Part Creative. Part Technology. One hundred per cent digital.**

@@ -17,4 +17,3 @@ export class RuiButton extends React.Component {
 		);
 	}
 }
-

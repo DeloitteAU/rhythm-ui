@@ -34,3 +34,7 @@ rui-story .story-cta > .plus-icon {  /* stylelint-disable-line selector-type-no-
 	justify-content: center;
 	align-items: center;
 }
+
+rui-grid {
+	margin-bottom: 10px;
+}
