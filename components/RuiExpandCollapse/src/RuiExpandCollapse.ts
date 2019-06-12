@@ -13,14 +13,9 @@ import { variables, layout } from './RuiExpandCollapse.css'
  */
 export class RuiExpandCollapse extends LitElement { 
   /**
-   * Controls whether the expand collapse is open initially
+   * Open property deals with the internal open/close 
+   * state. Mirrors the open attribute on the root element
    */
-  @property({type : Boolean })
-  public initiallyOpen = false;
-
-  @property({type : Boolean })
-  public controlled = false;
-
   @property({
     type : Boolean,
     converter: (value): boolean => value === 'true',
@@ -35,8 +30,16 @@ export class RuiExpandCollapse extends LitElement {
     this.requestUpdate('open', oldVal);
   }
 
+  /**
+   * onExpandCollapse is the handler function that is called
+   * when the user triggers an expand/collapse. This
+   * function should be overriden when trying to control
+   * the component
+   */
   @property()
-  public onExpandCollapse = ():void => {};
+  public onExpandCollapse = ():void => {
+    this.open = !this.open;
+  };
 
   /**
    * Internal open state of component
@@ -65,32 +68,12 @@ export class RuiExpandCollapse extends LitElement {
   /* #region Methods */
 
   /**
-   * Default handler for when the expand collapse is clicked
-   */
-  private handleClick(): void {
-    if (this.controlled) {
-      this.open = !this.open;
-    } else {
-      this.onExpandCollapse();
-    }
-  }
-
-  /**
-   * We initialise open to be the value given by initially open attribute
-   */
-  public firstUpdated(): void {
-    if (!this.controlled) {
-      this.open = this.initiallyOpen;
-    }
-  }
-
-  /**
    * Render method
    */  
   public render(): TemplateResult {
     return html`
       <section class=${`expand-collapse${this.open ?  ' is-open' : '' }`}>
-        <div @click="${this.handleClick}" class="summary">
+        <div @click="${this.onExpandCollapse}" class="summary">
           <slot name="summary-content"></slot>
           <div class="icon-container">
             <slot name="icon"></slot>
@@ -109,5 +92,4 @@ export class RuiExpandCollapse extends LitElement {
   }
 
   /* #endregion */
-
 }

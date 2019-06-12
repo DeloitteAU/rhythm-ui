@@ -8,11 +8,10 @@
 import React, { ReactNode, createRef } from 'react';
 import '@rhythm-ui/expand-collapse';
 
+
 interface IProps {
 	onChange: Function,
 	open: boolean,
-	initiallyOpen: boolean,
-	controlled: boolean,
 }
 
 interface IHTMLRuiExpandCollapseElement extends HTMLElement {
@@ -20,10 +19,14 @@ interface IHTMLRuiExpandCollapseElement extends HTMLElement {
 }
 
 export class RuiExpandCollapse extends React.Component<IProps> {
-	private myRef = createRef<IHTMLRuiExpandCollapseElement>();
+	private ruiExpandCollapseEl = createRef<IHTMLRuiExpandCollapseElement>();
 
 	public componentDidMount(): void {
-		const el: IHTMLRuiExpandCollapseElement | null = this.myRef.current;
+		/**
+		 * To set change handler on web component we need to overwrite the
+		 * default change handler via a ref to the component
+		 */
+		const el: IHTMLRuiExpandCollapseElement | null = this.ruiExpandCollapseEl.current;
 		if (el) {
 			el.onExpandCollapse = this.props.onChange;
 		}
@@ -31,7 +34,7 @@ export class RuiExpandCollapse extends React.Component<IProps> {
 
 	public render(): ReactNode {
 		return (
-			<rui-expand-collapse ref={this.myRef} {...this.props}>
+			<rui-expand-collapse ref={this.ruiExpandCollapseEl} {...this.props}>
 				{this.props.children}
 			</rui-expand-collapse>
 		);

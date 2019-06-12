@@ -87,14 +87,6 @@ export default function Template({
 				<Header />
 				<Navigation />
 				<main>
-					<RuiExpandCollapse
-						controlled
-						open={true}
-						onChange={() => {console.log('changed')}}
-					>
-						<p slot="summary-content">Expander summary</p>
-   		 				<p slot="details-content">Expanded content</p>
-					</RuiExpandCollapse>
 					<RuiGrid>
 						<div className="s-11">
 							<MDXProvider components={mdxComponents}>
