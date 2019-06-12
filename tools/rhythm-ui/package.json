@@ -16,8 +16,11 @@
 	"devDependencies": {
 		"@babel/core": "7",
 		"@rhythm-ui/button": "^1.0.0",
+		"@rhythm-ui/expand-collapse": "^1.0.0",
 		"@rhythm-ui/grid": "^1.0.0",
 		"@rhythm-ui/layout": "^1.0.0",
+		"@rhythm-ui/skip-links": "^1.0.0",
+		"@rhythm-ui/story": "^1.0.0",
 		"babel-preset-rhythm-ui": "^1.0.0",
 		"lit-element": "^2.1.0",
 		"rimraf": "^2.6.3",

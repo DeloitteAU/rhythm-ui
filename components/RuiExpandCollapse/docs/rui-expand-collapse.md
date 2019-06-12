@@ -29,7 +29,29 @@ you can modify the open property through javascript and the component will liste
 
 The component's onExpandCollapse function should be overriden in this case.
 
+```html
+<rui-expand-collapse id="expandExample">
+    <p slot="summary-content">Expander summary</p>
+    <p slot="details-content">Expanded content</p>
+</rui-expand-collapse>
+
+<script>
+    window.onload = () => {
+        window.expanderOpen = false;
+        const expandCollapseEl = document.getElementById('expandExample');
+        expandCollapseEl.onExpandCollapse = () => {
+            window.expanderOpen = !window.expanderOpen;
+            expandCollapseEl.open = window.expanderOpen;
+        }
+    }
+</script>
+```
+
  ## Variables
 
 | CSS Variable | Default Value | Description |
 | --- | --- | --- |
+| --bg | #F2F2F2 | The default expanded section background colour  | 
+| --txt | #000000 | The default exapnd section text colour  | 
+| --summary-txt | #FFFFFF | The default summary section text colour  | 
+| --summary-bg | #000000 | The default summary section background colour  | 

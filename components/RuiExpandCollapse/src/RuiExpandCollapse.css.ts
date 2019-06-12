@@ -12,9 +12,24 @@ import {css} from 'lit-element';
  */
 export const variables = css`
 	:host {
+		/**
+		 * @variable The expanded section background colour
+		 */
 		--bg: #F2F2F2;
+
+		/**
+		 * @variable The exapnd section text colour
+		 */
 		--txt: #000000;
+
+		/**
+		 * @variable The summary section text colour
+		 */
 		--summary-txt: #FFFFFF;
+
+		/**
+		 * @variable The summary section background colour
+		 */
 		--summary-bg: #000000;
 	}
 `;
