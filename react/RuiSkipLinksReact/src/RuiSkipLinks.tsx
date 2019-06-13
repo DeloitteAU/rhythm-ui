@@ -8,8 +8,10 @@
 import React from 'react';
 import '@rhythm-ui/skip-links';
 
-export class RuiSkipLinks extends React.Component {
-	public render() {
+import {IRuiSkipLinksProps} from './IRuiSkipLinks';
+
+export class RuiSkipLinks extends React.Component<IRuiSkipLinksProps> {
+	public render(): JSX.Element {
 		return (
 			<rui-skip-links {...this.props}>
 				{this.props.children}

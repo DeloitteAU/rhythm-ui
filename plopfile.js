@@ -14,6 +14,11 @@ const reactActions = [
 	},
 	{
 		type: 'add',
+		path: `${REACT_PATH}/src/I{{pascalCase name}}.tsx`,
+		templateFile: `${PLOP_REACT}/src/IComponent.tsx.hbs`
+	},
+	{
+		type: 'add',
 		path: `${REACT_PATH}/src/index.tsx`,
 		templateFile: `${PLOP_REACT}/src/index.tsx.hbs`
 	},
@@ -31,6 +36,11 @@ const reactActions = [
 		type: 'add',
 		path: `${REACT_PATH}/index.stories.tsx`,
 		templateFile: `${PLOP_REACT}/index.stories.tsx.hbs`
+	},
+	{
+		type: 'add',
+		path: `${REACT_PATH}/tsconfig.json`,
+		templateFile: `${PLOP_REACT}/tsconfig.json.hbs`
 	},
 	//append the file into the www package json file at the top of the list
 	{
