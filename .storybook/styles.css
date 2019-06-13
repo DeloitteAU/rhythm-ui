@@ -1,0 +1,39 @@
+
+.code-preview {
+	padding: 16px;
+	border: 1px solid #CCC;
+}
+
+.code-preview header,
+.code-preview footer,
+.code-preview main,
+.code-preview nav,
+.code-preview aside {
+	border: 1px solid #555;
+	background: #F5F5F5;
+	padding: 15px;
+	height: auto;
+	width: auto;
+	border-radius: 2px;
+	margin: 1px;
+}
+
+.code-preview rui-button {
+	margin: 10px;
+}
+
+.code-preview rui-grid div {
+	background: #000;
+	color: #FFF;
+	padding: 10px;
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+	white-space: nowrap;
+	overflow: scroll;
+}
+
+.token-line {
+	white-space: pre;
+}

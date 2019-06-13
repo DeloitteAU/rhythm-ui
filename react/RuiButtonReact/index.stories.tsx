@@ -53,12 +53,12 @@ storiesOf('Button', module)
 		</Fragment>
 	))
 	.add('Types', () => (
-		<div className="code-preview">
+		<Fragment>
 				<RuiButton> Default </RuiButton>
 				<RuiButton type="primary">Primary</RuiButton>
 				<RuiButton type="secondary">Secondary</RuiButton>
 				<RuiButton type="tertiary">Tertiary</RuiButton>
-		</div>
+		</Fragment>
 	))
 	.add('Variants', () => (
 		<Fragment>
