@@ -31,6 +31,14 @@ const reactActions = [
 		type: 'add',
 		path: `${REACT_PATH}/index.stories.tsx`,
 		templateFile: `${PLOP_REACT}/index.stories.tsx.hbs`
+	},
+	//append the file into the www package json file at the top of the list
+	{
+		type: 'append',
+		path: 'www/package.json',
+		// Pattern tells plop where in the file to inject the template
+		pattern: `"@mdx-js\/react"\: "\^1\.0\.0-rc\.5",`,
+		template: `		"@rhythm-ui/{{kebabCase name}}-react": "^1.0.0",`,
 	}
 ];
 
