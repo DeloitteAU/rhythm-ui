@@ -9,11 +9,11 @@
 * Register the Web Component with customElements
 * @param tag - The HTML tag to use
 */
-export const register = (tag: string = '{{kebabCase name}}') => {
+export const register = (tag: string = 'rui-breadcrumbs') => {
 	// Register the new element with the browser.
 	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
-		import('./{{pascalCase name}}').then(module => {
-			customElements.define(tag, module.{{pascalCase name}});
+		import('./RuiBreadcrumbs').then(module => {
+			customElements.define(tag, module.RuiBreadcrumbs);
 		});
 	}
 };

@@ -31,6 +31,19 @@ const reactActions = [
 		type: 'add',
 		path: `${REACT_PATH}/index.stories.tsx`,
 		templateFile: `${PLOP_REACT}/index.stories.tsx.hbs`
+	},
+	{
+		type: 'add',
+		path: `${REACT_PATH}/README.md`,
+		templateFile: `${PLOP_REACT}/README.md.hbs`
+	},
+	//finally append the file into the www package json file
+	{
+		type: 'append',
+		path: 'www/package.json',
+		// Pattern tells plop where in the file to inject the template
+		pattern: `"@mdx-js\/react"\: "\^1\.0\.0-rc\.5",`,
+		template: `		"@rhythm-ui/{{kebabCase name}}-react": "^1.0.0",`,
 	}
 ];
 
@@ -134,7 +147,7 @@ module.exports = plop => {
                     type: 'add',
                     path: `${PATH}/src/index.ts`,
                     templateFile: `${PLOP_PATH}/src/index.ts.hbs`
-                },
+                }
             ]);
             if (data.adapter === 'React' || data.adapter === 'Both') {
                 actions = actions.concat(reactActions)
