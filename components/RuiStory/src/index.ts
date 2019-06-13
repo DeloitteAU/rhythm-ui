@@ -5,9 +5,19 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {RuiStory} from './RuiStory';
+/**
+ * Register the Web Component with customElements
+ * @param tag - The HTML tag to use
+ */
+export const register = (tag: string = 'rui-story') => {
+	// Register the new element with the browser.
+	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
+		import('./RuiStory').then(module => {
+			customElements.define(tag, module.RuiStory);
+		});
+	}
+};
 
-// Register the new element with the browser.
-customElements.define(RuiStory.tag, RuiStory);
-
-export default RuiStory;
+if (process.env.RUI_NO_DEFAULT_REGISTER !== 'true') {
+	register();
+}

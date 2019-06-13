@@ -3,7 +3,6 @@ module.exports = function() {
 		presets: [
 			require('@babel/preset-typescript').default,
 		],
-
 		plugins: [
 			['@babel/plugin-proposal-decorators', {legacy: true}],
 			['@babel/plugin-proposal-class-properties', {loose: true}],

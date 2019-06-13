@@ -5,9 +5,19 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {RuiGrid} from './RuiGrid';
+/**
+ * Register the Web Component with customElements
+ * @param tag - The HTML tag to use
+ */
+export const register = (tag: string = 'rui-grid') => {
+	// Register the new element with the browser.
+	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
+		import('./RuiGrid').then(module => {
+			customElements.define(tag, module.RuiGrid);
+		});
+	}
+};
 
-// Register the new element with the browser.
-customElements.define(RuiGrid.tag, RuiGrid);
-
-export default RuiGrid;
+if (process.env.RUI_NO_DEFAULT_REGISTER !== 'true') {
+	register();
+}

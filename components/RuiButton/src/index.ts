@@ -4,9 +4,20 @@
  * This source code is licensed under the BSD-3-Clause license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import {RuiButton} from './RuiButton';
 
-// Register the new element with the browser.
-customElements.define(RuiButton.tag, RuiButton);
+/**
+ * Register the Web Component with customElements
+ * @param tag - The HTML tag to use
+ */
+export const register = (tag: string = 'rui-button') => {
+	// Register the new element with the browser.
+	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
+		import('./RuiButton').then(module => {
+			customElements.define(tag, module.RuiButton);
+		});
+	}
+};
 
-export default RuiButton;
+if (process.env.RUI_NO_DEFAULT_REGISTER !== 'true') {
+	register();
+}

@@ -5,9 +5,19 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {RuiLayout} from './RuiLayout'
+/**
+ * Register the Web Component with customElements
+ * @param tag - The HTML tag to use
+ */
+export const register = (tag: string = 'rui-layout') => {
+	// Register the new element with the browser.
+	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
+		import('./RuiLayout').then(module => {
+			customElements.define(tag, module.RuiLayout);
+		});
+	}
+};
 
-// Register the new element with the browser.
-customElements.define(RuiLayout.tag, RuiLayout);
-
-export default RuiLayout;
+if (process.env.RUI_NO_DEFAULT_REGISTER !== 'true') {
+	register();
+}
