@@ -9,10 +9,10 @@
  * Register the Web Component with customElements
  * @param tag - The HTML tag to use
  */
-export const register = (tag: string = 'rui-story') => {
+export const register = (tag: string = 'rui-story'): void => {
 	// Register the new element with the browser.
 	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
-		import('./RuiStory').then(module => {
+		import('./RuiStory').then((module): void => {
 			customElements.define(tag, module.RuiStory);
 		});
 	}

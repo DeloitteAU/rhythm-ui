@@ -5,9 +5,19 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {RuiExpandCollapse} from './RuiExpandCollapse';
+/**
+ * Register the Web Component with customElements
+ * @param tag - The HTML tag to use
+ */
+export const register = (tag: string = 'rui-expand-collapse'): void => {
+	// Register the new element with the browser.
+	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
+		import('./RuiExpandCollapse').then((module): void => {
+			customElements.define(tag, module.RuiExpandCollapse);
+		});
+	}
+};
 
-// Register the new element with the browser.
-customElements.define(RuiExpandCollapse.tag, RuiExpandCollapse);
-
-export default RuiExpandCollapse;
+if (process.env.RUI_NO_DEFAULT_REGISTER !== 'true') {
+	register();
+}

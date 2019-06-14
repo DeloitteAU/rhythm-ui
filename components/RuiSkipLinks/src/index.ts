@@ -9,10 +9,10 @@
  * Register the Web Component with customElements
  * @param tag - The HTML tag to use
  */
-export const register = (tag: string = 'rui-skip-links') => {
+export const register = (tag: string = 'rui-skip-links'): void => {
 	// Register the new element with the browser.
 	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
-		import('./RuiSkipLinks').then(module => {
+		import('./RuiSkipLinks').then((module): void => {
 			customElements.define(tag, module.RuiSkipLinks);
 		});
 	}

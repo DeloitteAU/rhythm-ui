@@ -9,10 +9,10 @@
  * Register the Web Component with customElements
  * @param tag - The HTML tag to use
  */
-export const register = (tag: string = 'rui-layout') => {
+export const register = (tag: string = 'rui-layout'): void => {
 	// Register the new element with the browser.
 	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
-		import('./RuiLayout').then(module => {
+		import('./RuiLayout').then((module): void => {
 			customElements.define(tag, module.RuiLayout);
 		});
 	}

@@ -8,6 +8,10 @@
 import { LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
 import { variables, layout } from './RuiExpandCollapse.css'
 
+// Update to include any possible type a value
+// can take, currenlty only have boolean open property
+type RuiExpandCollapsePropertyType = boolean;
+
 /**
  * RuiExpandCollapse
  */
@@ -58,13 +62,6 @@ export class RuiExpandCollapse extends LitElement {
     return [variables, layout];
   }
 
-  /**
-   * The html tag for the expand collapse
-   */
-  public static get tag(): string {
-    return 'rui-expand-collapse';
-  }
-
   /* #endregion */
 
   /* #region Methods */
@@ -72,7 +69,7 @@ export class RuiExpandCollapse extends LitElement {
   /**
    * Handler for a click of the summary content
    */
-  private handleClick() {
+  private handleClick(): void {
     this.onExpandCollapse();
   }
 
@@ -80,13 +77,13 @@ export class RuiExpandCollapse extends LitElement {
    * Sets height to 0 trigger collapse
    * transition animation
    */
-  private triggerCollapseAnimation() {
+  private triggerCollapseAnimation(): void {
     // add back height style and then remove on next frame to trigger animation
-    requestAnimationFrame(() => {
+    requestAnimationFrame((): void => {
       if (this._collapseableEl) {
         var sectionHeight = this._collapseableEl.scrollHeight;
         this._collapseableEl.style.height = sectionHeight + 'px';
-        requestAnimationFrame(() => {
+        requestAnimationFrame((): void => {
           if (this._collapseableEl) {
             this._collapseableEl.style.height = 0 + 'px';
           }
@@ -100,12 +97,12 @@ export class RuiExpandCollapse extends LitElement {
    * once element height is reached it unsets height
    * style
    */
-  private triggerExpandAnimation() {
+  private triggerExpandAnimation(): void {
     if (this._collapseableEl) {
       var sectionHeight = this._collapseableEl.scrollHeight;
       this._collapseableEl.style.height = sectionHeight + 'px';
 
-      const transitionEndHandler = () => {
+      const transitionEndHandler = (): void => {
         if (this._collapseableEl) {
           this._collapseableEl.style.height = '';
           this._collapseableEl.removeEventListener('transitionend', transitionEndHandler);
@@ -120,7 +117,7 @@ export class RuiExpandCollapse extends LitElement {
    * Initialises the expand collapse logic and styling,
    * once complete makes the expand collapse visible
    */
-  private initialiseExpandCollapse() {
+  private initialiseExpandCollapse(): void {
     if (this.shadowRoot) {
       this._collapseableEl = this.shadowRoot.querySelector('.details');
 
@@ -144,7 +141,7 @@ export class RuiExpandCollapse extends LitElement {
    * we are animating slotted content, we have to wait for the 
    * slot to be mounted
    */
-  public firstUpdated() {
+  public firstUpdated(): void {
     if (this.shadowRoot) {
       this._detailsSlotEl = this.shadowRoot.querySelector('#details-slot');
 
@@ -152,15 +149,15 @@ export class RuiExpandCollapse extends LitElement {
         // when the slotted content changes we initialise expand collapse
         // we need to wait for this because the animation of heigh calc 
         // will only work once the slot and it's content have mounted and rendered
-        this._detailsSlotEl.addEventListener('slotchange', () => {
+        this._detailsSlotEl.addEventListener('slotchange', (): void => {
           this.initialiseExpandCollapse();
          });
       }
     }
   }
 
-  public updated(changedProperties: Map<string, any>) {
-    changedProperties.forEach((oldValue: any, propName: string) => {
+  public updated(changedProperties: Map<string, RuiExpandCollapsePropertyType>): void {
+    changedProperties.forEach((oldValue: RuiExpandCollapsePropertyType, propName: string): void => {
       // detect change in open prop and trigger animation as necessary
       if (propName === 'open') {
         // transition from closed to open
