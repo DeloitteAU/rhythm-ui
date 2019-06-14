@@ -5,9 +5,19 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {RuiSkipLinks} from './RuiSkipLinks';
+/**
+ * Register the Web Component with customElements
+ * @param tag - The HTML tag to use
+ */
+export const register = (tag: string = 'rui-skip-links') => {
+	// Register the new element with the browser.
+	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
+		import('./RuiSkipLinks').then(module => {
+			customElements.define(tag, module.RuiSkipLinks);
+		});
+	}
+};
 
-// Register the new element with the browser.
-customElements.define(RuiSkipLinks.tag, RuiSkipLinks);
-
-export default RuiSkipLinks;
+if (process.env.RUI_NO_DEFAULT_REGISTER !== 'true') {
+	register();
+}

@@ -10,7 +10,6 @@ const extract = require('multilang-extract-comments');
 
 const args = process.argv;
 
-const banner = '<!-- THIS IS AN AUTO GENERATED FILE. CHANGES WILL BE BANISHED -->';
 const cssVarRegex = /(--.+)\:\s?(.+)\;/;
 
 const fIndex = args.indexOf('--files');
@@ -54,7 +53,7 @@ glob(pattern, {}, (er, files) => {
 
 		// Build markdown table with @variable comments
 		const markdown = Object.values(comments).reduce((md, block) => {
-			
+
 			const parts = cssVarRegex.exec(block.code);
 
 			if (Array.isArray(parts)) {

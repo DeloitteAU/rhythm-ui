@@ -1,5 +1,5 @@
 /**
- * All complete rui components should be imported below for 
+ * All complete rui components should be imported below for
  * export to final built library
  */
 import '@rhythm-ui/button';

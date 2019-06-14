@@ -11,37 +11,30 @@ import { variables, layout } from './{{pascalCase name}}.css'
 
 export class {{pascalCase name}} extends LitElement {
 
-    /**
-    *
-    * The styles for button
-    * @remarks
-    * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
-    */
-    public static get styles(): CSSResultArray {
-        return [variables, layout];
-    }
+	/**
+	*
+	* The styles for button
+	* @remarks
+	* If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
+	*/
+	public static get styles(): CSSResultArray {
+		return [variables, layout];
+	}
 
-    /**
-    * The html tag for the button
-    */
-    public static get tag(): string {
-        return '{{kebabCase name}}';
-    }
-
-    /* #endregion */
+	/* #endregion */
 
 
-    /* #region Methods */
+	/* #region Methods */
 
-    /**
-    * Render method
-        * @slot This is a slot test
-    */
-    public render(): TemplateResult {
-        return html`
-            <slot> </slot>
-            `;
-    }
+	/**
+	* Render method
+		* @slot This is a slot test
+	*/
+	public render(): TemplateResult {
+		return html`
+			<slot> </slot>
+			`;
+	}
 
-    /* #endregion */
+	/* #endregion */
 }

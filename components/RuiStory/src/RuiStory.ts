@@ -27,22 +27,14 @@ export class RuiStory extends LitElement {
   @property({type : String})
   public title = '';
 
-
   /**
-   * 
+   *
    * The styles for button
    * @remarks
    * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
    */
   public static get styles(): CSSResultArray {
     return [variables, layout];
-  }
-
-  /**
-   * The html tag for the button
-   */
-  public static get tag(): string {
-    return 'rui-story';
   }
 
   /* #endregion */

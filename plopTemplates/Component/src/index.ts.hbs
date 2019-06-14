@@ -5,12 +5,19 @@
 * LICENSE file in the root directory of this source tree.
 */
 
-import { {{pascalCase name}} } from './{{pascalCase name}}';
+/**
+* Register the Web Component with customElements
+* @param tag - The HTML tag to use
+*/
+export const register = (tag: string = '{{kebabCase name}}') => {
+	// Register the new element with the browser.
+	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
+		import('./{{pascalCase name}}').then(module => {
+			customElements.define(tag, module.{{pascalCase name}});
+		});
+	}
+};
 
-// Register the new element with the browser.
-if (typeof window !== 'undefined' && !window.customElements.get({{pascalCase name}}.tag)) {
-	customElements.define({{pascalCase name}}.tag, {{pascalCase name}});
+if (process.env.RUI_NO_DEFAULT_REGISTER !== 'true') {
+	register();
 }
-
-export default {{pascalCase name}};
-

@@ -8,8 +8,10 @@
 import React, { ReactNode } from 'react';
 import '@rhythm-ui/story';
 
-export class RuiStory extends React.Component {
-	public render(): ReactNode {
+import {IRuiStoryProps} from './IRuiStory';
+
+export class RuiStory extends React.Component<IRuiStoryProps> {
+	public render(): JSX.Element {
 		return (
 			<rui-story {...this.props}>
 				{this.props.children}

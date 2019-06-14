@@ -8,13 +8,15 @@
 import React from 'react';
 import '@rhythm-ui/{{kebabCase name}}';
 
-export class {{pascalCase name}} extends React.Component {
-    public render() {
-        return (
-            <{{kebabCase name}} {...this.props}>
-                {this.props.children}
-            </{{kebabCase name}} >
-        );
-    }
+import {I{{pascalCase name}}} from './I{{pascalCase name}}';
+
+export class {{pascalCase name}} extends React.Component<I{{pascalCase name}}> {
+	public render(): JSX.Element {
+		return (
+			<{{kebabCase name}} {...this.props}>
+				{this.props.children}
+			</{{kebabCase name}} >
+		);
+	}
 }
 
