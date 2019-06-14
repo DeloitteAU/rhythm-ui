@@ -31,6 +31,11 @@ export const variables = css`
 		 * @variable The summary section background colour
 		 */
 		--summary-bg: #000000;
+
+		/**
+		 * @variable Details padding
+		 */
+		--details-padding: 10px 20px;
 	}
 `;
 
@@ -39,9 +44,11 @@ export const variables = css`
  */
 export const layout = css`
 	.expand-collapse {
+		opacity: 0;
 		width: 100%;
 		background-color: var(--bg);
 		color: var(--txt);
+		box-sizing: border-box;
 	}
 
 	.summary {
@@ -59,21 +66,28 @@ export const layout = css`
 		right: 20px;
 		width: 20px;
 		height: 20px;
-		transition: transform 500ms ease;
+		transition: transform 300ms ease-in-out;
 	}
 
 	.details {
-		padding: 10px 20px;
-		display: none;
+		overflow: hidden;
+		transition: height 250ms ease-out;
+		height: auto;
 	}
 
-	.is-open > .details {
-		display: block;
+	.details > ::slotted(*) {
+		opacity: 0;
+		padding: var(--details-padding);
+		transition: opacity 200ms ease-out 250ms;
+	}
+
+	.is-open .details > ::slotted(*) {
+		opacity: 1;
 	}
 
 	.is-open .icon-container {
 		transform-origin: center;
-		transform: rotate3d(1, 0, 0, 180deg);
+		transform: rotate(180deg);
 	}
 `;
 

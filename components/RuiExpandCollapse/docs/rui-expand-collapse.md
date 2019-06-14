@@ -57,3 +57,4 @@ The component's onExpandCollapse function should be overriden in this case.
 | --txt | #000000 | The exapnd section text colour  | 
 | --summary-txt | #FFFFFF | The summary section text colour  | 
 | --summary-bg | #000000 | The summary section background colour  | 
+| --details-padding | 10px 20px | Details padding  | 
