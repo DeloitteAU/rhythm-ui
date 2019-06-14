@@ -33,9 +33,30 @@ export const variables = css`
 		--summary-bg: #000000;
 
 		/**
+		 * @variable Summary padding
+		 */
+		--summary-padding: 10px 70px 10px 20px;
+
+		/**
 		 * @variable Details padding
 		 */
 		--details-padding: 10px 20px;
+
+		/**
+		 * @variable Height of icon container
+		 */
+		--icon-container-height: 20px;
+
+		/**
+		 * @variable Width of icon container
+		 */
+		--icon-container-width: 20px;
+
+		/**
+		 * @variable Offset of icon container from right
+		 * of summary container
+		 */
+		--icon-container-offset-right: 20px;
 	}
 `;
 
@@ -52,7 +73,7 @@ export const layout = css`
 	}
 
 	.summary {
-		padding: 10px 70px 10px 20px;
+		padding: var(--summary-padding);
 		background-color: var(--summary-bg);
 		position: relative;
 		display: flex;
@@ -63,9 +84,9 @@ export const layout = css`
 
 	.icon-container {
 		position: absolute;
-		right: 20px;
-		width: 20px;
-		height: 20px;
+		right: var(--icon-container-offset-right);
+		width: var(--icon-container-width);
+		height: var(--icon-container-height);
 		transition: transform 300ms ease-in-out;
 	}
 
