@@ -9,6 +9,7 @@ import {css, unsafeCSS, CSSResult} from 'lit-element';
 
 const maxNoColumns = 16;
 
+//Create array and shift start from '0' to '1'
 const columns: number[] = [
 	...Array(maxNoColumns+1).keys()
 ].filter((n):boolean => !!n);
