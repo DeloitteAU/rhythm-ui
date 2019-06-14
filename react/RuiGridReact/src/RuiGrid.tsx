@@ -8,8 +8,10 @@
 import React from 'react';
 import '@rhythm-ui/grid';
 
-export class RuiGrid extends React.Component {
-	public render() {
+import {IRuiGridProps} from './IRuiGrid';
+
+export class RuiGrid extends React.Component<IRuiGridProps> {
+	public render(): JSX.Element  {
 		return (
 			<rui-grid {...this.props}>
 				{this.props.children}

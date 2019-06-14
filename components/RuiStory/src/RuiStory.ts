@@ -27,7 +27,6 @@ export class RuiStory extends LitElement {
   @property({type : String})
   public title = '';
 
-
   /**
    *
    * The styles for button
