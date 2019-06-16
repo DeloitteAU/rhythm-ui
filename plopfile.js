@@ -161,7 +161,7 @@ module.exports = plop => {
 				{
 					type: 'add',
 					path: `${PATH}/tests/tsconfig.json`,
-					templateFile: `${PLOP_PATH}/tests/tsconfig.json`
+					templateFile: `${PLOP_PATH}/tests/tsconfig.json.hbs`
 				},
             ]);
             if (data.adapter === 'React' || data.adapter === 'Both') {
