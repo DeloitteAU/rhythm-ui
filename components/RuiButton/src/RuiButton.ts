@@ -65,10 +65,6 @@ export class RuiButton extends LitElement {
     return [variables, layout];
   }
 
-	public getDefaultText() {
-		return "Hello, World!";
-	}
-
   /* #endregion */
 
   /* #region Methods */
