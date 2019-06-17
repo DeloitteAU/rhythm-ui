@@ -179,7 +179,7 @@ export class RuiExpandCollapse extends LitElement {
   public render(): TemplateResult {
     return html`
       <section class=${`expand-collapse${this.open ?  ' is-open' : '' }`}>
-        <div @click="${this.handleClick}" class="summary">
+        <div @click="${this.handleClick}" class="summary" aria-expanded=${`${this.open ? 'true': 'false'}`}>
           <slot name="summary-content"></slot>
           <div class="icon-container"></div>
         </div>
