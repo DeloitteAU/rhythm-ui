@@ -12,35 +12,53 @@ import {css} from 'lit-element';
  */
 export const variables = css`
 	:host {
-		/**
-		 * @variable The expanded section background colour
-		 */
-		--bg: #F2F2F2;
+		/* BASE STYLES */
 
 		/**
-		 * @variable The exapnd section text colour
+		 * @variable The base background colour for the expand collapse
 		 */
-		--txt: #000000;
+		--background-color: #F2F2F2;
+
+		/**
+		 * @variable The base text colour for the expand collapse
+		 */
+		--color: #000000;
+
+		/* SUMMARY STYLES */
 
 		/**
 		 * @variable The summary section text colour
 		 */
-		--summary-txt: #FFFFFF;
+		--summary-color: #FFFFFF;
 
 		/**
 		 * @variable The summary section background colour
 		 */
-		--summary-bg: #000000;
+		--summary-background-color: #000000;
 
 		/**
 		 * @variable Summary padding
 		 */
 		--summary-padding: 10px 70px 10px 20px;
 
+		/* DETAILS STYLES */
+
 		/**
 		 * @variable Details padding
 		 */
 		--details-padding: 10px 20px;
+
+		/**
+		 * @variable Transition for the details section content
+		 */
+		--details-transition: opacity 200ms ease-out 250ms;
+
+		/**
+		 * @variable Transition for the details container
+		 */
+		--details-container-transition: height 250ms ease-out;
+
+		/* ICON STYLES */
 
 		/**
 		 * @variable Height of icon container
@@ -56,17 +74,7 @@ export const variables = css`
 		 * @variable Offset of icon container from right
 		 * of summary container
 		 */
-		--icon-container-offset-right: 20px;
-
-		/**
-		 * @variable Transition for the details container
-		 */
-		--details-container-transition: height 250ms ease-out;
-
-		/**
-		 * @variable Transition for the details section content
-		 */
-		--details-content-transition: opacity 200ms ease-out 250ms;
+		--icon-container-right: 20px;
 
 		/**
 		 * @variable Transition for the icon container
@@ -76,7 +84,7 @@ export const variables = css`
 		/**
 		 * @variable Transform applied to the icon container when expanding
 		 */
-		--icon-container-transform: rotate(180deg);
+		--icon-container-expanded-transform: rotate(180deg);
 
 		/**
 		 * @variable The content of the icon :after element
@@ -92,48 +100,48 @@ export const layout = css`
 	.expand-collapse {
 		opacity: 0;
 		width: 100%;
-		background-color: var(--bg);
-		color: var(--txt);
+		background-color: var(--background-color);
+		color: var(--color);
 		box-sizing: border-box;
 	}
 
-	.summary {
+	.summary-container {
 		padding: var(--summary-padding);
-		background-color: var(--summary-bg);
+		background-color: var(--summary-background-color);
 		position: relative;
 		display: flex;
 		align-items: center;
-		color: var(--summary-txt);
+		color: var(--summary-color);
 		cursor: pointer;
 	}
 
 	.icon-container {
 		position: absolute;
-		right: var(--icon-container-offset-right);
+		right: var(--icon-container-right);
 		width: var(--icon-container-width);
 		height: var(--icon-container-height);
 		transition: var(--icon-container-transition);
 	}
 
-	.details {
+	.details-container {
 		overflow: hidden;
 		transition: var(--details-container-transition);
 		height: auto;
 	}
 
-	.details > ::slotted(*) {
+	.details-container > ::slotted(*) {
 		opacity: 0;
 		padding: var(--details-padding);
-		transition: var(--details-content-transition);
+		transition: var(--details-transition);
 	}
 
-	.is-open .details > ::slotted(*) {
+	.is-open .details-container > ::slotted(*) {
 		opacity: 1;
 	}
 
 	.is-open .icon-container {
 		transform-origin: center;
-		transform: var(--icon-container-transform);
+		transform: var(--icon-container-expanded-transform);
 	}
 
 	.icon-container:after {

@@ -119,7 +119,7 @@ export class RuiExpandCollapse extends LitElement {
    */
   private _initialiseExpandCollapse(): void {
     if (this.shadowRoot) {
-      this._collapseableEl = this.shadowRoot.querySelector('.details');
+      this._collapseableEl = this.shadowRoot.querySelector('.details-container');
 
       if (this._collapseableEl) {
         
@@ -179,11 +179,11 @@ export class RuiExpandCollapse extends LitElement {
   public render(): TemplateResult {
     return html`
       <section class=${`expand-collapse${this.open ?  ' is-open' : '' }`}>
-        <div @click="${this._handleClick}" class="summary" aria-expanded=${`${this.open ? 'true': 'false'}`}>
+        <div @click="${this._handleClick}" class="summary-container" aria-expanded=${`${this.open ? 'true': 'false'}`}>
           <slot name="summary-content"></slot>
           <div class="icon-container"></div>
         </div>
-        <div class="details">
+        <div class="details-container">
           <slot id="details-slot" name="details-content"></slot>
         </div>
       </section>
