@@ -11,9 +11,16 @@ import { variables, layout } from './RuiBreadcrumbs.css'
 
 export class RuiBreadcrumbs extends LitElement {
 
+	/**
+	 * The location array of the breadcrumbs
+	 */
+	@property({type : String})
+	public location? = undefined;
+
+
     /**
     *
-    * The styles for button
+    * The styles for breadcrumbs
     * @remarks
     * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
     */
@@ -30,11 +37,27 @@ export class RuiBreadcrumbs extends LitElement {
     * Render method
         * @slot This is a slot test
     */
+
     public render(): TemplateResult {
+
+		if (this.location) {
+			this.location = JSON.parse(this.location);
+			var lastLocation = this.location.pop();
+
+			return html`
+				<div class="breadcrumb">
+  					${this.location.map((i: { url: unknown; title: unknown; }) => html`<div><a href=${i.url}>${i.title}</a></div> `)}
+					<div> ${lastLocation.title }</div>
+				</div>`
+    	}
         return html`
-            <slot> </slot>
+			<div class="breadcrumb">  
+				<slot name="crumb"> </slot>
+			</div>
             `;
     }
 
     /* #endregion */
 }
+
+

@@ -44,6 +44,12 @@ const reactActions = [
 		// Pattern tells plop where in the file to inject the template
 		pattern: `"@mdx-js\/react"\: "\^1\.0\.0-rc\.5",`,
 		template: `		"@rhythm-ui/{{kebabCase name}}-react": "^1.0.0",`,
+	},
+	{
+		type: 'append',
+		path: 'www/src/templates/Markdown/Markdown.tsx',
+		pattern: `//Import here//`,
+		template: `import '@rhythm-ui/{{kebabCase name}}-react';`,
 	}
 ];
 

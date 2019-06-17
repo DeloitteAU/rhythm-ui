@@ -16,8 +16,11 @@ import { Code } from '../../components/Code';
 import './Markdown.css';
 
 // Import these so markdown files render if they are using these tags
+//Import here//
 import '@rhythm-ui/button-react';
 import '@rhythm-ui/story-react';
+import '@rhythm-ui/rui-breadcrumbs-react';
+
 
 //import Code from '../components/Code'
 const preToCodeBlock = (preProps: any) => {
