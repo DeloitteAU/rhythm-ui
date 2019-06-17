@@ -159,20 +159,15 @@ export class RuiExpandCollapse extends LitElement {
   public updated(changedProperties: Map<string, RuiExpandCollapsePropertyType>): void {
     changedProperties.forEach((oldValue: RuiExpandCollapsePropertyType, propName: string): void => {
       // detect change in open prop and trigger animation as necessary
-      if (propName === 'open') {
+      if (propName === 'open' && this._collapseableEl) {
         // transition from closed to open
         if (this.open && !oldValue) {
-          if (this._collapseableEl) {
-            this.triggerExpandAnimation();
-          }
-          
+          this.triggerExpandAnimation();
         }
          
         // transition from open to closed
         if (!this.open && oldValue) {
-          if (this._collapseableEl) {
-            this.triggerCollapseAnimation();
-          }
+          this.triggerCollapseAnimation();
         }
       }
     });
@@ -186,15 +181,12 @@ export class RuiExpandCollapse extends LitElement {
       <section class=${`expand-collapse${this.open ?  ' is-open' : '' }`}>
         <div @click="${this.handleClick}" class="summary">
           <slot name="summary-content"></slot>
-          <div class="icon-container">
-            <slot name="icon"></slot>
-          </div>
+          <div class="icon-container"></div>
         </div>
         <div class="details">
           <slot id="details-slot" name="details-content"></slot>
         </div>
       </section>
-      
     `;
   }
 

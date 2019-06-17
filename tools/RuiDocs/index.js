@@ -10,7 +10,7 @@ const extract = require('multilang-extract-comments');
 
 const args = process.argv;
 
-const cssVarRegex = /(--.+)\:\s?(.+)\;/;
+const cssVarRegex = /(--.+?)\:\s?(.+)\;/;
 
 const fIndex = args.indexOf('--files');
 const pattern = args[fIndex + 1];
@@ -57,6 +57,7 @@ glob(pattern, {}, (er, files) => {
 			const parts = cssVarRegex.exec(block.code);
 
 			if (Array.isArray(parts)) {
+				console.log(parts);
 				const name = parts[1];
 				const v = parts[2];
 				return `${md}| ${name} | ${v} | ${block.content.replace(/@variable\s?/, '').replace(/(\t)/g, '').replace(/\n/g,'')} | \r\n`;

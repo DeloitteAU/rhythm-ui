@@ -9,15 +9,6 @@ body,
 	padding: 30px;
 }
 
-.plus-icon:after {
-	width: 20px;
-	content: url(../images/plus.svg);
-}
-
-.expand-collapse-icon:after {
-	content: url(../images/chevron-down.svg);
-}
-
 rui-story .cm {  /* stylelint-disable-line selector-type-no-unknown */
 	padding: 0;
 }
