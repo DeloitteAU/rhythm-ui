@@ -69,7 +69,7 @@ export class RuiExpandCollapse extends LitElement {
   /**
    * Handler for a click of the summary content
    */
-  private handleClick(): void {
+  private _handleClick(): void {
     this.onExpandCollapse();
   }
 
@@ -77,7 +77,7 @@ export class RuiExpandCollapse extends LitElement {
    * Sets height to 0 trigger collapse
    * transition animation
    */
-  private triggerCollapseAnimation(): void {
+  private _triggerCollapseAnimation(): void {
     // add back height style and then remove on next frame to trigger animation
     requestAnimationFrame((): void => {
       if (this._collapseableEl) {
@@ -97,7 +97,7 @@ export class RuiExpandCollapse extends LitElement {
    * once element height is reached it unsets height
    * style
    */
-  private triggerExpandAnimation(): void {
+  private _triggerExpandAnimation(): void {
     if (this._collapseableEl) {
       var sectionHeight = this._collapseableEl.scrollHeight;
       this._collapseableEl.style.height = sectionHeight + 'px';
@@ -117,7 +117,7 @@ export class RuiExpandCollapse extends LitElement {
    * Initialises the expand collapse logic and styling,
    * once complete makes the expand collapse visible
    */
-  private initialiseExpandCollapse(): void {
+  private _initialiseExpandCollapse(): void {
     if (this.shadowRoot) {
       this._collapseableEl = this.shadowRoot.querySelector('.details');
 
@@ -150,7 +150,7 @@ export class RuiExpandCollapse extends LitElement {
         // we need to wait for this because the animation of heigh calc 
         // will only work once the slot and it's content have mounted and rendered
         this._detailsSlotEl.addEventListener('slotchange', (): void => {
-          this.initialiseExpandCollapse();
+          this._initialiseExpandCollapse();
          });
       }
     }
@@ -162,12 +162,12 @@ export class RuiExpandCollapse extends LitElement {
       if (propName === 'open' && this._collapseableEl) {
         // transition from closed to open
         if (this.open && !oldValue) {
-          this.triggerExpandAnimation();
+          this._triggerExpandAnimation();
         }
          
         // transition from open to closed
         if (!this.open && oldValue) {
-          this.triggerCollapseAnimation();
+          this._triggerCollapseAnimation();
         }
       }
     });
@@ -179,7 +179,7 @@ export class RuiExpandCollapse extends LitElement {
   public render(): TemplateResult {
     return html`
       <section class=${`expand-collapse${this.open ?  ' is-open' : '' }`}>
-        <div @click="${this.handleClick}" class="summary" aria-expanded=${`${this.open ? 'true': 'false'}`}>
+        <div @click="${this._handleClick}" class="summary" aria-expanded=${`${this.open ? 'true': 'false'}`}>
           <slot name="summary-content"></slot>
           <div class="icon-container"></div>
         </div>
