@@ -16,7 +16,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    '@typescript-eslint/interface-name-prefix': [2, 'always'],
+  '@typescript-eslint/interface-name-prefix': [2, 'always'],
 	'@typescript-eslint/no-namespace': [0, {}],
   }
 };

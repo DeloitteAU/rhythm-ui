@@ -7,8 +7,8 @@ import RuiGrid from '@rhythm-ui/grid-react';
 import RuiSkipLinks from '@rhythm-ui/skip-links-react';
 import React from 'react';
 import slug from 'slug';
-import {Header} from '../../components/Header';
-import {Footer} from '../../components/Footer';
+import { Header } from '../../components/Header';
+import { Footer } from '../../components/Footer';
 import { Navigation } from '../../components/Navigation';
 import { Code } from '../../components/Code';
 
@@ -48,10 +48,10 @@ const preToCodeBlock = (preProps: any) => {
 export default function Template({
 	data, // this prop will be injected by the GraphQL query below.
 }: { data: any }) {
-	const {mdx} = data; // data.markdownRemark holds our post data
-	const {fields, frontmatter, headings} = mdx;
-	const {breadcrumbs, relativeUrlPath} = fields;
-	const {title: pageTitle} = frontmatter;
+	const { mdx } = data; // data.markdownRemark holds our post data
+	const { fields, frontmatter, headings } = mdx;
+	const { breadcrumbs, relativeUrlPath } = fields;
+	const { title: pageTitle } = frontmatter;
 
 	const pageHeadings = headings.map((heading: any) => {
 		const label = heading.value;
