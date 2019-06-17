@@ -14,6 +14,11 @@ const reactActions = [
 	},
 	{
 		type: 'add',
+		path: `${REACT_PATH}/src/I{{pascalCase name}}.tsx`,
+		templateFile: `${PLOP_REACT}/src/IComponent.tsx.hbs`
+	},
+	{
+		type: 'add',
 		path: `${REACT_PATH}/src/index.tsx`,
 		templateFile: `${PLOP_REACT}/src/index.tsx.hbs`
 	},
@@ -36,6 +41,11 @@ const reactActions = [
 		type: 'add',
 		path: `${REACT_PATH}/README.md`,
 		templateFile: `${PLOP_REACT}/README.md.hbs`
+	},
+	{
+		type: 'add',
+		path: `${REACT_PATH}/tsconfig.json`,
+		templateFile: `${PLOP_REACT}/tsconfig.json.hbs`
 	},
 	//finally append the file into the www package json file
 	{
@@ -153,7 +163,17 @@ module.exports = plop => {
                     type: 'add',
                     path: `${PATH}/src/index.ts`,
                     templateFile: `${PLOP_PATH}/src/index.ts.hbs`
-                }
+                },
+				{
+					type: 'add',
+					path: `${PATH}/tests/{{pascalCase name}}.test.ts`,
+					templateFile: `${PLOP_PATH}/tests/Component.test.ts.hbs`
+				},
+				{
+					type: 'add',
+					path: `${PATH}/tests/tsconfig.json`,
+					templateFile: `${PLOP_PATH}/tests/tsconfig.json.hbs`
+				},
             ]);
             if (data.adapter === 'React' || data.adapter === 'Both') {
                 actions = actions.concat(reactActions)

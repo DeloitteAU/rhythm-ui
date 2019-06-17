@@ -2,8 +2,12 @@
 import { configure, addDecorator, addParameters } from '@storybook/react';
 import { addReadme } from 'storybook-readme';
 import {withKnobs} from "@storybook/addon-knobs";
+import React from "react";
+import './styles.css';
 
+const wrapperDecorator = storyFn => <div className='code-preview'>{storyFn()}</div>;
 
+addDecorator(wrapperDecorator);
 addDecorator(addReadme);
 addDecorator(withKnobs);
 

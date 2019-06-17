@@ -11,11 +11,12 @@ module.exports = {
     node: true,
     jest: true,
   },
-  parserOptions: { 
+  parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
   rules: {
     '@typescript-eslint/interface-name-prefix': [2, 'always'],
+	'@typescript-eslint/no-namespace': [0, {}],
   }
-}
+};

@@ -1,11 +1,12 @@
 {
+	"compileOnSave": false,
 	"compilerOptions": {
 		// Target latest version of ECMAScript.
 		"target": "es6",
 		// Search under node_modules for non-relative imports.
 		"moduleResolution": "node",
 		// Specify module code generation
-		"module": "esNext",
+		"module": "esnext",
 		// Process & infer types from .js files.
 		"allowJs": false,
 		// Enable strictest settings like strictNullChecks & noImplicitAny.
@@ -15,12 +16,20 @@
 		// Import non-ES modules as default imports.
 		"esModuleInterop": true,
 
+		// We set this to false to allow us to use destructuring
+		// https://medium.com/front-end-weekly/typescript-error-ts7031-makes-me-go-huh-c81cf76c829b
+		"noImplicitAny": false,
+		"declaration": true,
+
+		"noEmitHelpers": true,
+
 		"experimentalDecorators": true,
 
 		"jsx": "preserve",
 
-		"sourceMap": true
+		"sourceMap": false
 	},
+
 	"include": [
 		"components/**/*"
 	]

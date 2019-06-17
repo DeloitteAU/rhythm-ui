@@ -8,8 +8,13 @@
 import React from 'react';
 import '@rhythm-ui/layout';
 
-export class RuiLayout extends React.Component {
-	public render() {
+import {IRuiLayoutProps} from './IRuiLayout';
+
+/**
+ * The RuiLayout React Adapter
+ */
+export class RuiLayout extends React.Component<IRuiLayoutProps> {
+	public render(): JSX.Element {
 		return (
 			<rui-layout {...this.props}>
 				{this.props.children}
@@ -17,4 +22,3 @@ export class RuiLayout extends React.Component {
 		);
 	}
 }
-

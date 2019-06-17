@@ -16,17 +16,14 @@ export class RuiLayout extends LitElement {
   /* #region Properties */
 
   /**
-   * The number of columns in the grid
-   * @remark must be in range from 1 to 16
+   * The layout type
    */
-  @property({type : Number})
-  public columns?: number;
+  @property({type : String})
+  public type?: 'monet' | 'vangogh' | 'picasso' | 'morisot' | 'rembrandt' | 'davinci' = 'monet';
 
   /**
    *
-   * The styles for button
-   * @remarks
-   * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
+   * The styles for layout
    */
   public static get styles(): CSSResultArray {
     return [variables, layout];
@@ -38,7 +35,8 @@ export class RuiLayout extends LitElement {
 
   /**
    * Render method
-   * @slot This is a slot test
+   * @slot Valid children are <header />, <footer />, <nav />, <aside /> & <main />
+   * @remark Order of children does not matter
    */
   public render(): TemplateResult {
     return html`
