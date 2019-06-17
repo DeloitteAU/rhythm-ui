@@ -44,10 +44,26 @@ Each package falls into one of the following categories:
 - **Base Component:** A package that contains only Sass and/or vanilla Javascript. 
 - **Adapter:** A Package that encapsulates a base component for a specific framework. eg React, Vue or even jQuery.
 
-## Sass
+## CSS
 
-All of the CSS is authored using [Sass](http://sass-lang.com/). Subsystems should contain only mixins which then are
-imported by the base components.
+#### Variables
+Where possible the css variables you create should follow the 
+scope-property-modifier naming pattern.
+
+| Name | Description | Usage |
+| --- | --- | -- |
+| Scope | A descriptive name close to the target element's class name that indicates what element(s) this variable is targeting | Use when targeting an element of the the web component that is not the base style. If you are adding the variable to the base element, no scope is required. |
+| Property | The css property that the variable is being used for. | This should always be included, match the css property name wherever possible |
+| Modifier | A string describing a variable that only applies for certain states of the component | Use when you need to define a variable that only applies for certain states of the component |
+
+Examples:
+
+| Variable | Description |
+| --- | ---|
+|--color | Only property is used here so we assume this will be the base text colour for element |
+|--icon-height| Specifies we are talking about an element with the class .icon, and refering to the height property|
+|--carousel-btn-color-disabled | Target the carousel button colour when the button is disabled|
+
 
 ## JavaScript
 

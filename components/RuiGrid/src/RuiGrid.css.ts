@@ -52,7 +52,7 @@ export const variables = css`
 		/**
 		 * @variable The max container width
 		 */
-		--container-width: 1216px;
+		--max-width: 1216px;
 
 		/**
 		 * @variable The default number of columns (must be in range 1 to 16)
@@ -87,7 +87,7 @@ export const layout = css`
 		grid-column-gap: var(--column-gap);
 		/* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
 		grid-row-gap: var(--row-gap);
-		max-width: var(--container-width);
+		max-width: var(--max-width);
 		margin: 0 auto;
 	}
 
@@ -95,35 +95,35 @@ export const layout = css`
 
 	${bp('s', css`
 		:host {
-			--container-width: 288px;
+			--max-width: 288px;
 		}
 		${defineColumnsForSize('s')}
 	`)}
 
 	${bp('m', css`
 		:host {
-			--container-width: 720px;
+			--max-width: 720px;
 		}
 		${defineColumnsForSize('m')}
 	`)}
 
 	${bp('l', css`
 		:host {
-			--container-width: 960px;
+			--max-width: 960px;
 		}
 		${defineColumnsForSize('l')}
 	`)}
 
 	${bp('xl', css`
 		:host {
-			--container-width: 1216px;
+			--max-width: 1216px;
 		}
 		${defineColumnsForSize('xl')}
 	`)}
 
 	${bp('xxl', css`
 		:host {
-			--container-width: 1640px;
+			--max-width: 1640px;
 		}
 		${defineColumnsForSize('xxl')}
 	`)}

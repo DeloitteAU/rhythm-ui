@@ -63,40 +63,45 @@ export default css`
 		/**
 		 * @variable The disabled button background color
 		 */
-		--background-disabled: #DDD;
+		--background-color-disabled: #DDD;
 
 		/**
 		 * @variable The button accent colour
 		 */
-		--background: #595457;
+		--background-color: #595457;
+
+		/**
+		 * @variable The button border colour
+		 */
+		--border-color: var(--background-color);
 
 		/**
 		 * @variable The button border
 		 */
-		--border: 1px solid var(--background);
+		--border: 1px solid var(--border-color);
 	}
 
 	/* Themes */
 
 	:host([type="primary"]) {
 		--color: #FFF;
-		--background: #4D6CFA;
+		--background-color: #4D6CFA;
 	}
 
 	:host([type="secondary"]) {
 		--color: #FFF;
-		--background: #DE0D92;
+		--background-color: #DE0D92;
 	}
 
 	:host([type="tertiary"]) {
 		--color: #FFF;
-		--background: #9E1946;
+		--background-color: #9E1946;
 	}
 
 	/* Variants */
 
 	:host([variant="ghost"]) .btn {
-		--color: var(--background);
+		--color: var(--background-color);
 		--color-active: #FFF;
 	}
 
@@ -115,12 +120,12 @@ export default css`
 	/* Disabled */
 
 	:host([disabled]) .btn {
-		--background: var(--background-disabled);
+		--background-color: var(--background-color-disabled);
 		--color: var(--color-disabled);
 	}
 
 	:host([variant="outline"][disabled]) .btn {
-		--background: transparent;
+		--background-color: transparent;
 		--color: var(--color-disabled);
 	}
 `;

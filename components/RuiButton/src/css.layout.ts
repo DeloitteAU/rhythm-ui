@@ -31,7 +31,7 @@ export default css`
 		padding: var(--padding);
 		font-size: var(--font-size);
 		color: var(--color);
-		background: var(--background);
+		background: var(--background-color);
 		border: var(--border);
 		border-radius: var(--border-radius);
 	}
@@ -47,8 +47,8 @@ export default css`
 
 	:host([variant="outline"]) .btn {
 		background: transparent;
-		border-color: var(--background);
-		color: var(--background);
+		border-color: var(--background-color);
+		color: var(--background-color);
 	}
 
 	:host([variant="ghost"]) .btn {
@@ -57,7 +57,7 @@ export default css`
 	}
 
 	:host([variant="ghost"]) .btn:hover {
-		background: var(--background);
+		background: var(--background-color);
 	}
 
 	/* Disabled */
@@ -65,8 +65,8 @@ export default css`
 	:host([disabled]) .btn,
 	:host([disabled]) .btn:hover {
 		cursor: not-allowed;
-		background: var(--background);
-		border-color: var(--background);
+		background: var(--background-color);
+		border-color: var(--background-color);
 		color: var(--color);
 	}
 `;

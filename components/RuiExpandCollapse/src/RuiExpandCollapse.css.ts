@@ -84,7 +84,7 @@ export const variables = css`
 		/**
 		 * @variable Transform applied to the icon container when expanding
 		 */
-		--icon-container-expanded-transform: rotate(180deg);
+		--icon-container-transform-expanded: rotate(180deg);
 
 		/**
 		 * @variable The content of the icon :after element
@@ -141,7 +141,7 @@ export const layout = css`
 
 	.is-open .icon-container {
 		transform-origin: center;
-		transform: var(--icon-container-expanded-transform);
+		transform: var(--icon-container-transform-expanded);
 	}
 
 	.icon-container:after {
