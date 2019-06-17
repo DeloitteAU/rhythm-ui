@@ -17,6 +17,8 @@ export class RuiExpandCollapse extends React.Component<IRuiExpandCollapseProps> 
 		/**
 		 * If user is controlling component then update the change handler
 		 * on the element
+		 * 
+		 * NB: FIXME when https://github.com/facebook/react/issues/15830 resolved
 		 */
 		if (this.props.onChange) {
 			/**
