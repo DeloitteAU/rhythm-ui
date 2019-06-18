@@ -24,6 +24,6 @@ module.exports = {
 		'@typescript-eslint/no-namespace': [0, {}],
 		//'@typescript-eslint/explicit-function-return-type': ['error', {}],
 		'object-curly-spacing': ['error', 'never'],
-		'@typescript-eslint/no-unused-vars': ['error', {'vars': 'all', 'args': 'after-used', 'ignoreRestSiblings': false}],
+		'@typescript-eslint/no-unused-vars': ['warn', {'vars': 'all', 'args': 'after-used', 'ignoreRestSiblings': false}],
 	}
 };
