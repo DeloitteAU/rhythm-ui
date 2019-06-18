@@ -117,6 +117,7 @@ export const layout = css`
 		text-decoration: none;
 		cursor: pointer;
 		width: 100%;
+		border: none;
 	}
 
 	.icon-container {
