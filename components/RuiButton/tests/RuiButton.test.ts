@@ -5,9 +5,9 @@ import { TestUtils } from '../../../TestUtils';
 
 //https://medium.com/@pietmichal/how-to-test-a-web-component-b5d64d5e8bb0
 
-describe("RuiButton", () => {
+describe('RuiButton', () => {
 
-	it("Renders a button tag", async () => {
+	it('Renders a button tag', async () => {
 		const ele = await TestUtils.render('rui-button', {}, 'Foo Button!');
 		expect(ele).toBeDefined();
 		expect(ele.shadowRoot).toBeDefined();
@@ -15,8 +15,8 @@ describe("RuiButton", () => {
 		expect(ele.shadowRoot.firstElementChild.tagName.toLowerCase()).toBe('button');
 	});
 
-	it("Renders an anchor tag", async () => {
-		const ele = await TestUtils.render('rui-button', {href: "#"}, 'Bar Button!');
+	it('Renders an anchor tag', async () => {
+		const ele = await TestUtils.render('rui-button', { href: '#' }, 'Bar Button!');
 		expect(ele).toBeDefined();
 		expect(ele.shadowRoot).toBeDefined();
 		expect(ele.innerHTML.includes('Bar Button!')).toBeTruthy();
@@ -24,8 +24,8 @@ describe("RuiButton", () => {
 		expect(ele.shadowRoot.firstElementChild.getAttribute('href')).toBe('#');
 	});
 
-	it("Renders a disabled button", async () => {
-		const ele = await TestUtils.render('rui-button', {disabled: true}, 'Bar Button!');
+	it('Renders a disabled button', async () => {
+		const ele = await TestUtils.render('rui-button', { disabled: true }, 'Bar Button!');
 		expect(ele).toBeDefined();
 		expect(ele.shadowRoot).toBeDefined();
 		expect(ele.innerHTML.includes('Bar Button!')).toBeTruthy();

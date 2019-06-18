@@ -4,7 +4,7 @@ title: "rui-card"
 ---
 
 # Card
-Cards provide a way to display contain content to a user. They are surfaces that display content and actions on a single topic.
+Cards provide a way to display contained content to a user. They are surfaces that display content and actions on a single topic.
 
 ## Display
 Cards take up the width and height of their containers. Currently

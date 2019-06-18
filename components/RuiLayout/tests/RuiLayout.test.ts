@@ -9,17 +9,19 @@
 import '../src';
 import { TestUtils } from '../../../TestUtils';
 
-describe("RuiLayout", () => {
-  it("Renders the RuiLayout", async () => {
+describe('RuiLayout', () => {
+
+  it('Renders the RuiLayout', async () => {
     const ele = await TestUtils.render('rui-layout', {}, '');
     expect(ele).toBeDefined();
     expect(ele.shadowRoot).toBeDefined();
+  });
 
-  })
-  it("Renders with the correct type", async () => {
+  it('Renders with the correct type', async () => {
     const ele = await TestUtils.render('rui-layout', { type: 'monet' });
     expect(ele).toBeDefined();
     expect(ele.shadowRoot).toBeDefined();
     expect(ele.getAttribute('type')).toBe('monet');
-  })
+  });
+
 });

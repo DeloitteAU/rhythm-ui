@@ -9,13 +9,13 @@
 import '../src';
 import { TestUtils } from '../../../TestUtils';
 
-describe("RuiSkipLinks", () => {
+describe('RuiSkipLinks', () => {
 
-  it("Renders the RuiSkiplinks", async () => {
+  it('Renders the RuiSkiplinks', async () => {
     const ele = await TestUtils.render('rui-skip-links', {}, '');
     expect(ele).toBeDefined();
     expect(ele.shadowRoot).toBeDefined();
-  })
+  });
 
   it('Renders the list', async () => {
     const ele = await TestUtils.render('rui-skip-links', {}, '');
@@ -24,5 +24,6 @@ describe("RuiSkipLinks", () => {
     expect(ele.shadowRoot.firstElementChild.tagName.toLowerCase()).toBe('ul');
     expect(ele.shadowRoot.firstElementChild.getElementsByTagName('li')).toBeTruthy();
     expect(ele.shadowRoot.firstElementChild.getElementsByTagName('a')).toBeTruthy();
-  })
+  });
+
 });

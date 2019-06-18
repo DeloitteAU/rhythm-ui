@@ -9,17 +9,20 @@
 import '../src';
 import { TestUtils } from '../../../TestUtils';
 
-describe("RuiGrid", () => {
-  it("Renders the RuiGrid", async () => {
+describe('RuiGrid', () => {
+
+  it('Renders the RuiGrid', async () => {
     const ele = await TestUtils.render('rui-grid', {}, '');
     expect(ele).toBeDefined();
     expect(ele.shadowRoot).toBeDefined();
 
-  })
-  it("Renders with the correct amount of columns", async () => {
+  });
+
+  it('Renders with the correct amount of columns', async () => {
     const ele = await TestUtils.render('rui-grid', { columns: 5 });
     expect(ele).toBeDefined();
     expect(ele.shadowRoot).toBeDefined();
     expect(ele.getAttribute('columns')).toBe('5');
-  })
+  });
+
 });
