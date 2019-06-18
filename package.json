@@ -29,7 +29,7 @@
     "unstrap": "lerna clean --yes",
     "clean": "lerna run clean",
     "test": "RUI_NO_DEFAULT_REGISTER='false' yarn karma start",
-    "build": "yarn build:site",
+    "build": "yarn build:site && yarn build:storybook",
     "build:site": "lerna run build --scope www --include-filtered-dependencies --parallel --stream",
     "build:vanilla": "lerna run build --stream --scope rhythm-ui --include-filtered-dependencies",
     "build:storybook": "yarn lerna run build ---ignore www --ignore rhythm-ui --ignore test && build-storybook -c .storybook -o .out",
