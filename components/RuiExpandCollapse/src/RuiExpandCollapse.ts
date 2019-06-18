@@ -52,6 +52,7 @@ export class RuiExpandCollapse extends LitElement {
   private _open: boolean = false;
   private _collapseableEl: HTMLDivElement | null = null;
   private _detailsSlotEl: HTMLSlotElement | null = null;
+  private _uuid: string = this._generateUUIDv4();
 
   /**
    * 
@@ -61,6 +62,14 @@ export class RuiExpandCollapse extends LitElement {
    */
   public static get styles(): CSSResultArray {
     return [variables, layout];
+  }
+
+  private _generateUUIDv4() {
+    return (`${1e7}-${1e3}-${4e3}-${8e3}-${1e11}`)
+      .replace(/[018]/g, c => {
+        const numC = parseInt(c, 10);
+        return (numC ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> numC / 4).toString();
+      });
   }
 
   /* #endregion */
@@ -192,13 +201,16 @@ export class RuiExpandCollapse extends LitElement {
    * Render method
    */  
   public render(): TemplateResult {
+    const expandTriggerID = `expand-trigger__${this._uuid}`;
+    const expandableSectionID = `expandable-section__${this._uuid}`;
+
     return html`
       <section class=${`expand-collapse${this.open ? ' is-open' : ''}`}>
-        <button id="expand-trigger" @click="${this._handleClick}" class="summary-container" aria-expanded=${`${this.open ? 'true': 'false'}`} aria-controls="expandable-section">
+        <button id=${expandTriggerID} @click="${this._handleClick}" class="summary-container" aria-expanded=${`${this.open ? 'true': 'false'}`} aria-controls=${expandableSectionID}>
           <slot name="summary-content"></slot>
           <span class="icon-container"></span>
         </button>
-        <div class="details-container" id="expandable-section" role="region" aria-labelledby="expand-trigger">
+        <div class="details-container" id=${expandableSectionID} role="region" aria-labelledby=${expandTriggerID}>
           <slot id="details-slot" name="details-content"></slot>
         </div>
       </section>
