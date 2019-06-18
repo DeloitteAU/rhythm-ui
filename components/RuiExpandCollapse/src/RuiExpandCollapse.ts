@@ -83,9 +83,18 @@ export class RuiExpandCollapse extends LitElement {
       if (this._collapseableEl) {
         var sectionHeight = this._collapseableEl.scrollHeight;
         this._collapseableEl.style.height = sectionHeight + 'px';
+        this._collapseableEl.classList.add('hide-content');
         requestAnimationFrame((): void => {
           if (this._collapseableEl) {
             this._collapseableEl.style.height = 0 + 'px';
+            const transitionEndHandler = (): void => {
+              if (this._collapseableEl) {
+                this._collapseableEl.removeEventListener('transitionend', transitionEndHandler);
+                this._collapseableEl.hidden = true;
+              }
+            }
+        
+            this._collapseableEl.addEventListener('transitionend', transitionEndHandler);
           }
         })
       }
@@ -99,12 +108,15 @@ export class RuiExpandCollapse extends LitElement {
    */
   private _triggerExpandAnimation(): void {
     if (this._collapseableEl) {
+      this._collapseableEl.hidden = false;
       var sectionHeight = this._collapseableEl.scrollHeight;
       this._collapseableEl.style.height = sectionHeight + 'px';
-
+      this._collapseableEl.classList.remove('hide-content');
+  
       const transitionEndHandler = (): void => {
         if (this._collapseableEl) {
           this._collapseableEl.style.height = '';
+          
           this._collapseableEl.removeEventListener('transitionend', transitionEndHandler);
         }
       }
@@ -126,6 +138,8 @@ export class RuiExpandCollapse extends LitElement {
         // need to set height initially if closed without triggering animation
         if (!this.open) {
           this._collapseableEl.style.height = '0px';
+          this._collapseableEl.hidden = true;
+          this._collapseableEl.classList.add('hide-content');
         }
         
         let expandCollapse: HTMLElement | null = this.shadowRoot.querySelector('.expand-collapse');
@@ -178,11 +192,11 @@ export class RuiExpandCollapse extends LitElement {
    */  
   public render(): TemplateResult {
     return html`
-      <section class=${`expand-collapse${this.open ?  ' is-open' : '' }`}>
-        <div @click="${this._handleClick}" class="summary-container" aria-expanded=${`${this.open ? 'true': 'false'}`}>
+      <section class="expand-collapse">
+        <button @click="${this._handleClick}" class="summary-container" aria-expanded=${`${this.open ? 'true': 'false'}`}>
           <slot name="summary-content"></slot>
-          <div class="icon-container"></div>
-        </div>
+          <span class="icon-container"></span>
+        </button>
         <div class="details-container">
           <slot id="details-slot" name="details-content"></slot>
         </div>

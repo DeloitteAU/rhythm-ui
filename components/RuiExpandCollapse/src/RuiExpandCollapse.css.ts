@@ -112,7 +112,11 @@ export const layout = css`
 		display: flex;
 		align-items: center;
 		color: var(--summary-color);
+		font-size: 1rem;
+		white-space: nowrap;
+		text-decoration: none;
 		cursor: pointer;
+		width: 100%;
 	}
 
 	.icon-container {
@@ -130,13 +134,13 @@ export const layout = css`
 	}
 
 	.details-container > ::slotted(*) {
-		opacity: 0;
+		opacity: 1;
 		padding: var(--details-padding);
 		transition: var(--details-transition);
 	}
 
-	.is-open .details-container > ::slotted(*) {
-		opacity: 1;
+	.details-container.hide-content > ::slotted(*) {
+		opacity: 0;
 	}
 
 	.is-open .icon-container {
