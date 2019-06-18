@@ -8,8 +8,10 @@
 import React from 'react';
 import '@rhythm-ui/button';
 
-export class RuiButton extends React.Component {
-	public render() {
+import {IRuiButtonProps} from './IRuiButton';
+
+export class RuiButton extends React.Component<IRuiButtonProps> {
+	public render(): React.ReactNode {
 		return (
 			<rui-button {...this.props}>
 				{this.props.children}
@@ -17,3 +19,5 @@ export class RuiButton extends React.Component {
 		);
 	}
 }
+
+export default RuiButton;

@@ -1,10 +1,8 @@
-import { css } from 'lit-element';
-
+import {css} from 'lit-element';
 
 /**
 *  RuiCard Variables
 */
-
 export const variables = css`
 	:host {
 		/**
@@ -27,7 +25,6 @@ export const variables = css`
 /**
 * RuiCard CSS
 */
-
 export const layout = css`
 	:host {
 		display: block;
@@ -39,6 +36,5 @@ export const layout = css`
 		padding: var(--padding);
 	}
 `;
-
 
 export default [variables, layout];

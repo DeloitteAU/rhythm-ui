@@ -5,8 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
-import { variables, layout } from './RuiLayout.css'
+import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import {variables, layout} from './RuiLayout.css';
 
 /**
  * RuiLayout

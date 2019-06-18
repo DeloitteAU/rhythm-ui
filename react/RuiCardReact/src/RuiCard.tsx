@@ -8,10 +8,10 @@
 import React from 'react';
 import '@rhythm-ui/rui-card';
 
-import { IRuiCard } from './IRuiCard';
+import {IRuiCardProps} from './IRuiCard';
 
-export class RuiCard extends React.Component<IRuiCard> {
-	public render(): JSX.Element {
+export class RuiCard extends React.Component<IRuiCardProps> {
+	public render(): React.ReactNode {
 		return (
 			<rui-card {...this.props}>
 				{this.props.children}
@@ -20,3 +20,4 @@ export class RuiCard extends React.Component<IRuiCard> {
 	}
 }
 
+export default RuiCard;

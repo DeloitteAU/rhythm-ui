@@ -5,16 +5,17 @@
 * LICENSE file in the root directory of this source tree.
 */
 /* eslint import/prefer-default-export: 0 */
+
 import {ReactNode} from 'react';
 
 declare global {
 	namespace JSX {
 		interface IntrinsicElements { // eslint-disable-line @typescript-eslint/interface-name-prefix
-			'{{kebabCase name}}': any;
+			'rui-button': any;
 		}
 	}
 }
 
-export interface I{{pascalCase name}} {
+export interface IRuiButtonProps {
 	children: ReactNode;
 }
