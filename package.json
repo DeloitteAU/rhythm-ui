@@ -32,6 +32,7 @@
     "build": "yarn build:site",
     "build:site": "lerna run build --scope www --include-filtered-dependencies --parallel --stream",
     "build:vanilla": "lerna run build --stream --scope rhythm-ui --include-filtered-dependencies",
+    "build:storybook": "yarn lerna run build ---ignore www --ignore rhythm-ui --ignore test && build-storybook -c .storybook -o .out",
     "start": "lerna run start --scope www --include-filtered-dependencies --parallel --stream",
     "format": "prettier --write src/**/*.{js,jsx}",
     "storybook": "start-storybook -p 6006 -c .storybook",
