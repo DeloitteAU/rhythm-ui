@@ -1,10 +1,7 @@
 import React from "react";
 import { StaticQuery, graphql, Link } from "gatsby";
-import { css } from '@emotion/core';
+import { navigationStyles } from './Navigation.css';
 
-const navigationStyles = css`
-	padding: 30px;
-`
 export const Navigation = () => (
   <StaticQuery
     query={graphql`

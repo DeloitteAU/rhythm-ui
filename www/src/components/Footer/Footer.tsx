@@ -1,11 +1,6 @@
 import React from 'react';
-import { css } from '@emotion/core';
+import { footerStyles } from './Footer.css';
 
-const footerStyles = css`
-	background: #000;
-	color: #FFF;
-	padding: 30px;
-`
 export class Footer extends React.Component {
 	public render() {
 		return (

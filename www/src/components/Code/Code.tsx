@@ -1,43 +1,13 @@
 import Highlight, { defaultProps, Language } from 'prism-react-renderer'
 import React from 'react'
-import { css } from '@emotion/core';
 import nightOwl from 'prism-react-renderer/themes/nightOwl';
+import { codePreviewStyles, codeSnippetStyles, tokenLine } from './Code.css';
 
 interface ICode {
 	codeString: string,
 	language: Language,
 	preview: boolean
 }
-
-const codePreviewStyles = css`
-	padding: 16px;
-	border: 1px solid #CCC;
-	border-bottom: 0 none;
-	
-	header,
-	footer,
-	main,
-	nav,
-	aside {
-		border: 1px solid #555;
-		background: #F5F5F5;
-		padding: 15px;
-		height: auto;
-		width: auto;
-		border-radius: 2px;
-		margin: 1px;
-	}
-`
-const codeSnippetStyles = css`
-	code[class*="language-"],
-	pre[class*="language-"] {
-		white-space: nowrap;
-		overflow: scroll;
-	}
-`
-const tokenLine = css`
-	white-space: pre;
-`
 
 export const Code = ({ codeString, language, preview, ...props }: ICode) => (
 	<>
