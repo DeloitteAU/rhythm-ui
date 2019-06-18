@@ -127,6 +127,11 @@ export const layout = css`
 		transition: var(--icon-container-transition);
 	}
 
+	.is-open .icon-container {
+		transform-origin: center;
+		transform: var(--icon-container-expanded-transform);
+	}
+
 	.details-container {
 		overflow: hidden;
 		transition: var(--details-container-transition);

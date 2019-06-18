@@ -22,7 +22,8 @@ export class RuiExpandCollapse extends LitElement {
    */
   @property({
     type : Boolean,
-    converter: (value): boolean => value === 'true',
+    reflect: true, // reflect attribute on parent element when internal state updates
+    converter: (value): boolean => value !== undefined, // check presence of open attribute
   })
   public get open(): boolean {
     return this._open;
@@ -192,12 +193,12 @@ export class RuiExpandCollapse extends LitElement {
    */  
   public render(): TemplateResult {
     return html`
-      <section class="expand-collapse">
-        <button @click="${this._handleClick}" class="summary-container" aria-expanded=${`${this.open ? 'true': 'false'}`}>
+      <section class=${`expand-collapse${this.open ? ' is-open' : ''}`}>
+        <button id="expand-trigger" @click="${this._handleClick}" class="summary-container" aria-expanded=${`${this.open ? 'true': 'false'}`} aria-controls="expandable-section">
           <slot name="summary-content"></slot>
           <span class="icon-container"></span>
         </button>
-        <div class="details-container">
+        <div class="details-container" id="expandable-section" role="region" aria-labelledby="expand-trigger">
           <slot id="details-slot" name="details-content"></slot>
         </div>
       </section>
