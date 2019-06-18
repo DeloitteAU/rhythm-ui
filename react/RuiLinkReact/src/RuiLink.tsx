@@ -6,16 +6,16 @@
 */
 
 import React from 'react';
-import '@rhythm-ui/{{kebabCase name}}';
+import '@rhythm-ui/rui-link';
 
-import {I{{pascalCase name}} } from './I{{pascalCase name}}';
+import {IRuiLink } from './IRuiLink';
 
-export class {{pascalCase name}} extends React.Component<I{{pascalCase name}}> {
+export class RuiLink extends React.Component<IRuiLink> {
 	public render(): JSX.Element {
 		return (
-			<{{kebabCase name}} {...this.props}>
+			<rui-link {...this.props}>
 				{this.props.children}
-			</{{kebabCase name}} >
+			</rui-link >
 		);
 	}
 }

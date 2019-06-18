@@ -14,7 +14,8 @@ Readme file for rui-breadcrumbs
 
 Use Rui breadcrumbs with an array or manual links
 
-Array
+## Array
+Pass in an array of objects with title and url. This is the preferred method.
 ```html preview
 <rui-breadcrumbs 
 	location='[
@@ -24,7 +25,9 @@ Array
 /> 
 ```
 
-Manual Links
+## Manual Links
+Pass in individual anchor tags
+
 ```html preview
 <rui-breadcrumbs> 
 	<div slot="crumb"> <a href="#">Home</a> </div>
@@ -39,3 +42,5 @@ Manual Links
 
 | CSS Variable | Default Value | Description |
 | --- | --- | --- |
+| --color | #000000 | The base colour for the breadcrumbs  | 
+| --hover-color | #01447E | Hover colour for the breadcrumbs  | 

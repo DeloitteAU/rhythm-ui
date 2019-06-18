@@ -11,12 +11,11 @@ import { variables, layout } from './RuiBreadcrumbs.css'
 
 export class RuiBreadcrumbs extends LitElement {
 	/**
-	 * The location array of the breadcrumbs
+	 * The array of breadcrumbs
 	 */
 
 	@property({type : String})
-	public location?: string = '';
-
+	public crumbs?: string = '';
 
 
 	/**
@@ -40,20 +39,19 @@ export class RuiBreadcrumbs extends LitElement {
     */
 
     public render(): TemplateResult {
-		if (this.location) {
-			const location = JSON.parse(this.location);
-			const lastLocation = location.pop();
+		if (this.crumbs) {
+			const crumbsArray = JSON.parse(this.crumbs);
+			const activeCrumb = crumbsArray.pop();
 
 			return html`
-				<div class="breadcrumb">
-  					${location.map((i: { url: unknown; title: unknown; }) => html`<div><a href=${i.url}>${i.title}</a></div> `)}
-					<div> ${lastLocation.title }</div>
+				<div class="crumbs">
+  					${crumbsArray.map((crumb: { url: unknown; title: unknown; }) => html`<div><a href=${crumb.url}>${crumb.title}</a></div> `)}
+					<div class="active_crumb"> ${activeCrumb.title }</div>
 				</div>`
     	}
         return html`
-			<div class="breadcrumb">  
-				<slot name="crumb"> </slot>
-				<slot name="lastCrumb"> </slot>
+			<div class="crumbs">  
+				<slot></slot>
 			</div>
             `;
     }
@@ -62,3 +60,4 @@ export class RuiBreadcrumbs extends LitElement {
 }
 
 
+// separator="›" aria-label="Breadcrumb"

@@ -19,6 +19,11 @@ export const variables = css`
 		 * @variable Hover colour for the breadcrumbs
 		 */
 		--hover-color: #01447E;
+	
+		/**
+		 * @variable padding size
+		 */
+		--padding: 8px;
 	}
     `;
 
@@ -27,39 +32,35 @@ export const variables = css`
 */
 
 export const layout = css`
-	.breadcrumb ::slotted([slot=crumb]),
-	.breadcrumb div {
-		display: inline;
-	}
-	
-	.breadcrumb > ::slotted(div:not(:first-child))::before,
-	.breadcrumb div + div:before {
-		padding: 8px;
+	.crumbs div + div:before {
+		padding: var (--padding);
 		color: var(--color);
 		content: "/\\00a0";
 	}
-	
-	.breadcrumb ::slotted(a:not(:first-child))::before {
-		padding: 8px;
-		color: var(--color);
-		content: "/\\00a0";
-		text-decoration: none;
-	}
-	
-	.breadcrumb ::slotted(a) {
-		color: var(--color);
-		text-decoration: none;
-	}
-	
-	.breadcrumb ::slotted(a:hover),
-	.breadcrumb div a:hover {
+
+	.crumbs div a:hover {
 		color: var(--hover-color);
 		text-decoration: underline;
 	}
 	
-	.breadcrumb div a {
+	.crumbs div a {
 		color: var(--color);
 		text-decoration: none;
+	}
+	
+	.crumbs .active_crumb {
+		font-weight: bold;
+	}
+	
+	.crumbs div,
+	.crumbs > ::slotted(rui-link) {
+		display: inline;
+	}
+	
+	.crumbs > ::slotted(rui-link:not(:first-of-type))::before {
+		padding: var (--padding);
+		color: var(--color);
+		content: "/\\00a0";
 	}
     `;
 

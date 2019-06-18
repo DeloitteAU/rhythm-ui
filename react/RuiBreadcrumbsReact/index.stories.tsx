@@ -1,5 +1,7 @@
 import { storiesOf } from '@storybook/react';
 import RuiBreadcrumbs from './lib';
+import RuiLink from '@rhythm-ui/rui-link-react';
+
 import Readme from './README.md';
 import React from 'react';
 
@@ -7,7 +9,7 @@ const locationArray = JSON.stringify([
 	{"title": "my title", "url": "/my/rul"},
 	{"title": "my 2", "url": "/my/rul"}
 ]);
-storiesOf('RuiBreadcrumbs', module)
+storiesOf('Breadcrumbs', module)
 	.addParameters({
 		readme: {
 			content: Readme,
@@ -15,22 +17,16 @@ storiesOf('RuiBreadcrumbs', module)
 	})
 	.add('with manual location ', () => (
 		<React.Fragment>
-			<p> Breadcrumbs passing the anchor tag directly into the slot </p> <br/>
-		<RuiBreadcrumbs>
-			<a slot="crumb" href="#">Crumbs</a>
-			<a slot="crumb" href="#">Crumb #1</a>
-			<div slot='crumb'> Last link </div>
-		</RuiBreadcrumbs>
-			<br/> <p> Breadcrumbs passing a div into the slot with a nested anchor tag </p> <br/>
+			<br/> <p> Breadcrumbs using Link component </p> <br/>
 
-		<RuiBreadcrumbs>
-			<div slot="crumb"> <a href="#">Crumbs</a> </div>
-			<div slot="crumb"> <a href="#">Crumb #1</a> </div>
-			<div slot='crumb'> Last link </div>
+			<RuiBreadcrumbs>
+				<RuiLink href="/#" color='primary'> Link 1 </RuiLink>
+				<RuiLink href="/#" > Link 2 </RuiLink>
+				<RuiLink href="/#" active > Active Link </RuiLink>
 			</RuiBreadcrumbs>
 		</React.Fragment>
 
 	))
 	.add('breadcrumbs with json array', () => (
-		<RuiBreadcrumbs location={locationArray} />
+		<RuiBreadcrumbs crumbs={locationArray} />
 	));
