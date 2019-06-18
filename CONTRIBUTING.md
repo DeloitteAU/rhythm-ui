@@ -63,6 +63,10 @@ Each package must compile to ES5 into a `lib` folder.
 
 HTML templates are NOT provided. Instead, the required HTML structure's are documented.
 
+## Writing Tests
+
+https://medium.com/@pietmichal/how-to-test-a-web-component-b5d64d5e8bb0
+
 ## Publishing
 
 This project publishes packages to npm:
