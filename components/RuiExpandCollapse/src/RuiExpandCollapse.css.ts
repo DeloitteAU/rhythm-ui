@@ -41,6 +41,11 @@ export const variables = css`
 		 */
 		--summary-padding: 10px 70px 10px 20px;
 
+		/**
+		 * @variable Summary button focus outline styling
+		 */
+		--summary-outline-focus: -webkit-focus-ring-color auto 5px;
+
 		/* DETAILS STYLES */
 
 		/**
@@ -118,6 +123,10 @@ export const layout = css`
 		cursor: pointer;
 		width: 100%;
 		border: none;
+	}
+
+	.summary-container:focus {
+		outline: var(--summary-outline-focus);
 	}
 
 	.icon-container {
