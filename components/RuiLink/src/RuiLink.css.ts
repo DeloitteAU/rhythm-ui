@@ -6,7 +6,55 @@ import {css} from 'lit-element';
 */
 
 
-export const variables = css``;
+export const variables = css`
+	:host {
+		/**
+			* @variables for colors
+		*/
+		--default: #000;
+		--error: #FF0000;
+		--primary: #4D6CFA;
+	}
+
+	/* Colours */
+	:host([color="default"]) a {
+		color: var (--default);
+	}
+
+	:host([color="inherit"]) a {
+		color: inherit;
+	}
+
+	:host([color="error"]) a {
+		color: var (--error);
+	}
+
+	:host([color="primary"]) a {
+		color: var (--primary);
+	}
+
+	/* Underlined on hover */
+
+	:host([underline="none"]) a:hover {
+		text-decoration: none;
+	}
+
+	:host([underline="hover"]) a:hover {
+		text-decoration: underline;
+	}
+
+	:host([underline="always"]) a {
+		text-decoration: underline;
+	}
+
+	:host([underline="invert"]) a {
+		text-decoration: underline;
+	}
+
+	:host([underline="invert"]) a:hover {
+		text-decoration: none;
+	}
+`;
 
 /**
 	* RuiLink CSS
