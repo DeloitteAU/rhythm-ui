@@ -10,15 +10,16 @@ import { variables, layout } from './RuiBreadcrumbs.css'
 
 
 export class RuiBreadcrumbs extends LitElement {
-
 	/**
 	 * The location array of the breadcrumbs
 	 */
+
 	@property({type : String})
-	public location? = undefined;
+	public location?: string = '';
 
 
-    /**
+
+	/**
     *
     * The styles for breadcrumbs
     * @remarks
@@ -39,25 +40,25 @@ export class RuiBreadcrumbs extends LitElement {
     */
 
     public render(): TemplateResult {
-
 		if (this.location) {
-			this.location = JSON.parse(this.location);
-			var lastLocation = this.location.pop();
+			const location = JSON.parse(this.location);
+			const lastLocation = location.pop();
 
 			return html`
 				<div class="breadcrumb">
-  					${this.location.map((i: { url: unknown; title: unknown; }) => html`<div><a href=${i.url}>${i.title}</a></div> `)}
+  					${location.map((i: { url: unknown; title: unknown; }) => html`<div><a href=${i.url}>${i.title}</a></div> `)}
 					<div> ${lastLocation.title }</div>
 				</div>`
     	}
         return html`
 			<div class="breadcrumb">  
 				<slot name="crumb"> </slot>
+				<slot name="lastCrumb"> </slot>
 			</div>
             `;
     }
 
-    /* #endregion */
+	/* #endregion */
 }
 
 

@@ -8,7 +8,17 @@ import {css} from 'lit-element';
 
 export const variables = css`
 	:host {
-		color: inherit;
+		/* BASE STYLES */
+
+		/**
+		 * @variable The base colour for the breadcrumbs
+		 */
+		--color: #000000;
+	
+		/**
+		 * @variable Hover colour for the breadcrumbs
+		 */
+		--hover-color: #01447E;
 	}
     `;
 
@@ -17,43 +27,39 @@ export const variables = css`
 */
 
 export const layout = css`
-	.breadcrumb ::slotted(div) {
+	.breadcrumb ::slotted([slot=crumb]),
+	.breadcrumb div {
 		display: inline;
-		font-size: 18px;
-		color: black;
+	}
+	
+	.breadcrumb > ::slotted(div:not(:first-child))::before,
+	.breadcrumb div + div:before {
+		padding: 8px;
+		color: var(--color);
+		content: "/\\00a0";
+	}
+	
+	.breadcrumb ::slotted(a:not(:first-child))::before {
+		padding: 8px;
+		color: var(--color);
+		content: "/\\00a0";
 		text-decoration: none;
 	}
 	
-	.breadcrumb > ::slotted(div:not(:first-child))::before {
-		padding: 8px;
-		color: black;
-		content: "/\\00a0";
+	.breadcrumb ::slotted(a) {
+		color: var(--color);
+		text-decoration: none;
 	}
 	
-	.breadcrumb ::slotted(a:hover) {
-		color: #01447E;
+	.breadcrumb ::slotted(a:hover),
+	.breadcrumb div a:hover {
+		color: var(--hover-color);
 		text-decoration: underline;
-	}
-	
-	.breadcrumb div {
-		display: inline;
-		font-size: 18px;
-	}
-	
-	.breadcrumb div + div:before {
-		padding: 8px;
-		color: black;
-		content: "/\\00a0";
 	}
 	
 	.breadcrumb div a {
-		color: black;
+		color: var(--color);
 		text-decoration: none;
-	}
-	
-	.breadcrumb div a:hover {
-		color: #01447E;
-		text-decoration: underline;
 	}
     `;
 
