@@ -1,3 +1,14 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+const fs = require('fs');
+const path = require('path');
+
+// This is a temp folder, so make sure it exists before plugins load
+const docsDir = path.join(__dirname, '../', '.ruidocs');
+if (!fs.existsSync(docsDir)) {
+	fs.mkdirSync(docsDir);
+}
+
 module.exports = {
 	siteMetadata: {
 		title: 'Rhythm UI',
