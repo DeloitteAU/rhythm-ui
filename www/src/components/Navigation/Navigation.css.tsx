@@ -1,5 +1,6 @@
-import { css } from '@emotion/core';
+import {css} from '@emotion/core';
 
-export const navigationStyles = css`
+const navigationStyles = css`
 	padding: 30px;
 `
+export default navigationStyles;

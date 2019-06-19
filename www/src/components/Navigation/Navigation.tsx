@@ -1,6 +1,6 @@
 import React from "react";
-import { StaticQuery, graphql, Link } from "gatsby";
-import { navigationStyles } from './Navigation.css';
+import {StaticQuery, graphql, Link} from "gatsby";
+import navigationStyles from './Navigation.css';
 
 export const Navigation = () => (
   <StaticQuery

@@ -1,7 +1,7 @@
 import React from 'react';
-import { footerStyles } from './Footer.css';
+import footerStyles from './Footer.css';
 
-export class Footer extends React.Component {
+class Footer extends React.Component {
 	public render() {
 		return (
 			<footer css={footerStyles}>
@@ -10,3 +10,5 @@ export class Footer extends React.Component {
 		);
 	}
 }
+
+export default Footer;

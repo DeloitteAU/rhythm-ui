@@ -7,7 +7,7 @@
  */
 
 import "../src"
-import {TestUtils} from "../../../TestUtils"
+import TestUtils from "../../../TestUtils"
 
 describe("RuiCard", () => {
 	it("Renders content within the card", async () => {

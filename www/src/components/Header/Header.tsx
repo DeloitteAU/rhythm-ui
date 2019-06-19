@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'gatsby';
-import { headerStyles } from './Header.css';
+import {Link} from 'gatsby';
+import headerStyles from './Header.css';
 
-export class Header extends React.Component {
+class Header extends React.Component {
 	public render() {
 		return (
 			<header css={headerStyles}>
@@ -11,3 +11,5 @@ export class Header extends React.Component {
 		);
 	}
 }
+
+export default Header;
