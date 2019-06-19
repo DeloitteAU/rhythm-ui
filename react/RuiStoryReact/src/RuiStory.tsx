@@ -20,3 +20,4 @@ export class RuiStory extends React.Component<IRuiStoryProps> {
 	}
 }
 
+export default RuiStory;
