@@ -1,4 +1,7 @@
 {
-  "extends": ["../.eslintrc.js","plugin:lit/recommended"],
+  "extends": [
+    "../.eslintrc.js",
+    "plugin:lit/recommended"
+  ],
   "plugins": ["lit"]
 }
