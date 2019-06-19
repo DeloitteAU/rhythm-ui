@@ -28,7 +28,7 @@ The last value in the array is the active page.
 ```
 
 ## Manual Links
-To use the rui-link you must wrap them in a <li> tag.
+To use the rui-link you must wrap them in a list tag.
 
 ```html preview
 <rui-breadcrumbs> 
