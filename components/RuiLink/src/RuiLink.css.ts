@@ -7,18 +7,9 @@ import {css} from 'lit-element';
 
 
 export const variables = css`
-	:host {
-		/**
-			* @variables for colors
-		*/
-		--default: #000;
-		--error: #FF0000;
-		--primary: #4D6CFA;
-	}
-
 	/* Colours */
 	:host([color="default"]) a {
-		color: var (--default);
+		color: #000;
 	}
 
 	:host([color="inherit"]) a {
@@ -26,11 +17,11 @@ export const variables = css`
 	}
 
 	:host([color="error"]) a {
-		color: var (--error);
+		color: #FF0000;
 	}
 
 	:host([color="primary"]) a {
-		color: var (--primary);
+		color: #4D6CFA;
 	}
 
 	/* Underlined on hover */
@@ -64,10 +55,10 @@ export const variables = css`
 export const layout = css`
 	:host a {
 		text-decoration: none;
-		color: var (--default);
+		color: inherit;
 	}
 
-	:host .anchor_link:hover {
+	:host .link:hover {
 		text-decoration: underline;
 	}
 

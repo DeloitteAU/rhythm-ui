@@ -57,3 +57,18 @@ storiesOf('Link', module)
 		</React.Fragment>
 
 	))
+	.add('A link with breadcrumbs 🎉', () => (
+		<React.Fragment>
+			<p> No underline specified will default to underlined on hover </p>
+			<RuiLink href='/#' > default underlining </RuiLink>
+			<p> No underline color error </p>
+			<RuiLink href='/#' underline='none' color='error' > No underlining </RuiLink>
+			<p> Underline on hover with primary color  </p>
+			<RuiLink href='/#' underline='hover' color='primary'> on hover </RuiLink>
+			<p> Always underline </p>
+			<RuiLink href='/#' underline='always'> Always </RuiLink>
+			<p> Invert underline on hover </p>
+			<RuiLink href='/#' underline='invert'> Invert </RuiLink>
+		</React.Fragment>
+
+	))

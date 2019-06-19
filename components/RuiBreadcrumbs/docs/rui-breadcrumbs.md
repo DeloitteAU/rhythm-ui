@@ -18,7 +18,7 @@ Use Rui breadcrumbs with an array or manual links
 Pass in an array of objects with title and url. This is the preferred method.
 ```html preview
 <rui-breadcrumbs 
-	location='[
+	crumbs='[
     	{"title": "Home", "url": "/my/rul"},
     	{"title": "Link 1", "url": "/my/rul" }
 	]'
@@ -44,3 +44,4 @@ Pass in individual anchor tags
 | --- | --- | --- |
 | --color | #000000 | The base colour for the breadcrumbs  | 
 | --hover-color | #01447E | Hover colour for the breadcrumbs  | 
+| --padding | 8px | padding size  | 

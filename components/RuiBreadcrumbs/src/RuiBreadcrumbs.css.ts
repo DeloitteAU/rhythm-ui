@@ -32,36 +32,57 @@ export const variables = css`
 */
 
 export const layout = css`
-	.crumbs div + div:before {
+	/**
+		* css for json array breadcrumbs
+	*/
+
+	nav.crumbs ol {
+		list-style: none;
+	}
+	
+	nav.crumbs li {
+		display: inline;
+	}
+	
+	nav.crumbs li + li::before {
 		padding: var (--padding);
 		color: var(--color);
 		content: "/\\00a0";
 	}
-
-	.crumbs div a:hover {
+	
+	nav.crumbs a:hover {
 		color: var(--hover-color);
 		text-decoration: underline;
 	}
 	
-	.crumbs div a {
+	nav.crumbs a {
 		color: var(--color);
 		text-decoration: none;
 	}
 	
-	.crumbs .active_crumb {
+	nav.crumbs [aria-current="page"] {
 		font-weight: bold;
+		text-decoration: none;
 	}
 	
-	.crumbs div,
-	.crumbs > ::slotted(rui-link) {
+	/**
+		* css for breadcrumbs with rui-link
+	*/
+	
+	.crumbs ol > ::slotted(li) {
 		display: inline;
 	}
 	
-	.crumbs > ::slotted(rui-link:not(:first-of-type))::before {
+	.crumbs > ol ::slotted(li:not(:first-of-type))::before {
 		padding: var (--padding);
 		color: var(--color);
 		content: "/\\00a0";
 	}
-    `;
+	
+	nav.crumbs ::slotted([aria-current="page"]) {
+		font-weight: bold;
+		text-decoration: none;
+	}
+`;
 
 export default [variables, layout];

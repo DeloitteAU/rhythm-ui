@@ -6,8 +6,8 @@ import Readme from './README.md';
 import React from 'react';
 
 const locationArray = JSON.stringify([
-	{"title": "my title", "url": "/my/rul"},
-	{"title": "my 2", "url": "/my/rul"}
+	{"title": "Home", "url": "/my/rul"},
+	{"title": "Active page", "url": "/my/rul"}
 ]);
 storiesOf('Breadcrumbs', module)
 	.addParameters({
@@ -20,9 +20,9 @@ storiesOf('Breadcrumbs', module)
 			<br/> <p> Breadcrumbs using Link component </p> <br/>
 
 			<RuiBreadcrumbs>
-				<RuiLink href="/#" color='primary'> Link 1 </RuiLink>
-				<RuiLink href="/#" > Link 2 </RuiLink>
-				<RuiLink href="/#" active > Active Link </RuiLink>
+				<li slot='crumb'> <RuiLink href="/#" color='primary'> Link 1 </RuiLink> </li>
+				<li slot='crumb' > <RuiLink href="/#" > Link 2 </RuiLink> </li>
+				<li slot='crumb' aria-current="page" > <RuiLink> Active Link </RuiLink> </li>
 			</RuiBreadcrumbs>
 		</React.Fragment>
 

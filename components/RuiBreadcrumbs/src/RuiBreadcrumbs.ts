@@ -44,15 +44,19 @@ export class RuiBreadcrumbs extends LitElement {
 			const activeCrumb = crumbsArray.pop();
 
 			return html`
-				<div class="crumbs">
-  					${crumbsArray.map((crumb: { url: unknown; title: unknown; }) => html`<div><a href=${crumb.url}>${crumb.title}</a></div> `)}
-					<div class="active_crumb"> ${activeCrumb.title }</div>
-				</div>`
+				<nav aria-label="Breadcrumb" class="crumbs">
+					<ol> 
+						${crumbsArray.map((crumb: { url: unknown; title: unknown; }) => html`<li><a href=${crumb.url}>${crumb.title}</a></li> `)}
+						<li aria-current="page" > ${activeCrumb.title }</li>
+					</ol>
+				</nav>`
     	}
         return html`
-			<div class="crumbs">  
-				<slot></slot>
-			</div>
+		<nav aria-label="Breadcrumb" class="crumbs">
+			<ol> 
+				<slot name="crumb"> </slot>
+			</ol>
+		</nav>
             `;
     }
 

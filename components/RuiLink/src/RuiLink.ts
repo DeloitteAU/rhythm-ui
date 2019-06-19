@@ -35,6 +35,7 @@ export class RuiLink extends LitElement {
 	@property({type : Boolean})
 	public active: boolean = false;
 
+
 	/**
 	 * The colour of the Link
 	 */
@@ -66,7 +67,7 @@ export class RuiLink extends LitElement {
 		* @slot This is a slot test
 	*/
 	public render(): TemplateResult {
-		if (this.href === undefined || this.active) {
+		if (this.href === undefined) {
 			return html`
 				<a class="active">
 					<slot> </slot>
@@ -74,14 +75,14 @@ export class RuiLink extends LitElement {
 			`;
 		}
 		return html`
-			<a
-				class="anchor_link"
-				href=${this.href} 
-				target=${this.target}
-			>
-				<slot> </slot>
-			</a>
-			`;
+		<a
+			class="link"
+			href=${this.href} 
+			target=${this.target}
+		>
+			<slot> </slot>
+		</a>
+		`;
 	}
 	/* #endregion */
 }

@@ -10,3 +10,4 @@ Readme file for rui-link
 
 | CSS Variable | Default Value | Description |
 | --- | --- | --- |
+| --default | #000 | s for colors | 
