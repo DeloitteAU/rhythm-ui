@@ -1,8 +1,8 @@
 module.exports = {
 	siteMetadata: {
-		title: 'Gatsby Default Starter',
-		description: 'Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.',
-		author: '@gatsbyjs',
+		title: 'Rhythm UI',
+		description: 'Framework for building Design Systems',
+		author: 'Deloitte Digital',
 	},
 	plugins: [
 		'gatsby-plugin-react-helmet',
@@ -27,7 +27,6 @@ module.exports = {
 			options: {
 				name: 'components',
 				path: `${__dirname}/../components`,
-				ignore: ['**/README.md', '**/readme.md', '**/readme.mdx'],
 			},
 		},
 		{
@@ -35,6 +34,13 @@ module.exports = {
 			options: {
 				name: 'docs',
 				path: `${__dirname}/../docs`,
+			},
+		},
+		{
+			resolve: 'gatsby-source-filesystem',
+			options: {
+				name: 'ruidocs',
+				path: `${__dirname}/../.ruidocs`,
 			},
 		},
 		// {

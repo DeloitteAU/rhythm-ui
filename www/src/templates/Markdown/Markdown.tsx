@@ -42,12 +42,13 @@ const preToCodeBlock = (preProps: any) => {
 	}
 
 	return null
-}
+};
 
 export default function Template({
 	data, // this prop will be injected by the GraphQL query below.
 }: { data: any }) {
-	const {mdx} = data; // data.markdownRemark holds our post data
+	const mdx = data.doc;
+
 	const {fields, frontmatter, headings} = mdx;
 	const {breadcrumbs, relativeUrlPath} = fields;
 	const {title: pageTitle} = frontmatter;
@@ -68,7 +69,7 @@ export default function Template({
 
 	const mdxComponents = {
 		pre: (props: any) => {
-			const preProps = preToCodeBlock(props)
+			const preProps = preToCodeBlock(props);
 
 			if (preProps) {
 				return <Code {...preProps} />
@@ -91,11 +92,18 @@ export default function Template({
 						<div className="s-11">
 							<MDXProvider components={mdxComponents}>
 								<MDXRenderer>{mdx.code.body}</MDXRenderer>
+								{data.ruidocs.nodes.map(n => {
+									return (
+										<MDXRenderer key={n.id}>{n.code.body}</MDXRenderer>
+									);
+								})}
 							</MDXProvider>
 						</div>
 					</RuiGrid>
 				</main>
 				<aside>
+					<pre>yarn install {mdx.frontmatter.package}</pre>
+					<br /><br />
 					{pageHeadings.map(h => (
 						<div key={h.link}>
 							<a href={h.link}>{h.label}</a>
@@ -109,8 +117,8 @@ export default function Template({
 }
 
 export const pageQuery = graphql`
-	query MDXQuery($id: String!) {
-		mdx(id: {eq: $id}) {
+	query MDXQuery($id: String!, $fileAbsolutePath: String!) {
+		doc: mdx(id: {eq: $id}) {
 			id
 			code {
 				body
@@ -129,7 +137,16 @@ export const pageQuery = graphql`
 			}
 			frontmatter {
 				title
+				package
+			}
+		}
+		ruidocs: allMdx(filter: {fields: {parentFileAbsolutePath: {eq: $fileAbsolutePath}}}) {
+			nodes {
+				id
+				code {
+					body
+				}
 			}
 		}
 	}
-`
+`;

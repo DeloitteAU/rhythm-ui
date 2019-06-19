@@ -6,6 +6,7 @@ dist/
 .cache/
 .npmrc
 .out
+.ruidocs
 
 #Gatsby
 www/public

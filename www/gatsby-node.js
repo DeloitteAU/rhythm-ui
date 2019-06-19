@@ -13,6 +13,7 @@ exports.createPages = ({actions, graphql}) => {
 			edges {
 				node {
 					id
+					fileAbsolutePath
 					frontmatter {
 						title
 					}
@@ -33,13 +34,18 @@ exports.createPages = ({actions, graphql}) => {
 			const {relativeUrlPath} = fields;
 			const {title} = frontmatter;
 
-			createPage({
-				path: relativeUrlPath,
-				component: mdxTemplate,
-				context: {
-					id: edge.node.id,
-				},
-			});
+			// TODO: Use a front-matter variable to opt out creating pages from .md instead eg "meta: true"
+			// TODO: And use filter in the above query
+			if (relativeUrlPath.indexOf('.ruidocs') < 0) {
+				createPage({
+					path: relativeUrlPath,
+					component: mdxTemplate,
+					context: {
+						id: edge.node.id,
+						fileAbsolutePath: edge.node.fileAbsolutePath,
+					},
+				});
+			}
 		});
 	});
 };
@@ -51,13 +57,19 @@ exports.onCreateNode = ({node, actions, getNode}) => {
 
 	if (node.internal.type === 'Mdx') {
 		const relativeFilePath = createFilePath({node, getNode, trailingSlash: false});
-		const {frontmatter} = node;
+		const {frontmatter, fileAbsolutePath} = node;
 
 		// Remove any prefix numbers (e.g. in 01-getting-started)
 		let relativeUrlPath = relativeFilePath.replace(/\d\d-/g, '');
 
 		if (frontmatter && frontmatter.package && frontmatter.package.match(/^@rhythm-ui/) !== null) {
-			relativeUrlPath = `/docs/components/${relativeUrlPath.split('/').pop().toLowerCase()}`;
+
+			let slug = relativeUrlPath.split('/').pop().toLowerCase();
+			if(frontmatter.title) {
+				slug = frontmatter.title.replace(/\s/g, '-').toLowerCase();
+			}
+
+			relativeUrlPath = `/docs/components/${slug}`;
 		}
 
 		// Extract parent path and base name from the relative path
@@ -104,6 +116,12 @@ exports.onCreateNode = ({node, actions, getNode}) => {
 
 		createNodeField({
 			node,
+			name: 'parentFileAbsolutePath',
+			value: frontmatter.parentFileAbsolutePath || '',
+		});
+
+		createNodeField({
+			node,
 			name: 'parentUrlPath',
 			value: parentUrlPath,
 		});
@@ -119,6 +137,8 @@ exports.onCreateNode = ({node, actions, getNode}) => {
 			name: 'relativeUrlPath',
 			value: relativeUrlPath,
 		});
+
+
 
 		// Create breadcrumbs for each markdown page
 		const relativePathCrumbs = relativeUrlPath.replace(/^\/|\/$/g, '').split('/').slice(0, -1);

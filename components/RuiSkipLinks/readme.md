@@ -1,5 +1,5 @@
 ---
-package: "@rhythm-ui"
+package: "@rhythm-ui/skip-links"
 title: "rui-skip-links"
 ---
 
