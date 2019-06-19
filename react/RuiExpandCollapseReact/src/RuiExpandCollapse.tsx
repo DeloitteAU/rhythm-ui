@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { createRef } from 'react';
+import React from 'react';
 import '@rhythm-ui/expand-collapse';
 
 import {
@@ -15,44 +15,64 @@ import {
 	IExpandCollapseSummaryProps,
 } from './IRuiExpandCollapse';
 
+/**
+ * Summary renders the given content as the native web component's summary slot.
+ * The parent element rendered will be a span unless the user specifies otherwise via
+ * the 'as' prop. A span is used because the summary slot renders within a button within
+ * the web component
+ */
+export const Summary = (props: IExpandCollapseSummaryProps): React.ReactNode => {
+	const {as, ...otherProps} = props;
+
+	let elementType = 'span';
+	if (as) {
+		elementType = as;
+	}
+
+	const summaryEl = React.createElement(elementType, {
+		slot: "summary-content",
+		...otherProps
+	});
+
+	return summaryEl;
+}
+
+/**
+ * Details renders the given content as the the native web component's details slot.
+ * The parent element rendered will be a div unless the user specifies otherwise via
+ * the 'as' prop
+ */
+export const Details = (props: IExpandCollapseDetailsProps): React.ReactNode => {
+	const {as, ...otherProps} = props;
+
+	let elementType = 'div';
+	if (as) {
+		elementType = as;
+	}
+
+	const detailsEl = React.createElement(elementType, {
+		slot: "details-content",
+		...otherProps
+	});
+
+	return detailsEl;
+}
+
+
+/**
+ * RuiExpandCollapse
+ * React wrapped for rui-expand-collapse web component
+ */
 export class RuiExpandCollapse extends React.Component<IRuiExpandCollapseProps> {
-	private ruiExpandCollapseEl = createRef<IHTMLRuiExpandCollapseElement>();
+	
+	// used to modify change handler on element
+	private ruiExpandCollapseEl = React.createRef<IHTMLRuiExpandCollapseElement>();
 
-	public static Details = class extends React.Component<IExpandCollapseDetailsProps> {
-		public render() {
-			const { as, ...otherProps } = this.props;
+	// expose Summary component as <RuiExpandCollapse.Summary>
+	public static Summary = Summary
 
-			let elementType = 'div';
-			if (as) {
-				elementType = as;
-			}
-
-			const DetailsEl = React.createElement(elementType, {
-				slot: "details-content",
-				...otherProps
-			});
-
-			return DetailsEl;
-		}
-	}
-
-	public static Summary = class extends React.Component<IExpandCollapseSummaryProps> {
-		public render() {
-			const { as, ...otherProps } = this.props;
-
-			let elementType = 'span';
-			if (as) {
-				elementType = as;
-			}
-
-			const SummaryEl = React.createElement(elementType, {
-				slot: "summary-content",
-				...otherProps
-			});
-
-			return SummaryEl;
-		}
-	}
+	// expose Details component as <RuiExpandCollapse.Details>
+	public static Details = Details
 
 	public componentDidMount(): void {
 		/**
@@ -73,7 +93,7 @@ export class RuiExpandCollapse extends React.Component<IRuiExpandCollapseProps> 
 		}
 	}
 
-	public render(): JSX.Element {
+	public render(): React.ReactNode {
 		return (
 			<rui-expand-collapse ref={this.ruiExpandCollapseEl} {...this.props}>
 				{this.props.children}

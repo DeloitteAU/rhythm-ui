@@ -16,7 +16,7 @@ declare global {
 export interface IRuiExpandCollapseProps {
 	onChange?: Function,
     open?: boolean,
-    children?: JSX.Element[] | JSX.Element;
+    children: React.ReactNode[] | React.ReactNode;
 }
 
 export interface IHTMLRuiExpandCollapseElement extends HTMLElement {
@@ -24,9 +24,11 @@ export interface IHTMLRuiExpandCollapseElement extends HTMLElement {
 }
 
 export interface IExpandCollapseDetailsProps {
-	as?: string
+	as?: string,
+	children: React.ReactNode[] | React.ReactNode;
 }
 
 export interface IExpandCollapseSummaryProps {
-	as?: string
+	as?: string,
+	children: React.ReactNode[] | React.ReactNode;
 }
