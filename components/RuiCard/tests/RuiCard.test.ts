@@ -6,14 +6,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import "../src"
-import TestUtils from "../../../TestUtils"
+import '../src'
+import TestUtils from '../../../TestUtils'
 
-describe("RuiCard", () => {
-	it("Renders content within the card", async () => {
-		const ele = await TestUtils.render("rui-card", {}, "I am card content")
+describe('RuiCard', () => {
+	it('Renders content within the card', async () => {
+		const ele = await TestUtils.render('rui-card', {}, 'I am card content')
 		expect(ele).toBeDefined()
 		expect(ele.shadowRoot).toBeDefined()
-		expect(ele.innerHTML.includes("I am card content")).toBeTruthy()
+		expect(ele.innerHTML.includes('I am card content')).toBeTruthy()
 	})
 })
