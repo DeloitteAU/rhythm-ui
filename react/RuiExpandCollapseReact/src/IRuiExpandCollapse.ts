@@ -22,3 +22,11 @@ export interface IRuiExpandCollapseProps {
 export interface IHTMLRuiExpandCollapseElement extends HTMLElement {
 	onExpandCollapse: Function
 }
+
+export interface IExpandCollapseDetailsProps {
+	as?: string
+}
+
+export interface IExpandCollapseSummaryProps {
+	as?: string
+}

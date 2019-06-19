@@ -127,7 +127,8 @@ Below is a fully populated row of stories, along with some externally styled con
 
 | CSS Variable | Default Value | Description |
 | --- | --- | --- |
-| --background-color | #F2F2F2 | The base bg of the news item  | 
+| --color | #000 | The base text colour of the story  | 
+| --background-color | #F2F2F2 | The base background colour of the story  | 
 | --border-bottom-color | #000 | The colour of the bottom border stripe  | 
 | --border-bottom-width | 4px | The width of the bottom border stripe  | 
 | --border-bottom | var(--border-bottom-width) solid var(--border-bottom-color) | The styling for the bottom border stripe  | 

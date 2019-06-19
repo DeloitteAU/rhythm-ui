@@ -64,9 +64,9 @@ export class RuiExpandCollapse extends LitElement {
     return [variables, layout];
   }
 
-  private _generateUUIDv4() {
+  private _generateUUIDv4(): string {
     return (`${1e7}-${1e3}-${4e3}-${8e3}-${1e11}`)
-      .replace(/[018]/g, c => {
+      .replace(/[018]/g, (c: string): string => {
         const numC = parseInt(c, 10);
         return (numC ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> numC / 4).toString();
       });

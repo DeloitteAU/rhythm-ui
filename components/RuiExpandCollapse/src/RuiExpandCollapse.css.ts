@@ -39,7 +39,7 @@ export const variables = css`
 		/**
 		 * @variable Summary padding
 		 */
-		--summary-padding: 10px 70px 10px 20px;
+		--summary-padding: 28px 70px 28px 20px;
 
 		/**
 		 * @variable Summary button focus outline styling
@@ -51,7 +51,7 @@ export const variables = css`
 		/**
 		 * @variable Details padding
 		 */
-		--details-padding: 10px 20px;
+		--details-padding: 28px 20px;
 
 		/**
 		 * @variable Transition for the details section content

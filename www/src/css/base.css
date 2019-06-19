@@ -29,3 +29,7 @@ rui-story .story-cta > .plus-icon {  /* stylelint-disable-line selector-type-no-
 rui-grid {
 	margin-bottom: 10px;
 }
+
+rui-expand-collapse > p {
+	margin: 0;
+}

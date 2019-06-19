@@ -8,10 +8,51 @@
 import React, { createRef } from 'react';
 import '@rhythm-ui/expand-collapse';
 
-import { IRuiExpandCollapseProps, IHTMLRuiExpandCollapseElement } from './IRuiExpandCollapse';
+import {
+	IRuiExpandCollapseProps,
+	IHTMLRuiExpandCollapseElement,
+	IExpandCollapseDetailsProps,
+	IExpandCollapseSummaryProps,
+} from './IRuiExpandCollapse';
 
 export class RuiExpandCollapse extends React.Component<IRuiExpandCollapseProps> {
 	private ruiExpandCollapseEl = createRef<IHTMLRuiExpandCollapseElement>();
+
+	public static Details = class extends React.Component<IExpandCollapseDetailsProps> {
+		public render() {
+			const { as, ...otherProps } = this.props;
+
+			let elementType = 'div';
+			if (as) {
+				elementType = as;
+			}
+
+			const DetailsEl = React.createElement(elementType, {
+				slot: "details-content",
+				...otherProps
+			});
+
+			return DetailsEl;
+		}
+	}
+
+	public static Summary = class extends React.Component<IExpandCollapseSummaryProps> {
+		public render() {
+			const { as, ...otherProps } = this.props;
+
+			let elementType = 'span';
+			if (as) {
+				elementType = as;
+			}
+
+			const SummaryEl = React.createElement(elementType, {
+				slot: "summary-content",
+				...otherProps
+			});
+
+			return SummaryEl;
+		}
+	}
 
 	public componentDidMount(): void {
 		/**

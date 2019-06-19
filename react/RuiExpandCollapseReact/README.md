@@ -5,16 +5,16 @@ If you do not need to implement any custom logic, then you just need to provide 
 
 ```html preview
 <RuiExpandCollapse>
-    <p slot="summary-content">Expander summary</p>
-    <p slot="details-content">Expanded content</p>
+    <RuiExpandCollapse.Summary>Expander summary</RuiExpandCollapse.Summary>
+    <RuiExpandCollapse.Details>Expanded content</RuiExpandCollapse.Details>
 </RuiExpandCollapse>
 ```
 
 If you wish for the expand collapse to default to open, use the below:
 ```html preview
-<RuiExpandCollapse open={true}>
-    <p slot="summary-content">Expander summary</p>
-    <p slot="details-content">Expanded content</p>
+<RuiExpandCollapse open>
+    <RuiExpandCollapse.Summary>Expander summary</RuiExpandCollapse.Summary>
+    <RuiExpandCollapse.Details>Expanded content</RuiExpandCollapse.Details>
 </RuiExpandCollapse>
 ```
 
@@ -45,8 +45,8 @@ export class ExpandCollapseController extends React.Component {
                 open={this.state.open}
                 onChange={this.handleExpandCollapse}
             >
-                <p slot="summary-content">Expander summary</p>
-                <p slot="details-content">Expanded content</p>
+                <RuiExpandCollapse.Summary>Expander summary</RuiExpandCollapse.Summary>
+                <RuiExpandCollapse.Details>Expanded content</RuiExpandCollapse.Details>
             </RuiExpandCollapse>
         )
     }
