@@ -36,7 +36,7 @@ export class TestUtils {
 	 */
 	private static _mapObjectToHTMLAttributes(attributes): string {
 		return Object.entries(attributes).reduce((previous, current) => {
-			return previous + ` ${current[0]}="${current[1]}"`;
+			return `${previous  } ${current[0]}="${current[1]}"`;
 		}, "");
 	}
 
@@ -54,3 +54,6 @@ export class TestUtils {
 		});
 	}
 }
+
+export default TestUtils;
+

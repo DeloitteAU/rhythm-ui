@@ -76,7 +76,7 @@ const checkFile = file => {
 };
 
 const checkComponent = () => {
-	let choices = [];
+	const choices = [];
 	fs
 		.readdirSync('./components')
 		.forEach(file => {

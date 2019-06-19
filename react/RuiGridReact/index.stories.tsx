@@ -1,9 +1,9 @@
 import React, {Fragment} from 'react';
 
-import { storiesOf } from '@storybook/react';
+import {storiesOf} from '@storybook/react';
 
 // @ts-ignore
-import { RuiGrid } from './lib';
+import {RuiGrid} from './lib';
 import Readme from './README.md';
 
 

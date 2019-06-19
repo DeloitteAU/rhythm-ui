@@ -7,7 +7,7 @@
 */
 
 import '../src';
-import { TestUtils } from '../../../TestUtils';
+import {TestUtils} from '../../../TestUtils';
 
 describe('RuiLayout', () => {
 
@@ -18,7 +18,7 @@ describe('RuiLayout', () => {
   });
 
   it('Renders with the correct type', async () => {
-    const ele = await TestUtils.render('rui-layout', { type: 'monet' });
+    const ele = await TestUtils.render('rui-layout', {type: 'monet'});
     expect(ele).toBeDefined();
     expect(ele.shadowRoot).toBeDefined();
     expect(ele.getAttribute('type')).toBe('monet');

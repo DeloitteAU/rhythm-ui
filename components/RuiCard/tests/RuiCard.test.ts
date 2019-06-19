@@ -7,7 +7,7 @@
 */
 
 import '../src';
-import { TestUtils } from '../../../TestUtils';
+import {TestUtils} from '../../../TestUtils';
 
 describe('RuiCard', () => {
 

@@ -7,7 +7,7 @@
 */
 
 import '../src';
-import { TestUtils } from '../../../TestUtils';
+import {TestUtils} from '../../../TestUtils';
 
 describe('RuiGrid', () => {
 
@@ -19,7 +19,7 @@ describe('RuiGrid', () => {
   });
 
   it('Renders with the correct amount of columns', async () => {
-    const ele = await TestUtils.render('rui-grid', { columns: 5 });
+    const ele = await TestUtils.render('rui-grid', {columns: 5});
     expect(ele).toBeDefined();
     expect(ele.shadowRoot).toBeDefined();
     expect(ele.getAttribute('columns')).toBe('5');

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { storiesOf } from '@storybook/react';
+import {storiesOf} from '@storybook/react';
 
-import { RuiLayout } from './lib';
+import {RuiLayout} from './lib';
 import Readme from './README.md';
 
 

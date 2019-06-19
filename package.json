@@ -21,9 +21,8 @@
     ]
   },
   "scripts": {
-    "lint": "yarn lint:ts && yarn lint:css",
-    "lint:ts": "yarn eslint components/**/src/** --ext .ts",
-    "lint:react": "yarn eslint www/src --ext .tsx",
+    "lint": "yarn lint:scripts && yarn lint:css",
+    "lint:scripts": "yarn eslint --fix \"**/*.{ts,tsx,js,jsx}\"",
     "lint:css": "yarn stylelint \"components/**/*.ts\" --config .stylelintrc-ts.js",
     "bootstrap": "lerna bootstrap",
     "unstrap": "lerna clean --yes",
