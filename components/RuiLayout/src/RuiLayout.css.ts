@@ -5,20 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {css, unsafeCSS, CSSResult} from 'lit-element';
-
-const bp = (size: string, rules: CSSResult) => {
-	switch (size.toLowerCase()) {
-		case 'm':
-			return css` @media screen and (min-width: 800px) { ${rules} } `;
-		case 'l':
-			return css` @media screen and (min-width: 1200px) { ${rules} } `;
-		case 'xl':
-			return css` @media screen and (min-width: 1400px) { ${rules} } `;
-		default:
-			return rules;
-	}
-}
+import {css} from 'lit-element';
 
 /**
  *  RuiGrid Variables

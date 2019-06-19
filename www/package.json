@@ -32,6 +32,7 @@
     "@emotion/styled": "^10.0.12",
     "@mdx-js/mdx": "^1.0.0-rc.4",
     "@mdx-js/react": "^1.0.0-rc.5",
+		"@rhythm-ui/rui-card-react": "^1.0.0",
     "@rhythm-ui/button-react": "^1.0.0",
     "@rhythm-ui/grid-react": "^1.0.0",
     "@rhythm-ui/layout-react": "^1.0.0",

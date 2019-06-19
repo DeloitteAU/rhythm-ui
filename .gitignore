@@ -5,6 +5,7 @@ lib/
 dist/
 .cache/
 .npmrc
+.out
 
 #Gatsby
 www/public

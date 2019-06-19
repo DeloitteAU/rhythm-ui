@@ -9,13 +9,18 @@
  * Register the Web Component with customElements
  * @param tag - The HTML tag to use
  */
-export const register = (tag: string = 'rui-grid') => {
+export const register = async (tag: string = 'rui-grid'): Promise<boolean> => {
 	// Register the new element with the browser.
 	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
-		import('./RuiGrid').then(module => {
-			customElements.define(tag, module.RuiGrid);
-		});
+		const m = await import('./RuiGrid');
+		customElements.define(tag, m.RuiGrid);
+		return true;
 	}
+	return false;
+};
+
+export default {
+	register,
 };
 
 if (process.env.RUI_NO_DEFAULT_REGISTER !== 'true') {

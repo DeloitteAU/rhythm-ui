@@ -7,7 +7,7 @@
 
 import {css, CSSResult} from 'lit-element';
 
-const bp = (size: string, rules: CSSResult) => {
+const bp = (size: string, rules: CSSResult): CSSResult => {
 	switch (size.toLowerCase()) {
 		case 'm':
 			return css` @media screen and (min-width: 768px) { ${rules} } `;
