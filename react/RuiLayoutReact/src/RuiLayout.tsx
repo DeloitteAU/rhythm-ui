@@ -22,3 +22,5 @@ export class RuiLayout extends React.Component<IRuiLayoutProps> {
 		);
 	}
 }
+
+export default RuiLayout;

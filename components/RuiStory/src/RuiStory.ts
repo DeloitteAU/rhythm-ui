@@ -5,8 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
-import { variables, layout } from './RuiStory.css'
+import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import {variables, layout} from './RuiStory.css'
 
 /**
  * RuiStory
@@ -69,3 +69,5 @@ export class RuiStory extends LitElement {
   /* #endregion */
 
 }
+
+export default RuiStory;

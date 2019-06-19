@@ -21,7 +21,7 @@
     ]
   },
   "scripts": {
-    "lint": "yarn lint:css && yarn lint:ts",
+    "lint": "yarn lint:ts && yarn lint:css",
     "lint:ts": "yarn eslint components/**/src/** --ext .ts",
     "lint:react": "yarn eslint www/src --ext .tsx",
     "lint:css": "yarn stylelint \"components/**/*.ts\" --config .stylelintrc-ts.js",
@@ -29,9 +29,10 @@
     "unstrap": "lerna clean --yes",
     "clean": "lerna run clean",
     "test": "RUI_NO_DEFAULT_REGISTER='false' yarn karma start",
-    "build": "yarn build:site",
+    "build": "yarn build:site && yarn build:storybook",
     "build:site": "lerna run build --scope www --include-filtered-dependencies --parallel --stream",
     "build:vanilla": "lerna run build --stream --scope rhythm-ui --include-filtered-dependencies",
+    "build:storybook": "yarn lerna run build ---ignore www --ignore rhythm-ui --ignore test && build-storybook -c .storybook -o .out",
     "start": "lerna run start --scope www --include-filtered-dependencies --parallel --stream",
     "format": "prettier --write src/**/*.{js,jsx}",
     "storybook": "start-storybook -p 6006 -c .storybook",
@@ -64,6 +65,7 @@
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
+    "@deloitte-digital-au/eslint-config": "^3.4.0",
     "@deloitte-digital-au/stylelint-config": "^2.0.1",
     "@storybook/addon-knobs": "^5.1.3",
     "@storybook/addons": "^5.1.3",

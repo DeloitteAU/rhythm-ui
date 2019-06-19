@@ -9,13 +9,18 @@
 * Register the Web Component with customElements
 * @param tag - The HTML tag to use
 */
-export const register = (tag: string = '{{kebabCase name}}') => {
-	// Register the new element with the browser.
+export const register = async (tag: string = '{{kebabCase name}}'): Promise<boolean> => {
 	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
-		import('./{{pascalCase name}}').then(module => {
-			customElements.define(tag, module.{{pascalCase name}});
-		});
+		// Register the new element with the DOM
+		const m = await import('./{{pascalCase name}}');
+		customElements.define(tag, m.{{pascalCase name}});
+		return true;
 	}
+	return false;
+};
+
+export default {
+	register,
 };
 
 if (process.env.RUI_NO_DEFAULT_REGISTER !== 'true') {

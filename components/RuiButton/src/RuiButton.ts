@@ -5,8 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
-import { ifDefined } from 'lit-html/directives/if-defined.js';
+import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import {ifDefined} from 'lit-html/directives/if-defined.js';
 import variables from './css.variables';
 import layout from './css.layout';
 
@@ -102,3 +102,5 @@ export class RuiButton extends LitElement {
   /* #endregion */
 
 }
+
+export default RuiButton;

@@ -10,24 +10,24 @@ import {css, unsafeCSS, CSSResult} from 'lit-element';
 const maxNoColumns = 16;
 
  //Create array and shift start from '0' to '1'
-const columns = [...Array(maxNoColumns+1).keys()].filter(n => !!n);
+const columns: number[] = [...Array(maxNoColumns+1).keys()].filter((n): boolean => !!n);
 
 /**
  * Creates
  * @param size 
  */
-const defineColumnsForSize = (size: string) => columns.reduce((a, n) => css`
+const defineColumnsForSize = (size: string): CSSResult => columns.reduce((a, n): CSSResult => css`
 	::slotted(.p-${unsafeCSS(size)}-${unsafeCSS(n)}) { grid-column-start: ${unsafeCSS(n)}; }
 	::slotted(.${unsafeCSS(size)}-${unsafeCSS(n)}) { grid-column-end: span ${unsafeCSS(n)}; }
 	${a}
 `, css``);
 
-const defineColumns = () => columns.reduce((a, n) => css` 
+const defineColumns = (): CSSResult => columns.reduce((a, n): CSSResult => css` 
 	:host([columns="${unsafeCSS(n)}"]) { --template-columns: repeat(${unsafeCSS(n)}, minmax(0, 1fr)); }
 	${a}
 `, css``);
 
-const bp = (size: string, rules: CSSResult) => {
+const bp = (size: string, rules: CSSResult): CSSResult => {
 	switch (size.toLowerCase()) {
 		case 'm':
 			return css` @media screen and (min-width: 768px) { ${rules} } `;
