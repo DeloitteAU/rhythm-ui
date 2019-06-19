@@ -5,8 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
-import { variables, layout } from './RuiGrid.css'
+import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import {variables, layout} from './RuiGrid.css'
 
 /**
  * RuiGrid
@@ -49,3 +49,5 @@ export class RuiGrid extends LitElement {
   /* #endregion */
 
 }
+
+export default RuiGrid;

@@ -9,22 +9,20 @@ import {css, unsafeCSS, CSSResult} from 'lit-element';
 
 const maxNoColumns = 16;
 
-//Create array and shift start from '0' to '1'
-const columns: number[] = [
-	...Array(maxNoColumns+1).keys()
-].filter((n):boolean => !!n);
+ //Create array and shift start from '0' to '1'
+const columns: number[] = [...Array(maxNoColumns+1).keys()].filter((n): boolean => !!n);
 
 /**
  * Creates
  * @param size 
  */
-const defineColumnsForSize = (size: string): CSSResult => columns.reduce((a, n):CSSResult => css`
+const defineColumnsForSize = (size: string): CSSResult => columns.reduce((a, n): CSSResult => css`
 	::slotted(.p-${unsafeCSS(size)}-${unsafeCSS(n)}) { grid-column-start: ${unsafeCSS(n)}; }
 	::slotted(.${unsafeCSS(size)}-${unsafeCSS(n)}) { grid-column-end: span ${unsafeCSS(n)}; }
 	${a}
 `, css``);
 
-const defineColumns = (): CSSResult => columns.reduce((a, n):CSSResult => css` 
+const defineColumns = (): CSSResult => columns.reduce((a, n): CSSResult => css` 
 	:host([columns="${unsafeCSS(n)}"]) { --template-columns: repeat(${unsafeCSS(n)}, minmax(0, 1fr)); }
 	${a}
 `, css``);

@@ -6,16 +6,21 @@
  */
 
 /**
- * Register the Web Component with customElements
+ * Register the Web Component with DOM customElements
  * @param tag - The HTML tag to use
  */
-export const register = (tag: string = 'rui-button'): void => {
-	// Register the new element with the browser.
+export const register = async (tag: string = 'rui-button'): Promise<boolean> => {
 	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
-		import('./RuiButton').then((module): void => {
-			customElements.define(tag, module.RuiButton);
-		});
+		// Register the new element with DOM.
+		const m = await import('./RuiButton');
+		customElements.define(tag, m.RuiButton);
+		return true;
 	}
+	return false;
+};
+
+export default {
+	register,
 };
 
 if (process.env.RUI_NO_DEFAULT_REGISTER !== 'true') {

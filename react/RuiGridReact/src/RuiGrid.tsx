@@ -20,3 +20,4 @@ export class RuiGrid extends React.Component<IRuiGridProps> {
 	}
 }
 
+export default RuiGrid;

@@ -1,9 +1,9 @@
 import React, {Fragment} from 'react';
 
-import { storiesOf } from '@storybook/react';
+import {storiesOf} from '@storybook/react';
 
 // @ts-ignore
-import { RuiExpandCollapse } from './lib';
+import {RuiExpandCollapse} from './lib';
 import Readme from './README.md';
 
 
@@ -36,7 +36,7 @@ storiesOf('Expand Collapse', module)
 			<p>The expand collapse summary renders a span element by default and the details element renders a div by default. This can be overriden by using the 'as' prop.</p>
 			<RuiExpandCollapse>
 				<RuiExpandCollapse.Summary as="h2">Summary</RuiExpandCollapse.Summary>
-				<RuiExpandCollapse.Details as="span">Content</RuiExpandCollapse.Details>
+				<RuiExpandCollapse.Details as="p">Content</RuiExpandCollapse.Details>
 			</RuiExpandCollapse>
 		</Fragment>
 	))

@@ -20,3 +20,4 @@ export class RuiSkipLinks extends React.Component<IRuiSkipLinksProps> {
 	}
 }
 
+export default RuiSkipLinks;

@@ -76,7 +76,7 @@ const checkFile = file => {
 };
 
 const checkComponent = () => {
-	let choices = [];
+	const choices = [];
 	fs
 		.readdirSync('./components')
 		.forEach(file => {
@@ -153,6 +153,16 @@ module.exports = plop => {
                     path: `${PATH}/src/index.ts`,
                     templateFile: `${PLOP_PATH}/src/index.ts.hbs`
                 },
+				{
+					type: 'add',
+					path: `${PATH}/tests/{{pascalCase name}}.test.ts`,
+					templateFile: `${PLOP_PATH}/tests/Component.test.ts.hbs`
+				},
+				{
+					type: 'add',
+					path: `${PATH}/tests/tsconfig.json`,
+					templateFile: `${PLOP_PATH}/tests/tsconfig.json.hbs`
+				},
             ]);
             if (data.adapter === 'React' || data.adapter === 'Both') {
                 actions = actions.concat(reactActions)

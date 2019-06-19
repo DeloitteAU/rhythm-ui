@@ -5,8 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
-import { variables, layout } from './RuiExpandCollapse.css'
+import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import {variables, layout} from './RuiExpandCollapse.css'
 
 // Update to include any possible type a value
 // can take, currenlty only have boolean open property
@@ -30,7 +30,7 @@ export class RuiExpandCollapse extends LitElement {
   }
 
   public set open(isOpen: boolean) {
-    let oldVal = this.open;
+    const oldVal = this.open;
     this._open = isOpen;
     this.requestUpdate('open', oldVal);
   }
@@ -68,7 +68,7 @@ export class RuiExpandCollapse extends LitElement {
     return (`${1e7}-${1e3}-${4e3}-${8e3}-${1e11}`)
       .replace(/[018]/g, (c: string): string => {
         const numC = parseInt(c, 10);
-        return (numC ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> numC / 4).toString();
+        return (numC ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> numC / 4).toString(); // eslint-disable-line no-bitwise
       });
   }
 
@@ -91,12 +91,12 @@ export class RuiExpandCollapse extends LitElement {
     // add back height style and then remove on next frame to trigger animation
     requestAnimationFrame((): void => {
       if (this._collapseableEl) {
-        var sectionHeight = this._collapseableEl.scrollHeight;
-        this._collapseableEl.style.height = sectionHeight + 'px';
+        const sectionHeight = this._collapseableEl.scrollHeight;
+        this._collapseableEl.style.height = `${sectionHeight}px`;
         this._collapseableEl.classList.add('hide-content');
         requestAnimationFrame((): void => {
           if (this._collapseableEl) {
-            this._collapseableEl.style.height = 0 + 'px';
+            this._collapseableEl.style.height = '0px';
             const transitionEndHandler = (): void => {
               if (this._collapseableEl) {
                 this._collapseableEl.removeEventListener('transitionend', transitionEndHandler);
@@ -119,8 +119,8 @@ export class RuiExpandCollapse extends LitElement {
   private _triggerExpandAnimation(): void {
     if (this._collapseableEl) {
       this._collapseableEl.hidden = false;
-      var sectionHeight = this._collapseableEl.scrollHeight;
-      this._collapseableEl.style.height = sectionHeight + 'px';
+      const sectionHeight = this._collapseableEl.scrollHeight;
+      this._collapseableEl.style.height = `${sectionHeight}px`;
       this._collapseableEl.classList.remove('hide-content');
   
       const transitionEndHandler = (): void => {
@@ -152,7 +152,7 @@ export class RuiExpandCollapse extends LitElement {
           this._collapseableEl.classList.add('hide-content');
         }
         
-        let expandCollapse: HTMLElement | null = this.shadowRoot.querySelector('.expand-collapse');
+        const expandCollapse: HTMLElement | null = this.shadowRoot.querySelector('.expand-collapse');
         if (expandCollapse) {
           expandCollapse.style.opacity = '1';
         }
@@ -219,3 +219,5 @@ export class RuiExpandCollapse extends LitElement {
 
   /* #endregion */
 }
+
+export default RuiExpandCollapse;

@@ -9,13 +9,18 @@
  * Register the Web Component with customElements
  * @param tag - The HTML tag to use
  */
-export const register = (tag: string = 'rui-expand-collapse'): void => {
+export const register = async (tag: string = 'rui-expand-collapse'): Promise<boolean> => {
 	// Register the new element with the browser.
 	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
-		import('./RuiExpandCollapse').then((module): void => {
-			customElements.define(tag, module.RuiExpandCollapse);
-		});
+		const m = await import('./RuiExpandCollapse');
+		customElements.define(tag, m.RuiExpandCollapse);
+		return true;
 	}
+	return false;
+};
+
+export default {
+	register,
 };
 
 if (process.env.RUI_NO_DEFAULT_REGISTER !== 'true') {
