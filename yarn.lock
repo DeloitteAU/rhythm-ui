@@ -7045,6 +7045,15 @@ eslint-plugin-jsx-a11y@^6.0.3:
     has "^1.0.3"
     jsx-ast-utils "^2.0.1"
 
+eslint-plugin-lit@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-lit/-/eslint-plugin-lit-1.0.0.tgz#ec5561e07f06ecbecbfdc0ec68e599c8333d0187"
+  integrity sha512-jFD2t6iPvOlqMTau6zssszICJQSBm41dbuxeENmjItA6YeSBgmig7R1lFncMegkRE3bspj9fRM+e6+OIWQMQkQ==
+  dependencies:
+    parse5 "^5.1.0"
+    parse5-htmlparser2-tree-adapter "^5.1.0"
+    requireindex "^1.2.0"
+
 eslint-plugin-prettier@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.1.0.tgz#8695188f95daa93b0dc54b249347ca3b79c4686d"
@@ -13511,6 +13520,13 @@ parse-url@^5.0.0:
     parse-path "^4.0.0"
     protocols "^1.4.0"
 
+parse5-htmlparser2-tree-adapter@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/parse5-htmlparser2-tree-adapter/-/parse5-htmlparser2-tree-adapter-5.1.0.tgz#a8244ee12bbd6b8937ad2a16ea43fe348aebcc86"
+  integrity sha512-OrI4DNmghGcwDB3XN8FKKN7g5vBmau91uqj+VYuwuj/r6GhFBMBNymsM+Z9z+Z1p4HHgI0UuQirQRgh3W5d88g==
+  dependencies:
+    parse5 "^5.1.0"
+
 parse5@^3.0.1:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-3.0.3.tgz#042f792ffdd36851551cf4e9e066b3874ab45b5c"
@@ -13518,7 +13534,7 @@ parse5@^3.0.1:
   dependencies:
     "@types/node" "*"
 
-parse5@^5.0.0:
+parse5@^5.0.0, parse5@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-5.1.0.tgz#c59341c9723f414c452975564c7c00a68d58acd2"
   integrity sha512-fxNG2sQjHvlVAYmzBZS9YlDp6PTSSDwa98vkD4QgVDDCAo84z5X1t5XyJQ62ImdLXx5NdIIfihey6xpum9/gRQ==
