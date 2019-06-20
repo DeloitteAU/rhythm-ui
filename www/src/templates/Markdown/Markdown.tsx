@@ -11,8 +11,8 @@ import RuiSkipLinks from '@rhythm-ui/skip-links-react';
 
 import React from 'react';
 import slug from 'slug';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import {Header} from '../../components/Header';
+import {Footer} from '../../components/Footer';
 import {Navigation} from '../../components/Navigation';
 import {Code} from '../../components/Code';
 
