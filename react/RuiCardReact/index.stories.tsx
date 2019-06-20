@@ -1,6 +1,6 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import RuiCard from './lib';
+import {storiesOf} from '@storybook/react';
+import {RuiCard} from './lib';
 import Readme from './README.md';
 
 storiesOf('Card', module)

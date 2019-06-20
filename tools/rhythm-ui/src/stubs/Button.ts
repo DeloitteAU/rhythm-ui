@@ -9,3 +9,5 @@ export class RuiButtonStub extends LazyElement {
 }
 
 customElements.define(tag, RuiButtonStub);
+
+export default RuiButtonStub;
