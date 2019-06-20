@@ -1,12 +1,11 @@
 import React from 'react';
 import {Link} from 'gatsby';
-
-import './Header.css';
+import headerStyles from './Header.css';
 
 export class Header extends React.Component {
 	public render() {
 		return (
-			<header className="header">
+			<header css={headerStyles}>
 				<Link to="/">Rhythm UI Design System</Link>
 			</header>
 		);
