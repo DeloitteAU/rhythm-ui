@@ -1,9 +1,9 @@
 import React from 'react';
 import RuiLayout from '@rhythm-ui/layout-react';
-import { StaticQuery, graphql } from "gatsby"
+import {StaticQuery, graphql} from "gatsby"
 import {Navigation} from '../../components/Navigation';
-import {Header} from '../../components/Header';
-import {Footer} from '../../components/Footer';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 export const Default = ({children}) => (
   <StaticQuery
@@ -37,3 +37,5 @@ export const Default = ({children}) => (
 	)}
   />
 );
+
+export default Default;

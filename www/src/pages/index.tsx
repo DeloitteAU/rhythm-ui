@@ -1,13 +1,14 @@
 
 
-import React from "react"
-
-import Layout from "../templates/Default";
+import React from 'react';
+//import {Link} from 'gatsby';
 import RuiGrid from '@rhythm-ui/grid-react';
+
+import Layout from '../templates/Default';
 
 //import Image from "../components/image"
 
-const IndexPage: React.FC = () => (
+const IndexPage = (): React.ReactNode => (
   <Layout>
     <RuiGrid>
       <div className="s-10">
@@ -22,4 +23,4 @@ const IndexPage: React.FC = () => (
   </Layout>
 )
 
-export default IndexPage
+export default IndexPage;

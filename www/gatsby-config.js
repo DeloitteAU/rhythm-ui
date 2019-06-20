@@ -60,10 +60,10 @@ module.exports = {
 			options: {
 				extensions: ['.md', '.mdx'],
 				gatsbyRemarkPlugins: [
-					{ resolve: 'gatsby-remark-autolink-headers' },
+					{resolve: 'gatsby-remark-autolink-headers'},
 					// gatsby-remark-relative-images must
 					// go before gatsby-remark-images
-					{ resolve: 'gatsby-remark-relative-images' },
+					{resolve: 'gatsby-remark-relative-images'},
 					{
 						resolve: 'gatsby-remark-images',
 						options: {
@@ -77,7 +77,7 @@ module.exports = {
 							wrapperStyle: '',
 						},
 					},
-					{ resolve: 'gatsby-remark-copy-linked-files' },
+					{resolve: 'gatsby-remark-copy-linked-files'},
 				]
 			},
 		},

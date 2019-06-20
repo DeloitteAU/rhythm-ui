@@ -1,8 +1,8 @@
 import React, {Fragment} from 'react';
 
-import { storiesOf } from '@storybook/react';
+import {storiesOf} from '@storybook/react';
 
-import { RuiSkipLinks } from './lib';
+import {RuiSkipLinks} from './lib';
 import Readme from './README.md';
 
 
