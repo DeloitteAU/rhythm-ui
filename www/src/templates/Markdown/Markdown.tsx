@@ -1,24 +1,24 @@
-import { MDXRenderer } from 'gatsby-mdx';
-import { MDXProvider } from '@mdx-js/react'
-import { graphql } from 'gatsby';
+import {MDXRenderer} from 'gatsby-mdx';
+import {MDXProvider} from '@mdx-js/react'
+import {graphql} from 'gatsby';
 
+// Import these so markdown files render if they are using these tags
+import '@rhythm-ui/button-react';
+import '@rhythm-ui/story-react';
+import '@rhythm-ui/expand-collapse-react';
 import RuiLayout from '@rhythm-ui/layout-react';
 import RuiGrid from '@rhythm-ui/grid-react';
 import RuiSkipLinks from '@rhythm-ui/skip-links-react';
+
 import React from 'react';
 import slug from 'slug';
 import {Header} from '../../components/Header';
 import {Footer} from '../../components/Footer';
-import { Navigation } from '../../components/Navigation';
-import { Code } from '../../components/Code';
+import {Navigation} from '../../components/Navigation';
+import {Code} from '../../components/Code';
 
 //import './prism.css';
 import './Markdown.css';
-
-// Import these so markdown files render if they are using these tags
-import '@rhythm-ui/button-react';
-import '@rhythm-ui/expand-collapse-react';
-import '@rhythm-ui/story-react';
 
 //import Code from '../components/Code'
 const preToCodeBlock = (preProps: any) => {
@@ -48,7 +48,7 @@ const preToCodeBlock = (preProps: any) => {
 
 export default function Template({
 	data, // this prop will be injected by the GraphQL query below.
-}: { data: any }) {
+}: {data: any}) {
 	const {mdx} = data; // data.markdownRemark holds our post data
 	const {fields, frontmatter, headings} = mdx;
 	const {breadcrumbs, relativeUrlPath} = fields;
@@ -58,7 +58,7 @@ export default function Template({
 		const label = heading.value;
 
 		// Make anchors consistent with gatsby-remark-autolink-headers
-		const anchor = slug(label, { lower: true });
+		const anchor = slug(label, {lower: true});
 
 		const link = `${relativeUrlPath}#${anchor}`;
 
@@ -112,7 +112,7 @@ export default function Template({
 
 export const pageQuery = graphql`
 	query MDXQuery($id: String!) {
-		mdx(id: { eq: $id }) {
+		mdx(id: {eq: $id}) {
 			id
 			code {
 				body

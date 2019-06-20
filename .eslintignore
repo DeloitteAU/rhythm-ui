@@ -1,2 +1,11 @@
 **/node_modules/**/*
 **/lib/**/*
+**/dist/**/*
+**/.cache/**/*
+*.json
+*.out
+*.log
+*.lock
+www/public
+
+www/src/html.js

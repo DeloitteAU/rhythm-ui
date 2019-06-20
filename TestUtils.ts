@@ -1,4 +1,4 @@
-export default class TestUtils {
+class TestUtils {
 	/**
 	 * Renders a given element with provided attributes
 	 * and returns a promise which resolves as soon as
@@ -54,3 +54,6 @@ export default class TestUtils {
 		});
 	}
 }
+
+export default TestUtils;
+

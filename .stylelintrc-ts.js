@@ -1,7 +1,7 @@
 module.exports = {
 	extends: [
 		'@deloitte-digital-au/stylelint-config',
-		'stylelint-config-styled-components'
+		'stylelint-config-styled-components',
 	],
 	processors: [
 		[

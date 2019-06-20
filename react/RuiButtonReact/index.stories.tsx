@@ -1,9 +1,9 @@
 import React, {Fragment} from 'react';
-import { storiesOf } from '@storybook/react';
-import { RuiButton } from './lib';
-import Readme from './README.md';
+import {storiesOf} from '@storybook/react';
+import {withKnobs, text, boolean, number, select, optionsKnob} from '@storybook/addon-knobs';
 
-import { withKnobs, text, boolean, number, select, optionsKnob} from '@storybook/addon-knobs';
+import {RuiButton} from './lib';
+import Readme from './README.md';
 
 const typeOptions = {
 	Default: 'default',
