@@ -1,4 +1,4 @@
-import { LitElement, html, CSSResultArray } from 'lit-element';
+import {LitElement, html, CSSResultArray} from 'lit-element';
 
 export interface ILitElementConstructor {
 	new(): LitElement;

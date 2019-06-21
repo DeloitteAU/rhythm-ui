@@ -6,16 +6,21 @@
 */
 
 /**
-* Register the Web Component with customElements
-* @param tag - The HTML tag to use
-*/
-export const register = (tag: string = 'rui-breadcrumbs') => {
-	// Register the new element with the browser.
+ * Register the Web Component with customElements
+ * @param tag - The HTML tag to use
+ */
+export const register = async (tag: string = 'rui-breadcrumbs'): Promise<boolean> => {
 	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
-		import('./RuiBreadcrumbs').then(module => {
-			customElements.define(tag, module.RuiBreadcrumbs);
-		});
+		// Register the new element with the DOM
+		const m = await import('./RuiBreadcrumbs');
+		customElements.define(tag, m.RuiBreadcrumbs);
+		return true;
 	}
+	return false;
+};
+
+export default {
+	register,
 };
 
 if (process.env.RUI_NO_DEFAULT_REGISTER !== 'true') {

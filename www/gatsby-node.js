@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 const path = require('path');
-const { createFilePath } = require('gatsby-source-filesystem');
+const {createFilePath} = require('gatsby-source-filesystem');
 
-exports.createPages = ({ actions, graphql }) => {
-	const { createPage } = actions;
+exports.createPages = ({actions, graphql}) => {
+	const {createPage} = actions;
 
 	const mdxTemplate = path.resolve('src/templates/Markdown/Markdown.tsx');
 
@@ -28,10 +28,10 @@ exports.createPages = ({ actions, graphql }) => {
 		}
 
 		result.data.allMdx.edges.forEach(edge => {
-			const { node } = edge;
-			const { fields, frontmatter } = node;
-			const { relativeUrlPath } = fields;
-			const { title } = frontmatter;
+			const {node} = edge;
+			const {fields, frontmatter} = node;
+			const {relativeUrlPath} = fields;
+			const {title} = frontmatter;
 
 			createPage({
 				path: relativeUrlPath,
@@ -44,14 +44,14 @@ exports.createPages = ({ actions, graphql }) => {
 	});
 };
 
-const { fmImagesToRelative } = require('gatsby-remark-relative-images');
+const {fmImagesToRelative} = require('gatsby-remark-relative-images');
 
-exports.onCreateNode = ({ node, actions, getNode }) => {
-	const { createNodeField } = actions;
+exports.onCreateNode = ({node, actions, getNode}) => {
+	const {createNodeField} = actions;
 
 	if (node.internal.type === 'Mdx') {
-		const relativeFilePath = createFilePath({ node, getNode, trailingSlash: false });
-		const { frontmatter } = node;
+		const relativeFilePath = createFilePath({node, getNode, trailingSlash: false});
+		const {frontmatter} = node;
 
 		// Remove any prefix numbers (e.g. in 01-getting-started)
 		let relativeUrlPath = relativeFilePath.replace(/\d\d-/g, '');
@@ -143,7 +143,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
 const resolvableExtensions = () => ['.ts', '.tsx'];
 
-function onCreateWebpackConfig({ actions, loaders }) {
+function onCreateWebpackConfig({actions, loaders}) {
 	const jsLoader = loaders.js();
 
 	if (!jsLoader) {

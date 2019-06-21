@@ -5,6 +5,8 @@
 * LICENSE file in the root directory of this source tree.
 */
 
+import React from 'react';
+
 declare global {
 	namespace JSX {
 		interface IntrinsicElements { // eslint-disable-line @typescript-eslint/interface-name-prefix
@@ -13,6 +15,6 @@ declare global {
 	}
 }
 
-export interface IRuiLink {
-	children?: JSX.Element[] | JSX.Element;
+export default interface IRuiLink extends HTMLAnchorElement {
+	target: string;
 }

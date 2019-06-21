@@ -5,10 +5,9 @@
 * LICENSE file in the root directory of this source tree.
 */
 
-import { LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
 
-import { variables, layout } from './RuiLink.css'
-
+import {variables, layout} from './RuiLink.css'
 
 export class RuiLink extends LitElement {
 
@@ -30,11 +29,10 @@ export class RuiLink extends LitElement {
 	public href? = undefined;
 
 	/**
-	 * For breadcrumbs - Set to true if the link is the last in the trail
+	 * If area-label is page
 	 */
-	@property({type : Boolean})
-	public active: boolean = false;
-
+	@property({type : String})
+	public active? = undefined;
 
 	/**
 	 * The colour of the Link
@@ -56,7 +54,6 @@ export class RuiLink extends LitElement {
 	@property({type : String})
 	public target?: '_blank' | '_self' | '_parent' | '__top' = '_self';
 
-
 	/* #endregion */
 
 
@@ -67,7 +64,7 @@ export class RuiLink extends LitElement {
 		* @slot This is a slot test
 	*/
 	public render(): TemplateResult {
-		if (this.href === undefined) {
+		if (this.href === undefined || this.active) {
 			return html`
 				<a class="active">
 					<slot> </slot>
@@ -86,3 +83,5 @@ export class RuiLink extends LitElement {
 	}
 	/* #endregion */
 }
+
+export default RuiLink;

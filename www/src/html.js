@@ -1,3 +1,6 @@
+//STOP
+// Dont convert this page to typescript. Gatsby looks for this file to override its default.
+
 import React from "react"
 import PropTypes from "prop-types"
 

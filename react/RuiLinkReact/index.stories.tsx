@@ -1,6 +1,6 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import RuiLink from './lib';
+import {storiesOf} from '@storybook/react';
+import {RuiLink} from './lib';
 import Readme from './README.md';
 
 storiesOf('Link', module)
@@ -18,14 +18,13 @@ storiesOf('Link', module)
 	.add('Link with targets defined 🎉', () => (
 		<React.Fragment>
 			<p> No target defined. Will default to _self </p>
-			<RuiLink href={'/#'}> No target  </RuiLink>
+			<RuiLink href='/#'> No target </RuiLink>
 			<p> Target _blank </p>
-			<RuiLink href={'/#'} target='_blank'> _blank </RuiLink>
+			<RuiLink href='/#' target='_blank'> _blank </RuiLink>
 			<p> Target _parent </p>
-			<RuiLink href={'/#'} target='_parent'> _parent</RuiLink>
+			<RuiLink href='/#' target='_parent'> _parent</RuiLink>
 			<p> Target _top </p>
-			<RuiLink href={'/#'} target='_top'> _top</RuiLink>
-
+			<RuiLink href='/#' target='_top'> _top</RuiLink>
 		</React.Fragment>
 	))
 	.add('A link with different colours 🎉', () => (
