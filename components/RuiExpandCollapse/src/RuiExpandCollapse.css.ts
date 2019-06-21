@@ -37,6 +37,21 @@ export const variables = css`
 		--summary-background-color: #000000;
 
 		/**
+		 * @variable The summary section background colour when active
+		 */
+		--summary-background-color-active: #333333;
+
+		/**
+		 * @variable The summary section background colour when focused
+		 */
+		--summary-background-color-focus: #333333;
+
+		/**
+		 * @variable The summary section background colour when hovered
+		 */
+		--summary-background-color-hover: #333333;
+
+		/**
 		 * @variable Summary padding
 		 */
 		--summary-padding: 28px 70px 28px 20px;
@@ -127,6 +142,15 @@ export const layout = css`
 
 	.summary-container:focus {
 		outline: var(--summary-outline-focus);
+		background-color: var(--summary-background-color-focus);
+	}
+
+	.summary-container:active {
+		background-color: var(--summary-background-color-active);
+	}
+
+	.summary-container:hover {
+		background-color: var(--summary-background-color-hover);
 	}
 
 	.icon-container {
