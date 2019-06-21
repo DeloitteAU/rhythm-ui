@@ -73,12 +73,6 @@ export const layout = css`
 		display: inline;
 	}
 	
-	.crumbs > ol ::slotted(li:not(:first-of-type))::before {
-		padding: var (--padding);
-		color: var(--color);
-		content: "/\\00a0";
-	}
-	
 	nav.crumbs ::slotted([aria-current="page"]) {
 		font-weight: bold;
 		text-decoration: none;

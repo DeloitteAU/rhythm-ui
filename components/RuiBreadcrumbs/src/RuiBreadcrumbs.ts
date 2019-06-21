@@ -5,17 +5,56 @@
 * LICENSE file in the root directory of this source tree.
 */
 
-import { LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
-import { variables, layout } from './RuiBreadcrumbs.css'
+import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import {variables, layout} from './RuiBreadcrumbs.css'
 
 
 export class RuiBreadcrumbs extends LitElement {
+	public firstUpdated() {
+		/**
+		 * 'assignedElements()'
+		 * Define all slots that are passed in (As Rui-link)
+		 * flatten: true returns the assigned elements of any available child <slot> elements
+		 */
+		const slots = this.shadowRoot.querySelector('slot');
+		const crumbElements = slots.assignedElements({flatten: true});
+
+		for (let i = 1, len = crumbElements.length; i < len; i++) {
+			/**
+			 * create an li element with slot='crumb' to be appended before each li child node in the breadcrumb parent node.
+			 * the separator is used as 'text'
+			 * We use 'this' in reference to the parent node
+			 */
+
+			const node = document.createTextNode(`${this.separator}`);
+			const listEl = document.createElement("li");
+			listEl.setAttribute("slot", "crumb");
+			listEl.setAttribute("aria-hidden", "true");
+			listEl.appendChild(node);
+
+			this.insertBefore(listEl, crumbElements[i]);
+		}
+	}
+
+	/**
+	 * The array of breadcrumbs
+	 */
+
+	@property({type : String})
+	public separator?: string = '/';
+
 	/**
 	 * The array of breadcrumbs
 	 */
 
 	@property({type : String})
 	public crumbs?: string = '';
+
+	/**
+	 * The array of breadcrumbs
+	 */
+	@property({type : Number})
+	public maxCrumbs?: number = 100;
 
 
 	/**
@@ -33,11 +72,6 @@ export class RuiBreadcrumbs extends LitElement {
 
     /* #region Methods */
 
-    /**
-    * Render method
-        * @slot This is a slot test
-    */
-
     public render(): TemplateResult {
 		if (this.crumbs) {
 			const crumbsArray = JSON.parse(this.crumbs);
@@ -45,7 +79,7 @@ export class RuiBreadcrumbs extends LitElement {
 
 			return html`
 				<nav aria-label="Breadcrumb" class="crumbs">
-					<ol> 
+					<ol>
 						${crumbsArray.map((crumb: { url: unknown; title: unknown; }) => html`<li><a href=${crumb.url}>${crumb.title}</a></li> `)}
 						<li aria-current="page" > ${activeCrumb.title }</li>
 					</ol>
@@ -53,15 +87,13 @@ export class RuiBreadcrumbs extends LitElement {
     	}
         return html`
 		<nav aria-label="Breadcrumb" class="crumbs">
-			<ol> 
+			<ol>
 				<slot name="crumb"> </slot>
 			</ol>
 		</nav>
             `;
     }
-
 	/* #endregion */
 }
 
-
-// separator="›" aria-label="Breadcrumb"
+export default RuiBreadcrumbs;

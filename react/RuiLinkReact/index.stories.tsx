@@ -30,14 +30,14 @@ storiesOf('Link', module)
 	.add('A link with different colours 🎉', () => (
 		<React.Fragment>
 			<p> Default colour or no colour defined </p>
-			<RuiLink href={'/#'} > no color  </RuiLink>
-			<RuiLink href={'/#'} color='default'> Default </RuiLink>
+			<RuiLink href='/#' > no color  </RuiLink>
+			<RuiLink href='/#' color='default'> Default </RuiLink>
 			<p> Primary color </p>
-			<RuiLink href={'/#'} color='primary'> Primary </RuiLink>
+			<RuiLink href='/#' color='primary'> Primary </RuiLink>
 			<p> Error color </p>
-			<RuiLink href={'/#'} color='error'> Error </RuiLink>
+			<RuiLink href='/#' color='error'> Error </RuiLink>
 			<p> Inherit from parent </p>
-			<RuiLink href={'/#'} color='inherit'> Inherit </RuiLink>
+			<RuiLink href='/#' color='inherit'> Inherit </RuiLink>
 		</React.Fragment>
 
 	))

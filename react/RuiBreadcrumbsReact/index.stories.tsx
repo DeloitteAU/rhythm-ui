@@ -17,7 +17,7 @@ storiesOf('Breadcrumbs', module)
 		<React.Fragment>
 			<br/> <p> Breadcrumbs using Link component </p> <br/>
 
-			<RuiBreadcrumbs>
+			<RuiBreadcrumbs maxCrumbs={4} separator='/'>
 				<RuiBreadcrumbs.Item href="/#" color='primary' > Link 1 </RuiBreadcrumbs.Item>
 				<RuiBreadcrumbs.Item href="/#" > Link 2 </RuiBreadcrumbs.Item>
 				<RuiBreadcrumbs.Item href="/#" > Link 3 </RuiBreadcrumbs.Item>
