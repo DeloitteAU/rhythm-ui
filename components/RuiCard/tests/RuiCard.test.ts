@@ -6,8 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import '../src'
-import {TestUtils} from '../../../TestUtils'
+import '../src';
+import TestUtils from '../../../TestUtils';
 
 describe('RuiCard', () => {
 	it('Renders content within the card', async () => {

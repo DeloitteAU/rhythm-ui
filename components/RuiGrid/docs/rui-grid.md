@@ -85,7 +85,7 @@ Set start position with prefix `p-` eg `p-s-2` or `p-l-4`;
 
 | CSS Variable | Default Value | Description |
 | --- | --- | --- |
-| --container-width | 1216px | The max container width  | 
+| --max-width | 1216px | The max container width  | 
 | --columns | 12 | The default number of columns (must be in range 1 to 16)  | 
 | --column-gap | 32px | The gap between columns  | 
 | --row-gap | var(--column-gap) | The gap between rows  | 

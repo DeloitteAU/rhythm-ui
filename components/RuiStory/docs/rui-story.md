@@ -127,15 +127,27 @@ Below is a fully populated row of stories, along with some externally styled con
 
 | CSS Variable | Default Value | Description |
 | --- | --- | --- |
-| --bg | #F2F2F2 | The base bg of the news item  | 
-| --bottom-border-color | #000 | The colour of the bottom border strip  | 
-| --content-colour | #5F5F5F | The default colour of the story content  | 
-| --cta-colour-hover | #5F5F5F | The default hover colour of the cta  | 
-| --img-bg | #000 | The default image background colour  | 
-| --img-height | 216px | The height of the story image  | 
-| --min-content-height | 348px | The minimum height for the content of the story  | 
-| --padding-sides | 24px | The padding for the sides of the content  | 
-| --padding-top-bottom | 34px | The padding for the top and bottom of the content  | 
-| --title-colour | #000 | The default colour for cta  | 
+| --color | #000 | The base text colour of the story  | 
+| --background-color | #F2F2F2 | The base background colour of the story  | 
+| --border-bottom-color | #000 | The colour of the bottom border stripe  | 
+| --border-bottom-width | 4px | The width of the bottom border stripe  | 
+| --border-bottom | var(--border-bottom-width) solid var(--border-bottom-color) | The styling for the bottom border stripe  | 
+| --domain-font-size | 11px | Font size of the domain text  | 
+| --dynamic-content-color | #5F5F5F | Content text colour  | 
+| --dynamic-content-font-size | 16px | Content font-size  | 
+| --cta-color | #000 | cta text colour  | 
+| --cta-font-size | 14px | cta font size  | 
+| --cta-line-height | 1.43 | cta text line height  | 
+| --cta-letter-spacing | -0.1px | cta text letter spacing  | 
+| --cta-color-hover | #5F5F5F | Hover colour of the cta  | 
+| --img-container-background-color | #000 | The default image background colour  | 
+| --img-container-height | 216px | The height of the story image  | 
+| --content-container-min-height | 348px | The minimum height for the content of the story  | 
+| --content-container-padding-sides | 24px | The padding for the sides of the content  | 
+| --content-container-padding-top-bottom | 34px | The padding for the top and bottom of the content  | 
+| --content-container-padding | var(--content-container-padding-top-bottom) var(--content-container-padding-sides) | The padding for the content  | 
+| --title-colour | #000 | Title text colour  | 
 | --title-font-size | 22px | The font size of the title  | 
-| --title-letter-spacing | 26px | The letter spacing of the title  | 
+| --title-line-height | 26px | The line height of the title  | 
+| --title-letter-spacing | -0.5px | Letter spacing of title  | 
+| --title-margin | 6px 0 10px 0 | Margin of title  | 

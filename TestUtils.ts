@@ -1,4 +1,4 @@
-export class TestUtils {
+class TestUtils {
 	/**
 	 * Renders a given element with provided attributes
 	 * and returns a promise which resolves as soon as
@@ -36,7 +36,7 @@ export class TestUtils {
 	 */
 	private static _mapObjectToHTMLAttributes(attributes): string {
 		return Object.entries(attributes).reduce((previous, current) => {
-			return `${previous  } ${current[0]}="${current[1]}"`;
+			return `${previous} ${current[0]}="${current[1]}"`;
 		}, "");
 	}
 

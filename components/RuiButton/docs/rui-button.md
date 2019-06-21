@@ -80,6 +80,7 @@ customComponents.define(MyButton, MyButton.tag)
 | --color | #FFF | The button font colour  | 
 | --color-active | var(--color) | The active font colour  | 
 | --color-disabled | #CCC | The disabled button font color  | 
-| --background-disabled | #DDD | The disabled button background color  | 
-| --background | #595457 | The button accent colour  | 
-| --border | 1px solid var(--background) | The button border  | 
+| --background-color-disabled | #DDD | The disabled button background color  | 
+| --background-color | #595457 | The button accent colour  | 
+| --border-color | var(--background-color) | The button border colour  | 
+| --border | 1px solid var(--border-color) | The button border  | 

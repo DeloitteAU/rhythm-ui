@@ -20,3 +20,5 @@ Below the skip links are included, the links are hidden until they are focused -
 
 | CSS Variable | Default Value | Description |
 | --- | --- | --- |
+| --top | 10px | offset from top of container  | 
+| --left | 10px | offset from left of container  | 

@@ -5,6 +5,7 @@ import {graphql} from 'gatsby';
 // Import these so markdown files render if they are using these tags
 import '@rhythm-ui/button-react';
 import '@rhythm-ui/story-react';
+import '@rhythm-ui/expand-collapse-react';
 import RuiLayout from '@rhythm-ui/layout-react';
 import RuiGrid from '@rhythm-ui/grid-react';
 import RuiSkipLinks from '@rhythm-ui/skip-links-react';
