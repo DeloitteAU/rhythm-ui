@@ -5,9 +5,11 @@ import {graphql} from 'gatsby';
 // Import these so markdown files render if they are using these tags
 import '@rhythm-ui/button-react';
 import '@rhythm-ui/story-react';
+import '@rhythm-ui/expand-collapse-react';
 import RuiLayout from '@rhythm-ui/layout-react';
 import RuiGrid from '@rhythm-ui/grid-react';
 import RuiSkipLinks from '@rhythm-ui/skip-links-react';
+
 import React from 'react';
 import slug from 'slug';
 import {Header} from '../../components/Header';
@@ -46,9 +48,8 @@ const preToCodeBlock = (preProps: any) => {
 
 export default function Template({
 	data, // this prop will be injected by the GraphQL query below.
-}: { data: any }) {
-	const mdx = data.doc;
-
+}: {data: any}) {
+	const {mdx} = data; // data.markdownRemark holds our post data
 	const {fields, frontmatter, headings} = mdx;
 	const {breadcrumbs, relativeUrlPath} = fields;
 	const {title: pageTitle} = frontmatter;

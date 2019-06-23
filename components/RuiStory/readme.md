@@ -1,5 +1,5 @@
 ---
-package: "@rhythm-ui/story"
+package: "@rhythm-ui"
 title: "rui-story"
 ---
 

@@ -1,5 +1,5 @@
 ---
-package: "@rhythm-ui/grid"
+package: "@rhythm-ui"
 title: "rui-grid"
 ---
 
