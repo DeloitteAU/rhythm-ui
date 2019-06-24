@@ -11,7 +11,19 @@ import {css} from 'lit-element';
 /**
  *  RuiSkipLinks Variables
  */
-export const variables = css``;
+export const variables = css`
+	:host {
+		/**
+		 * @variable offset from top of container
+		 */
+		--top: 10px;
+
+		/**
+		 * @variable offset from left of container
+		 */
+		--left: 10px;
+	}
+`;
 
 /**
  * RuiSkipLinks CSS
@@ -27,8 +39,8 @@ export const layout = css`
 
 	.skip-links > li {
 		position: absolute;
-		top: 10px;
-		left: 10px;
+		top: var(--top);
+		left: var(--left);
 		margin: 0;
 	}
 
