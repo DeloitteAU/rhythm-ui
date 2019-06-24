@@ -1,11 +1,10 @@
 import React from 'react';
-
-import './Footer.css';
+import footerStyles from './Footer.css';
 
 export class Footer extends React.Component {
 	public render() {
 		return (
-			<footer className="footer">
+			<footer css={footerStyles}>
 				Made with 💚 by Deloitte Digital
 			</footer>
 		);

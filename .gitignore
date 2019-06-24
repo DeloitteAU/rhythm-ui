@@ -6,10 +6,12 @@ dist/
 .cache/
 .npmrc
 .out
+.ruidocs
 
 #Gatsby
 www/public
 www/.cache
+www/.env.development
 .gatsby-context.js
 
 ### Intellij ###

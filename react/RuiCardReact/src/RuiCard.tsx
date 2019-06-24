@@ -16,7 +16,7 @@ export class RuiCard extends React.Component<IRuiCardProps> {
 			<rui-card {...this.props}>
 				{this.props.children}
 			</rui-card >
-		);
+		); 
 	}
 }
 
