@@ -12,7 +12,8 @@ module.exports = function(config) {
 			 * Make sure to disable Karma’s file watcher
 			 * because the preprocessor will use its own.
 			 */
-			{pattern: './components/**/*.test.ts', module: true, watched: false}
+			{pattern: './components/**/*.test.ts', module: true, watched: false},
+			{pattern: './www/src/utils/**/*.test.ts', module: true, watched: false},
 		],
 		exclude: [],
 		preprocessors: {

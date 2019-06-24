@@ -11,6 +11,7 @@ dist/
 #Gatsby
 www/public
 www/.cache
+www/.env.development
 .gatsby-context.js
 
 ### Intellij ###
