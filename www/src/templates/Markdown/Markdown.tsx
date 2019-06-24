@@ -49,8 +49,9 @@ const preToCodeBlock = (preProps: any) => {
 export default function Template({
 	data, // this prop will be injected by the GraphQL query below.
 }: {data: any}) {
-	const {mdx} = data; // data.markdownRemark holds our post data
-	const {fields, frontmatter, headings} = mdx;
+	console.log(data);
+	const {doc} = data; // data.markdownRemark holds our post data
+	const {fields, frontmatter, headings} = doc;
 	const {breadcrumbs, relativeUrlPath} = fields;
 	const {title: pageTitle} = frontmatter;
 
@@ -92,7 +93,7 @@ export default function Template({
 					<RuiGrid>
 						<div className="s-11">
 							<MDXProvider components={mdxComponents}>
-								<MDXRenderer>{mdx.code.body}</MDXRenderer>
+								<MDXRenderer>{doc.code.body}</MDXRenderer>
 								{data.ruidocs.nodes.map(n => {
 									return (
 										<MDXRenderer key={n.id}>{n.code.body}</MDXRenderer>
@@ -103,7 +104,7 @@ export default function Template({
 					</RuiGrid>
 				</main>
 				<aside>
-					<pre>yarn install {mdx.frontmatter.package}</pre>
+					<pre>yarn install {doc.frontmatter.package}</pre>
 					<br /><br />
 					{pageHeadings.map(h => (
 						<div key={h.link}>
