@@ -95,7 +95,7 @@ export default function Template({
 	});
 
 	const githubUrlPath = `
-	${process.env.GATSBY_GITHUB_URL}${replaceChar(relativeUrlPath)}/docs/${replaceStringWith(relativeUrlPath, '/docs/components/', '')}.md
+	${process.env.GATSBY_GITHUB_URL}${replaceChar(relativeUrlPath)}/readme.md
 	`;
 	
 	const mdxComponents = {
