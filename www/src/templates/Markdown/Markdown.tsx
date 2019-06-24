@@ -74,7 +74,7 @@ const preToCodeBlock = (preProps: any) => {
 export default function Template({
 	data, // this prop will be injected by the GraphQL query below.
 }: {data: any}) {
-	console.log(data);
+	
 	const {doc} = data; // data.markdownRemark holds our post data
 	const {fields, frontmatter, headings} = doc;
 	const {breadcrumbs, relativeUrlPath} = fields;
