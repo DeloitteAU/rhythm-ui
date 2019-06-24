@@ -10,6 +10,9 @@ export const Navigation = () => (
         allMdx {
           nodes {
             id
+            frontmatter {
+              title
+            }
             fields {
               nodeTitle
               relativeUrlPath
@@ -21,7 +24,7 @@ export const Navigation = () => (
     render={data => (
       <nav id="nav" css={navigationStyles}>
         <ul>
-          {data.allMdx.nodes.map(node => <li key={node.id}><Link to={node.fields.relativeUrlPath}>{node.fields.relativeUrlPath}</Link></li>)}
+          {data.allMdx.nodes.map(node => <li key={node.id}><Link to={node.fields.relativeUrlPath}>{node.frontmatter.title || node.fields.relativeUrlPath}</Link></li>)}
         </ul>
       </nav>
     )}

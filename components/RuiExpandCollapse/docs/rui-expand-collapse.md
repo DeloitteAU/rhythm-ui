@@ -55,6 +55,9 @@ The component's onExpandCollapse function should be overriden in this case.
 | --color | #000000 | The base text colour for the expand collapse  | 
 | --summary-color | #FFFFFF | The summary section text colour  | 
 | --summary-background-color | #000000 | The summary section background colour  | 
+| --summary-background-color-active | #333333 | The summary section background colour when active  | 
+| --summary-background-color-focus | #333333 | The summary section background colour when focused  | 
+| --summary-background-color-hover | #333333 | The summary section background colour when hovered  | 
 | --summary-padding | 28px 70px 28px 20px | Summary padding  | 
 | --summary-outline-focus | -webkit-focus-ring-color auto 5px | Summary button focus outline styling  | 
 | --details-padding | 28px 20px | Details padding  | 

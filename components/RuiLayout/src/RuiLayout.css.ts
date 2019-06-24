@@ -35,7 +35,7 @@ export const variables = css`
 		/**
 		 * @variable The grids default template columns
 		 */
-		--template-columns: 20% minmax(0, 1fr) 20%;
+		--template-columns: 270px minmax(0, 1fr) 200px;
 
 		/**
 		 * @variable The grid row
