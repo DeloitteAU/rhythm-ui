@@ -33,7 +33,6 @@ exports.createPages = ({actions, graphql}) => {
 			const {fields, frontmatter} = node;
 			const {relativeUrlPath} = fields;
 			const {title} = frontmatter;
-
 			// TODO: Use a front-matter variable to opt out creating pages from .md instead eg "meta: true"
 			// TODO: And use filter in the above query
 			if (relativeUrlPath.indexOf('.ruidocs') < 0) {
@@ -54,7 +53,6 @@ const {fmImagesToRelative} = require('gatsby-remark-relative-images');
 
 exports.onCreateNode = ({node, actions, getNode}) => {
 	const {createNodeField} = actions;
-
 	if (node.internal.type === 'Mdx') {
 		const relativeFilePath = createFilePath({node, getNode, trailingSlash: false});
 		const {frontmatter, fileAbsolutePath} = node;
@@ -71,6 +69,9 @@ exports.onCreateNode = ({node, actions, getNode}) => {
 
 			relativeUrlPath = `/docs/components/${slug}`;
 		}
+
+		// setting the relative path for CHANGELOG.md
+		if (fileAbsolutePath.includes('CHANGELOG')) relativeUrlPath = `/change-log`;
 
 		// Extract parent path and base name from the relative path
 		const [,,parentUrlPath = '', nodeName = ''] = relativeUrlPath.match(/^(.*)\/(.+)$/) || [];
