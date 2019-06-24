@@ -1,4 +1,4 @@
-import replaceStringWith from './replaceStringWith';
+import replaceStringWith from '../replaceStringWith';
 
 describe('replaceStringWith.spec', () => {
   

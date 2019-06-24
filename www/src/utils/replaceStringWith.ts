@@ -3,5 +3,3 @@
 export default function replaceStringWith(str: string, replaceString: string, replaceWith: string): string {
   return str.replace(replaceString, replaceWith);
 };
-
-

@@ -1,4 +1,4 @@
-import findIndexOf from './findIndexOf';
+import findIndexOf from '../findIndexOf';
 
 describe('findIndexOf.spec', () => {
 

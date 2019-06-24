@@ -17,10 +17,8 @@ import {Header} from '../../components/Header';
 import {Footer} from '../../components/Footer';
 import {Navigation} from '../../components/Navigation';
 import {Code} from '../../components/Code';
-import {
-	findIndexOf,
-	replaceStringWith
-} from '../../utils';
+import findIndexOf from '../../utils/findIndexOf';
+import replaceStringWith from '../../utils/replaceStringWith';
 
 //import './prism.css';
 import './Markdown.css';
