@@ -1,6 +1,7 @@
 import {MDXRenderer} from 'gatsby-mdx';
 import {MDXProvider} from '@mdx-js/react'
 import {graphql} from 'gatsby';
+import {css} from '@emotion/core';
 
 // Import these so markdown files render if they are using these tags
 import '@rhythm-ui/button-react';
@@ -16,6 +17,10 @@ import {Header} from '../../components/Header';
 import {Footer} from '../../components/Footer';
 import {Navigation} from '../../components/Navigation';
 import {Code} from '../../components/Code';
+import {
+	findIndexOf,
+	replaceStringWith
+} from '../../utils';
 
 //import './prism.css';
 import './Markdown.css';
@@ -46,6 +51,26 @@ const preToCodeBlock = (preProps: any) => {
 	return null
 };
 
+	// regex capitalizing anything after "-"
+	const makeUpperCaseAfterMinusSign = (str: string): string => 
+	str.replace(/-\s*([a-z])/g, (d: string, e: string): string  => e.toUpperCase());
+
+	// this function will return a string like '/components/RuiButton' that we need to append for link to github.
+  const replaceChar = (urlPath: string): string => {
+		
+    // will replace '/docs' from relativeUrlPath.
+    const removeDocsTerm: string = replaceStringWith(urlPath, '/docs', '')
+
+		// can now pass this a string to search for the index. 
+		const indexOfMinusSign: Function = findIndexOf(removeDocsTerm);
+
+		// changing 'r' to R for the character 'r' from 'rui' 
+    const capitalizeR: string = [...removeDocsTerm].map((ch, index) => index === indexOfMinusSign('rui-') ? ch.toUpperCase() : ch)
+    .join("");
+
+		return makeUpperCaseAfterMinusSign(capitalizeR);
+  };
+
 export default function Template({
 	data, // this prop will be injected by the GraphQL query below.
 }: {data: any}) {
@@ -62,13 +87,17 @@ export default function Template({
 		const anchor = slug(label, {lower: true});
 
 		const link = `${relativeUrlPath}#${anchor}`;
-
+		
 		return {
 			label,
 			link
 		};
 	});
 
+	const githubUrlPath = `
+	${process.env.GATSBY_GITHUB_URL}${replaceChar(relativeUrlPath)}/docs/${replaceStringWith(relativeUrlPath, '/docs/components/', '')}.md
+	`;
+	
 	const mdxComponents = {
 		pre: (props: any) => {
 			const preProps = preToCodeBlock(props);
@@ -92,6 +121,11 @@ export default function Template({
 				<main id="main">
 					<RuiGrid>
 						<div className="s-11">
+							<div css={css`
+								text-align: right;
+							`}>
+								<a href={githubUrlPath} target="_blank">Edit on Github</a>
+							</div>
 							<MDXProvider components={mdxComponents}>
 								<MDXRenderer>{doc.code.body}</MDXRenderer>
 								{data.ruidocs.nodes.map(n => {
