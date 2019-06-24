@@ -8,7 +8,7 @@
 import React from 'react';
 import '@rhythm-ui/rui-link';
 
-import {IRuiLink} from './IRuiLink';
+import IRuiLink from './IRuiLink';
 
 export default class RuiLink extends React.Component<IRuiLink> {
 	public render(): JSX.Element {
