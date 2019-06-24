@@ -13,7 +13,7 @@ export class RuiLink extends LitElement {
 
 	/**
 	*
-	* The styles for button
+	* The styles for Link
 	* @remarks
 	* If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	*/
@@ -58,11 +58,6 @@ export class RuiLink extends LitElement {
 
 
 	/* #region Methods */
-
-	/**
-	* Render method
-		* @slot This is a slot test
-	*/
 	public render(): TemplateResult {
 		if (this.href === undefined || this.active) {
 			return html`

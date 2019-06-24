@@ -47,10 +47,11 @@ export const layout = css`
 	nav.crumbs li + li::before {
 		padding: var (--padding);
 		color: var(--color);
-		content: "/\\00a0";
+		content: "/";
 	}
 	
-	nav.crumbs a:hover {
+	nav.crumbs a:hover,
+	nav.crumbs a:focus {
 		color: var(--hover-color);
 		text-decoration: underline;
 	}
