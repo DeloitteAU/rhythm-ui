@@ -46,7 +46,6 @@ export class RuiStory extends LitElement {
    * @slot This is a slot test
    */
   public render(): TemplateResult {
-
     return html`
       <article class="story">
         <div class="img-container">

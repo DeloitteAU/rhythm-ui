@@ -1,7 +1,7 @@
 /* eslint @typescript-eslint/explicit-function-return-type: 0 */
 
 import '../src';
-import {TestUtils} from '../../../TestUtils';
+import TestUtils from '../../../TestUtils';
 
 //https://medium.com/@pietmichal/how-to-test-a-web-component-b5d64d5e8bb0
 
