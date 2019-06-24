@@ -15,19 +15,23 @@ const cssVarRegex = /(--.+?)\:\s?(.+)\;/;
 const fIndex = args.indexOf('--files');
 const pattern = args[fIndex + 1];
 
-const oIndex = args.indexOf('--out');
-const outDir = args[oIndex + 1];
+// const oIndex = args.indexOf('--out');
+// const outDir = args[oIndex + 1];
+const outDir = path.join(__dirname, '../../', '.ruidocs');
 
 if (!fs.existsSync(outDir)) {
 	fs.mkdirSync(outDir);
 }
 
 let readme;
+let readmeAbsolutePath;
 
 try {
 	readme = fs.readFileSync('./readme.md', 'UTF8');
+	readmeAbsolutePath = path.resolve('./readme.md');
 } catch(err) {
 	readme = fs.readFileSync('./readme.mdx', 'UTF8');
+	readmeAbsolutePath = path.resolve('./readme.mdx');
 }
 
 let filename = 'readme';
@@ -36,6 +40,8 @@ let filename = 'readme';
 const frontMatter = fm(readme);
 if (frontMatter && frontMatter.attributes && frontMatter.attributes.title) {
 	filename = frontMatter.attributes.title.replace(/\s/g,'-').toLowerCase();
+} else {
+	throw 'Readme must have front matter with a unique title';
 }
 
 // Parse passed typescript files
@@ -45,7 +51,7 @@ glob(pattern, {}, (er, files) => {
 		process.exit(1);
 	}
 
-	console.log(`Found ${files.length} files`);
+	console.log(`ruidocs processing ${files.length} files`);
 
 	files.forEach(file => {
 		const data = fs.readFileSync(file, 'utf8');
@@ -64,8 +70,10 @@ glob(pattern, {}, (er, files) => {
 			return md;
 		}, '\r\n ## Variables\r\n\r\n| CSS Variable | Default Value | Description |\r\n| --- | --- | --- |\r\n');
 
+		// build front matter
+		const frontmatter = `---\r\nparentFileAbsolutePath: "${readmeAbsolutePath}"\r\nmeta: true\r\n---`;
 
-		fs.writeFileSync(path.join(outDir, `${filename}.md`), `${readme}\r\n${markdown}`);
+		fs.writeFileSync(path.join(outDir, `${filename}-variables.md`), `${frontmatter}\r\n\r\n${markdown}`);
 
 	});
 });
