@@ -16,23 +16,28 @@ export class RuiBreadcrumbs extends LitElement {
 		 * Define all slots that are passed in (As Rui-link)
 		 * flatten: true returns the assigned elements of any available child <slot> elements
 		 */
-		const slots = this.shadowRoot.querySelector('slot');
-		const crumbElements = slots.assignedElements({flatten: true});
+		if (this.shadowRoot !== null ) {
+			const slots = this.shadowRoot.querySelector('slot');
+			if (slots) {
 
-		for (let i = 1, len = crumbElements.length; i < len; i++) {
-			/**
-			 * create an li element with slot='crumb' to be appended before each li child node in the breadcrumb parent node.
-			 * the separator is used as 'text'
-			 * We use 'this' in reference to the parent node
-			 */
+			const crumbElements = slots.assignedElements({flatten: true});
 
-			const node = document.createTextNode(`${this.separator}`);
-			const listEl = document.createElement("li");
-			listEl.setAttribute("slot", "crumb");
-			listEl.setAttribute("aria-hidden", "true");
-			listEl.appendChild(node);
+			for (let i = 1, len = crumbElements.length; i < len; i++) {
+				/**
+				 * create an li element with slot='crumb' to be appended before each li child node in the breadcrumb parent node.
+				 * the separator is used as 'text'
+				 * We use 'this' in reference to the parent node
+				 */
 
-			this.insertBefore(listEl, crumbElements[i]);
+				const node = document.createTextNode(`${this.separator}`);
+				const listEl = document.createElement("li");
+				listEl.setAttribute("slot", "crumb");
+				listEl.setAttribute("aria-hidden", "true");
+				listEl.appendChild(node);
+
+				this.insertBefore(listEl, crumbElements[i]);
+			}
+			}
 		}
 	}
 
