@@ -24,6 +24,7 @@ import {
 
 //import './prism.css';
 import './Markdown.css';
+import './test.ts';
 
 //import Code from '../components/Code'
 const preToCodeBlock = (preProps: any) => {

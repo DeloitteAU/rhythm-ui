@@ -68,16 +68,6 @@ export const variables = css`
 		 */
 		--details-padding: 28px 20px;
 
-		/**
-		 * @variable Transition for the details section content
-		 */
-		--details-transition: opacity 200ms ease-out 250ms;
-
-		/**
-		 * @variable Transition for the details container
-		 */
-		--details-container-transition: height 250ms ease-out;
-
 		/* ICON STYLES */
 
 		/**
@@ -168,18 +158,11 @@ export const layout = css`
 
 	.details-container {
 		overflow: hidden;
-		transition: var(--details-container-transition);
 		height: auto;
 	}
 
 	.details-container > ::slotted(*) {
-		opacity: 1;
 		padding: var(--details-padding);
-		transition: var(--details-transition);
-	}
-
-	.details-container.hide-content > ::slotted(*) {
-		opacity: 0;
 	}
 
 	.is-open .icon-container {
