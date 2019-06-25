@@ -3,12 +3,9 @@
 	"version": "1.0.0",
 	"main": "lib/index.js",
 	"scripts": {
-		"start": "yarn clean && concurrently \"yarn start:babel\" \"yarn start:declarations\"",
-    "start:babel": "babel -w -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --copy-files",
-    "start:declarations": "tsc --declaration --emitDeclarationOnly --watch",
-		"build": "yarn build:babel && yarn build:declarations",
+		"start": "yarn clean && babel -w -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --copy-files",
+		"build": "yarn build:babel",
 		"build:babel": "babel -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --ignore *.d.ts --copy-files",
-    "build:declarations": "tsc --declaration --emitDeclarationOnly",
 		"clean": "rimraf lib"
 	},
 	"files": [
@@ -22,6 +19,6 @@
 		"@rhythm-ui/expand-collapse": "^1.0.0"
 	},
 	"peerDependencies": {
-		"react": ">= 16"
+		"react": ">= 16.0.0"
 	}
 }
