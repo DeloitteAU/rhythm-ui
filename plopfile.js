@@ -1,7 +1,7 @@
 const fs = require('fs'); // eslint-disable-line
 const PATH = 'components/{{pascalCase name}}';
-const REACT_PATH = 'react/{{pascalCase name}}React';
-const VUE_PATH =  'vue/{{pascalCase name}}Vue';
+const REACT_PATH = 'adapters/react/{{pascalCase name}}React';
+const VUE_PATH =  'adapters/vue/{{pascalCase name}}Vue';
 const PLOP_PATH = 'plopTemplates/Component';
 const PLOP_REACT = 'plopTemplates/reactAdapters';
 const PLOP_VUE = 'plopTemplates/vueAdapters';
@@ -80,7 +80,7 @@ const checkComponent = () => {
 	fs
 		.readdirSync('./components')
 		.forEach(file => {
-			if (!checkFile(`react/${file}React`)) {
+			if (!checkFile(`adapters/react/${file}React`)) {
 				choices.push(file)
 			}
 		});
