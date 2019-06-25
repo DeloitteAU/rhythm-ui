@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs')
+const path = require('path')
 
 // This is a temp folder, so make sure it exists before plugins load
-const docsDir = path.join(__dirname, '../', '.ruidocs');
+const docsDir = path.join(__dirname, '../', '.ruidocs')
 if (!fs.existsSync(docsDir)) {
-	fs.mkdirSync(docsDir);
+	fs.mkdirSync(docsDir)
 }
+
+const formatName = node => (node ? node.replace('rui-', '') : node)
+const removeFromUrl = node => (!node.includes('-variables') ? node : null)
 
 module.exports = {
 	siteMetadata: {
@@ -95,7 +98,7 @@ module.exports = {
 						},
 					},
 					{resolve: 'gatsby-remark-copy-linked-files'},
-				]
+				],
 			},
 		},
 		{
@@ -110,11 +113,22 @@ module.exports = {
 				icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
 			},
 		},
+		{
+			resolve: `@gatsby-contrib/gatsby-plugin-elasticlunr-search`,
+			options: {
+				fields: ['name', 'title', 'urlPath'],
+				resolvers: {
+					Mdx: {
+						name: node => node.frontmatter.title,
+						title: node => formatName(node.frontmatter.title),
+						urlPath: node => removeFromUrl(node.fields.relativeUrlPath),
+					},
+				},
+			},
+		},
 		//   },
 		// this (optional) plugin enables Progressive Web App + Offline functionality
 		// To learn more, visit: https://gatsby.dev/offline
 		// 'gatsby-plugin-offline',
-
-
 	],
-};
+}
