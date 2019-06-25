@@ -1,10 +1,7 @@
 import React, {Fragment} from 'react';
-
 import {storiesOf} from '@storybook/react';
-
-import {RuiStory} from './lib';
+import {RuiStory} from './src';
 import Readme from './README.md';
-
 
 storiesOf('Story', module)
 	.addParameters({

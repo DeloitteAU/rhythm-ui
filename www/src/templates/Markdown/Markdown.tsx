@@ -1,5 +1,7 @@
+/* eslint react/no-multi-comp:0 */
+
 import {MDXRenderer} from 'gatsby-mdx';
-import {MDXProvider} from '@mdx-js/react'
+import {MDXProvider} from '@mdx-js/react';
 import {graphql} from 'gatsby';
 import {css} from '@emotion/core';
 
@@ -19,7 +21,7 @@ import {Navigation} from '../../components/Navigation';
 import {Code} from '../../components/Code';
 import {
 	findIndexOf,
-	replaceStringWith
+	replaceStringWith,
 } from '../../utils/stringUtils';
 
 //import './prism.css';
@@ -37,44 +39,44 @@ const preToCodeBlock = (preProps: any) => {
 	) {
 		const {
 			children: codeString,
-			props
-		} = preProps.children.props
+			props,
+		} = preProps.children.props;
 
 		return {
 			codeString: codeString.trim(),
 			language: preProps.children.props.className && preProps.children.props.className.split('-')[1],
 			preview: !!preProps.children.props.preview,
-			...props
-		}
+			...props,
+		};
 	}
 
-	return null
+	return null;
 };
 
-	// regex capitalizing anything after "-"
-	const makeUpperCaseAfterMinusSign = (str: string): string => 
+// regex capitalizing anything after "-"
+const makeUpperCaseAfterMinusSign = (str: string): string =>
 	str.replace(/-\s*([a-z])/g, (d: string, e: string): string  => e.toUpperCase());
 
-	// this function will return a string like '/components/RuiButton' that we need to append for link to github.
-  const replaceChar = (urlPath: string): string => {
-		
-    // will replace '/docs' from relativeUrlPath.
-    const removeDocsTerm: string = replaceStringWith(urlPath, '/docs', '')
+// this function will return a string like '/components/RuiButton' that we need to append for link to github.
+const replaceChar = (urlPath: string): string => {
 
-		// can now pass this a string to search for the index. 
-		const indexOfMinusSign: Function = findIndexOf(removeDocsTerm);
+	// will replace '/docs' from relativeUrlPath.
+	const removeDocsTerm: string = replaceStringWith(urlPath, '/docs', '');
 
-		// changing 'r' to R for the character 'r' from 'rui' 
-    const capitalizeR: string = [...removeDocsTerm].map((ch, index) => index === indexOfMinusSign('rui-') ? ch.toUpperCase() : ch)
-    .join("");
+	// can now pass this a string to search for the index.
+	const indexOfMinusSign: Function = findIndexOf(removeDocsTerm);
 
-		return makeUpperCaseAfterMinusSign(capitalizeR);
-  };
+	// changing 'r' to R for the character 'r' from 'rui'
+	const capitalizeR: string = [...removeDocsTerm].map((ch, index) => (index === indexOfMinusSign('rui-') ? ch.toUpperCase() : ch))
+		.join('');
 
-export default function Template({
+	return makeUpperCaseAfterMinusSign(capitalizeR);
+};
+
+const Template = ({
 	data, // this prop will be injected by the GraphQL query below.
-}: {data: any}) {
-	
+}: {data: any}) => {
+
 	const {doc} = data; // data.markdownRemark holds our post data
 	const {fields, frontmatter, headings} = doc;
 	const {breadcrumbs, relativeUrlPath} = fields;
@@ -87,28 +89,29 @@ export default function Template({
 		const anchor = slug(label, {lower: true});
 
 		const link = `${relativeUrlPath}#${anchor}`;
-		
+
 		return {
 			label,
-			link
+			link,
 		};
 	});
 
 	const githubUrlPath = `
 	${process.env.GATSBY_GITHUB_URL}${replaceChar(relativeUrlPath)}/readme.md
 	`;
-	
+
 	const mdxComponents = {
-		pre: (props: any) => {
+		pre: (props: any) => { //eslint-disable-line react/display-name
+
 			const preProps = preToCodeBlock(props);
 
 			if (preProps) {
-				return <Code {...preProps} />
+				return <Code {...preProps} />;
 			}
 
-			return <pre {...props} />
+			return <pre {...props} />;
 		},
-	}
+	};
 
 	// breadcrumbs={breadcrumbs} pageTitle={pageTitle} relativeUrlPath={relativeUrlPath}
 
@@ -121,11 +124,6 @@ export default function Template({
 				<main id="main">
 					<RuiGrid>
 						<div className="s-11">
-							<div css={css`
-								text-align: right;
-							`}>
-								<a href={githubUrlPath} target="_blank">Edit on Github</a>
-							</div>
 							<MDXProvider components={mdxComponents}>
 								<MDXRenderer>{doc.code.body}</MDXRenderer>
 								{data.ruidocs.nodes.map(n => {
@@ -145,12 +143,14 @@ export default function Template({
 							<a href={h.link}>{h.label}</a>
 						</div>
 					))}
+					<br /><br />
+					<a href={githubUrlPath} target="_blank">Edit this page</a>
 				</aside>
 				<Footer />
 			</RuiLayout>
 		</React.Fragment>
-	)
-}
+	);
+};
 
 export const pageQuery = graphql`
 	query MDXQuery($id: String!, $fileAbsolutePath: String!) {
@@ -186,3 +186,5 @@ export const pageQuery = graphql`
 		}
 	}
 `;
+
+export default Template;

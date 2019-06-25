@@ -1,17 +1,13 @@
 import React, {Fragment} from 'react';
-
 import {storiesOf} from '@storybook/react';
-
-// @ts-ignore
-import {RuiGrid} from './lib';
+import {RuiGrid} from './src';
 import Readme from './README.md';
-
 
 storiesOf('Grid', module)
 	.addParameters({
 		readme: {
 			// Show readme at the addons panel
-			sidebar:  Readme,
+			sidebar: Readme,
 		},
 	})
 	.add('Preset values', () => (
@@ -55,9 +51,9 @@ storiesOf('Grid', module)
 	.add('With 6 columns', () => (
 		<Fragment>
 			<RuiGrid columns="6" className="demo">
-				<div></div>
+				<div />
 				<div className="s-12 m-6">s-12 m-6</div>
-				<div></div>
+				<div />
 
 			</RuiGrid>
 		</Fragment>
@@ -66,9 +62,9 @@ storiesOf('Grid', module)
 		<Fragment>
 			<p>  Set start position with prefix p- </p>
 			<p> eg. p-s-2  </p>
-				<RuiGrid >
+			<RuiGrid >
 				<div className="p-s-4 s-2">p-s-4 s-2</div>
-				<div></div>
+				<div />
 			</RuiGrid>
 		</Fragment>
 	));
