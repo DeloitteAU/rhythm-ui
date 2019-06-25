@@ -12,7 +12,7 @@ class ExpandCollapseAnimationController {
             }
             
             if (this._detailsSlotEl) {
-                this._detailsSlotEl.assignedNodes().forEach((el: Node): void => {
+                this._detailsSlotEl.assignedNodes().forEach((el): void => {
                     el.style.opacity = isOpen ? '1' : '0';
                     el.style.transition = 'opacity 200ms ease-out 250ms';
                 });
@@ -96,8 +96,6 @@ class ExpandCollapseAnimationController {
   }
 }
 
-setTimeout(() => {
-    document.querySelectorAll('rui-expand-collapse').forEach(el => {
-        new ExpandCollapseAnimationController(el);
-    })
-}, 200)
+document.addEventListener('rui-expand-collapse-mounted', (e) => {
+  new ExpandCollapseAnimationController(e.target);
+})

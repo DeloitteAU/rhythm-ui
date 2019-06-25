@@ -147,6 +147,13 @@ export class RuiExpandCollapse extends LitElement {
         // will only work once the slot and it's content have mounted and rendered
         this._detailsSlotEl.addEventListener('slotchange', (): void => {
           this._initialiseExpandCollapse();
+          this.dispatchEvent(new CustomEvent(
+            "rui-expand-collapse-mounted", 
+            {
+              bubbles: true,
+              cancelable: true
+            })
+          )
          });
       }
     }
