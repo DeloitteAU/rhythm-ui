@@ -77,7 +77,7 @@ describe('RuiExpandCollapse', () => {
     const children = `${summaryElStr}${detailsElStr}`;
     const ele = await TestUtils.render('rui-expand-collapse', {}, children);
     
-    const detailsEl = ele.querySelector('#details-content');
+    //const detailsEl = ele.querySelector('#details-content');
     expect(ele).toBeDefined();
     expect(ele.shadowRoot).toBeDefined();
     
@@ -89,7 +89,7 @@ describe('RuiExpandCollapse', () => {
     const slottedEl: Node = detailsSlot.assignedNodes()[0];
     
     // expect the slotted el to not display
-    expect(slottedEl.offsetParent).toEqual(null);
+    expect((slottedEl as HTMLElement).offsetParent).toEqual(null);
   });
 
   it('Shows given details content when given initial open attribute', async () => {
@@ -109,7 +109,7 @@ describe('RuiExpandCollapse', () => {
     const slottedEl: Node = detailsSlot.assignedNodes()[0];
     
     // expect the slotted el to display
-    expect(slottedEl.offsetParent).not.toEqual(null);
+    expect((slottedEl as HTMLElement).offsetParent).not.toEqual(null);
   });
 
   it('Shows hidden details content when summary button is clicked', async () => {
@@ -131,7 +131,7 @@ describe('RuiExpandCollapse', () => {
     const slottedEl: Node = detailsSlot.assignedNodes()[0];
     
     // first we expect it to be hidden before click
-    expect(slottedEl.offsetParent).toEqual(null);
+    expect((slottedEl as HTMLElement).offsetParent).toEqual(null);
 
     const awaitAnimationCompletion = new Promise((resolve) => {
       setTimeout(() => {
@@ -144,7 +144,7 @@ describe('RuiExpandCollapse', () => {
     await triggerEl.click();
 
     // expect the slotted el to display
-    expect(slottedEl.offsetParent).not.toEqual(null);
+    expect((slottedEl as HTMLElement).offsetParent).not.toEqual(null);
   });
 
   it('Hides shown details content when summary button is clicked', async () => {
@@ -166,7 +166,7 @@ describe('RuiExpandCollapse', () => {
     const slottedEl: Node = detailsSlot.assignedNodes()[0];
     
     // first we expect it to not be hidden before click
-    expect(slottedEl.offsetParent).not.toEqual(null);
+    expect((slottedEl as HTMLElement).offsetParent).not.toEqual(null);
 
     triggerEl.click();
     
@@ -179,6 +179,6 @@ describe('RuiExpandCollapse', () => {
     await awaitAnimationCompletion;
   
     // expect the slotted el to now be hidden
-    expect(slottedEl.offsetParent).toEqual(null);
+    expect((slottedEl as HTMLElement).offsetParent).toEqual(null);
   });
 });

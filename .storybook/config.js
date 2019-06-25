@@ -1,7 +1,7 @@
 
 import {configure, addDecorator, addParameters} from '@storybook/react';
 import {addReadme} from 'storybook-readme';
-import {withKnobs} from "@storybook/addon-knobs";
+import {withKnobs} from '@storybook/addon-knobs';
 import React from "react";
 import './styles.css';
 
@@ -20,7 +20,7 @@ addParameters({
 		panelPosition: 'right',
 	},
 });
-// automatically import all files ending in *.stories.js
+// automatically import all files ending in *.stories.tsx
 const req = require.context('../adapters/react', true, /.stories.tsx$/);
 function loadStories() {
 	req.keys().forEach(filename => req(filename));

@@ -30,12 +30,12 @@ export const Summary = (props: IExpandCollapseSummaryProps): React.ReactNode => 
 	}
 
 	const summaryEl = React.createElement(elementType, {
-		slot: "summary-content",
-		...otherProps
+		slot: 'summary-content',
+		...otherProps,
 	});
 
 	return summaryEl;
-}
+};
 
 /**
  * Details renders the given content as the the native web component's details slot.
@@ -51,12 +51,12 @@ export const Details = (props: IExpandCollapseDetailsProps): React.ReactNode => 
 	}
 
 	const detailsEl = React.createElement(elementType, {
-		slot: "details-content",
-		...otherProps
+		slot: 'details-content',
+		...otherProps,
 	});
 
 	return detailsEl;
-}
+};
 
 
 /**
@@ -64,7 +64,7 @@ export const Details = (props: IExpandCollapseDetailsProps): React.ReactNode => 
  * React wrapped for rui-expand-collapse web component
  */
 export class RuiExpandCollapse extends React.Component<IRuiExpandCollapseProps> {
-	
+
 	// used to modify change handler on element
 	private ruiExpandCollapseEl = React.createRef<IHTMLRuiExpandCollapseElement>();
 
@@ -78,7 +78,7 @@ export class RuiExpandCollapse extends React.Component<IRuiExpandCollapseProps> 
 		/**
 		 * If user is controlling component then update the change handler
 		 * on the element
-		 * 
+		 *
 		 * NB: FIXME when https://github.com/facebook/react/issues/15830 resolved
 		 */
 		if (this.props.onChange) {

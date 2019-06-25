@@ -34,7 +34,7 @@ const reactActions = [
 	},
 	{
 		type: 'add',
-		path: `${REACT_PATH}/index.stories.tsx`,
+		path: `${REACT_PATH}/{{pascalCase name}}.stories.tsx`,
 		templateFile: `${PLOP_REACT}/index.stories.tsx.hbs`
 	},
 	{

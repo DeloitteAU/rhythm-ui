@@ -26,9 +26,9 @@ module.exports = {
 			},
 		},
 		{
-			resolve: `gatsby-plugin-nprogress`,
+			resolve: 'gatsby-plugin-nprogress',
 			options: {
-				color: `tomato`,
+				color: 'tomato',
 				showSpinner: true,
 			},
 		},
@@ -58,7 +58,7 @@ module.exports = {
 		{
 			resolve: 'gatsby-source-filesystem',
 			options: {
-				name: 'changelogv2',
+				name: 'change-log',
 				path: `${__dirname}/../CHANGELOG.md`,
 			},
 		},
@@ -102,7 +102,7 @@ module.exports = {
 						},
 					},
 					{resolve: 'gatsby-remark-copy-linked-files'},
-				]
+				],
 			},
 		},
 		{
@@ -121,7 +121,5 @@ module.exports = {
 		// this (optional) plugin enables Progressive Web App + Offline functionality
 		// To learn more, visit: https://gatsby.dev/offline
 		// 'gatsby-plugin-offline',
-
-
 	],
 };

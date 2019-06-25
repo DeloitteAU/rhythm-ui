@@ -8,22 +8,24 @@ exports.createPages = ({actions, graphql}) => {
 
 	const mdxTemplate = path.resolve('src/templates/Markdown/Markdown.tsx');
 
-	return graphql(`{
-		allMdx {
-			edges {
-				node {
-					id
-					fileAbsolutePath
-					frontmatter {
-						title
-					}
-					fields {
-						relativeUrlPath
+	return graphql(`
+		{
+			allMdx {
+				edges {
+					node {
+						id
+						fileAbsolutePath
+						frontmatter {
+							title
+						}
+						fields {
+							relativeUrlPath
+						}
 					}
 				}
 			}
 		}
-	}`).then(result => {
+	`).then(result => {
 		if (result.errors) {
 			Promise.reject(result.errors);
 		}
@@ -61,9 +63,11 @@ exports.onCreateNode = ({node, actions, getNode}) => {
 		let relativeUrlPath = relativeFilePath.replace(/\d\d-/g, '');
 
 		if (frontmatter && frontmatter.package && frontmatter.package.match(/^@rhythm-ui/) !== null) {
-
-			let slug = relativeUrlPath.split('/').pop().toLowerCase();
-			if(frontmatter.title) {
+			let slug = relativeUrlPath
+				.split('/')
+				.pop()
+				.toLowerCase();
+			if (frontmatter.title) {
 				slug = frontmatter.title.replace(/\s/g, '-').toLowerCase();
 			}
 
@@ -71,10 +75,12 @@ exports.onCreateNode = ({node, actions, getNode}) => {
 		}
 
 		// setting the relative path for CHANGELOG.md
-		if (fileAbsolutePath.includes('CHANGELOG')) relativeUrlPath = `/change-log`;
+		if (fileAbsolutePath.includes('CHANGELOG')) {
+			relativeUrlPath = '/change-log';
+		}
 
 		// Extract parent path and base name from the relative path
-		const [,,parentUrlPath = '', nodeName = ''] = relativeUrlPath.match(/^(.*)\/(.+)$/) || [];
+		const [, , parentUrlPath = '', nodeName = ''] = relativeUrlPath.match(/^(.*)\/(.+)$/) || [];
 
 		// Change hyphens to spaces
 		let nodeTitle = nodeName.replace(/-/g, ' ');
@@ -139,10 +145,11 @@ exports.onCreateNode = ({node, actions, getNode}) => {
 			value: relativeUrlPath,
 		});
 
-
-
 		// Create breadcrumbs for each markdown page
-		const relativePathCrumbs = relativeUrlPath.replace(/^\/|\/$/g, '').split('/').slice(0, -1);
+		const relativePathCrumbs = relativeUrlPath
+			.replace(/^\/|\/$/g, '')
+			.split('/')
+			.slice(0, -1);
 
 		const breadcrumbs = relativePathCrumbs.map((crumb, index) => ({
 			nodeName: crumb,
@@ -174,8 +181,8 @@ function onCreateWebpackConfig({actions, loaders}) {
 	actions.setWebpackConfig({
 		resolve: {
 			alias: {
-				"~": path.resolve(__dirname, "src")
-			}
+				'~': path.resolve(__dirname, 'src'),
+			},
 		},
 		module: {
 			rules: [
