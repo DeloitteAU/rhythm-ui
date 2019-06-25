@@ -29,7 +29,7 @@
     "lint:css": "yarn stylelint \"components/**/*.ts\" --config .stylelintrc-ts.js",
     "bootstrap": "lerna bootstrap",
     "unstrap": "lerna clean --yes",
-    "clean": "lerna run clean",
+    "clean": "lerna run clean && rimraf .ruidocs",
     "test": "RUI_NO_DEFAULT_REGISTER='false' yarn karma start",
     "build": "yarn build:site && yarn build:storybook",
     "build:site": "lerna run build --scope www --include-filtered-dependencies --parallel --stream",

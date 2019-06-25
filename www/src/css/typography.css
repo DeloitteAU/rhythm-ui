@@ -1,18 +1,25 @@
 html,
 body {
-	font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	font-family: 'Poppins', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 	font-size: 16px;
 	-webkit-font-smoothing: antialiased;
+	font-weight: 300;
+	line-height: 1.5;
 
 	/* direction: rtl; */
 }
 
+h1 {
+	text-transform: capitalize;
+	font: 700 48px/1.2 "Poppins", sans-serif;
+	margin-bottom: 10px;
+}
+
 h1 + p {
-	font-size: 24px;
-	font-weight: 300;
+	font-size: 17px;
 	color: rgb(109, 109, 109);
 	line-height: 1.7;
-	max-width: 42em;
+	max-width: 60em;
 }
 
 pre {
