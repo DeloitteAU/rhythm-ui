@@ -5,6 +5,6 @@ const headerStyles = css`
 	border-bottom: 1px solid rgb(233, 236, 239);
 	display: flex;
 	justify-content: space-between;
-`
+`;
 
 export default headerStyles;

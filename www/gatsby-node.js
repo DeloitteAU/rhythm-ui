@@ -65,7 +65,7 @@ exports.onCreateNode = ({node, actions, getNode}) => {
 		if (frontmatter && frontmatter.package && frontmatter.package.match(/^@rhythm-ui/) !== null) {
 
 			let slug = relativeUrlPath.split('/').pop().toLowerCase();
-			if(frontmatter.title) {
+			if (frontmatter.title) {
 				slug = frontmatter.title.replace(/\s/g, '-').toLowerCase();
 			}
 
@@ -139,7 +139,6 @@ exports.onCreateNode = ({node, actions, getNode}) => {
 		});
 
 
-
 		// Create breadcrumbs for each markdown page
 		const relativePathCrumbs = relativeUrlPath.replace(/^\/|\/$/g, '').split('/').slice(0, -1);
 
@@ -173,8 +172,8 @@ function onCreateWebpackConfig({actions, loaders}) {
 	actions.setWebpackConfig({
 		resolve: {
 			alias: {
-				"~": path.resolve(__dirname, "src")
-			}
+				'~': path.resolve(__dirname, 'src'),
+			},
 		},
 		module: {
 			rules: [

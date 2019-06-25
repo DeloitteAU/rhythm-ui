@@ -1,16 +1,13 @@
 import React from 'react';
-
 import {storiesOf} from '@storybook/react';
-
-import {RuiLayout} from './lib';
+import {RuiLayout} from './src';
 import Readme from './README.md';
-
 
 storiesOf('Layout', module)
 	.addParameters({
 		readme: {
 			// Show readme at the addons panel
-			sidebar:  Readme,
+			sidebar: Readme,
 		},
 	})
 	.add('Layout module with Types', () => (
@@ -22,11 +19,11 @@ storiesOf('Layout', module)
 
 	))
 	.add('Monet (Default)', () => (
-			<RuiLayout type="monet">
-				<header> Header </header>
-				<main> Main </main>
-				<footer> Footer </footer>
-			</RuiLayout>
+		<RuiLayout type="monet">
+			<header> Header </header>
+			<main> Main </main>
+			<footer> Footer </footer>
+		</RuiLayout>
 	))
 	.add('Picasso', () => (
 		<RuiLayout type="picasso">

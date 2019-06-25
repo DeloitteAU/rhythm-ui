@@ -28,14 +28,7 @@ export const codePreviewStyles = css`
 		border-top-left-radius: 0;
 		border-top-right-radius: 0;
 	}
-`
-export const codeSnippetStyles = css`
-	code[class*="language-"],
-	pre[class*="language-"] {
-		white-space: nowrap;
-		overflow: scroll;
-	}
-`
+`;
 
 export const codeTabs = css`
 	background: #011627;
@@ -102,6 +95,3 @@ export const fakeBrowswerBarStyles = css`
 	}
 `;
 
-export const tokenLine = css`
-	white-space: pre;
-`;

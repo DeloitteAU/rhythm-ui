@@ -5,7 +5,7 @@ export class Footer extends React.Component {
 	public render() {
 		return (
 			<footer css={footerStyles}>
-				Made with 💚 by Deloitte Digital
+				Made with <span role="img" aria-label="love">💚</span> by Deloitte Digital
 			</footer>
 		);
 	}

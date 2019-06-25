@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const fs = require('fs')
-const path = require('path')
+const fs = require('fs');
+const path = require('path');
 
 // This is a temp folder, so make sure it exists before plugins load
-const docsDir = path.join(__dirname, '../', '.ruidocs')
+const docsDir = path.join(__dirname, '../', '.ruidocs');
 if (!fs.existsSync(docsDir)) {
-	fs.mkdirSync(docsDir)
+	fs.mkdirSync(docsDir);
 }
 
-const formatName = node => (node ? node.replace('rui-', '') : node)
-const removeFromUrl = node => (!node.includes('-variables') ? node : null)
+const formatName = node => (node ? node.replace('rui-', '') : node);
+const removeFromUrl = node => (!node.includes('-variables') ? node : null);
 
 module.exports = {
 	siteMetadata: {
@@ -29,9 +29,9 @@ module.exports = {
 			},
 		},
 		{
-			resolve: `gatsby-plugin-nprogress`,
+			resolve: 'gatsby-plugin-nprogress',
 			options: {
-				color: `tomato`,
+				color: 'tomato',
 				showSpinner: true,
 			},
 		},
@@ -114,7 +114,7 @@ module.exports = {
 			},
 		},
 		{
-			resolve: `@gatsby-contrib/gatsby-plugin-elasticlunr-search`,
+			resolve: '@gatsby-contrib/gatsby-plugin-elasticlunr-search',
 			options: {
 				fields: ['name', 'title', 'urlPath'],
 				resolvers: {
@@ -131,4 +131,4 @@ module.exports = {
 		// To learn more, visit: https://gatsby.dev/offline
 		// 'gatsby-plugin-offline',
 	],
-}
+};
