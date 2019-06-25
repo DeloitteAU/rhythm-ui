@@ -85,6 +85,28 @@ export class RuiExpandCollapse extends LitElement {
   }
 
   /**
+   * Once the collapse transition is complete we set the content to hidden for AX
+   * reasons
+   */
+  private _collapseTransitionEndHandler = () => {
+    if (this._collapseableEl) {
+      this._collapseableEl.removeEventListener('transitionend', this._collapseTransitionEndHandler);
+      this._collapseableEl.hidden = true;
+    }
+  }
+
+  /**
+   * Once the expand transition is complete, we no longer need to use an inline style to animate
+   * the height
+   */
+  private _expandTransitionEndHandler = () => {
+    if (this._collapseableEl) {
+      this._collapseableEl.style.height = '';
+      this._collapseableEl.removeEventListener('transitionend', this._expandTransitionEndHandler);
+    }
+  }
+
+  /**
    * Sets height to 0 trigger collapse
    * transition animation
    */
@@ -92,20 +114,16 @@ export class RuiExpandCollapse extends LitElement {
     // add back height style and then remove on next frame to trigger animation
     requestAnimationFrame((): void => {
       if (this._collapseableEl) {
+        // remove expand transition listener if it has not already ticked over
+        this._collapseableEl.removeEventListener('transitionend', this._expandTransitionEndHandler);
+
         const sectionHeight = this._collapseableEl.scrollHeight;
         this._collapseableEl.style.height = `${sectionHeight}px`;
         this._collapseableEl.classList.add('hide-content');
         requestAnimationFrame((): void => {
           if (this._collapseableEl) {
             this._collapseableEl.style.height = '0px';
-            const transitionEndHandler = (): void => {
-              if (this._collapseableEl) {
-                this._collapseableEl.removeEventListener('transitionend', transitionEndHandler);
-                this._collapseableEl.hidden = true;
-              }
-            }
-        
-            this._collapseableEl.addEventListener('transitionend', transitionEndHandler);
+            this._collapseableEl.addEventListener('transitionend', this._collapseTransitionEndHandler);
           }
         })
       }
@@ -119,20 +137,14 @@ export class RuiExpandCollapse extends LitElement {
    */
   private _triggerExpandAnimation(): void {
     if (this._collapseableEl) {
+      // remove collapse transition listener if it has not already ticked over
+      this._collapseableEl.removeEventListener('transitionend', this._collapseTransitionEndHandler);
+
       this._collapseableEl.hidden = false;
       const sectionHeight = this._collapseableEl.scrollHeight;
       this._collapseableEl.style.height = `${sectionHeight}px`;
-      this._collapseableEl.classList.remove('hide-content');
-  
-      const transitionEndHandler = (): void => {
-        if (this._collapseableEl) {
-          this._collapseableEl.style.height = '';
-          
-          this._collapseableEl.removeEventListener('transitionend', transitionEndHandler);
-        }
-      }
-  
-      this._collapseableEl.addEventListener('transitionend', transitionEndHandler);
+      this._collapseableEl.classList.remove('hide-content');  
+      this._collapseableEl.addEventListener('transitionend', this._expandTransitionEndHandler);
     }
   }
 
