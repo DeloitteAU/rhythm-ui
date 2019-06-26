@@ -5,6 +5,6 @@
 		"declarationDir": "./lib"
 	},
 	"include": [
-		"./src", "index.ts", "ExpandCollapseAnimationController.ts"
+		"./src"
 	]
 }
