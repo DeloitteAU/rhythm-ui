@@ -8,8 +8,9 @@
 		"start:babel": "yarn build:docs && babel -w -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --copy-files",
 		"start:declarations": "tsc --declaration --emitDeclarationOnly --watch",
 		"clean": "rimraf lib",
-		"build": "yarn clean && yarn build:babel && yarn build:declarations",
+		"build": "yarn clean && yarn build:babel && yarn build:declarations && yarn build:docs",
 		"build:babel": "babel -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --ignore *.d.ts --copy-files",
+		"build:docs": "ruidocs --files ./**/*.variables.ts",
 		"build:declarations": "tsc --declaration --emitDeclarationOnly"
 	},
 	"files": [

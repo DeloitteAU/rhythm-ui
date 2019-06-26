@@ -24,8 +24,10 @@ class ExpandCollapseAnimationController {
                  * and manually add the opacity transition and initial opacity value
                  */
                 this._detailsSlotEl.assignedNodes().forEach((el): void => {
-                    el.style.opacity = isOpen ? '1' : '0';
-                    el.style.transition = 'opacity 200ms ease-out 250ms';
+                  const targetEl = el as HTMLElement;  
+                  
+                  targetEl.style.opacity = isOpen ? '1' : '0';
+                  targetEl.style.transition = 'opacity 200ms ease-out 250ms';
                 });
             }
 
@@ -43,7 +45,7 @@ class ExpandCollapseAnimationController {
    * Once the collapse transition is complete we set the content to hidden for AX
    * reasons
    */
-  private _collapseTransitionEndHandler = () => {
+  private _collapseTransitionEndHandler = (): void => {
     if (this._collapseableEl) {
       this._collapseableEl.removeEventListener('transitionend', this._collapseTransitionEndHandler);
       this._collapseableEl.hidden = true;
@@ -54,7 +56,7 @@ class ExpandCollapseAnimationController {
    * Once the expand transition is complete, we no longer need to use an inline style to animate
    * the height
    */
-  private _expandTransitionEndHandler = () => {
+  private _expandTransitionEndHandler = (): void => {
     if (this._collapseableEl) {
       this._collapseableEl.style.height = '';
       this._collapseableEl.removeEventListener('transitionend', this._expandTransitionEndHandler);
@@ -75,7 +77,8 @@ class ExpandCollapseAnimationController {
         const sectionHeight = this._collapseableEl.scrollHeight;
         this._collapseableEl.style.height = `${sectionHeight}px`;
         this._detailsSlotEl.assignedNodes().forEach((el): void => {
-            el.style.opacity = '0';
+            const targetEl = el as HTMLElement;  
+            targetEl.style.opacity = '0';
         });
         requestAnimationFrame((): void => {
           if (this._collapseableEl) {
@@ -101,7 +104,8 @@ class ExpandCollapseAnimationController {
       const sectionHeight = this._collapseableEl.scrollHeight;
       this._collapseableEl.style.height = `${sectionHeight}px`;
       this._detailsSlotEl.assignedNodes().forEach((el: Node): void => {
-        el.style.opacity = '1';
+        const targetEl = el as HTMLElement;  
+        targetEl.style.opacity = '1';
     });  
       this._collapseableEl.addEventListener('transitionend', this._expandTransitionEndHandler);
     }

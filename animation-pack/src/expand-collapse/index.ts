@@ -4,6 +4,6 @@ import ExpandCollapseAnimationController from './ExpandCollapseAnimationControll
  * Listen for mounting of expand collapse components on the page and 
  * create an animation controller for each one
  */
-document.addEventListener('rui-expand-collapse-mounted', (e) => {
+document.addEventListener('rui-expand-collapse-mounted', (e): void => {
   new ExpandCollapseAnimationController(e.target);
 })

@@ -73,7 +73,6 @@ describe('RuiExpandCollapse', () => {
     const children = `${summaryElStr}${detailsElStr}`;
     const ele = await TestUtils.render('rui-expand-collapse', {}, children);
     
-    const detailsEl = ele.querySelector('#details-content');
     expect(ele).toBeDefined();
     expect(ele.shadowRoot).toBeDefined();
     
