@@ -85,11 +85,9 @@ export class RuiExpandCollapse extends LitElement {
   }
 
   /**
-   * Sets height to 0 trigger collapse
-   * transition animation
+   * Sets height to 0 and hides content
    */
   public handleCollapse(): void {
-    // add back height style and then remove on next frame to trigger animation
     if (this._collapseableEl) {
       this._collapseableEl.style.height = '0px';
       this._collapseableEl.hidden = true;
@@ -97,9 +95,7 @@ export class RuiExpandCollapse extends LitElement {
   }
 
   /**
-   * Sets element height to transition to,
-   * once element height is reached it unsets height
-   * style
+   * Unhides the content and removes the inline height styles
    */
   public handleExpand(): void {
     if (this._collapseableEl) {
@@ -142,9 +138,12 @@ export class RuiExpandCollapse extends LitElement {
       this._detailsSlotEl = this.shadowRoot.querySelector('#details-slot');
 
       if (this._detailsSlotEl) {
-        // when the slotted content changes we initialise expand collapse
-        // we need to wait for this because the animation of heigh calc 
-        // will only work once the slot and it's content have mounted and rendered
+        /**
+         * Wait for element to render and all slotted content to render before
+         * dispatching mounted event. The mounted event serves as a hook for 
+         * any external logic that needs to be implemented once element is ready such
+         * as custom animations. 
+         */
         this._detailsSlotEl.addEventListener('slotchange', (): void => {
           this._initialiseExpandCollapse();
           this.dispatchEvent(new CustomEvent(
@@ -174,6 +173,10 @@ export class RuiExpandCollapse extends LitElement {
           this.handleCollapse();
         }
 
+        /**
+         * Exposing event hook for letting components know of change in internal 
+         * state.
+         */
         this.dispatchEvent(new CustomEvent(
           "rui-expand-collapse", 
           {
