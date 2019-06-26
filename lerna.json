@@ -5,7 +5,8 @@
     "adapters/react/**",
     "adapters/vue/**",
 	  "tools/**",
-	  "www"
+    "www",
+    "animation-pack"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,

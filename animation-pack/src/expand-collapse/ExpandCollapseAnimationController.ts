@@ -1,3 +1,9 @@
+/**
+ * ExpandCollapseAnimationController works by attaching custom expand/collapse
+ * handlers to the given rui-expand-collapse element. It makes use of transitions
+ * for the height of the details section and opacity of the details content
+ * to give the appearence of a drawer sliding open and the content fading in.
+ */
 class ExpandCollapseAnimationController {
     public constructor(el) {
         this._shadowRoot = el.shadowRoot;
@@ -12,12 +18,18 @@ class ExpandCollapseAnimationController {
             }
             
             if (this._detailsSlotEl) {
+                /**
+                 * There's currently no elegant way to target slotted content with a single inline style
+                 * so instead we loop through each of the slotted elements (in this case it should only be 1 anyway)
+                 * and manually add the opacity transition and initial opacity value
+                 */
                 this._detailsSlotEl.assignedNodes().forEach((el): void => {
                     el.style.opacity = isOpen ? '1' : '0';
                     el.style.transition = 'opacity 200ms ease-out 250ms';
                 });
             }
-            
+
+            // overwrite element expand and collapse handlers
             el.handleExpand = this._triggerExpandAnimation;
             el.handleCollapse = this._triggerCollapseAnimation;
           }
@@ -62,7 +74,7 @@ class ExpandCollapseAnimationController {
 
         const sectionHeight = this._collapseableEl.scrollHeight;
         this._collapseableEl.style.height = `${sectionHeight}px`;
-        this._detailsSlotEl.assignedNodes().forEach((el: Node): void => {
+        this._detailsSlotEl.assignedNodes().forEach((el): void => {
             el.style.opacity = '0';
         });
         requestAnimationFrame((): void => {
@@ -96,6 +108,4 @@ class ExpandCollapseAnimationController {
   }
 }
 
-document.addEventListener('rui-expand-collapse-mounted', (e) => {
-  new ExpandCollapseAnimationController(e.target);
-})
+export default ExpandCollapseAnimationController;
