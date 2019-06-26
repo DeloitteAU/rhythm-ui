@@ -19,7 +19,8 @@
 		"react": "^16.8.6"
 	},
 	"dependencies": {
-		"@rhythm-ui/expand-collapse": "^1.0.0"
+		"@rhythm-ui/expand-collapse": "^1.0.0",
+		"@rhythm-ui/animation-pack": "^1.0.0"
 	},
 	"peerDependencies": {
 		"react": ">= 16"

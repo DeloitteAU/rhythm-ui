@@ -1,5 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
+import '@rhythm-ui/animation-pack/lib/expand-collapse';
+
 import {RuiExpandCollapse} from './src';
 import Readme from './README.md';
 
