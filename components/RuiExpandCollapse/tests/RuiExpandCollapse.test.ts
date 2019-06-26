@@ -156,7 +156,7 @@ describe('RuiExpandCollapse', () => {
     // first we expect it to not be hidden before click
     expect(slottedEl.offsetParent).not.toEqual(null);
 
-    triggerEl.click();
+    await triggerEl.click();
   
     // expect the slotted el to now be hidden
     expect(slottedEl.offsetParent).toEqual(null);
