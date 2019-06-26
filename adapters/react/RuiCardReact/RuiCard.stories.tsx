@@ -1,12 +1,12 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import {RuiCard} from './lib';
+import {RuiCard} from './src';
 import Readme from './README.md';
 
 storiesOf('Card', module)
 	.addParameters({
 		readme: {
-			content: Readme,
+			sidebar: Readme,
 		},
 	})
 	.add('Basic card', () => (

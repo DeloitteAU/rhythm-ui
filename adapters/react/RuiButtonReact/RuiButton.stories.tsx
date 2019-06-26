@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import {storiesOf} from '@storybook/react';
-import {withKnobs, text, boolean, number, select, optionsKnob} from '@storybook/addon-knobs';
-import {RuiButton} from './lib';
+import {withKnobs, text, select, optionsKnob} from '@storybook/addon-knobs';
+import RuiButton from './src';
 import Readme from './README.md';
 
 const typeOptions = {
@@ -13,19 +13,17 @@ const typeOptions = {
 const variantsOptions = {
 	Fill: 'fill',
 	Outline: 'outline',
-	Ghost: 'ghost'
+	Ghost: 'ghost',
 };
 const sizeOptions = {
 	Small: 'small',
 	Medium: 'medium',
-	Large: 'large'
+	Large: 'large',
 };
 
 const optionsObj = {
-	display: 'radio'
+	display: 'radio',
 };
-
-
 
 storiesOf('Button', module)
 	.addParameters({
@@ -45,7 +43,7 @@ storiesOf('Button', module)
 			<RuiButton
 				type={select('Types', typeOptions)}
 				variant={select('Variants', variantsOptions)}
-				size={optionsKnob('Size', sizeOptions, 'medium', optionsObj )}
+				size={optionsKnob('Size', sizeOptions, 'medium', optionsObj)}
 			>
 				{text('Button Label', 'Default')}
 			</RuiButton>
@@ -53,10 +51,10 @@ storiesOf('Button', module)
 	))
 	.add('Types', () => (
 		<Fragment>
-				<RuiButton> Default </RuiButton>
-				<RuiButton type="primary">Primary</RuiButton>
-				<RuiButton type="secondary">Secondary</RuiButton>
-				<RuiButton type="tertiary">Tertiary</RuiButton>
+			<RuiButton> Default </RuiButton>
+			<RuiButton type="primary">Primary</RuiButton>
+			<RuiButton type="secondary">Secondary</RuiButton>
+			<RuiButton type="tertiary">Tertiary</RuiButton>
 		</Fragment>
 	))
 	.add('Variants', () => (

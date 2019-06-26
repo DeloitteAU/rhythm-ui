@@ -1,10 +1,7 @@
 import React, {Fragment} from 'react';
-
 import {storiesOf} from '@storybook/react';
-
-import {RuiSkipLinks} from './lib';
+import {RuiSkipLinks} from './src';
 import Readme from './README.md';
-
 
 storiesOf('Skip Links', module)
 	.addParameters({

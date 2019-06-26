@@ -26,9 +26,9 @@ module.exports = {
 			},
 		},
 		{
-			resolve: `gatsby-plugin-nprogress`,
+			resolve: 'gatsby-plugin-nprogress',
 			options: {
-				color: `tomato`,
+				color: 'tomato',
 				showSpinner: true,
 			},
 		},
@@ -95,7 +95,7 @@ module.exports = {
 						},
 					},
 					{resolve: 'gatsby-remark-copy-linked-files'},
-				]
+				],
 			},
 		},
 		{

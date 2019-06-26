@@ -5,10 +5,8 @@
 * This source code is licensed under the BSD-3-Clause license found in the
 * LICENSE file in the root directory of this source tree.
 */
-
 import '../src';
 import TestUtils from '../../../TestUtils';
-
 
 describe('RuiExpandCollapse', () => {
   it('Renders the RuiExpandCollapse', async () => {
@@ -84,7 +82,7 @@ describe('RuiExpandCollapse', () => {
     const slottedEl: Node = detailsSlot.assignedNodes()[0];
     
     // expect the slotted el to not display
-    expect(slottedEl.offsetParent).toEqual(null);
+    expect((slottedEl as HTMLElement).offsetParent).toEqual(null);
   });
 
   it('Shows given details content when given initial open attribute', async () => {
@@ -104,7 +102,7 @@ describe('RuiExpandCollapse', () => {
     const slottedEl: Node = detailsSlot.assignedNodes()[0];
     
     // expect the slotted el to display
-    expect(slottedEl.offsetParent).not.toEqual(null);
+    expect((slottedEl as HTMLElement).offsetParent).not.toEqual(null);
   });
 
   it('Shows hidden details content when summary button is clicked', async () => {
@@ -126,12 +124,12 @@ describe('RuiExpandCollapse', () => {
     const slottedEl: Node = detailsSlot.assignedNodes()[0];
     
     // first we expect it to be hidden before click
-    expect(slottedEl.offsetParent).toEqual(null);
+    expect((slottedEl as HTMLElement).offsetParent).toEqual(null);
 
     await triggerEl.click();
 
     // expect the slotted el to display
-    expect(slottedEl.offsetParent).not.toEqual(null);
+    expect((slottedEl as HTMLElement).offsetParent).not.toEqual(null);
   });
 
   it('Hides shown details content when summary button is clicked', async () => {
@@ -153,11 +151,11 @@ describe('RuiExpandCollapse', () => {
     const slottedEl: Node = detailsSlot.assignedNodes()[0];
     
     // first we expect it to not be hidden before click
-    expect(slottedEl.offsetParent).not.toEqual(null);
+    expect((slottedEl as HTMLElement).offsetParent).not.toEqual(null);
 
     await triggerEl.click();
   
     // expect the slotted el to now be hidden
-    expect(slottedEl.offsetParent).toEqual(null);
+    expect((slottedEl as HTMLElement).offsetParent).toEqual(null);
   });
 });

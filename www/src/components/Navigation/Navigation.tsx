@@ -1,5 +1,5 @@
-import React from "react"
-import {StaticQuery, graphql, Link} from "gatsby"
+import React from 'react';
+import {StaticQuery, graphql, Link} from 'gatsby';
 
 import navigationStyles from './Navigation.css';
 
@@ -28,7 +28,8 @@ export const Navigation = () => (
 					{data.allMdx.nodes.filter(n => n.fields.relativeUrlPath.indexOf('/docs/components') === 0).map(node => {
 						return (
 							<li key={node.id}><Link to={node.fields.relativeUrlPath}>{node.frontmatter.title}</Link></li>
-						)}
+						);
+					},
 					)}
 				</ul>
 			</nav>
