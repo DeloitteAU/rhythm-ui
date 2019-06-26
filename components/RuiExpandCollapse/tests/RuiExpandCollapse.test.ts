@@ -10,10 +10,6 @@ import '../src';
 import TestUtils from '../../../TestUtils';
 
 
-const HEIGHT_ANIMATION = 250;
-const OPACITY_ANIMATION = 200;
-const ANIMATION_DURATION = HEIGHT_ANIMATION + OPACITY_ANIMATION;
-
 describe('RuiExpandCollapse', () => {
   it('Renders the RuiExpandCollapse', async () => {
     const ele = await TestUtils.render('rui-expand-collapse', {}, '');
@@ -133,14 +129,6 @@ describe('RuiExpandCollapse', () => {
     // first we expect it to be hidden before click
     expect(slottedEl.offsetParent).toEqual(null);
 
-    const awaitAnimationCompletion = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(true);
-      }, ANIMATION_DURATION)
-    })
-
-    await awaitAnimationCompletion;
-
     await triggerEl.click();
 
     // expect the slotted el to display
@@ -169,14 +157,6 @@ describe('RuiExpandCollapse', () => {
     expect(slottedEl.offsetParent).not.toEqual(null);
 
     triggerEl.click();
-    
-    const awaitAnimationCompletion = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(true);
-      }, ANIMATION_DURATION)
-    })
-
-    await awaitAnimationCompletion;
   
     // expect the slotted el to now be hidden
     expect(slottedEl.offsetParent).toEqual(null);
