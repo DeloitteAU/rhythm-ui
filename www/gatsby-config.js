@@ -58,6 +58,13 @@ module.exports = {
 				path: `${__dirname}/../.ruidocs`,
 			},
 		},
+		{
+			resolve: 'gatsby-source-filesystem',
+			options: {
+				name: 'change-log',
+				path: `${__dirname}/../CHANGELOG.md`,
+			},
+		},
 		// {
 		// 	resolve: 'gatsby-transformer-remark',
 		// 	options: {

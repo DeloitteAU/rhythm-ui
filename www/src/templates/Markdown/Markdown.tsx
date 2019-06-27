@@ -82,19 +82,22 @@ const Template = ({
 	const {breadcrumbs, relativeUrlPath} = fields;
 	const {title: pageTitle} = frontmatter;
 
-	const pageHeadings = headings.map((heading: any) => {
-		const label = heading.value;
+	const pageHeadings = headings
+		.filter(h => h.depth === 2 || h.depth === 3)
+		.map((heading: any) => {
+			const label = heading.value;
 
-		// Make anchors consistent with gatsby-remark-autolink-headers
-		const anchor = slug(label, {lower: true});
+			// Make anchors consistent with gatsby-remark-autolink-headers
+			const anchor = slug(label, {lower: true});
 
-		const link = `${relativeUrlPath}#${anchor}`;
+			const link = `${relativeUrlPath.replace(/\/$/, '')}#${anchor}`;
 
-		return {
-			label,
-			link,
-		};
-	});
+			return {
+				label,
+				link,
+				depth: heading.depth,
+			};
+		});
 
 	const githubUrlPath = `
 	${process.env.GATSBY_GITHUB_URL}${replaceChar(relativeUrlPath)}/readme.md
@@ -140,9 +143,10 @@ const Template = ({
 					<br /><br />
 					{pageHeadings.map(h => (
 						<div key={h.link}>
-							<a href={h.link}>{h.label}</a>
+							{h.depth === 3 && <span style={{marginRight: 10}} /> }<a href={h.link}>{h.label}</a>
 						</div>
 					))}
+					{data.ruidocs.nodes.length && <div><a href="#variables">CSS Variables</a></div>}
 					<br /><br />
 					<a href={githubUrlPath} target="_blank">Edit this page</a>
 				</aside>
@@ -159,7 +163,7 @@ export const pageQuery = graphql`
 			code {
 				body
 			}
-			headings(depth: h2) {
+			headings {
 				depth
 				value
 			}

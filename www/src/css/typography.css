@@ -13,6 +13,8 @@ h1 {
 	text-transform: capitalize;
 	font: 700 48px/1.2 "Poppins", sans-serif;
 	margin-bottom: 10px;
+
+	/* color: #802bb1; */
 }
 
 h1 + p {
@@ -33,14 +35,22 @@ pre {
 }
 
 code {
-	font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
-	font-size: 95%;
-	line-height: 140%;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace;
+	padding: 0 3px;
+	font-size: 0.94em;
+	word-break: break-word;
+	display: inline;
+	color: #D14;
 	white-space: pre;
-	white-space: pre-wrap;
-	white-space: -moz-pre-wrap;
-	white-space: -o-pre-wrap;
-	background-color: rgb(245, 242, 240);
-	display: block;
-	padding: 15px 20px;
+	background: rgba(255, 229, 100, 0.3);
+}
+
+a,
+a:active,
+a:visited {
+	color: #673AB7;
+}
+
+a:hover {
+	color: #512DA8;
 }
