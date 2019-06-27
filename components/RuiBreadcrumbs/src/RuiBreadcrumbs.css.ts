@@ -36,11 +36,13 @@ export const layout = css`
 		* css for json array breadcrumbs
 	*/
 
-	nav.crumbs ol {
+	nav.crumbs ol,
+	nav.childCrumbs ol {
 		list-style: none;
 	}
 	
-	nav.crumbs li {
+	nav.crumbs li,
+	nav.childCrumbs li {
 		display: inline;
 	}
 	
@@ -77,6 +79,18 @@ export const layout = css`
 	nav.crumbs ::slotted([aria-current="page"]) {
 		font-weight: bold;
 		text-decoration: none;
+	}
+
+	#collapsedEl {
+		cursor: pointer;
+		background-color: #EEEEEE;
+		margin: 0 5px;
+		padding: 0 5px;
+		border-radius: 5px;
+	}
+	
+	#collapsedEl:hover {
+		background-color: lightgrey;
 	}
 `;
 

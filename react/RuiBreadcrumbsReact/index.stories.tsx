@@ -17,13 +17,24 @@ storiesOf('Breadcrumbs', module)
 		<React.Fragment>
 			<br/> <p> Breadcrumbs using Link component </p> <br/>
 
-			<RuiBreadcrumbs maxCrumbs={4} separator='/'>
+			<RuiBreadcrumbs maxCrumbs={3} separator='>'>
 				<RuiBreadcrumbs.Item href="/#" color='primary' > Link 1 </RuiBreadcrumbs.Item>
 				<RuiBreadcrumbs.Item href="/#" > Link 2 </RuiBreadcrumbs.Item>
 				<RuiBreadcrumbs.Item href="/#" > Link 3 </RuiBreadcrumbs.Item>
 				<RuiBreadcrumbs.Item color='primary' active > Active link </RuiBreadcrumbs.Item>
 			</RuiBreadcrumbs>
+
+				<br/> <p> Breadcrumbs with no max </p> <br/>
+
+				<RuiBreadcrumbs separator='>'>
+					<RuiBreadcrumbs.Item href="/#" color='primary' > Link 1 </RuiBreadcrumbs.Item>
+					<RuiBreadcrumbs.Item href="/#" > Link 2 </RuiBreadcrumbs.Item>
+					<RuiBreadcrumbs.Item href="/#" > Link 3 </RuiBreadcrumbs.Item>
+					<RuiBreadcrumbs.Item color='primary' active > Active link </RuiBreadcrumbs.Item>
+				</RuiBreadcrumbs>
 		</React.Fragment>
+
+
 
 	))
 	.add('breadcrumbs with json array', () => (

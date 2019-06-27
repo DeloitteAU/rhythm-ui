@@ -10,36 +10,33 @@ import {variables, layout} from './RuiBreadcrumbs.css'
 
 
 export class RuiBreadcrumbs extends LitElement {
-	public firstUpdated() {
+	public constructor() {
+		super();
 		/**
-		 * 'assignedElements()'
-		 * Define all slots that are passed in (As Rui-link)
-		 * flatten: true returns the assigned elements of any available child <slot> elements
-		 */
-		if (this.shadowRoot !== null ) {
-			const slots = this.shadowRoot.querySelector('slot');
-			if (slots) {
-
-			const crumbElements = slots.assignedElements({flatten: true});
-
-			for (let i = 1, len = crumbElements.length; i < len; i++) {
-				/**
-				 * create an li element with slot='crumb' to be appended before each li child node in the breadcrumb parent node.
-				 * the separator is used as 'text'
-				 * We use 'this' in reference to the parent node
-				 */
-
-				const node = document.createTextNode(`${this.separator}`);
-				const listEl = document.createElement("li");
-				listEl.setAttribute("slot", "crumb");
-				listEl.setAttribute("aria-hidden", "true");
-				listEl.appendChild(node);
-
-				this.insertBefore(listEl, crumbElements[i]);
-			}
-			}
-		}
+		 * set child array and collapsed array
+		 * */
+		this._childArray = [...this.children];
 	}
+
+	/**
+	 * Private properties to set number of crumbs before and after collapse element
+	 * */
+
+
+	private _itemsBeforeCollapse: number = 1;
+	private _itemsAfterCollapse: number = 1;
+	private _collapsedSlotEl: HTMLSlotElement | null = null;
+
+	private _childArray: any[] = [];
+	private _collapsedArray: any[] = [];
+
+	private _isExpanded: boolean = false;
+	public set expand(val) {
+		const oldVal = this._isExpanded;
+		this._isExpanded = val;
+		this.requestUpdate('expand', oldVal);
+	}
+	public get expand() { return this._isExpanded; }
 
 	/**
 	 * The array of breadcrumbs
@@ -59,8 +56,7 @@ export class RuiBreadcrumbs extends LitElement {
 	 * The array of breadcrumbs
 	 */
 	@property({type : Number})
-	public maxCrumbs?: number = 100;
-
+	public maxCrumbs?: number = undefined;
 
 	/**
     *
@@ -76,12 +72,11 @@ export class RuiBreadcrumbs extends LitElement {
 
 
     /* #region Methods */
-
     public render(): TemplateResult {
+
 		if (this.crumbs) {
 			const crumbsArray = JSON.parse(this.crumbs);
 			const activeCrumb = crumbsArray.pop();
-
 			return html`
 				<nav aria-label="Breadcrumb" class="crumbs">
 					<ol>
@@ -89,16 +84,81 @@ export class RuiBreadcrumbs extends LitElement {
 						<li aria-current="page" > ${activeCrumb.title }</li>
 					</ol>
 				</nav>`
-    	}
-        return html`
-		<nav aria-label="Breadcrumb" class="crumbs">
-			<ol>
-				<slot name="crumb"> </slot>
-			</ol>
-		</nav>
-            `;
+		} else if (this.maxCrumbs && (this.maxCrumbs <= this._childArray.length)) {
+			this._itemsAfterCollapse = this.maxCrumbs - 1;
+			this._collapsedArray = this.collapsedBreadcrumbs([...this.children]);
+			return html`
+			<nav aria-label="Breadcrumb" class="childCrumbs">
+				<ol>
+					${this.applySeparators(this.allChildren(
+				this._isExpanded ? this._childArray : this._collapsedArray
+			))}
+				</ol>
+			</nav>
+		`;
+		} else {
+			return html`
+			<nav aria-label="Breadcrumb" class="childCrumbs">
+				<ol>
+					${this.applySeparators(this.allChildren( this._childArray ))}
+				</ol>
+			</nav>
+		`;
+		}
     }
 	/* #endregion */
+
+
+
+	public allChildren(array) {
+		return array
+			.map((child) => (
+				child
+		));
+	}
+	/**
+	 * First update used to add event listner onto the collapsed crumb
+	 **/
+
+	public firstUpdated(): void {
+		if (this.shadowRoot && this.maxCrumbs) {
+			this._collapsedSlotEl = this.shadowRoot.querySelector('#collapsedEl');
+			if (this._collapsedSlotEl) {
+				this._collapsedSlotEl.addEventListener('click', (): void => {
+					this.expand = true;
+				});
+			}
+		}
+	}
+
+	public collapsedBreadcrumbs = (crumbElements) => {
+		return [
+			...crumbElements.slice(0, this._itemsBeforeCollapse),
+			this.newLiEl('...', true),
+			...crumbElements.slice(crumbElements.length - this._itemsAfterCollapse, crumbElements.length),
+		];
+	};
+
+	public applySeparators(crumbElements) {
+		return [...crumbElements].map((el, i) => i < crumbElements.length - 1 ? [el, this.newLiEl(`${this.separator}`, null)] : [el]).reduce((a, b) => a.concat(b))
+	}
+
+	/**
+	 * New element generator
+	 * */
+
+	private newLiEl(text, collapsedEl) {
+		const node = document.createTextNode(text);
+		const newEl = document.createElement("li");
+		newEl.setAttribute("slot", "crumb");
+		newEl.setAttribute("aria-hidden", "true");
+		newEl.appendChild(node);
+		if(collapsedEl) {
+			newEl.setAttribute("id", "collapsedEl");
+		}
+		return newEl;
+	}
+
 }
 
 export default RuiBreadcrumbs;
