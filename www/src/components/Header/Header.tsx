@@ -1,7 +1,7 @@
-import React from 'react'
-import {graphql, StaticQuery, Link} from 'gatsby'
-import headerStyles from './Header.css'
-import Search from '../Search/Search'
+import React from 'react';
+import {graphql, StaticQuery, Link} from 'gatsby';
+import headerStyles from './Header.css';
+import Search from '../Search/Search';
 
 export class Header extends React.Component {
 	public render() {
@@ -21,8 +21,8 @@ export class Header extends React.Component {
 					</header>
 				)}
 			/>
-		)
+		);
 	}
 }
 
-export default Header
+export default Header;
