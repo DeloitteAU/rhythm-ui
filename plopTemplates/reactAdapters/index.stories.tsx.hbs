@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import {{pascalCase name}} from './lib';
+import {{pascalCase name}} from './src';
 import Readme from './README.md';
 
 storiesOf('{{pascalCase name}}', module)
@@ -9,6 +9,6 @@ storiesOf('{{pascalCase name}}', module)
 			content: Readme,
 		},
 	})
-	.add('your first story 🎉', () => (
-			<{{pascalCase name}}> Default </{{pascalCase name}}>
+	.add('with some emoji', () => (
+		<{{pascalCase name}}> Default </{{pascalCase name}}>
 	));
