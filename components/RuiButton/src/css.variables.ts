@@ -68,7 +68,12 @@ export default css`
 		/**
 		 * @variable The button accent colour
 		 */
-		--background-color: #595457;
+		--background-color: #673AB7;
+
+		/**
+		 * @variable The active button accent colour
+		 */
+		--background-active: #512DA8;
 
 		/**
 		 * @variable The button border colour
@@ -85,17 +90,20 @@ export default css`
 
 	:host([type="primary"]) {
 		--color: #FFF;
-		--background-color: #4D6CFA;
+		--background-color: #03A9F4;
+		--background-active: #0288D1;
 	}
 
 	:host([type="secondary"]) {
 		--color: #FFF;
-		--background-color: #DE0D92;
+		--background-color: #009688;
+		--background-active: #00796B;
 	}
 
 	:host([type="tertiary"]) {
 		--color: #FFF;
-		--background-color: #9E1946;
+		--background-color: #8BC34A;
+		--background-active: #689F38;
 	}
 
 	/* Variants */

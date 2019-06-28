@@ -65,10 +65,10 @@ glob(pattern, {}, (er, files) => {
 			if (Array.isArray(parts)) {
 				const name = parts[1];
 				const v = parts[2];
-				return `${md}| ${name} | ${v} | ${block.content.replace(/@variable\s?/, '').replace(/(\t)/g, '').replace(/\n/g,'')} | \r\n`;
+				return `${md}| \`${name}\` | \`${v}\` | ${block.content.replace(/@variable\s?/, '').replace(/(\t)/g, '').replace(/\n/g,'')} | \r\n`;
 			}
 			return md;
-		}, '\r\n ## Variables\r\n\r\n| CSS Variable | Default Value | Description |\r\n| --- | --- | --- |\r\n');
+		}, '\r\n ## CSS Variables\r\n\r\n| CSS Variable | Default Value | Description |\r\n| --- | --- | --- |\r\n');
 
 		// build front matter
 		const frontmatter = `---\r\nparentFileAbsolutePath: "${readmeAbsolutePath}"\r\nmeta: true\r\n---`;

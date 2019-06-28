@@ -1,36 +1,34 @@
-import Highlight, {defaultProps, Language} from 'prism-react-renderer'
-import React from 'react'
-import nightOwl from 'prism-react-renderer/themes/nightOwl';
-import {codePreviewStyles, codeSnippetStyles, tokenLine} from './Code.css';
 
-interface ICode {
+import React from 'react';
+import Highlight from './Highlight';
+import * as styles from './Code.css';
+
+interface ICodeProps {
 	codeString: string,
-	language: Language,
+	language: string,
 	preview: boolean
 }
 
-export const Code = ({codeString, language, preview, ...props}: ICode) => (
+export const Code = ({codeString, language, preview, ...props}: ICodeProps) => (
 	<>
-		{preview && <div css={codePreviewStyles} dangerouslySetInnerHTML={{__html: codeString}} />}
-		<Highlight
-			{...defaultProps}
-			code={codeString}
-			language={language}
-			theme={nightOwl}
-		>
-			{({className, style, tokens, getLineProps, getTokenProps}) => (
-				<pre className={className} css={[codeSnippetStyles, style]}>
-					{tokens.map((line, i) => (
-						<div {...getLineProps({line, key: i})} css={tokenLine}>
-							{line.map((token, key) => (
-								<span {...getTokenProps({token, key})} />
-							))}
-						</div>
-					))}
-				</pre>
-			)
-			}
-		</Highlight>
+		{preview && (
+			<div css={styles.fakeBrowserStyles}>
+				<div css={styles.fakeBrowswerBarStyles}>
+					<span />
+					<span />
+					<span />
+				</div>
+				<div css={styles.codePreviewStyles} dangerouslySetInnerHTML={{__html: codeString}} />
+				<>
+					<div css={styles.codeTabs}>
+						<span>Html</span>
+						<a href="https://rui-react-545559.netlify.com/" target="_blank">React</a>
+					</div>
+					<Highlight codeString={codeString} language={language} />
+				</>
+			</div>
+		)}
+		{!preview && <Highlight codeString={codeString} language={language} />}
 	</>
-)
-export default Code
+);
+export default Code;

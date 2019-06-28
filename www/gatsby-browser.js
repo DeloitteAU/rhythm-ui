@@ -7,7 +7,7 @@
 //FIXME: This is breaking on gatsby build job
 //import "@webcomponents/webcomponentsjs/custom-elements-es5-adapter";
 
-import "./src/css/normalize.css"
-import "./src/css/typography.css"
-import "./src/css/base.css"
+import './src/css/normalize.css';
+import './src/css/typography.css';
+import './src/css/base.css';
 

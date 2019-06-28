@@ -1,7 +1,7 @@
 
-import { configure, addDecorator, addParameters } from '@storybook/react';
-import { addReadme } from 'storybook-readme';
-import {withKnobs} from "@storybook/addon-knobs";
+import {configure, addDecorator, addParameters} from '@storybook/react';
+import {addReadme} from 'storybook-readme';
+import {withKnobs} from '@storybook/addon-knobs';
 import React from "react";
 import './styles.css';
 
@@ -10,7 +10,6 @@ const wrapperDecorator = storyFn => <div className='code-preview'>{storyFn()}</d
 addDecorator(wrapperDecorator);
 addDecorator(addReadme);
 addDecorator(withKnobs);
-
 
 addParameters({
 	options: {
@@ -21,8 +20,8 @@ addParameters({
 		panelPosition: 'right',
 	},
 });
-// automatically import all files ending in *.stories.js
-const req = require.context('../react', true, /.stories.tsx$/);
+// automatically import all files ending in *.stories.tsx
+const req = require.context('../adapters/react', true, /.stories.tsx$/);
 function loadStories() {
 	req.keys().forEach(filename => req(filename));
 }

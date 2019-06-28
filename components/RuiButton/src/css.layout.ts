@@ -38,9 +38,9 @@ export default css`
 
 	.btn:hover {
 		text-decoration: none;
-		transform: translateY(1px);
 		cursor: pointer;
 		color: var(--color-active);
+		background: var(--background-active);
 	}
 
 	/* Variants */

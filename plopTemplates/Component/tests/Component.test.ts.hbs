@@ -7,9 +7,9 @@
 */
 
 import '../src';
-import {TestUtils} from '../../../TestUtils';
+import TestUtils from '../../../TestUtils';
 
-describe('{{pascalCase name}}'', () => {
+describe('{{pascalCase name}}', () => {
 
 	it('Renders', async () => {
 		const ele = await TestUtils.render('{{kebabCase name}}', {}, '');

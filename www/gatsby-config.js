@@ -9,6 +9,9 @@ if (!fs.existsSync(docsDir)) {
 	fs.mkdirSync(docsDir);
 }
 
+const formatName = node => (node ? node.replace('rui-', '') : node);
+const removeFromUrl = node => (!node.includes('-variables') ? node : null);
+
 module.exports = {
 	siteMetadata: {
 		title: 'Rhythm UI',
@@ -26,9 +29,9 @@ module.exports = {
 			},
 		},
 		{
-			resolve: `gatsby-plugin-nprogress`,
+			resolve: 'gatsby-plugin-nprogress',
 			options: {
-				color: `tomato`,
+				color: 'tomato',
 				showSpinner: true,
 			},
 		},
@@ -53,6 +56,13 @@ module.exports = {
 			options: {
 				name: 'ruidocs',
 				path: `${__dirname}/../.ruidocs`,
+			},
+		},
+		{
+			resolve: 'gatsby-source-filesystem',
+			options: {
+				name: 'change-log',
+				path: `${__dirname}/../CHANGELOG.md`,
 			},
 		},
 		// {
@@ -95,7 +105,7 @@ module.exports = {
 						},
 					},
 					{resolve: 'gatsby-remark-copy-linked-files'},
-				]
+				],
 			},
 		},
 		{
@@ -110,11 +120,22 @@ module.exports = {
 				icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
 			},
 		},
+		{
+			resolve: '@gatsby-contrib/gatsby-plugin-elasticlunr-search',
+			options: {
+				fields: ['name', 'title', 'urlPath'],
+				resolvers: {
+					Mdx: {
+						name: node => node.frontmatter.title,
+						title: node => formatName(node.frontmatter.title),
+						urlPath: node => removeFromUrl(node.fields.relativeUrlPath),
+					},
+				},
+			},
+		},
 		//   },
 		// this (optional) plugin enables Progressive Web App + Offline functionality
 		// To learn more, visit: https://gatsby.dev/offline
 		// 'gatsby-plugin-offline',
-
-
 	],
 };
