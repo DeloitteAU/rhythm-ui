@@ -9,6 +9,9 @@ if (!fs.existsSync(docsDir)) {
 	fs.mkdirSync(docsDir);
 }
 
+const formatName = node => (node ? node.replace('rui-', '') : node);
+const removeFromUrl = node => (!node.includes('-variables') ? node : null);
+
 module.exports = {
 	siteMetadata: {
 		title: 'Rhythm UI',
@@ -115,6 +118,19 @@ module.exports = {
 				theme_color: '#663399', // eslint-disable-line @typescript-eslint/camelcase
 				display: 'minimal-ui',
 				icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
+			},
+		},
+		{
+			resolve: '@gatsby-contrib/gatsby-plugin-elasticlunr-search',
+			options: {
+				fields: ['name', 'title', 'urlPath'],
+				resolvers: {
+					Mdx: {
+						name: node => node.frontmatter.title,
+						title: node => formatName(node.frontmatter.title),
+						urlPath: node => removeFromUrl(node.fields.relativeUrlPath),
+					},
+				},
 			},
 		},
 		//   },
