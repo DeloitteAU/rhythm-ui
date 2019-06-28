@@ -21,8 +21,6 @@ export class RuiBreadcrumbs extends LitElement {
 	/**
 	 * Private properties to set number of crumbs before and after collapse element
 	 * */
-
-
 	private _itemsBeforeCollapse: number = 1;
 	private _itemsAfterCollapse: number = 1;
 	private _collapsedSlotEl: HTMLSlotElement | null = null;
@@ -41,14 +39,12 @@ export class RuiBreadcrumbs extends LitElement {
 	/**
 	 * The array of breadcrumbs
 	 */
-
 	@property({type : String})
 	public separator?: string = '/';
 
 	/**
 	 * The array of breadcrumbs
 	 */
-
 	@property({type : String})
 	public crumbs?: string = '';
 
@@ -70,8 +66,8 @@ export class RuiBreadcrumbs extends LitElement {
 
     /* #endregion */
 
-
     /* #region Methods */
+
     public render(): TemplateResult {
 
 		if (this.crumbs) {
@@ -106,20 +102,22 @@ export class RuiBreadcrumbs extends LitElement {
 		`;
 		}
     }
+
 	/* #endregion */
-
-
-
+	/**
+	 * Map over the given array to return each child
+	 * */
 	public allChildren(array) {
 		return array
 			.map((child) => (
 				child
 		));
 	}
-	/**
-	 * First update used to add event listner onto the collapsed crumb
-	 **/
 
+	/**
+	 * Add event listener onto the collapsed crumb when the DOM has updated with the correct array
+	 * If no collapsed El. there will be no need for an event listener
+	 **/
 	public firstUpdated(): void {
 		if (this.shadowRoot && this.maxCrumbs) {
 			this._collapsedSlotEl = this.shadowRoot.querySelector('#collapsedEl');
@@ -131,6 +129,9 @@ export class RuiBreadcrumbs extends LitElement {
 		}
 	}
 
+	/**
+	 * Create new array if max.crumbs is smaller than array.length
+	 * */
 	public collapsedBreadcrumbs = (crumbElements) => {
 		return [
 			...crumbElements.slice(0, this._itemsBeforeCollapse),
@@ -139,14 +140,20 @@ export class RuiBreadcrumbs extends LitElement {
 		];
 	};
 
+	/**
+	 * So we can have custom separators, we have to add new elements in between each element in the given array
+	 * To do this we map over each element placing a newEl with the custom separator in between
+	 * */
 	public applySeparators(crumbElements) {
-		return [...crumbElements].map((el, i) => i < crumbElements.length - 1 ? [el, this.newLiEl(`${this.separator}`, null)] : [el]).reduce((a, b) => a.concat(b))
+		return [...crumbElements].map(
+			(el, i) => i < crumbElements.length - 1
+				? [el, this.newLiEl(`${this.separator}`, null)]
+				: [el]).reduce((a, b) => a.concat(b))
 	}
 
 	/**
 	 * New element generator
-	 * */
-
+	 **/
 	private newLiEl(text, collapsedEl) {
 		const node = document.createTextNode(text);
 		const newEl = document.createElement("li");

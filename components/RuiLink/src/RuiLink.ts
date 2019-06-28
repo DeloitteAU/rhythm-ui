@@ -24,7 +24,6 @@ export class RuiLink extends LitElement {
 	/**
 	 * The href of the link, if undefined this will switch to a normal un-styled div. i.e at the end of a breadcrumb trail
 	 */
-
 	@property({type : String})
 	public href? = undefined;
 
@@ -37,14 +36,12 @@ export class RuiLink extends LitElement {
 	/**
 	 * The colour of the Link
 	 */
-
 	@property({type : String})
 	public color?: 'default' | 'inherit' | 'error' | 'primary'  = 'default';
 
 	/**
 	 * text decoration of the link - defaults to none
 	 */
-
 	@property({type : String})
 	public underline: 'none' | 'hover' | 'always' | 'invert' = 'hover';
 
@@ -56,8 +53,8 @@ export class RuiLink extends LitElement {
 
 	/* #endregion */
 
-
 	/* #region Methods */
+
 	public render(): TemplateResult {
 		if (this.href === undefined || this.active) {
 			return html`
@@ -76,6 +73,7 @@ export class RuiLink extends LitElement {
 		</a>
 		`;
 	}
+
 	/* #endregion */
 }
 

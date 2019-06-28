@@ -9,9 +9,9 @@
 import '../src';
 import TestUtils from '../../../TestUtils';
 
-describe("RuiLink", () => {
+describe('RuiLink', () => {
 
-	it("Renders", async () => {
+	it('Renders', async () => {
 		const ele = await TestUtils.render('rui-link', {}, '');
 		expect(ele).toBeDefined();
 

@@ -9,7 +9,6 @@
 * Register the Web Component with customElements
 * @param tag - The HTML tag to use
 */
-
 export const register = async (tag: string = 'rui-link'): Promise<boolean> => {
 	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
 		// Register the new element with the DOM
