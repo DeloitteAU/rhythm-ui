@@ -55,7 +55,7 @@ export const variables = css`
 		/**
 		 * @variable The button font colour
 		 */
-		--rui-button__color: var(--rui-button__-global-white-color, #FFF);
+		--rui-button__color: var(--global-white-color, #FFF);
 
 		/**
 		 * @variable The active font colour
