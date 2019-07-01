@@ -319,7 +319,7 @@ export const layout = css`
 
 	/* Primary Theming */
 	:host([type="primary"]) {
-		--rui-button__color: var(--rui-button__-global-white-color, #FFF);
+		--rui-button__color: var(--global-white-color, #FFF);
 		--rui-button__border: none;
 		--rui-button__background-color: var(--global-primary-color, #4D6CFA);
 		--rui-button__background-color-hover: var(--global-primary-shade-4, #0288D1);
