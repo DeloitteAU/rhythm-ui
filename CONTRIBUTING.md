@@ -48,7 +48,8 @@ Each package falls into one of the following categories:
 
 #### Variables
 Where possible the css variables you create should follow the 
-scope-property-modifier naming pattern.
+scope-property-modifier naming pattern. All component variables should also be prefixed with `rui-<component-name>__` to prevent 
+namespace conflicts
 
 | Name | Description | Usage |
 | --- | --- | -- |
@@ -60,9 +61,9 @@ Examples:
 
 | Variable | Description |
 | --- | ---|
-|--color | Only property is used here so we assume this will be the base text colour for element |
-|--icon-height| Specifies we are talking about an element with the class .icon, and refering to the height property|
-|--carousel-btn-color-disabled | Target the carousel button colour when the button is disabled|
+|--rui-my-component__color | Only property is used here so we assume this will be the base text colour for element |
+|--rui-my-component__icon-height| Specifies we are talking about an element with the class .icon, and refering to the height property|
+|--rui-my-component__carousel-btn-color-disabled | Target the carousel button colour when the button is disabled|
 
 
 ## JavaScript
