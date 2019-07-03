@@ -1,12 +1,12 @@
 <template>
   <rui-expand-collapse>
-    <slot name="summary"></slot>
-    <slot name="details"></slot>
+    <slot name="summary" />
+    <slot name="details" />
   </rui-expand-collapse>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import {Component, Vue, Prop} from 'vue-property-decorator';
 import '@rhythm-ui/expand-collapse';
 
 // TODO: Need to figure out how to register the component from RUI
@@ -24,8 +24,7 @@ export default class RuiExpandCollapseVue extends Vue {
 
   // lifecycle hook
   mounted() {
-    console.log('props', this.basicData)
-    console.log('state', this.flag);
+    this.flag = true;
   }
 
   // computed example
@@ -34,8 +33,8 @@ export default class RuiExpandCollapseVue extends Vue {
   }
 
   // methods example
-  changeStateValue(): boolean {
-    return this.flag =  !this.flag;
+  private changeStateValue(): boolean {
+    return this.flag = !this.flag;
   }
 }
 </script>

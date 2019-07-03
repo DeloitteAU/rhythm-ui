@@ -1,4 +1,5 @@
 import {storiesOf} from '@storybook/vue';
+import {action} from '@storybook/addon-actions'
 import RuiExpandCollapseVue from './src/RuiExpandCollapse.vue';
 
 storiesOf('Expand Collapse', module)
@@ -17,5 +18,6 @@ storiesOf('Expand Collapse', module)
         </div>
       </template>
     </RuiExpandCollapseVue>
-  `
+  `,
+  methods: {action: action('clicked')}
 }));
