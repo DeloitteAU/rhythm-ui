@@ -38,9 +38,9 @@
     "build:storybook:react": "build-storybook -c adapters/react/.storybook -o .out-react",
     "build:storybook:vue": "build-storybook -c adapters/vue/.storybook -o .out-vue",
     "start": "lerna run start --scope www --include-filtered-dependencies --parallel --stream",
+    "start:react": "start-storybook -p 6006 -c adapters/react/.storybook",
+    "start:vue": "start-storybook -p 6006 -c adapters/vue/.storybook",
     "format": "prettier --write src/**/*.{js,jsx}",
-    "storybook:react": "start-storybook -p 6006 -c adapters/react/.storybook",
-    "storybook:vue": "start-storybook -p 6006 -c adapters/vue/.storybook",
     "generate": "plop"
   },
   "repository": {
