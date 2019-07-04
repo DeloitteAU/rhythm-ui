@@ -21,7 +21,6 @@
 	},
 	"devDependencies": {
 		"babel-preset-rhythm-ui-vue": "^1.0.0",
-		"vue": "^2.6.10",
 		"vue-loader": "^15.7.0",
 		"vue-template-compiler": "^2.6.10"
 	}

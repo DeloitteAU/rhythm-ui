@@ -1,21 +1,17 @@
 // const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = ({config}) => {
-  config.resolve.extensions.push('.ts', '.tsx', '.vue', '.css', '.scss', '.sass', '.html')
-
+  config.resolve.extensions.push('.ts', '.vue', '.css', '.scss', '.sass', '.html')
   config.module.rules.push({
-    test: /\.(ts|.tsx)$/,
-    exclude: /node_modules/,
+    test: /\.ts$/,
     use: [
       {
-        loader: 'ts-loader',
+        loader: 'babel-loader',
         options: {
-          appendTsSuffixTo: [/\.vue$/],
-          appendTsxSuffixTo: [/\.vue$/],
-          transpileOnly: true
-        },
+          presets: ['babel-preset-rhythm-ui-vue']
+        }
       }
-    ],
-  })
+    ]
+	});
   return config;
 };

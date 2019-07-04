@@ -1,14 +1,14 @@
 {
+  "extends": [
+    "../../.eslintrc.js",
+    "plugin:vue/recommended"
+  ],
   "parserOptions": {
     "parser": "@typescript-eslint/parser",
     "ecmaFeatures": {
       "legacyDecorators": true
     }
   },
-  "extends": [
-    "../../.eslintrc.js",
-    "plugin:vue/recommended"
-  ],
   "overrides": [
 		{
 			"files": ["**/*.vue"],
