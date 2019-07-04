@@ -4,5 +4,8 @@
     "noEmitHelpers": false,
     "outDir": "./lib",
 		"declarationDir": "./lib"
-  }
+  },
+  "include": [
+		"./src"
+	]
 }

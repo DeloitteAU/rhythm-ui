@@ -1,8 +1,8 @@
 import {storiesOf} from '@storybook/vue';
 import {action} from '@storybook/addon-actions'
-import RuiExpandCollapseVue from './src/RuiExpandCollapse.vue';
+import RuiExpandCollapseVue from './src';
 
-storiesOf('Expand Collapse', module)
+storiesOf('Expand Collapse', module) 
 .add('basic expand for vue', () => ({
   components: {RuiExpandCollapseVue},
   template: `

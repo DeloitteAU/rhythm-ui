@@ -9,9 +9,10 @@
 import {Component, Vue, Prop} from 'vue-property-decorator';
 import '@rhythm-ui/expand-collapse';
 
-// TODO: Need to figure out how to register the component from RUI
-// Type of RuiExpandCollapse is not assignable to parameter of type 'VueClass<Vue>'.
-// Will get warning message if we have registered the componenet correctly.
+// https://vuejs.org/v2/api/#ignoredElements
+Vue.config.ignoredElements = [
+  'rui-expand-collapse'
+];
 
 @Component({})
 export default class RuiExpandCollapseVue extends Vue {
