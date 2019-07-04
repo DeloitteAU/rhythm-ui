@@ -17,8 +17,6 @@ IE11 and Edge will require the [Web Components Polyfill](https://www.webcomponen
 
 ## Contributing
 
-https://developers.google.com/web/fundamentals/web-components/customelements
-    
 The main purpose of this repository is to continue to evolve Rhythm UI, making it better and easier to use. Development of 
 Rhythm happens on GitHub, and we welcome any contributions, bug fixes and improvements. 
 Please read below to learn how you can take part in improving Rhythm.
