@@ -9,6 +9,7 @@ import {css} from '@emotion/core';
 import '@rhythm-ui/button-react';
 import '@rhythm-ui/story-react';
 import '@rhythm-ui/expand-collapse-react';
+import '@rhythm-ui/pagination-react';
 import RuiLayout from '@rhythm-ui/layout-react';
 import RuiGrid from '@rhythm-ui/grid-react';
 import RuiSkipLinks from '@rhythm-ui/skip-links-react';
