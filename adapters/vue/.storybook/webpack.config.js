@@ -1,4 +1,5 @@
 // const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const updateWebpackConfig = require('storybook-readme/vue/updateWebpackConfig');
 
 module.exports = ({config}) => {
   config.resolve.extensions.push('.ts', '.vue', '.css', '.scss', '.sass', '.html')
@@ -12,6 +13,7 @@ module.exports = ({config}) => {
         }
       }
     ]
-	});
+  });
+  updateWebpackConfig(config);
   return config;
 };

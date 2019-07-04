@@ -1,0 +1,14 @@
+import {storiesOf} from '@storybook/vue';
+import { {{~pascalCase name~}} } from './lib';
+import Readme from './README.md';
+
+storiesOf('{{pascalCase name}}', module)
+	.addParameters({
+		readme: {
+			content: Readme,
+		},
+	})
+	.add('with some emoji', () => ({
+    components: { {{pascalCase name}} },
+		template: `<{{pascalCase name}}> Default </{{pascalCase name}}>`
+  }));

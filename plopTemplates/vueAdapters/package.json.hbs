@@ -1,0 +1,27 @@
+{
+	"name": "@rhythm-ui/{{kebabCase name}}-vue",
+	"version": "1.0.0",
+	"main": "lib/index.js",
+	"scripts": {
+		"start": "yarn clean && concurrently \"yarn start:babel\" \"yarn start:declarations\"",
+		"start:babel": "babel -w -s -d lib src --extensions \".ts\" --ignore *.spec.ts --copy-files",
+		"start:declarations": "tsc --declaration --emitDeclarationOnly --watch",
+		"build": "yarn build:babel && yarn build:declarations",
+		"build:babel": "babel -s -d lib src --extensions \".ts\" --ignore *.spec.ts --ignore *.d.ts --copy-files",
+		"build:declarations": "tsc --declaration --emitDeclarationOnly",
+		"clean": "rimraf lib"
+	},
+	"files": [
+		"lib/"
+	],
+	"dependencies": {
+		"@rhythm-ui/{{kebabCase name}}": "^1.0.0",
+		"vue-class-component": "^7.1.0",
+		"vue-property-decorator": "^8.2.1"
+	},
+	"devDependencies": {
+		"babel-preset-rhythm-ui-vue": "^1.0.0",
+		"vue-loader": "^15.7.0",
+		"vue-template-compiler": "^2.6.10"
+	}
+}
