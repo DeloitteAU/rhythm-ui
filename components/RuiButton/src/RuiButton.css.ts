@@ -58,6 +58,11 @@ export const variables = css`
 		--rui-button__color: var(--global-white-color, #FFF);
 
 		/**
+		 * @variable Line height
+		 */
+		--rui-button__line-height: 1em;
+
+		/**
 		 * @variable The active font colour
 		 */
 		--rui-button__color-active: var(--rui-button__color);
@@ -80,22 +85,22 @@ export const variables = css`
 		/**
 		 * @variable The button accent colour
 		 */
-		--rui-button__background-color: var(--global-gray-color-3, #595457);
+		--rui-button__background-color: var(--global-gray-color-3, #673AB7);
 
 		/**
 		 * @variable The active font colour
 		 */
-		--rui-button__background-color-active: var(--global-gray-color-4, #333);
+		--rui-button__background-color-active: var(--global-gray-color-4, #311B92);
 
 		/**
 		 * @variable The focused font colour
 		 */
-		--rui-button__background-color-focus: var(--global-gray-color-4, #333);
+		--rui-button__background-color-focus: var(--global-gray-color-4, #311B92);
 
 		/**
 		 * @variable The hover font colour
 		 */
-		--rui-button__background-color-hover: var(--global-gray-color-4, #333);
+		--rui-button__background-color-hover: var(--global-gray-color-4, #311B92);
 
 		/**
 		 * @variable The disabled button background color
@@ -155,7 +160,7 @@ export const variables = css`
 		/**
 		 * @variable The button display property
 		 */
-		--rui-button__display: flex;
+		--rui-button__display: inline-block;
 
 		/**
 		 * @variable The button flex direction
@@ -180,12 +185,12 @@ export const variables = css`
 		/**
 		 * @variable The button transform when hovering
 		 */
-		--rui-button__transform-hover: translateY(-1px);
+		--rui-button__transform-hover: none;
 
 		/**
 		 * @variable  The button transform when focused
 		 */
-		--rui-button__transform-focus: translateY(-1px);
+		--rui-button__transform-focus: none;
 
 		/**
 		 * @variable The button transform when active
@@ -238,9 +243,10 @@ export const layout = css`
 		text-decoration: none;
 		text-overflow: ellipsis;
 		user-select: none;
-		vertical-align: top;
 		white-space: nowrap;
+		vertical-align: middle;
 
+		line-height: var(--rui-button__line-height);
 		align-items: var(--rui-button__align-items);
 		background-color: var(--rui-button__background-color);
 		border-radius: var(--rui-button__border-radius);
@@ -292,9 +298,6 @@ export const layout = css`
 
 	/* Variants */
 	:host([variant="outline"]) .btn {
-		--rui-button__background-color-active: var(--global-gray-color-3, #595457);
-		--rui-button__background-color-focus: var(--global-gray-color-3, #595457);
-		--rui-button__background-color-hover: var(--global-gray-color-3, #595457);
 		--rui-button__background-color: transparent;
 		--rui-button__border-active: var(--rui-button__border);
 		--rui-button__border-focus: var(--rui-button__border);
@@ -321,27 +324,27 @@ export const layout = css`
 	:host([type="primary"]) {
 		--rui-button__color: var(--global-white-color, #FFF);
 		--rui-button__border: none;
-		--rui-button__background-color: var(--global-primary-color, #4D6CFA);
-		--rui-button__background-color-hover: var(--global-primary-shade-4, #0288D1);
-		--rui-button__background-color-active: var(--global-primary-shade-4, #0288D1);
-		--rui-button__background-color-focus: var(--global-primary-shade-4, #0288D1);
+		--rui-button__background-color: var(--global-primary-color, #8BC34A);
+		--rui-button__background-color-hover: var(--global-primary-shade-4, #558B2F);
+		--rui-button__background-color-active: var(--global-primary-shade-4, #558B2F);
+		--rui-button__background-color-focus: var(--global-primary-shade-4, #558B2F);
 	}
 
 	:host([type="secondary"]) {
 		--rui-button__color: var(--rui-button__-global-white-color, #FFF);
 		--rui-button__border: none;
-		--rui-button__background-color: var(--global-secondary-color, #673AB7);
-		--rui-button__background-color-hover: var(--global-secondary-shade-4, #512DA8);
-		--rui-button__background-color-active: var(--global-secondary-shade-4, #512DA8);
-		--rui-button__background-color-focus: var(--global-secondary-shade-4, #512DA8);
+		--rui-button__background-color: var(--global-secondary-color, #03A9F4);
+		--rui-button__background-color-hover: var(--global-secondary-shade-4, #0277BD);
+		--rui-button__background-color-active: var(--global-secondary-shade-4, #0277BD);
+		--rui-button__background-color-focus: var(--global-secondary-shade-4, #0277BD);
 	}
 
 	:host([type="tertiary"]) {
 		--rui-button__color: var(--rui-button__-global-white-color, #FFF);
-		--rui-button__background-color: var(--global-tertiary-color, #9E1946);
-		--rui-button__background-color-hover: var(--global-tertiary-shade-4, #771335);
-		--rui-button__background-color-active: var(--global-tertiary-shade-4, #771335);
-		--rui-button__background-color-focus: var(--global-tertiary-shade-4, #771335);
+		--rui-button__background-color: var(--global-tertiary-color, #F44336);
+		--rui-button__background-color-hover: var(--global-tertiary-shade-4, #B71C1C);
+		--rui-button__background-color-active: var(--global-tertiary-shade-4, #B71C1C);
+		--rui-button__background-color-focus: var(--global-tertiary-shade-4, #B71C1C);
 	}
 
 	/* Sizes */

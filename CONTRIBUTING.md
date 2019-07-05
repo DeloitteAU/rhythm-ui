@@ -7,7 +7,7 @@ Thank you for helping. Here are a few guidelines that will help you along the wa
 We have adopted a [Code of Conduct](https://github.com/DeloitteDigitalAPAC/rhythm-ui/blob/master/CODE_OF_CONDUCT.md) that we expect project contributors
 to adhere to. Please read the full text so that you can understand what actions will and will not be tolerated.
 
-### Branch Structure
+## Branch Structure
 
 All stable releases are to be tagged. At any given time, `rhythm-ui-mk-2` represents the latest development version of the library. 
 Patches or hotfix releases are prepared on an independent branch.
@@ -61,7 +61,7 @@ We recommend developing Web Components while running the documentation site with
 
 Use `yarn start:react` or `yarn start:vue` if you are developing Web Component adapters.
 
-### Coding style
+## Coding style
 
 Please follow the coding style of the current code base. This project uses eslint, so if possible, enable linting in your 
 editor. 
