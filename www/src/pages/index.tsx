@@ -3,6 +3,7 @@
 import React from 'react';
 import {Link} from 'gatsby';
 import RuiGrid from '@rhythm-ui/grid-react';
+import RuiButton from '@rhythm-ui/button-react';
 
 import Layout from '../templates/Feature';
 
@@ -20,7 +21,7 @@ const IndexPage = (): React.ReactNode => (
 						community of contributors.
 					</p>
 					<Link to="/docs/components/rui-expand-collapse">
-						<rui-button size="large" type="primary">Get Started</rui-button>
+						<RuiButton size="large" type="primary">Get Started</RuiButton>
 					</Link>
 				</div>
 			</RuiGrid>
