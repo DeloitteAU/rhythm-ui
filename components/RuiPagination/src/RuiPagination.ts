@@ -12,7 +12,7 @@ export class RuiPagination extends LitElement {
 
 	@property({
 		type : Number,
-		attribute: 'current-page'
+		attribute: 'current-page',
 	})
 	public currentPage = 1;
 
@@ -39,10 +39,12 @@ export class RuiPagination extends LitElement {
 	}
 
 
-	private calculatePageStartEnd() {
+	private calculatePageStartEnd(): number[] {
 		let pageStart = 1;
 		let pageEnd = this.numberOfPages;
 
+		// if the number of pages to show is greater or equal to the number of pages
+		// then we should just display every page as a pagination item
 		if (this.pagesToShow >= this.numberOfPages) {
 			return [pageStart, pageEnd];
 		}
@@ -59,7 +61,7 @@ export class RuiPagination extends LitElement {
 			// defined by pages to show + 4 where 
 			// the 4 comes from the start and end item which are always present,
 			// and the two ellipses slots which may or may not be actual ellipses
-			// e.g 1 | ... | pages-to-show items | ... | n
+			// e.g | 1 | ... | pages-to-show items | ... | n |
 			const MAX_ITEMS = Math.min(this.pagesToShow + 4, this.numberOfPages);
 			pageEnd = this.currentPage + (MAX_ITEMS - 2 - this.currentPage);
 		} else {
@@ -73,14 +75,14 @@ export class RuiPagination extends LitElement {
 			
 			pageStart = Math.max(this.currentPage - leftShown - rightTruncate, 1);
 			pageEnd =  Math.min(this.currentPage + rightShown, this.numberOfPages);
+		}
 
-			if (pageStart === 3) {
-				pageStart = 2;
-			}
+		if (pageStart === 3) {
+			pageStart = 2;
+		}
 
-			if (pageEnd === this.numberOfPages - 2) {
-				pageEnd = this.numberOfPages - 1;
-			}
+		if (pageEnd === this.numberOfPages - 2) {
+			pageEnd = this.numberOfPages - 1;
 		}
 
 		return [
@@ -88,17 +90,47 @@ export class RuiPagination extends LitElement {
 			pageEnd
 		];
 	}
-
 	/* #endregion */
 
 	/* #region Methods */
 
-	/**
-	* Render method
-		* @slot This is a slot test
-	*/
-	public render(): TemplateResult {
-		
+	public attributeChangedCallback(name, oldVal, newVal): void {
+		switch(name) {
+			case 'current-page':
+				this.currentPage = newVal;
+				this.requestUpdate('currentPage', oldVal);
+				break;
+			case 'pages-shown':
+				this.pagesToShow = newVal;
+				this.requestUpdate('pagesToShow', oldVal);
+				break;
+			case 'num-pages':
+				this.numberOfPages = newVal;
+				this.requestUpdate('numberOfPages', oldVal);
+				break;
+		}
+
+		super.attributeChangedCallback(name, oldVal, newVal);
+	  }
+
+	private _renderPaginationItem(pageNumber, currentPage): TemplateResult {
+		const isCurrentPage = currentPage === pageNumber;
+		return html`
+			<li class="pagination-item${isCurrentPage ? ' pagination-item--current' : ''}">
+				<a href="#">${pageNumber}${isCurrentPage ? ' (Current)' : ''}</a>
+			</li>
+		`
+	}
+
+	private _renderEllipsesItem(): TemplateResult {
+		return html`<div class="ellipses">...</div>`;
+	}
+
+	private _renderPaginationItems(): TemplateResult[] {
+		if (this.numberOfPages === 1) {
+			return [this._renderPaginationItem(1,1)];
+		}
+
 		const [pageStart, pageEnd] = this.calculatePageStartEnd();
 	
 		let renderLeftEllipses = false;
@@ -107,38 +139,33 @@ export class RuiPagination extends LitElement {
 		if (pageStart > 3) { renderLeftEllipses = true; }
 		if ((this.numberOfPages - pageEnd) > 2) { renderRightEllipses = true; }
 
-		const ellipsesEl = html`<div class="ellipses">...</div>`;
+		const paginationItems = [
+			this._renderPaginationItem(1, this.currentPage)
+		]
 
-		const renderItems = (startPage, endPage): TemplateResult[] => {
-			const items: TemplateResult[] = [];
-			for (let i = startPage; i < endPage + 1; i++) {
-				if (i !== 1 && i !== this.numberOfPages) {
-					items.push(html`
-					<li class="pagination-item">
-						<a href="#">${i}${(i === this.currentPage) ? ' (Current)' : ''}</a>
-					</li>
-				`);
-				}
+		if (renderLeftEllipses) { paginationItems.push(this._renderEllipsesItem()); }
+
+		for (let i = pageStart; i < pageEnd + 1; i++) {
+			if (i !== 1 && i !== this.numberOfPages) {
+				paginationItems.push(this._renderPaginationItem(i, this.currentPage));
 			}
-
-			return items;
 		}
 
-		if (this.numberOfPages === 1) {
-			return html`
-				<ul role="navigation">
-					<li class="pagination-item"><a href="#">1</a></li>
-				</ul>
-			`;
-		}
+		if (renderRightEllipses) { paginationItems.push(this._renderEllipsesItem()) }
 
+		paginationItems.push(this._renderPaginationItem(this.numberOfPages, this.currentPage))
+
+		return paginationItems;
+	}
+
+	/**
+	* Render method
+		* @slot This is a slot test
+	*/
+	public render(): TemplateResult {
 		return html`
 			<ul role="navigation">
-				<li class="pagination-item"><a href="#">1${(this.currentPage === 1) ? ' (Current)' : ''}</a></li>
-				${renderLeftEllipses ? ellipsesEl : ''}
-				${renderItems(pageStart, pageEnd)}
-				${renderRightEllipses ? ellipsesEl : ''}
-				<li class="pagination-item"><a href="#">${this.numberOfPages}${(this.currentPage === this.numberOfPages) ? ' (Current)' : ''}</a></li>
+				${this._renderPaginationItems()}
 			</ul>			
 		`;
 	}
