@@ -37,4 +37,51 @@ If you wish for the expand collapse to default to open, use the below:
 </RuiExpandCollapseVue>
 ```
 
-## To do -> External control open/close for component.
+## Externally controlled
+If you wish to externally control the open/close state of the expand collapse make sure you use v-bind the open property as well as binding the relevant listener. The @handleClick is a listener, that will listen to the child emit 'handleClick' with the relevant data and then run the method _handleClick. 
+
+```js
+<template>
+  <div>
+    <RuiExpandCollapseVue
+      :open="open"
+      @handleClick="_handleClick"
+    >
+      <template v-slot:summary>
+        <div slot="summary-content">
+          Vue Summary
+        </div>
+      </template>
+      <template v-slot:details>
+        <div slot="details-content">
+          Vue Details
+        </div>
+      </template>
+    </RuiExpandCollapseVue>
+  </div>
+</template>
+
+<script lang="ts">
+import {Component, Vue, Prop} from 'vue-property-decorator';
+import RuiExpandCollapseVue from './RuiExpandCollapse.vue';
+
+@Component({
+  components: {
+    RuiExpandCollapseVue
+  }
+})
+export default class RuiExpandCollapseController extends Vue {
+  
+  open: boolean = false;
+
+  private _handleClick(value: boolean) {
+    return this.open = !this.open
+  }
+}
+</script>
+
+<style>
+</style>
+
+```
+
