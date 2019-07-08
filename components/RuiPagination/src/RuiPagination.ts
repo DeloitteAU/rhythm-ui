@@ -8,6 +8,7 @@
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
 import {variables, layout} from './RuiPagination.css'
 
+
 export class RuiPagination extends LitElement {
 
 	@property({
@@ -28,6 +29,58 @@ export class RuiPagination extends LitElement {
 	})
 	public numberOfPages = 1;
 
+	@property({
+		type : String,
+	})
+	public prevlink = '#';
+
+	@property({
+		type : String,
+	})
+	public nextlink = '#';
+
+
+
+	private leftEllipsesEl: HTMLElement | null = null;
+	private rightEllipsesEl: HTMLElement | null = null;
+
+	/**
+	 * Here we duplicate the provided ellipses slotted content and also
+	 * display it in the ellipses-dupe slot
+	 * 
+	 * Web components do not provide a first class way to render the same provided slot
+	 * content in two places, so we copy the slotted content and change the slot value to 
+	 * get around this for the ellipses
+	 */
+	public connectedCallback(): void {
+		super.connectedCallback();
+		this.leftEllipsesEl = this.querySelector('[slot=ellipses]');
+		if (this.leftEllipsesEl) {
+			// clone node returns node so we cast to HTMLElement
+			this.rightEllipsesEl = this.leftEllipsesEl.cloneNode(true) as HTMLElement;
+			this.rightEllipsesEl.slot = 'ellipses-dupe';
+			this.appendChild(this.rightEllipsesEl);
+		}
+	}	
+
+	/**
+	 * Object containing a maping between page numbers and 
+	 * display text/links
+	 * 
+	 * {
+	 * 	1: {
+	 * 		href: '#', // 
+	 * 		label: 'First Page' // only include if not page number
+	 * 	},
+	 * 	{Prev}
+	 * }
+	 */
+	@property({
+		type: Object,
+	})
+	public linkmap = {};
+	
+
 	/**
 	*
 	* The styles for button
@@ -38,8 +91,36 @@ export class RuiPagination extends LitElement {
 		return [variables, layout];
 	}
 
+	// public onnextclick() {}
 
-	private calculatePageStartEnd(): number[] {
+	// public onprevclick() {}
+
+	// public onitemclick(pageNumber: number) {}
+
+
+	private _generateNextClickEvent(): CustomEvent {
+		return new CustomEvent('rui-pagination-next-click', {
+			bubbles: true
+		});
+	}
+
+	private _generatePrevClickEvent(): CustomEvent {
+		return new CustomEvent('rui-pagination-prev-click', {
+			bubbles: true
+		})
+	}
+
+	private _generateItemClickEvent(pageNumber: number): CustomEvent {
+		return new CustomEvent('rui-pagination-item-click', {
+			bubbles: true,
+			detail: {
+				pageNumber,
+			}
+		});
+	}
+	
+
+	private _calculatePageStartEnd(): number[] {
 		let pageStart = 1;
 		let pageEnd = this.numberOfPages;
 
@@ -77,10 +158,14 @@ export class RuiPagination extends LitElement {
 			pageEnd =  Math.min(this.currentPage + rightShown, this.numberOfPages);
 		}
 
+		// if page start is at 3, then to the left will be 1 and ... 
+		// rather than spend a space on ..., may as well render the 2 instead
+		// | 1 | ... | 3 |  => | 1 | 2 | 3 |
 		if (pageStart === 3) {
 			pageStart = 2;
 		}
 
+		// same principal as above but | n - 2 | ... | n |  => | n - 2 | n - 1 | n |
 		if (pageEnd === this.numberOfPages - 2) {
 			pageEnd = this.numberOfPages - 1;
 		}
@@ -115,15 +200,21 @@ export class RuiPagination extends LitElement {
 
 	private _renderPaginationItem(pageNumber, currentPage): TemplateResult {
 		const isCurrentPage = currentPage === pageNumber;
+		const href = isCurrentPage ? false : '#';
 		return html`
-			<li class="pagination-item${isCurrentPage ? ' pagination-item--current' : ''}">
-				<a href="#">${pageNumber}${isCurrentPage ? ' (Current)' : ''}</a>
+			<li>
+				<a class="pagination-link${isCurrentPage ? ' pagination-link--current' : ''}" ?href=${href} aria-label="Goto page ${pageNumber}">${pageNumber}</a>
 			</li>
 		`
 	}
 
-	private _renderEllipsesItem(): TemplateResult {
-		return html`<div class="ellipses">...</div>`;
+	private _renderEllipsesItem(side: string): TemplateResult {
+		return html`
+			<li>
+				<div class="ellipses">
+					<slot name=${(side === 'left') ? 'ellipses' : 'ellipses-dupe'}></slot>
+				</div>
+			</li>`;
 	}
 
 	private _renderPaginationItems(): TemplateResult[] {
@@ -131,8 +222,8 @@ export class RuiPagination extends LitElement {
 			return [this._renderPaginationItem(1,1)];
 		}
 
-		const [pageStart, pageEnd] = this.calculatePageStartEnd();
-	
+		const [pageStart, pageEnd] = this._calculatePageStartEnd();
+
 		let renderLeftEllipses = false;
 		let renderRightEllipses = false;
 
@@ -143,7 +234,7 @@ export class RuiPagination extends LitElement {
 			this._renderPaginationItem(1, this.currentPage)
 		]
 
-		if (renderLeftEllipses) { paginationItems.push(this._renderEllipsesItem()); }
+		if (renderLeftEllipses) { paginationItems.push(this._renderEllipsesItem('left')); }
 
 		for (let i = pageStart; i < pageEnd + 1; i++) {
 			if (i !== 1 && i !== this.numberOfPages) {
@@ -151,11 +242,76 @@ export class RuiPagination extends LitElement {
 			}
 		}
 
-		if (renderRightEllipses) { paginationItems.push(this._renderEllipsesItem()) }
+		if (renderRightEllipses) { paginationItems.push(this._renderEllipsesItem('right')) }
 
 		paginationItems.push(this._renderPaginationItem(this.numberOfPages, this.currentPage))
 
 		return paginationItems;
+	}
+
+	private _renderPrev(): TemplateResult {
+		let tag: TemplateResult = html``;
+		const isDisabled = (this.currentPage <= 1);
+		const ariaLabel = "Goto previous page";
+
+		let classes = 'pagination-link pagination-link--previous';
+		if (isDisabled) { classes += ' disabled'}
+
+		if (isDisabled) {
+			tag = html`<span class=${classes}><slot name="prev-content"></slot></span>`;
+		} else if (this.prevlink) {
+			const href = isDisabled ? false : this.prevlink;
+			tag = html`
+				<a class=${classes} aria-label=${ariaLabel} ?href=${href}>
+					<slot name="prev-content"></slot>
+				</a>`
+		} else {
+			const evt = this._generatePrevClickEvent();
+			const onClick = () => { this.dispatchEvent(evt); }
+			tag = html`
+				<a class=${classes} aria-label=${ariaLabel} @click=${onClick}>
+					<slot name="prev-content"></slot>
+				</a>`
+		}
+		
+		return html`
+			<li>
+				${tag}
+			</li>
+		`;
+	}
+
+	private _renderNext(): TemplateResult {
+		let tag: TemplateResult = html``;
+
+		const isDisabled = (this.currentPage >= this.numberOfPages);
+		const ariaLabel = "Goto next page";
+
+		let classes = 'pagination-link pagination-link--next';
+		if (isDisabled) { classes += ' disabled'}
+
+		if (isDisabled) {
+			tag = html`<span class=${classes}><slot name="next-content"></slot></span>`;
+		} else if (this.nextlink) {
+			const href = isDisabled ? false : this.nextlink;
+			tag = html`
+				<a class=${classes} aria-label=${ariaLabel} ?href=${href}>
+					<slot name="next-content"></slot>
+				</a>`
+		} else {
+			const evt = this._generateNextClickEvent();
+			const onClick = () => { this.dispatchEvent(evt); }
+			tag = html`
+				<a class=${classes} aria-label=${ariaLabel} @click=${onClick}>
+					<slot name="next-content"></slot>
+				</a>`
+		}
+		
+		return html`
+			<li>
+				${tag}
+			</li>
+		`;
 	}
 
 	/**
@@ -164,8 +320,10 @@ export class RuiPagination extends LitElement {
 	*/
 	public render(): TemplateResult {
 		return html`
-			<ul role="navigation">
+			<ul role="navigation" class="pagination">
+				${this._renderPrev()}
 				${this._renderPaginationItems()}
+				${this._renderNext()}
 			</ul>			
 		`;
 	}

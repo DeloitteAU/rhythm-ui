@@ -6,14 +6,13 @@ title: "rui-pagination"
 Readme file for rui-pagination
 
 ```html preview
-    <rui-pagination></rui-pagination>
-```
-
-```html preview
     <rui-pagination
         current-page="1"
         pages-shown="3"
         num-pages="6">
+        <span slot="prev-content">Previous</span>
+        <span slot="next-content">Next</span>
+        <span slot="ellipses">...</span>
     </rui-pagination>
 ```
 
@@ -22,572 +21,80 @@ Readme file for rui-pagination
         current-page="1"
         pages-shown="2"
         num-pages="10">
+        <span slot="prev-content">Previous</span>
+        <span slot="next-content">Next</span>
+        <span slot="ellipses">...</span>
     </rui-pagination>
      <rui-pagination
         current-page="2"
         pages-shown="2"
         num-pages="10">
+        <span slot="prev-content">Previous</span>
+        <span slot="next-content">Next</span>
+        <span slot="ellipses">...</span>
     </rui-pagination>
      <rui-pagination
         current-page="3"
         pages-shown="2"
         num-pages="10">
+        <span slot="prev-content">Previous</span>
+        <span slot="next-content">Next</span>
+        <span slot="ellipses">...</span>
     </rui-pagination>
      <rui-pagination
         current-page="4"
         pages-shown="2"
         num-pages="10">
+        <span slot="prev-content">Previous</span>
+        <span slot="next-content">Next</span>
+        <span slot="ellipses">...</span>
     </rui-pagination>
      <rui-pagination
         current-page="5"
         pages-shown="2"
         num-pages="10">
+        <span slot="prev-content">Previous</span>
+        <span slot="next-content">Next</span>
+        <span slot="ellipses">...</span>
     </rui-pagination>
      <rui-pagination
         current-page="6"
         pages-shown="2"
         num-pages="10">
+        <span slot="prev-content">Previous</span>
+        <span slot="next-content">Next</span>
+        <span slot="ellipses">...</span>
     </rui-pagination>
      <rui-pagination
         current-page="7"
         pages-shown="2"
         num-pages="10">
+        <span slot="prev-content">Previous</span>
+        <span slot="next-content">Next</span>
+        <span slot="ellipses">...</span>
     </rui-pagination>
      <rui-pagination
         current-page="8"
         pages-shown="2"
         num-pages="10">
+        <span slot="prev-content">Previous</span>
+        <span slot="next-content">Next</span>
+        <span slot="ellipses">...</span>
     </rui-pagination>
      <rui-pagination
         current-page="9"
         pages-shown="2"
         num-pages="10">
+        <span slot="prev-content">Previous</span>
+        <span slot="next-content">Next</span>
+        <span slot="ellipses">...</span>
     </rui-pagination>
      <rui-pagination
         current-page="10"
         pages-shown="2"
         num-pages="10">
-    </rui-pagination>
-```
-
-```html preview
-    <rui-pagination
-        current-page="1"
-        pages-shown="10"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="2"
-        pages-shown="10"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="3"
-        pages-shown="10"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="4"
-        pages-shown="10"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="5"
-        pages-shown="10"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="6"
-        pages-shown="10"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="7"
-        pages-shown="10"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="8"
-        pages-shown="10"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="9"
-        pages-shown="10"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="10"
-        pages-shown="10"
-        num-pages="10">
-    </rui-pagination>
-```
-
-```html preview
-    <rui-pagination
-        current-page="1"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="2"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="3"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="4"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="5"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="6"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="7"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="8"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="9"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="10"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-```
-
-```html preview
-    <rui-pagination
-        current-page="1"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="2"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="3"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="4"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="5"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="6"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="7"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="8"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="9"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-     <rui-pagination
-        current-page="10"
-        pages-shown="3"
-        num-pages="10">
-    </rui-pagination>
-```
-
-```html preview
-   <rui-pagination
-        current-page="1"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="2"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="3"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="4"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="5"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="6"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="7"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="8"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="9"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="10"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-    <rui-pagination
-        current-page="11"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="12"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="13"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="14"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="15"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="16"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="17"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="18"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="19"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="20"
-        pages-shown="5"
-        num-pages="20">
-    </rui-pagination>
-```
-
-```html preview
-   <rui-pagination
-        current-page="1"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="2"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="3"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="4"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="5"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="6"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="7"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="8"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="9"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="10"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-    <rui-pagination
-        current-page="11"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="12"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="13"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="14"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="15"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="16"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="17"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="18"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="19"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-   <rui-pagination
-        current-page="20"
-        pages-shown="6"
-        num-pages="20">
-    </rui-pagination>
-```
-
-
-```html preview
-   <rui-pagination
-        current-page="1"
-        pages-shown="5"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="2"
-        pages-shown="5"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="3"
-        pages-shown="5"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="4"
-        pages-shown="5"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="5"
-        pages-shown="5"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="6"
-        pages-shown="5"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="7"
-        pages-shown="5"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="8"
-        pages-shown="5"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="9"
-        pages-shown="5"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="10"
-        pages-shown="5"
-        num-pages="15">
-    </rui-pagination>
-    <rui-pagination
-        current-page="11"
-        pages-shown="5"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="12"
-        pages-shown="5"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="13"
-        pages-shown="5"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="14"
-        pages-shown="5"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="15"
-        pages-shown="5"
-        num-pages="15">
-    </rui-pagination>
-```
-
-```html preview
-   <rui-pagination
-        current-page="1"
-        pages-shown="6"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="2"
-        pages-shown="6"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="3"
-        pages-shown="6"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="4"
-        pages-shown="6"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="5"
-        pages-shown="6"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="6"
-        pages-shown="6"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="7"
-        pages-shown="6"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="8"
-        pages-shown="6"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="9"
-        pages-shown="6"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="10"
-        pages-shown="6"
-        num-pages="15">
-    </rui-pagination>
-    <rui-pagination
-        current-page="11"
-        pages-shown="6"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="12"
-        pages-shown="6"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="13"
-        pages-shown="6"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="14"
-        pages-shown="6"
-        num-pages="15">
-    </rui-pagination>
-   <rui-pagination
-        current-page="15"
-        pages-shown="6"
-        num-pages="15">
+        <span slot="prev-content">Previous</span>
+        <span slot="next-content">Next</span>
+        <span slot="ellipses">...</span>
     </rui-pagination>
 ```
