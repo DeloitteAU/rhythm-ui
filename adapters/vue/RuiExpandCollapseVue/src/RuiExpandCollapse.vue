@@ -1,5 +1,8 @@
 <template>
-  <rui-expand-collapse @click="changeStateValue">
+  <rui-expand-collapse
+    :open="open"
+    @click="_changeStateValue"
+  >
     <slot name="summary" />
     <slot name="details" />
   </rui-expand-collapse>
@@ -17,7 +20,7 @@ Vue.config.ignoredElements = [
 @Component({})
 export default class RuiExpandCollapseVue extends Vue {
   
-  @Prop() private open?: boolean
+  @Prop() private open?: string | null
 
   @Prop() private handleClick?: Function
 
@@ -25,8 +28,11 @@ export default class RuiExpandCollapseVue extends Vue {
     return this.open;
   }
 
-  private changeStateValue(): void {
-    this.$emit('handleClick', this.open)
+  private _changeStateValue(): void {
+    if (this.handleClick) {
+      this.$emit('handleClick', this.open)
+    }
+    return
   }
 }
 </script>

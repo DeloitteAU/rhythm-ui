@@ -40,7 +40,7 @@
     "start": "lerna run start --scope www --include-filtered-dependencies --parallel --stream",
     "restart": "lerna run start --scope www --parallel --stream",
     "start:react": "node_modules/@storybook/react/bin/index.js -p 6006 -c adapters/react/.storybook",
-    "start:vue": "node_modules/@storybook/vue/bin/index.js  -p 6007 -c adapters/vue/.storybook",
+    "start:vue": "node_modules/@storybook/vue/bin/index.js -p 6007 -c adapters/vue/.storybook",
     "format": "prettier --write src/**/*.{js,jsx}",
     "generate": "plop"
   },

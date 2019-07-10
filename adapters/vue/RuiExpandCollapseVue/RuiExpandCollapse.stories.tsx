@@ -1,5 +1,6 @@
 import {storiesOf} from '@storybook/vue';
 import {action} from '@storybook/addon-actions'
+// @ts-ignore
 import RuiExpandCollapseVue from './src';
 import Readme from './README.md';
 

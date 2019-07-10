@@ -49,39 +49,40 @@ If you wish to externally control the open/close state of the expand collapse ma
     >
       <template v-slot:summary>
         <div slot="summary-content">
-          Vue Summary
+          Externally controlled summary
         </div>
       </template>
       <template v-slot:details>
         <div slot="details-content">
-          Vue Details
+          Externally controlled details
         </div>
       </template>
     </RuiExpandCollapseVue>
   </div>
 </template>
 
+
 <script lang="ts">
 import {Component, Vue, Prop} from 'vue-property-decorator';
-import RuiExpandCollapseVue from './RuiExpandCollapse.vue';
+import RuiExpandCollapseVue from './src';
 
 @Component({
   components: {
     RuiExpandCollapseVue
   }
 })
-export default class RuiExpandCollapseController extends Vue {
+export default class RuiExpandCollapseControllerVue extends Vue {
   
-  open: boolean = false;
+  open: string | null = null;
 
-  private _handleClick(value: boolean) {
-    return this.open = !this.open
+  private _handleClick(value: string) {
+    return value === 'open' ? null : 'open';
   }
 }
 </script>
 
+
 <style>
 </style>
-
 ```
 
