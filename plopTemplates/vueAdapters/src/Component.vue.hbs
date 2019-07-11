@@ -1,0 +1,27 @@
+/**
+* Copyright Deloitte Digital 2019
+*
+* This source code is licensed under the BSD-3-Clause license found in the
+* LICENSE file in the root directory of this source tree.
+*/
+
+<template>
+  <{{kebabCase name}}>
+  </{{kebabCase name}}>
+</template>
+
+<script lang="ts">
+import {Component, Vue} from 'vue-property-decorator';
+import '@rhythm-ui/{{kebabCase name}}';
+
+// https://vuejs.org/v2/api/#ignoredElements
+Vue.config.ignoredElements = [
+  '{{kebabCase name}}'
+];
+
+@Component({})
+export default class {{pascalCase name}} extends Vue {
+}
+
+</script>
+<style></style>
