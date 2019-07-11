@@ -164,11 +164,6 @@ export class RuiExpandCollapse extends LitElement {
           this._collapseableEl.hidden = true;
           this._collapseableEl.classList.add('hide-content');
         }
-        
-        const expandCollapse: HTMLElement | null = this.shadowRoot.querySelector('.expand-collapse');
-        if (expandCollapse) {
-          expandCollapse.style.opacity = '1';
-        }
       }
     }
   }
