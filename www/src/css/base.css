@@ -5,6 +5,18 @@ body,
 	height: 100%;
 }
 
+.hero {
+	background: #893799;
+	background: linear-gradient(to bottom, #893799 0%, #563383 100%);
+	color: #FFFFFF;
+	padding: 50px 0 80px;
+}
+
+.hero p,
+.hero a {
+	color: #FFFFFF;
+}
+
 .cm {
 	padding: 30px;
 }

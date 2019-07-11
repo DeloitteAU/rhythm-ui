@@ -6,6 +6,8 @@ dist/
 .cache/
 .npmrc
 .out
+.out-react
+.out-vue
 .ruidocs
 
 #Gatsby

@@ -148,7 +148,7 @@ const Template = ({
 							{h.depth === 3 && <span style={{marginRight: 10}} /> }<a href={h.link}>{h.label}</a>
 						</div>
 					))}
-					{data.ruidocs.nodes.length && <div><a href="#variables">CSS Variables</a></div>}
+					{data.ruidocs.nodes.length && <div><a href="#css-variables">CSS Variables</a></div>}
 					<br /><br />
 					<a href={githubUrlPath} target="_blank">Edit this page</a>
 				</aside>

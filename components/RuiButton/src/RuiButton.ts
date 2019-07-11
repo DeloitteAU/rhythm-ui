@@ -7,8 +7,7 @@
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
 import {ifDefined} from 'lit-html/directives/if-defined.js';
-import variables from './css.variables';
-import layout from './css.layout';
+import {variables, layout} from './RuiButton.css'
 
 /**
  * RuiButton
@@ -81,6 +80,7 @@ export class RuiButton extends LitElement {
         <button
           class="btn"
           type=${this.behaviour}
+          part="btn"
           ?disabled=${this.disabled}
         >
           <slot></slot>
@@ -92,6 +92,7 @@ export class RuiButton extends LitElement {
     return html`
       <a
         class="btn"
+        part="btn"
         href=${ifDefined(this.href)}
       >
         <slot></slot>

@@ -1,0 +1,95 @@
+/**
+ * Copyright Deloitte Digital 2019
+ *
+ * This source code is licensed under the BSD-3-Clause license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * An example theme sheet for rui-button component
+ */
+rui-button {
+	--rui-button__font-size: 1rem;
+	--rui-button__font-size-small: 0.9rem;
+	--rui-button__font-size-large: 1.1rem;
+	--rui-button__font-weight: 400;
+	--rui-button__padding: 0;
+	--rui-button__padding-small: 0;
+	--rui-button__padding-large: 0;
+	--rui-button__color: #000;
+	--rui-button__color-active: #000;
+	--rui-button__color-focus: #000;
+	--rui-button__color-hover: #000;
+	--rui-button__color-disabled: #000;
+	--rui-button__background-color: #000;
+	--rui-button__background-color-active: #000;
+	--rui-button__background-color-focus: #000;
+	--rui-button__background-color-hover: #000;
+	--rui-button__background-color-disabled: #000;
+	--rui-button__border: #000;
+	--rui-button__border-active: #000;
+	--rui-button__border-focus: #000;
+	--rui-button__border-hover: #000;
+	--rui-button__border-disabled: #000;
+	--rui-button__border-radius: 4px;
+	--rui-button__border-color: #000;
+	--rui-button__border-color-active: #000;
+	--rui-button__border-color-focus: #000;
+	--rui-button__border-color-hover: #000;
+	--rui-button__border-color-disabled: #000;
+	--rui-button__transform: none;
+	--rui-button__transform-hover: translateY(-1px);
+	--rui-button__transform-focus: translateY(-1px);
+	--rui-button__transform-active: translateY(1px);
+	--rui-button__transform-disabled: none;
+}
+
+rui-button[variant="outline"] {
+	--rui-button__background-color-active: var(--global-gray-color-3);
+	--rui-button__background-color-focus: var(--global-gray-color-3);
+	--rui-button__background-color-hover: var(--global-gray-color-3);
+	--rui-button__border-color: #000;
+	--rui-button__border-color-active: #000;
+	--rui-button__border-color-focus: #000;
+	--rui-button__border-color-hover: #000;
+	--rui-button__color: #000;
+	--rui-button__color-active: #000;
+	--rui-button__color-focus: #000;
+	--rui-button__color-hover: #000;
+}
+
+rui-button[variant="ghost"] {
+	--rui-button__background-color-active: var(--global-gray-color-3);
+	--rui-button__background-color-focus: var(--global-gray-color-3);
+	--rui-button__background-color-hover: var(--global-gray-color-3);
+	--rui-button__color: #000;
+	--rui-button__color-active: #000;
+	--rui-button__color-focus: #000;
+	--rui-button__color-hover: #000;
+}
+
+rui-button[type="primary"] {
+	--rui-button__color: var(--rui-button__-global-white-color);
+	--rui-button__border: none;
+	--rui-button__background-color: var(--global-primary-color);
+	--rui-button__background-color-hover: var(--global-primary-shade-4);
+	--rui-button__background-color-active: var(--global-primary-shade-4);
+	--rui-button__background-color-focus: var(--global-primary-shade-4);
+}
+
+rui-button[type="secondary"] {
+	--rui-button__color: var(--rui-button__-global-white-color);
+	--rui-button__border: none;
+	--rui-button__background-color: var(--global-secondary-color);
+	--rui-button__background-color-hover: var(--global-secondary-shade-4);
+	--rui-button__background-color-active: var(--global-secondary-shade-4);
+	--rui-button__background-color-focus: var(--global-secondary-shade-4);
+}
+
+rui-button[type="tertiary"] {
+	--rui-button__color: var(--rui-button__-global-white-color);
+	--rui-button__background-color: var(--global-tertiary-color);
+	--rui-button__background-color-hover: var(--global-tertiary-shade-4);
+	--rui-button__background-color-active: var(--global-tertiary-shade-4);
+	--rui-button__background-color-focus: var(--global-tertiary-shade-4);
+}

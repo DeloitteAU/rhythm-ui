@@ -51,7 +51,7 @@ module.exports = function(config) {
 				new webpack.DefinePlugin({
 					'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
 					'process.env.RUI_NO_DEFAULT_REGISTER': JSON.stringify(process.env.RUI_NO_DEFAULT_REGISTER)
-				}),
+				})
 			]
 
 		},

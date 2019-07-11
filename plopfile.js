@@ -47,7 +47,12 @@ const reactActions = [
 		path: `${REACT_PATH}/tsconfig.json`,
 		templateFile: `${PLOP_REACT}/tsconfig.json.hbs`
 	},
-	//finally append the file into the www package json file
+	{
+		type: 'add',
+		path: `${REACT_PATH}/README.md`,
+		templateFile: `${PLOP_REACT}/readme.md.hbs`
+  },
+	//append the file into the www package json file at the top of the list
 	{
 		type: 'append',
 		path: 'www/package.json',
@@ -66,9 +71,39 @@ const reactActions = [
 const vueActions = [
 	{
 		type: 'add',
-		path: `${VUE_PATH}/{{pascalCase name}}Vue.ts`,
+		path: `${VUE_PATH}/README.md`,
 		templateFile: `${PLOP_VUE}/readme.md.hbs`
-	}
+  },
+  {
+		type: 'add',
+		path: `${VUE_PATH}/src/{{pascalCase name}}.vue`,
+		templateFile: `${PLOP_VUE}/src/Component.vue.hbs`
+  },
+  {
+		type: 'add',
+		path: `${VUE_PATH}/src/index.ts`,
+		templateFile: `${PLOP_VUE}/src/index.ts.hbs`
+  },
+  {
+		type: 'add',
+		path: `${VUE_PATH}/.babelrc`,
+		templateFile: `${PLOP_VUE}/.babelrc.hbs`
+  },
+  {
+		type: 'add',
+		path: `${VUE_PATH}/package.json`,
+		templateFile: `${PLOP_VUE}/package.json.hbs`
+  },
+  {
+		type: 'add',
+		path: `${VUE_PATH}/{{pascalCase name}}.stories.tsx`,
+		templateFile: `${PLOP_VUE}/index.stories.tsx.hbs`
+  },
+  {
+		type: 'add',
+		path: `${VUE_PATH}/tsconfig.json`,
+		templateFile: `${PLOP_VUE}/tsconfig.json.hbs`
+	},
 ];
 
 const isNotEmpty = name => {
@@ -115,14 +150,14 @@ module.exports = plop => {
                 message: 'What is your component name?',
                 // validate the field is not empty
                 validate: isNotEmpty( 'name'),
-				//format the component to have Rui
-				filter: ensureRui
+								//format the component to have Rui
+								filter: ensureRui
             },
             {
                 type: 'list',
                 name: 'adapter',
                 message: 'Do you also need an adapter?',
-                choices: ['Not yet', 'React'],
+                choices: ['Not yet', 'React', 'Vue'],
             },
         ],
         actions: data => {
@@ -164,16 +199,16 @@ module.exports = plop => {
                     path: `${PATH}/src/index.ts`,
                     templateFile: `${PLOP_PATH}/src/index.ts.hbs`
                 },
-				{
-					type: 'add',
-					path: `${PATH}/tests/{{pascalCase name}}.test.ts`,
-					templateFile: `${PLOP_PATH}/tests/Component.test.ts.hbs`
-				},
-				{
-					type: 'add',
-					path: `${PATH}/tests/tsconfig.json`,
-					templateFile: `${PLOP_PATH}/tests/tsconfig.json.hbs`
-				},
+								{
+									type: 'add',
+									path: `${PATH}/tests/{{pascalCase name}}.test.ts`,
+									templateFile: `${PLOP_PATH}/tests/Component.test.ts.hbs`
+								},
+								{
+									type: 'add',
+									path: `${PATH}/tests/tsconfig.json`,
+									templateFile: `${PLOP_PATH}/tests/tsconfig.json.hbs`
+								},
             ]);
             if (data.adapter === 'React' || data.adapter === 'Both') {
                 actions = actions.concat(reactActions)
@@ -202,7 +237,7 @@ module.exports = plop => {
                 type: 'list',
                 name: 'adapter',
                 message: 'Please chose an adapter',
-				choices: ['React'],
+								choices: ['React', 'Vue'],
             },
         ],
 
