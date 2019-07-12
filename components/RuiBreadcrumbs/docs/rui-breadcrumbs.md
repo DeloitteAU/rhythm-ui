@@ -32,9 +32,9 @@ To use the rui-link you must wrap them in a list tag.
 
 ```html preview
 <rui-breadcrumbs> 
-	<li slot='crumb'> <RuiLink href="/#" color='primary'> Link 1 </RuiLink> </li>
-	<li slot='crumb' > <RuiLink href="/#" > Link 2 </RuiLink> </li>
-	<li slot='crumb' aria-current="page" > <RuiLink> Active Link </RuiLink> </li>
+	<li slot='crumb'> <a href="/#"> Link 1 </a> </li>
+	<li slot='crumb' > <a href="/#" > Link 2 </a> </li>
+	<li slot='crumb' aria-current="page" > <a> Active Link </a> </li>
 </rui-breadcrumbs>
 
 ```

@@ -5,14 +5,16 @@ import RuiButton from '@rhythm-ui/button-react';
 
 import Layout from '../templates/Feature';
 
-import particles from './particles';
-
 class IndexPage extends React.Component {
 
 	private _canvas: HTMLCanvasElement | null = null;
 
 	public componentDidMount() {
-		particles(this._canvas);
+		if (this._canvas && typeof window !== 'undefined') {
+			import('../utils/particles').then(particles => {
+				particles.init(this._canvas as HTMLCanvasElement);
+			});
+		}
 	}
 
 	public render() {

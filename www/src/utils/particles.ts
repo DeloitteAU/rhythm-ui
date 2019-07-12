@@ -1,19 +1,18 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
-/**
- * requestAnimationFrame
- */
-window.requestAnimationFrame = (function() {
-	return  window.requestAnimationFrame       ||
-			window.webkitRequestAnimationFrame ||
-			window.mozRequestAnimationFrame    ||
-			window.oRequestAnimationFrame      ||
-			window.msRequestAnimationFrame     ||
-			function(callback) {
-				window.setTimeout(callback, 1000 / 60);
-			};
-})();
-
+// /**
+//  * requestAnimationFrame
+//  */
+// window.requestAnimationFrame = (function() {
+// 	return  window.requestAnimationFrame       ||
+// 			window.webkitRequestAnimationFrame ||
+// 			window.mozRequestAnimationFrame    ||
+// 			window.oRequestAnimationFrame      ||
+// 			window.msRequestAnimationFrame     ||
+// 			function(callback) {
+// 				window.setTimeout(callback, 1000 / 60);
+// 			};
+// })();
 
 /**
  * Vector
@@ -319,7 +318,7 @@ Particle.prototype = (function(o) {
 
 // Initialize
 
-export default function init(canvas) {
+export function init(canvas: HTMLCanvasElement): void {
 
 	// Configs
 
@@ -420,77 +419,81 @@ export default function init(canvas) {
 
 	// Init
 
-	bufferCvs = document.createElement('canvas');
+	if (typeof window !== 'undefined') {
+		bufferCvs = document.createElement('canvas');
 
-	window.addEventListener('resize', resize, false);
-	resize(null);
+		window.addEventListener('resize', resize, false);
+		resize(null);
 
-	addParticle(200);
+		addParticle(200);
 
-	canvas.addEventListener('mousemove', mouseMove, false);
-	canvas.addEventListener('mousedown', mouseDown, false);
-	canvas.addEventListener('mouseup', mouseUp, false);
-	canvas.addEventListener('dblclick', doubleClick, false);
+		canvas.addEventListener('mousemove', mouseMove, false);
+		canvas.addEventListener('mousedown', mouseDown, false);
+		canvas.addEventListener('mouseup', mouseUp, false);
+		canvas.addEventListener('dblclick', doubleClick, false);
 
-	// Start Update
+		// Start Update
 
-	const grd = context.createLinearGradient(0, 0, 0, screenHeight);
-	grd.addColorStop(0, '#893799');
-	grd.addColorStop(1, '#563383');
+		const grd = context.createLinearGradient(0, 0, 0, screenHeight);
+		grd.addColorStop(0, '#893799');
+		grd.addColorStop(1, '#563383');
 
-	const loop = function() {
-		let i, len, g, p;
+		const loop = function() {
+			let i, len, g, p;
 
-		context.save();
-		context.fillStyle = grd;
-		context.fillRect(0, 0, screenWidth, screenHeight);
-		context.fillStyle = grad;
-		context.fillRect(0, 0, screenWidth, screenHeight);
-		context.restore();
+			context.save();
+			context.fillStyle = grd;
+			context.fillRect(0, 0, screenWidth, screenHeight);
+			context.fillStyle = grad;
+			context.fillRect(0, 0, screenWidth, screenHeight);
+			context.restore();
 
-		for (i = 0, len = gravities.length; i < len; i++) {
-			g = gravities[i];
-			if (g.dragging) {
-				g.drag(mouse);
+			for (i = 0, len = gravities.length; i < len; i++) {
+				g = gravities[i];
+				if (g.dragging) {
+					g.drag(mouse);
+				}
+				g.render(context);
+				if (g.destroyed) {
+					gravities.splice(i, 1);
+					len = len - 1;
+					i = i - 1;
+				}
 			}
-			g.render(context);
-			if (g.destroyed) {
-				gravities.splice(i, 1);
-				len = len - 1;
-				i = i - 1;
+
+			bufferCtx.save();
+			bufferCtx.globalCompositeOperation = 'destination-out';
+			bufferCtx.globalAlpha = 0.35;
+			bufferCtx.fillRect(0, 0, screenWidth, screenHeight);
+			bufferCtx.restore();
+
+			len = particles.length;
+			bufferCtx.save();
+			bufferCtx.fillStyle = bufferCtx.strokeStyle = '#fff';
+			bufferCtx.lineCap = bufferCtx.lineJoin = 'round';
+			bufferCtx.lineWidth = PARTICLE_RADIUS * 2;
+			bufferCtx.beginPath();
+			for (i = 0; i < len; i++) {
+				p = particles[i];
+				p.update();
+				bufferCtx.moveTo(p.x, p.y);
+				bufferCtx.lineTo(p._latest.x, p._latest.y);
 			}
-		}
+			bufferCtx.stroke();
+			bufferCtx.beginPath();
+			for (i = 0; i < len; i++) {
+				p = particles[i];
+				bufferCtx.moveTo(p.x, p.y);
+				bufferCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2, false);
+			}
+			bufferCtx.fill();
+			bufferCtx.restore();
+			context.drawImage(bufferCvs, 0, 0);
 
-		bufferCtx.save();
-		bufferCtx.globalCompositeOperation = 'destination-out';
-		bufferCtx.globalAlpha = 0.35;
-		bufferCtx.fillRect(0, 0, screenWidth, screenHeight);
-		bufferCtx.restore();
-
-		len = particles.length;
-		bufferCtx.save();
-		bufferCtx.fillStyle = bufferCtx.strokeStyle = '#fff';
-		bufferCtx.lineCap = bufferCtx.lineJoin = 'round';
-		bufferCtx.lineWidth = PARTICLE_RADIUS * 2;
-		bufferCtx.beginPath();
-		for (i = 0; i < len; i++) {
-			p = particles[i];
-			p.update();
-			bufferCtx.moveTo(p.x, p.y);
-			bufferCtx.lineTo(p._latest.x, p._latest.y);
-		}
-		bufferCtx.stroke();
-		bufferCtx.beginPath();
-		for (i = 0; i < len; i++) {
-			p = particles[i];
-			bufferCtx.moveTo(p.x, p.y);
-			bufferCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2, false);
-		}
-		bufferCtx.fill();
-		bufferCtx.restore();
-		context.drawImage(bufferCvs, 0, 0);
-
-		requestAnimationFrame(loop);
-	};
-	loop();
+			requestAnimationFrame(loop);
+		};
+		loop();
+	}
 };
+
+export default init;
