@@ -131,7 +131,7 @@ export const variables = css`
  */
 export const layout = css`
 	.expand-collapse {
-		opacity: 1;
+		opacity: 0;
 		width: 100%;
 		box-sizing: border-box;
 	}
