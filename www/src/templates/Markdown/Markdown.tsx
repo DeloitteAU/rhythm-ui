@@ -1,13 +1,14 @@
-/* eslint react/no-multi-comp:0 */
-
 import {MDXRenderer} from 'gatsby-mdx';
 import {MDXProvider} from '@mdx-js/react';
 import {graphql} from 'gatsby';
 import {css} from '@emotion/core';
 
 // Import these so markdown files render if they are using these tags
+//Import here//
+import '@rhythm-ui/rui-card-react';
 import '@rhythm-ui/button-react';
 import '@rhythm-ui/story-react';
+import '@rhythm-ui/rui-breadcrumbs-react';
 import '@rhythm-ui/expand-collapse-react';
 import RuiLayout from '@rhythm-ui/layout-react';
 import RuiGrid from '@rhythm-ui/grid-react';
@@ -102,9 +103,9 @@ const Template = ({
 	const githubUrlPath = `
 	${process.env.GATSBY_GITHUB_URL}${replaceChar(relativeUrlPath)}/readme.md
 	`;
-
+	/* eslint-disable react/display-name */
 	const mdxComponents = {
-		pre: (props: any) => { //eslint-disable-line react/display-name
+		pre: (props: any) => { //eslint-disable-line react/no-multi-comp
 
 			const preProps = preToCodeBlock(props);
 

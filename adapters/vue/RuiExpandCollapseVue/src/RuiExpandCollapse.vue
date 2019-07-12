@@ -1,5 +1,8 @@
 <template>
-  <rui-expand-collapse>
+  <rui-expand-collapse
+    :open="open"
+    @click="_changeStateValue"
+  >
     <slot name="summary" />
     <slot name="details" />
   </rui-expand-collapse>
@@ -16,26 +19,20 @@ Vue.config.ignoredElements = [
 
 @Component({})
 export default class RuiExpandCollapseVue extends Vue {
+  
+  @Prop() private open?: string | null
 
-  //Registering props example --> this can also be placed in the @Component decorator. 
-  @Prop({default: 'wow'}) private basicData!: string
+  @Prop() private handleClick?: Function
 
-  // Data property example
-  flag: boolean = false;
-
-  // lifecycle hook
-  mounted() {
-    this.flag = true;
+  get myPropData() {
+    return this.open;
   }
 
-  // computed example
-  get myPropData(): string {
-    return this.basicData;
-  }
-
-  // methods example
-  private changeStateValue(): boolean {
-    return this.flag = !this.flag;
+  private _changeStateValue(): void {
+    if (this.handleClick) {
+      this.$emit('handleClick', this.open)
+    }
+    return
   }
 }
 </script>
