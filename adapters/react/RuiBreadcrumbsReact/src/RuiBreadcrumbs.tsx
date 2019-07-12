@@ -7,8 +7,6 @@
 
 import React from 'react';
 import '@rhythm-ui/rui-breadcrumbs';
-import '@rhythm-ui/rui-link';
-
 
 /**
  * Breadcrumb Item wrapps the rui-link in a li element which is passed into the slot "crumb".
@@ -23,7 +21,7 @@ export const BreadcrumbItem = (props): React.ReactNode => { //eslint-disable-lin
 	return React.createElement('li', {
 		'slot': 'crumb',
 		'aria-current': active,
-	}, <rui-link {...otherProps} > {props.children}</rui-link>,
+	}, <a {...otherProps} > {props.children}</a>,
 	);
 };
 
