@@ -16,6 +16,10 @@ body,
 .hero .hero__content {
 	position: relative;
 	z-index: 2;
+
+	/* Allow users to interact with particles behind the test */
+	pointer-events: none;
+	user-select: none;
 }
 
 .hero p,
