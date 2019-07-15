@@ -165,3 +165,9 @@ bh_unicode_properties.cache
 GitHub.sublime-settings
 
 .DS_Store
+debug.log
+.env.development
+debug.log
+.env.development
+.env.development
+.env.development
