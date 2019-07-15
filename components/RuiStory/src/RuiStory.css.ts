@@ -58,6 +58,16 @@ export const variables = css`
 		--rui-story__domain-font-size: 11px;
 
 		/**
+		 * @variable Font weight of domain text
+		 */
+		--rui-story__domain-font-weight: bold;
+
+		/**
+		 * @variable Text transform of the domain text
+		 */
+		--rui-story__domain-text-transform: uppercase;
+
+		/**
 		 * @variable Content text colour
 		 */
 		--rui-story__dynamic-content-color: #5F5F5F;
@@ -76,6 +86,16 @@ export const variables = css`
 		 * @variable cta font size
 		 */
 		--rui-story__cta-font-size: 14px;
+
+		/**
+		 * @variable cta font weight
+		 */
+		--rui-story__cta-font-weight: bold;
+
+		/**
+		 * @variable cta text decoration
+		 */
+		--rui-story__cta-text-decoration: none;
 
 		/**
 		 * @variable cta text line height
@@ -125,27 +145,32 @@ export const variables = css`
 		/**
 		 * @variable Title text colour
 		 */
-		--title-colour: #000;
+		--rui-story__title-colour: #000;
 
 		/**
 		 * @variable The font size of the title
 		 */
-		--title-font-size: 22px;
+		--rui-story__title-font-size: 22px;
+
+		/**
+		 * @variable The font weight of the title
+		 */
+		--rui-story__title-font-weight: bold;
 
 		/**
 		 * @variable The line height of the title
 		 */
-		--title-line-height: 26px;
+		--rui-story__title-line-height: 26px;
 
 		/**
 		 * @variable Letter spacing of title
 		 */
-		--title-letter-spacing: -0.5px;
+		--rui-story__title-letter-spacing: -0.5px;
 
 		/**
 		 * @variable Margin of title
 		 */
-		--title-margin: 6px 0 10px 0;
+		--rui-story__title-margin: 6px 0 10px 0;
 	}
 
 	/* BP variable overrides */
@@ -166,8 +191,8 @@ export const variables = css`
 			--rui-story__img-container-height: 288px;
 			--rui-story__content-container-min-height: 352px; 
 			--rui-story__content-container-padding-sides: 40px;
-			--title-font-size: 28px;
-			--title-line-height: 36px;
+			--rui-story__title-font-size: 28px;
+			--rui-story__title-line-height: 36px;
 		}
 	`)}
 
@@ -183,44 +208,43 @@ export const variables = css`
  */
 export const layout = css`
 	.story {
-		color: var(--rui-story__color);
 		width: 100%;
-		background-color: var(--rui-story__background-color);
-		border-bottom: var(--rui-story__border-bottom);
 		height: 100%;
 		display: flex;
 		flex-direction: column;
+		color: var(--rui-story__color);
+		background-color: var(--rui-story__background-color);
+		border-bottom: var(--rui-story__border-bottom);
 	}
 
 	.img-container {
-		height: var(--rui-story__img-container-height);
 		text-align: center;
+		height: var(--rui-story__img-container-height);
 		background-color: var(--rui-story__img-container-background-color);
 	}
 
 	.content-container {
-		padding: var(--content-container-padding);
-		min-height: calc(var(--rui-story__content-container-min-height) - (2 * var(--padding-top-bottom)));
 		flex: 1;
 		display: flex;
 		flex-direction: column;
+		padding: var(--rui-story__content-container-padding);
 	}
 
 	.domain {
-		font-size: var(--rui-story__domain-font-size);
-		text-transform: uppercase;
 		margin: 0;
-		font-weight: bold;
+		font-size: var(--rui-story__domain-font-size);
+		text-transform: var(--rui-story__domain-text-transform);
+		font-weight: var(--rui-story__domain-font-weight);
 	}
 
 	.title {
-		font-size: var(--title-font-size);
-		line-height: var(--title-line-height);
-		letter-spacing: var(--title-letter-spacing);
-		margin: var(--title-margin);
-		font-weight: bold;
 		overflow: hidden;
 		word-break: break-word;
+		font-weight: var(--rui-story__title-font-weight);
+		font-size: var(--rui-story__title-font-size);
+		line-height: var(--rui-story__title-line-height);
+		letter-spacing: var(--rui-story__title-letter-spacing);
+		margin: var(--rui-story__title-margin);
 	}
 
 	.dynamic-content {
@@ -237,10 +261,10 @@ export const layout = css`
 	}
 
 	.cta-container > ::slotted(a) {
+		text-decoration: var(--rui-story__cta-text-decoration);
+		font-weight: var(--rui-story__cta-font-weight);
 		color: var(--rui-story__cta-color);
-		text-decoration: none;
 		font-size: var(--rui-story__cta-font-size);
-		font-weight: bold;
 		line-height: var(--rui-story__cta-line-height);
 		letter-spacing: var(--rui-story__cta-letter-spacing);
 	}

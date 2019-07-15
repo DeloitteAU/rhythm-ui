@@ -27,18 +27,6 @@ body,
 	color: #FFFFFF;
 }
 
-.cm {
-	padding: 30px;
-}
-
-rui-story .cm {  /* stylelint-disable-line selector-type-no-unknown */
-	padding: 0;
-}
-
-rui-story .story-cta > .plus-icon {  /* stylelint-disable-line selector-type-no-unknown */
-	margin-left: 5px;
-}
-
 .example-image-el {
 	width: 100%;
 	height: 100%;

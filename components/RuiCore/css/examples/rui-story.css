@@ -1,0 +1,55 @@
+/**
+ * Copyright Deloitte Digital 2019
+ *
+ * This source code is licensed under the BSD-3-Clause license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * An example theme sheet for rui-story component
+ */
+
+rui-story {
+	/* BASE STYLES */
+	--rui-story__color: #000;
+	--rui-story__background-color: #F2F2F2;
+	--rui-story__border-bottom-color: #000;
+	--rui-story__border-bottom-width: 4px;
+	--rui-story__border-bottom: var(--rui-story__border-bottom-width) solid var(--rui-story__border-bottom-color);
+
+	/* DOMAIN STYLES */
+	--rui-story__domain-font-size: 11px;
+	--rui-story__domain-font-weight: bold;
+	--rui-story__domain-text-transform: uppercase;
+
+	/* TITLE STYLES */
+	--rui-story__title-colour: #000;
+	--rui-story__title-font-size: 22px;
+	--rui-story__title-font-weight: bold;
+	--rui-story__title-line-height: 26px;
+	--rui-story__title-letter-spacing: -0.5px;
+	--rui-story__title-margin: 6px 0 10px 0;
+
+	/* IMG CONTAINER STYLES */
+	--rui-story__img-container-background-color: #000;
+	--rui-story__img-container-height: 216px;
+
+	/* CONTENT STYLES */
+	--rui-story__content-container-min-height: 348px;
+	--rui-story__content-container-padding-sides: 24px;
+	--rui-story__content-container-padding-top-bottom: 34px;
+	--rui-story__content-container-padding: var(--rui-story__content-container-padding-top-bottom) var(--rui-story__content-container-padding-sides);
+
+	/* CONTENT STYLES */
+	--rui-story__dynamic-content-color: #5F5F5F;
+	--rui-story__dynamic-content-font-size: 16px;
+
+	/* CTA STYLES */
+	--rui-story__cta-color: #000;
+	--rui-story__cta-font-size: 14px;
+	--rui-story__cta-font-weight: bold;
+	--rui-story__cta-text-decoration: none;
+	--rui-story__cta-line-height: 1.43;
+	--rui-story__cta-letter-spacing: -0.1px;
+	--rui-story__cta-color-hover: #5F5F5F;
+}
