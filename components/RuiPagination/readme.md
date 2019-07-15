@@ -7,6 +7,14 @@ Readme file for rui-pagination
 
 ```html preview
     <rui-pagination
+        items='{
+            "1": {"href": "#1"},
+            "2": {"href": "#2"},
+            "3": {"href": "#3"},
+            "4": {"href": "#4"},
+            "5": {"href": "#5"},
+            "6": {"href": "#6"}
+        }'
         current-page="1"
         pages-shown="3"
         num-pages="6">

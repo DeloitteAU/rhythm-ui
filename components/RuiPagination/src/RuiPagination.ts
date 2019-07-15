@@ -32,14 +32,28 @@ export class RuiPagination extends LitElement {
 	@property({
 		type : String,
 	})
-	public prevlink = '#';
+	public prevlink = null;
 
 	@property({
 		type : String,
 	})
-	public nextlink = '#';
+	public nextlink = null;
 
-
+	/**
+	 * Object containing a maping between page numbers and 
+	 * display text/links
+	 * 
+	 * {
+	 * 	1: {
+	 * 		href: '#', // 
+	 * 		label: 'First Page' // only include if not page number
+	 * 	}
+	 * }
+	 */
+	@property({
+		type : Object,
+	})
+	public items = {};
 
 	private leftEllipsesEl: HTMLElement | null = null;
 	private rightEllipsesEl: HTMLElement | null = null;
@@ -62,23 +76,6 @@ export class RuiPagination extends LitElement {
 			this.appendChild(this.rightEllipsesEl);
 		}
 	}	
-
-	/**
-	 * Object containing a maping between page numbers and 
-	 * display text/links
-	 * 
-	 * {
-	 * 	1: {
-	 * 		href: '#', // 
-	 * 		label: 'First Page' // only include if not page number
-	 * 	},
-	 * 	{Prev}
-	 * }
-	 */
-	@property({
-		type: Object,
-	})
-	public linkmap = {};
 	
 
 	/**
@@ -200,12 +197,33 @@ export class RuiPagination extends LitElement {
 
 	private _renderPaginationItem(pageNumber, currentPage): TemplateResult {
 		const isCurrentPage = currentPage === pageNumber;
-		const href = isCurrentPage ? false : '#';
-		return html`
-			<li>
-				<a class="pagination-link${isCurrentPage ? ' pagination-link--current' : ''}" ?href=${href} aria-label="Goto page ${pageNumber}">${pageNumber}</a>
-			</li>
-		`
+
+		const itemConfig = this.items[pageNumber] || {};
+		const label = itemConfig.label || pageNumber;
+		const href = itemConfig.href || false;
+
+		if (isCurrentPage) {
+			return html`
+				<li>
+					<a class="pagination-link${isCurrentPage ? ' pagination-link--current' : ''}" aria-label="Goto page ${pageNumber}">${label}</a>
+				</li>
+			`
+		} else if (href) {
+			return html`
+				<li>
+					<a class="pagination-link${isCurrentPage ? ' pagination-link--current' : ''}" href="${href}" aria-label="Goto page ${pageNumber}">${label}</a>
+				</li>
+			`
+		} else {
+			const evt = this._generateItemClickEvent(pageNumber);
+			const onClick = ():void => { this.dispatchEvent(evt); }
+			return html`
+				<li>
+					<a class="pagination-link${isCurrentPage ? ' pagination-link--current' : ''}" @click=${onClick} aria-label="Goto page ${pageNumber}">${label}</a>
+				</li>
+			`
+		}
+		
 	}
 
 	private _renderEllipsesItem(side: string): TemplateResult {
@@ -267,7 +285,7 @@ export class RuiPagination extends LitElement {
 				</a>`
 		} else {
 			const evt = this._generatePrevClickEvent();
-			const onClick = () => { this.dispatchEvent(evt); }
+			const onClick = ():void => { this.dispatchEvent(evt); }
 			tag = html`
 				<a class=${classes} aria-label=${ariaLabel} @click=${onClick}>
 					<slot name="prev-content"></slot>
@@ -300,7 +318,7 @@ export class RuiPagination extends LitElement {
 				</a>`
 		} else {
 			const evt = this._generateNextClickEvent();
-			const onClick = () => { this.dispatchEvent(evt); }
+			const onClick = ():void => { this.dispatchEvent(evt); }
 			tag = html`
 				<a class=${classes} aria-label=${ariaLabel} @click=${onClick}>
 					<slot name="next-content"></slot>

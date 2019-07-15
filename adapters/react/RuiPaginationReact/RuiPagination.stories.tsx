@@ -16,6 +16,5 @@ storiesOf('RuiPagination', module)
 			current-page={number('Current Page', 10)}
 			pages-shown={number('Pages Shown', 5)}
 			num-pages={number('Number of Pages', 20)}
-		>
-		</RuiPagination>
+		/>
 	));
