@@ -9,44 +9,31 @@ import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-el
 import {variables, layout} from './RuiBreadcrumbs.css'
 
 
-export class RuiBreadcrumbs extends LitElement {
-	public constructor() {
-		super();
-		/**
-		 * set child array and collapsed array
-		 * */
-		this._childArray = [...this.children];
-	}
+interface ICrumbConfig {
+	title: string,
+	url: string
+}
 
+export class RuiBreadcrumbs extends LitElement {
 	/**
 	 * Private properties to set number of crumbs before and after collapse element
 	 * */
-	private _itemsBeforeCollapse: number = 1;
-	private _itemsAfterCollapse: number = 1;
-	private _collapsedSlotEl: HTMLSlotElement | null = null;
-
-	private _childArray: any[] = [];
-	private _collapsedArray: any[] = [];
-
+	private _seperatorEl: HTMLSlotElement | null = null;
+	private _customCrumbLength: number = 0;
 	private _isExpanded: boolean = false;
+
 	public set expand(val) {
 		const oldVal = this._isExpanded;
 		this._isExpanded = val;
 		this.requestUpdate('expand', oldVal);
 	}
-	public get expand() { return this._isExpanded; }
+	public get expand():boolean { return this._isExpanded; }
 
 	/**
 	 * The array of breadcrumbs
 	 */
-	@property({type : String})
-	public separator?: string = '/';
-
-	/**
-	 * The array of breadcrumbs
-	 */
-	@property({type : String})
-	public crumbs?: string = '';
+	@property({type : Array})
+	public crumbs?: ICrumbConfig[] = [];
 
 	/**
 	 * The array of breadcrumbs
@@ -62,109 +49,103 @@ export class RuiBreadcrumbs extends LitElement {
     */
     public static get styles(): CSSResultArray {
         return [variables, layout];
-    }
+	}
+	
+	public connectedCallback(): void {
+		super.connectedCallback();
+
+		const customCrumbs = this.querySelectorAll('[slot=crumb]');
+		this._customCrumbLength = customCrumbs.length;
+		if (this._customCrumbLength > 0) {
+			customCrumbs.forEach((crumbEl, i):void => {
+				if (i === customCrumbs.length - 1) {
+					if (!crumbEl.hasAttribute('aria-current')) {
+						crumbEl.setAttribute('aria-current','page');
+					}
+				} 
+				crumbEl.slot = `crumb-${i + 1}`
+			})
+		}
+
+		if ((this.crumbs && this.crumbs.length > 2) || this._customCrumbLength > 2) {
+			this._seperatorEl = this.querySelector('[slot=seperator]');
+			if (this._seperatorEl) {
+				const length = this.crumbs ? this.crumbs.length : this._customCrumbLength
+				const numSeperators = length - 1;
+				for (let i = 1; i < numSeperators; i++) {
+					const el = this._seperatorEl.cloneNode(true) as HTMLElement;
+					el.slot = `seperator-dupe-${i}`;
+					this.appendChild(el);
+				}
+			}
+		}
+	}	
 
     /* #endregion */
 
-    /* #region Methods */
+	/* #region Methods */
+
+	private _generateItemClickEvent(crumbIndex: number): CustomEvent {
+		return new CustomEvent('rui-breadcrumbs-item-click', {
+			bubbles: true,
+			detail: {
+				crumbIndex,
+			}
+		});
+	}
+	
+
+	private _renderBreadCrumbs(): TemplateResult[] {
+		
+		const crumbEls: TemplateResult[] = [];
+
+		const numCrumbs = (this.crumbs && this.crumbs.length > 0) ? this.crumbs.length : this._customCrumbLength;
+
+		for(let i = 0; i < numCrumbs; i++) {
+			const isActiveCrumb = i === (numCrumbs - 1)
+			
+			let crumbEl = html``;
+			let seperatorEl = i === 0 ? html`` : html`<span aria-hidden="true" class="seperator">/</span>`;
+			
+			if (i > 0 && this._seperatorEl) {
+				const seperatorSlotName = i === 1 ? 'seperator' : `seperator-dupe-${i - 1}`
+				seperatorEl = html`<slot name=${seperatorSlotName}></slot>`;
+			}
+
+			if (this.crumbs && this.crumbs.length > 0) {
+				const crumb = this.crumbs[i]
+				if (isActiveCrumb) {
+					crumbEl = html`<a aria-current="page">${crumb.title}</a>`;
+				} else if (crumb.url) {
+					crumbEl = html`<a href=${crumb.url}>${crumb.title}</a>`;
+				} else {
+					const evt = this._generateItemClickEvent(i);
+					const onClick = ():void => { this.dispatchEvent(evt); }
+					crumbEl = html`<a @click=${onClick}>${crumb.title}</a>`;
+				}
+			} else {
+				crumbEl = html`<slot name=${`crumb-${i + 1}`}></slot>`
+			}
+
+			let listElClasses = 'breadcrumb__item';
+			if (isActiveCrumb) {
+				listElClasses += ' current'
+			}
+			const listEl = html`<li class=${listElClasses}>${seperatorEl}${crumbEl}</li>`
+			crumbEls.push(listEl);
+		}
+
+		return crumbEls;
+	}
 
     public render(): TemplateResult {
-
-		if (this.crumbs) {
-			const crumbsArray = JSON.parse(this.crumbs);
-			const activeCrumb = crumbsArray.pop();
-			return html`
-				<nav aria-label="Breadcrumb" class="crumbs">
-					<ol>
-						${crumbsArray.map((crumb: { url: unknown; title: unknown; }) => html`<li><a href=${crumb.url}>${crumb.title}</a></li> `)}
-						<li aria-current="page" > ${activeCrumb.title }</li>
-					</ol>
-				</nav>`
-		} else if (this.maxCrumbs && (this.maxCrumbs <= this._childArray.length)) {
-			this._itemsAfterCollapse = this.maxCrumbs - 1;
-			this._collapsedArray = this.collapsedBreadcrumbs([...this.children]);
-			return html`
-			<nav aria-label="Breadcrumb" class="childCrumbs">
-				<ol>
-					${this.applySeparators(this.allChildren(
-				this._isExpanded ? this._childArray : this._collapsedArray
-			))}
-				</ol>
-			</nav>
-		`;
-		} else {
-			return html`
-			<nav aria-label="Breadcrumb" class="childCrumbs">
-				<ol>
-					${this.applySeparators(this.allChildren( this._childArray ))}
-				</ol>
-			</nav>
-		`;
-		}
+		return html`
+			<nav aria-label="Breadcrumb" class="breadcrumbs">
+				<ul>
+					${this._renderBreadCrumbs()}
+				</ul>
+			</nav>`
     }
-
-	/* #endregion */
-	/**
-	 * Map over the given array to return each child
-	 * */
-	public allChildren(array) {
-		return array
-			.map((child) => (
-				child
-		));
-	}
-
-	/**
-	 * Add event listener onto the collapsed crumb when the DOM has updated with the correct array
-	 * If no collapsed El. there will be no need for an event listener
-	 **/
-	public firstUpdated(): void {
-		if (this.shadowRoot && this.maxCrumbs) {
-			this._collapsedSlotEl = this.shadowRoot.querySelector('#collapsedEl');
-			if (this._collapsedSlotEl) {
-				this._collapsedSlotEl.addEventListener('click', (): void => {
-					this.expand = true;
-				});
-			}
-		}
-	}
-
-	/**
-	 * Create new array if max.crumbs is smaller than array.length
-	 * */
-	public collapsedBreadcrumbs = (crumbElements) => {
-		return [
-			...crumbElements.slice(0, this._itemsBeforeCollapse),
-			this.newLiEl('...', true),
-			...crumbElements.slice(crumbElements.length - this._itemsAfterCollapse, crumbElements.length),
-		];
-	};
-
-	/**
-	 * So we can have custom separators, we have to add new elements in between each element in the given array
-	 * To do this we map over each element placing a newEl with the custom separator in between
-	 * */
-	public applySeparators(crumbElements) {
-		return [...crumbElements].map(
-			(el, i) => i < crumbElements.length - 1
-				? [el, this.newLiEl(`${this.separator}`, null)]
-				: [el]).reduce((a, b) => a.concat(b))
-	}
-
-	/**
-	 * New element generator
-	 **/
-	private newLiEl(text, collapsedEl) {
-		const node = document.createTextNode(text);
-		const newEl = document.createElement("li");
-		newEl.setAttribute("slot", "crumb");
-		newEl.setAttribute("aria-hidden", "true");
-		newEl.appendChild(node);
-		if(collapsedEl) {
-			newEl.setAttribute("id", "collapsedEl");
-		}
-		return newEl;
-	}
 
 }
 

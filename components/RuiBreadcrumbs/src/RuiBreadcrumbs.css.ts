@@ -36,61 +36,51 @@ export const layout = css`
 		* css for json array breadcrumbs
 	*/
 
-	nav.crumbs ol,
-	nav.childCrumbs ol {
+	.breadcrumbs ul {
 		list-style: none;
 	}
-	
-	nav.crumbs li,
-	nav.childCrumbs li {
+
+	.breadcrumb__item {
 		display: inline;
-	}
-	
-	nav.crumbs li + li::before {
-		padding: var (--padding);
-		color: var(--color);
-		content: "/";
-	}
-	
-	nav.crumbs a:hover,
-	nav.crumbs a:focus {
-		color: var(--hover-color);
-		text-decoration: underline;
-	}
-	
-	nav.crumbs a {
-		color: var(--color);
-		text-decoration: none;
-	}
-	
-	nav.crumbs [aria-current="page"] {
-		font-weight: bold;
-		text-decoration: none;
-	}
-	
-	/**
-		* css for breadcrumbs with rui-link
-	*/
-	
-	.crumbs ol > ::slotted(li) {
-		display: inline;
-	}
-	
-	nav.crumbs ::slotted([aria-current="page"]) {
-		font-weight: bold;
-		text-decoration: none;
+		margin-right: 8px;
 	}
 
-	#collapsedEl {
+	.breadcrumb__item > a,
+	.breadcrumb__item > ::slotted(a) {
 		cursor: pointer;
-		background-color: #EEEEEE;
-		margin: 0 5px;
-		padding: 0 5px;
-		border-radius: 5px;
+		text-decoration: none;
+		color: blue;
 	}
-	
-	#collapsedEl:hover {
-		background-color: lightgrey;
+
+	.current > a,
+	.current > ::slotted(a) {
+		cursor: default;
+		color: black;
+	}
+
+	.breadcrumb__item:not(.current) > a:visited,
+	.breadcrumb__item:not(.current) > ::slotted(a:visited) {
+		color: blue;
+	}
+
+	.breadcrumb__item:not(.current) > a:hover,
+	.breadcrumb__item:not(.current) > ::slotted(a:hover) {
+		border-bottom: 2px solid blue;
+	}
+
+	.breadcrumb__item:not(.current) > a:active,
+	.breadcrumb__item:not(.current) > ::slotted(a:active) {
+		border-bottom: 2px solid black;
+	}
+
+	.breadcrumb__item:not(.current) > a:focus,
+	.breadcrumb__item:not(.current) > ::slotted(a:focus) {
+		border-bottom: 3px solid blue;
+		outline: none;
+	}
+
+	.seperator {
+		margin-right: 8px;
 	}
 `;
 
