@@ -13,7 +13,7 @@ export class RuiBreadcrumbs extends LitElement {
 	public constructor() {
 		super();
 		/**
-		 * set child array and collapsed array
+		 * set child array
 		 * */
 		this._childArray = [...this.children];
 	}
@@ -21,26 +21,17 @@ export class RuiBreadcrumbs extends LitElement {
 	/**
 	 * Private properties to set number of crumbs before and after collapse element
 	 * */
-	private _itemsBeforeCollapse: number = 1;
-	private _itemsAfterCollapse: number = 1;
-	private _collapsedSlotEl: HTMLSlotElement | null = null;
-
 	private _childArray: any[] = [];
 	private _collapsedArray: any[] = [];
-
 	private _isExpanded: boolean = false;
+
 	public set expand(val) {
 		const oldVal = this._isExpanded;
 		this._isExpanded = val;
 		this.requestUpdate('expand', oldVal);
 	}
-	public get expand() { return this._isExpanded; }
 
-	/**
-	 * The array of breadcrumbs
-	 */
-	@property({type : String})
-	public separator?: string = '/';
+	public get expand() { return this._isExpanded; }
 
 	/**
 	 * The array of breadcrumbs
@@ -49,10 +40,10 @@ export class RuiBreadcrumbs extends LitElement {
 	public crumbs?: string = '';
 
 	/**
-	 * The array of breadcrumbs
+	 * Maximum length of crumbs to show
 	 */
-	@property({type : Number})
-	public maxCrumbs?: number = undefined;
+	@property({type : String})
+	public maxCrumbs?: string = '';
 
 	/**
     *
@@ -68,103 +59,60 @@ export class RuiBreadcrumbs extends LitElement {
 
     /* #region Methods */
 
-    public render(): TemplateResult {
+	/**
+	 * Event handler for expand button, expands
+	 */
+	public onExpandCollapsedCrumbs = () => {
+		console.log('event')
+		this.expand = true;
+	};
+
+	/**
+	 * Create collapsed crumb list array
+	 * @param array - Array of elements to add the a collapse element to
+	 * @returns {T[] | HTMLLIElement[][]}
+	 */
+	public createCollapsedCrumbArray = (array, maxLength) => {
+		const collapseEl = html`<li><button @click=${this.onExpandCollapsedCrumbs}>... <span class="vh">Show all breadcrumbs</span></button></li>`;
+
+		const collapseArray = [
+			...array.slice(0, 1),
+			collapseEl,
+			...array.slice((array.length - (maxLength - 1)), array.length)
+		];
+
+		return collapseArray;
+	};
+
+	/**
+	 * Render function
+	 * @returns {TemplateResult}
+	 */
+	public render(): TemplateResult {
 
 		if (this.crumbs) {
 			const crumbsArray = JSON.parse(this.crumbs);
 			const activeCrumb = crumbsArray.pop();
-			return html`
-				<nav aria-label="Breadcrumb" class="crumbs">
-					<ol>
-						${crumbsArray.map((crumb: { url: unknown; title: unknown; }) => html`<li><a href=${crumb.url}>${crumb.title}</a></li> `)}
-						<li aria-current="page" > ${activeCrumb.title }</li>
-					</ol>
-				</nav>`
-		} else if (this.maxCrumbs && (this.maxCrumbs <= this._childArray.length)) {
-			this._itemsAfterCollapse = this.maxCrumbs - 1;
-			this._collapsedArray = this.collapsedBreadcrumbs([...this.children]);
-			return html`
-			<nav aria-label="Breadcrumb" class="childCrumbs">
-				<ol>
-					${this.applySeparators(this.allChildren(
-				this._isExpanded ? this._childArray : this._collapsedArray
-			))}
-				</ol>
-			</nav>
-		`;
-		} else {
-			return html`
-			<nav aria-label="Breadcrumb" class="childCrumbs">
-				<ol>
-					${this.applySeparators(this.allChildren( this._childArray ))}
-				</ol>
-			</nav>
-		`;
+			this._childArray = crumbsArray.map((crumb: { url: unknown; title: unknown; }) => html`<li><a href=${crumb.url}>${crumb.title}</a></li> `)
+			this._childArray.push(html`<li aria-current="page" > ${activeCrumb.title }</li>`);
 		}
-    }
+
+		if (this.maxCrumbs) {
+			this._collapsedArray = this.createCollapsedCrumbArray(this._childArray, parseInt(this.maxCrumbs))
+		}
+
+		const crumbsToShow = (!this._isExpanded && !!this.maxCrumbs) ? this._collapsedArray : this._childArray;
+
+		return html`
+			<nav aria-label="Breadcrumb" class="crumbs">
+				<ol>
+					${crumbsToShow.map((child) => (child))}
+				</ol>
+			</nav>
+		`
+	}
 
 	/* #endregion */
-	/**
-	 * Map over the given array to return each child
-	 * */
-	public allChildren(array) {
-		return array
-			.map((child) => (
-				child
-		));
-	}
-
-	/**
-	 * Add event listener onto the collapsed crumb when the DOM has updated with the correct array
-	 * If no collapsed El. there will be no need for an event listener
-	 **/
-	public firstUpdated(): void {
-		if (this.shadowRoot && this.maxCrumbs) {
-			this._collapsedSlotEl = this.shadowRoot.querySelector('#collapsedEl');
-			if (this._collapsedSlotEl) {
-				this._collapsedSlotEl.addEventListener('click', (): void => {
-					this.expand = true;
-				});
-			}
-		}
-	}
-
-	/**
-	 * Create new array if max.crumbs is smaller than array.length
-	 * */
-	public collapsedBreadcrumbs = (crumbElements) => {
-		return [
-			...crumbElements.slice(0, this._itemsBeforeCollapse),
-			this.newLiEl('...', true),
-			...crumbElements.slice(crumbElements.length - this._itemsAfterCollapse, crumbElements.length),
-		];
-	};
-
-	/**
-	 * So we can have custom separators, we have to add new elements in between each element in the given array
-	 * To do this we map over each element placing a newEl with the custom separator in between
-	 * */
-	public applySeparators(crumbElements) {
-		return [...crumbElements].map(
-			(el, i) => i < crumbElements.length - 1
-				? [el, this.newLiEl(`${this.separator}`, null)]
-				: [el]).reduce((a, b) => a.concat(b))
-	}
-
-	/**
-	 * New element generator
-	 **/
-	private newLiEl(text, collapsedEl) {
-		const node = document.createTextNode(text);
-		const newEl = document.createElement("li");
-		newEl.setAttribute("slot", "crumb");
-		newEl.setAttribute("aria-hidden", "true");
-		newEl.appendChild(node);
-		if(collapsedEl) {
-			newEl.setAttribute("id", "collapsedEl");
-		}
-		return newEl;
-	}
 
 }
 
