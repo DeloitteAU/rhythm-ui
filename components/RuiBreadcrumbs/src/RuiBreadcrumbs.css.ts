@@ -2,9 +2,9 @@ import {css} from 'lit-element';
 
 
 /**
-	*  RuiBreadcrumbs Variables
- 	*  Added colour to prevent empty block
-*/
+ *  RuiBreadcrumbs Variables
+ *  Added colour to prevent empty block
+ */
 
 export const variables = css`
 	:host {
@@ -25,7 +25,7 @@ export const variables = css`
 		 */
 		--padding: 8px;
 	}
-    `;
+`;
 
 /**
 	* RuiBreadcrumbs CSS
@@ -43,6 +43,7 @@ export const layout = css`
 	.breadcrumb__item {
 		display: inline;
 		margin-right: 8px;
+		position: relative;
 	}
 
 	.breadcrumb__item > a,
@@ -79,7 +80,8 @@ export const layout = css`
 		outline: none;
 	}
 
-	.seperator {
+	.seperator,
+	::slotted([slot*="seperator"]) {
 		margin-right: 8px;
 	}
 `;

@@ -21,6 +21,7 @@ export class RuiBreadcrumbs extends LitElement {
 	private _seperatorEl: HTMLSlotElement | null = null;
 	private _customCrumbLength: number = 0;
 	private _isExpanded: boolean = false;
+	private _tooltipEl: HTMLElement | null = null;
 
 	public set expand(val) {
 		const oldVal = this._isExpanded;
@@ -53,7 +54,6 @@ export class RuiBreadcrumbs extends LitElement {
 	
 	public connectedCallback(): void {
 		super.connectedCallback();
-
 		const customCrumbs = this.querySelectorAll('[slot=crumb]');
 		this._customCrumbLength = customCrumbs.length;
 		if (this._customCrumbLength > 0) {
@@ -66,7 +66,7 @@ export class RuiBreadcrumbs extends LitElement {
 				crumbEl.slot = `crumb-${i + 1}`
 			})
 		}
-
+	
 		if ((this.crumbs && this.crumbs.length > 2) || this._customCrumbLength > 2) {
 			this._seperatorEl = this.querySelector('[slot=seperator]');
 			if (this._seperatorEl) {
@@ -79,7 +79,7 @@ export class RuiBreadcrumbs extends LitElement {
 				}
 			}
 		}
-	}	
+	}
 
     /* #endregion */
 
@@ -134,7 +134,7 @@ export class RuiBreadcrumbs extends LitElement {
 			const listEl = html`<li class=${listElClasses}>${seperatorEl}${crumbEl}</li>`
 			crumbEls.push(listEl);
 		}
-
+ 
 		return crumbEls;
 	}
 
