@@ -91,14 +91,38 @@ export const layout = css`
 		text-decoration: none;
 	}
 
-	#collapsedEl {
-		cursor: pointer;
+	.expand-el {
 		padding: 0 5px;
 		border-radius: 5px;
 	}
 	
-	#collapsedEl:hover {
-		background-color: var(--hover-color);
+	.expand-btn {
+		color: var(--color);
+		cursor: pointer;
+		border-radius: 5px;
+		border: none;
+	}
+	
+	.expand-btn:hover {
+		color: var(--hover-color);
+	}
+	
+	.expand-btn:focus {
+		border: 1px solid var(--hover-color);
+	}
+	
+	.expand-btn:focus .vh {
+		position: static;
+		width: auto;
+		height: auto;
+	}
+	
+	.vh {
+		position: absolute;
+		height: 1px;
+		width: 1px;
+		overflow: hidden;
+		clip: rect(1px, 1px, 1px, 1px);
 	}
 `;
 

@@ -73,7 +73,7 @@ export class RuiBreadcrumbs extends LitElement {
 	 * @returns {T[] | HTMLLIElement[][]}
 	 */
 	public createCollapsedCrumbArray = (array, maxLength) => {
-		const collapseEl = html`<li><button @click=${this.onExpandCollapsedCrumbs}>... <span class="vh">Show all breadcrumbs</span></button></li>`;
+		const collapseEl = html`<li class="expand-el"><button class="expand-btn" aria-expanded="false" @click=${this.onExpandCollapsedCrumbs}>... <span class="vh">Show all breadcrumbs</span></button></li>`;
 
 		const collapseArray = [
 			...array.slice(0, 1),

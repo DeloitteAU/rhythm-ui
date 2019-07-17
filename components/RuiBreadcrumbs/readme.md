@@ -21,42 +21,62 @@ The last value in the array is the active page.
 ```html preview
 <rui-breadcrumbs 
 	crumbs='[
-		{"title": "Home", "url": "/#"},
-		{"title": "Link 1", "url": "/#"},
-		{"title": "Link 2", "url": "/#"},
-		{"title": "Link 3", "url": "/#"},
-		{"title": "Link 4", "url": "/#" },
-		{"title": "Link 5", "url": "/#" }
+		{"title": "Home", "url": "#"},
+		{"title": "Link 1", "url": "#"},
+		{"title": "Link 2", "url": "#"},
+		{"title": "Link 3", "url": "#"},
+		{"title": "Link 4", "url": "#" },
+		{"title": "Active Link", "url": "#" }
 	]'
 /> 
 ```
 
 ## Collapsed array
-Pass in an array of objects with title and url.
-The last value in the array is the active page.
+Set maxCrumbs to collapse the list.
 
 ```html preview
 <rui-breadcrumbs
 	maxCrumbs='3'
 	crumbs='[
-    	{"title": "Home", "url": "/#"},
-    	{"title": "Link 1", "url": "/#"},
-    	{"title": "Link 2", "url": "/#"},
-    	{"title": "Link 3", "url": "/#"},
-    	{"title": "Link 4", "url": "/#" },
-        {"title": "Link 5", "url": "/#" }
+    	{"title": "Home", "url": "#"},
+    	{"title": "Link 1", "url": "#"},
+    	{"title": "Link 2", "url": "#"},
+    	{"title": "Link 3", "url": "#"},
+    	{"title": "Link 4", "url": "#" },
+        {"title": "Active Link", "url": "#" }
 	]'
 /> 
 ```
 
 ## Manual Links
-To use manual links you must wrap them in a list tag.
+To use manual links you must wrap them in a list tag. Add aria-current to the link that is active.
 
 ```html preview
 <rui-breadcrumbs> 
-	<li slot='crumb'> <a href="/#"> Link 1 </a> </li>
-	<li slot='crumb' > <a href="/#" > Link 2 </a> </li>
-	<li slot='crumb' aria-current="page" > Active Link </li>
+	<li slot='crumb'> <a href="#"> Home </a> </li>
+	<li slot='crumb'> <a href="#"> Link 1 </a> </li>
+	<li slot='crumb'> <a href="#"> Link 2 </a> </li>
+	<li slot='crumb'> <a href="#"> Link 3 </a> </li>
+	<li slot='crumb'> <a href="#"> Link 4 </a> </li>
+	<li slot='crumb' aria-current="page"> Active Link </li>
 </rui-breadcrumbs>
 
 ```
+
+## Manual Links with a collapsed array
+Collapsed list also works with manual configured links.
+
+```html preview
+<rui-breadcrumbs
+	maxCrumbs='3'
+> 
+	<li slot='crumb'> <a href="#"> Home </a> </li>
+	<li slot='crumb'> <a href="#"> Link 1 </a> </li>
+	<li slot='crumb'> <a href="#"> Link 2 </a> </li>
+	<li slot='crumb'> <a href="#"> Link 3 </a> </li>
+	<li slot='crumb'> <a href="#"> Link 4 </a> </li>
+	<li slot='crumb' aria-current="page"> Active Link </li>
+</rui-breadcrumbs>
+
+```
+
