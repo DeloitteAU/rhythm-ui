@@ -24,6 +24,11 @@ export const variables = css`
 		 * @variable padding size
 		 */
 		--padding: 8px;
+
+		/**
+		 * @variable separator value
+		 */
+		--separator: "/";
 	}
     `;
 
@@ -46,10 +51,16 @@ export const layout = css`
 		display: inline;
 	}
 	
-	nav.crumbs li + li::before {
+	nav.crumbs li + li:before {
 		padding: var (--padding);
 		color: var(--color);
-		content: "/";
+		content: var(--separator);
+	}
+	
+	nav.crumbs a {
+		color: var(--color);
+		text-decoration: none;
+		margin-left: 4px;
 	}
 	
 	nav.crumbs a:hover,
@@ -58,14 +69,13 @@ export const layout = css`
 		text-decoration: underline;
 	}
 	
-	nav.crumbs a {
-		color: var(--color);
-		text-decoration: none;
-	}
-	
 	nav.crumbs [aria-current="page"] {
 		font-weight: bold;
 		text-decoration: none;
+	}
+	
+	nav.crumbs [aria-current="page"]:before {
+		font-weight: normal;
 	}
 	
 	/**
@@ -81,16 +91,38 @@ export const layout = css`
 		text-decoration: none;
 	}
 
-	#collapsedEl {
-		cursor: pointer;
-		background-color: #EEEEEE;
-		margin: 0 5px;
+	.expand-el {
 		padding: 0 5px;
 		border-radius: 5px;
 	}
 	
-	#collapsedEl:hover {
-		background-color: lightgrey;
+	.expand-btn {
+		color: var(--color);
+		cursor: pointer;
+		border-radius: 5px;
+		border: none;
+	}
+	
+	.expand-btn:hover {
+		color: var(--hover-color);
+	}
+	
+	.expand-btn:focus {
+		border: 1px solid var(--hover-color);
+	}
+	
+	.expand-btn:focus .vh {
+		position: static;
+		width: auto;
+		height: auto;
+	}
+	
+	.vh {
+		position: absolute;
+		height: 1px;
+		width: 1px;
+		overflow: hidden;
+		clip: rect(1px, 1px, 1px, 1px);
 	}
 `;
 
