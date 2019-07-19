@@ -11,6 +11,7 @@ If you do not need custom label elements, you can configure the breadcrumbs by p
 
 ```html preview
 <rui-breadcrumbs
+	maxCrumbs=3
 	crumbs='[
     	{"title": "Home", "url": "/my/rul"},
     	{"title": "Link 1", "url": "/my/rul"},
@@ -36,7 +37,7 @@ If you require a custom seperator you can use the ```seperator``` slot
 		{"title": "Link 5", "url": "/my/rul" }
 	]'
 >
-	<span aria-hidden="true" slot="seperator">></span>
+	<span aria-hidden="true" slot="seperator">/</span>
 </rui-breadcrumbs> 
 ```
 
@@ -47,7 +48,19 @@ Keep in mind that if you provide a custom seperator, you are in charge of its ac
 If you require more control over the individual breadcrumbs, you can use the ```crumb``` slot to provide the breadcrumb items. Please keep in mind that when using this pattern, the order of crumbs is the same as the order the children appear in the component.
 
 ```html preview
-<rui-breadcrumbs> 
+<rui-breadcrumbs maxCrumbs=1> 
+	<a slot="crumb" href="/#"> Link 1 <span>custom richtext</a>
+	<a slot="crumb" href="/#" > Link 2 </a>
+	<a slot="crumb">Active Link </a>
+</rui-breadcrumbs>
+
+<rui-breadcrumbs maxCrumbs=2> 
+	<a slot="crumb" href="/#"> Link 1 <span>custom richtext</a>
+	<a slot="crumb" href="/#" > Link 2 </a>
+	<a slot="crumb">Active Link </a>
+</rui-breadcrumbs>
+
+<rui-breadcrumbs maxCrumbs=3> 
 	<a slot="crumb" href="/#"> Link 1 <span>custom richtext</a>
 	<a slot="crumb" href="/#" > Link 2 </a>
 	<a slot="crumb">Active Link </a>
