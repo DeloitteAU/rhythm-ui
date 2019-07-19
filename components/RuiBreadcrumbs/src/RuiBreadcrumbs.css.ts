@@ -244,10 +244,6 @@ export const layout = css`
 	}
 
 	.selector {
-		/* stylelint-disable-next-line property-no-vendor-prefix */
-		-webkit-appearance: none;
-		/* stylelint-disable-next-line property-no-vendor-prefix */
-		-moz-appearance: none;
 		text-indent: 1px;
 		text-overflow: '';
 		cursor: pointer;
@@ -256,6 +252,19 @@ export const layout = css`
 		text-align: center;
 		border-radius: 0;
 		padding: var(--rui-breadcrumbs__padding);
+	}
+
+	/* remove default select arrow appeareance on chrome, safari, firefox, chromium edge */
+	select {
+		/* stylelint-disable-next-line property-no-vendor-prefix */
+		-webkit-appearance: none;
+		/* stylelint-disable-next-line property-no-vendor-prefix */
+		-moz-appearance: none;
+	}
+
+	/* default select arrow appeareance on IE, oldschool Edge */
+	select::-ms-expand {
+		display: none;
 	}
 `;
 

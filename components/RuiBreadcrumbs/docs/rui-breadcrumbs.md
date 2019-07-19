@@ -11,14 +11,29 @@ If you do not need custom label elements, you can configure the breadcrumbs by p
 
 ```html preview
 <rui-breadcrumbs
-	maxCrumbs=3
 	crumbs='[
-    	{"title": "Home", "url": "/my/rul"},
-    	{"title": "Link 1", "url": "/my/rul"},
-		{"title": "Link 2", "url": "/my/rul" },
-		{"title": "Link 3", "url": "/my/rul" },
-		{"title": "Link 4", "url": "/my/rul" },
-		{"title": "Link 5", "url": "/my/rul" }
+    	{"title": "Home", "url": "#"},
+    	{"title": "Breadcrumb 1", "url": "#"},
+		{"title": "Breadcrumb 2", "url": "#" },
+		{"title": "Breadcrumb 3", "url": "#" }
+	]'
+>
+</rui-breadcrumbs> 
+```
+
+## Breadcrumb Truncation
+If you have space limitations, you can set a max amount of crumbs to display before truncation via the `max-crumbs` attribute.
+
+```html preview
+<rui-breadcrumbs
+	max-crumbs="3"
+	crumbs='[
+    	{"title": "Home", "url": "#"},
+    	{"title": "Breadcrumb 1", "url": "#"},
+		{"title": "Breadcrumb 2", "url": "#" },
+		{"title": "Breadcrumb 3", "url": "#" },
+		{"title": "Breadcrumb 4", "url": "#" },
+		{"title": "Breadcrumb 5", "url": "#" }
 	]'
 >
 </rui-breadcrumbs> 
@@ -29,12 +44,12 @@ If you require a custom seperator you can use the ```seperator``` slot
 ```html preview
 <rui-breadcrumbs
 	crumbs='[
-    	{"title": "Home", "url": "/my/rul"},
-    	{"title": "Link 1", "url": "/my/rul"},
-		{"title": "Link 2", "url": "/my/rul" },
-		{"title": "Link 3", "url": "/my/rul" },
-		{"title": "Link 4", "url": "/my/rul" },
-		{"title": "Link 5", "url": "/my/rul" }
+    	{"title": "Home", "url": "#"},
+    	{"title": "Link 1", "url": "#"},
+		{"title": "Link 2", "url": "#" },
+		{"title": "Link 3", "url": "#" },
+		{"title": "Link 4", "url": "#" },
+		{"title": "Link 5", "url": "#" }
 	]'
 >
 	<span aria-hidden="true" slot="seperator">/</span>
@@ -48,22 +63,28 @@ Keep in mind that if you provide a custom seperator, you are in charge of its ac
 If you require more control over the individual breadcrumbs, you can use the ```crumb``` slot to provide the breadcrumb items. Please keep in mind that when using this pattern, the order of crumbs is the same as the order the children appear in the component.
 
 ```html preview
-<rui-breadcrumbs maxCrumbs=1> 
-	<a slot="crumb" href="/#"> Link 1 <span>custom richtext</a>
-	<a slot="crumb" href="/#" > Link 2 </a>
-	<a slot="crumb">Active Link </a>
+<rui-breadcrumbs> 
+	<a slot="crumb" href="#"> Link 1 <span>custom richtext</a>
+	<a slot="crumb" href="#" > Link 2 </a>
+	<span slot="crumb">Active Link </span>
 </rui-breadcrumbs>
+```
 
-<rui-breadcrumbs maxCrumbs=2> 
-	<a slot="crumb" href="/#"> Link 1 <span>custom richtext</a>
-	<a slot="crumb" href="/#" > Link 2 </a>
-	<a slot="crumb">Active Link </a>
-</rui-breadcrumbs>
+### NB: You cannot mix slotted crumbs with the ```crumbs``` attribute JSON array
 
-<rui-breadcrumbs maxCrumbs=3> 
-	<a slot="crumb" href="/#"> Link 1 <span>custom richtext</a>
-	<a slot="crumb" href="/#" > Link 2 </a>
-	<a slot="crumb">Active Link </a>
+## Custom Crumb Titles When Truncated
+Rendering of option titles within a truncated select
+uses the text content of the provided element. If this is
+not wanted, you can provid an override to the 
+rendered label via the `data-truncated-label` attribute
+
+```html preview
+<rui-breadcrumbs max-crumbs="2">
+	<a slot="crumb" href="/#"> Link 1 </a>
+	<a data-truncated-label="Link 2 Custom Label" slot="crumb" href="#" > Link 2 <span>some other content</span> </a>
+	<a slot="crumb" href="#" > Link 3 </a>
+	<a slot="crumb" href="#" > Link 4 </a>
+	<span slot="crumb">Active Link </span>
 </rui-breadcrumbs>
 ```
 
