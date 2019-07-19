@@ -135,7 +135,7 @@ export class RuiBreadcrumbs extends LitElement {
 	 * is selected
 	 */
 	private _generateTruncatedSelectEvent(crumbIndex: number): CustomEvent {
-		return new CustomEvent('rui-breadcrumbs-truncated-select', {
+		return new CustomEvent('rui-breadcrumbs-item-select', {
 			bubbles: true,
 			detail: {
 				crumbIndex,
@@ -150,7 +150,7 @@ export class RuiBreadcrumbs extends LitElement {
 	 * 
 	 * @param e select input change event
 	 */
-	private _handleTruncatedSelectChange(e) {
+	private _handleTruncatedSelectChange(e): void {
 		const indexSelected = e.target.value;
 		const evt = this._generateTruncatedSelectEvent(indexSelected);
 		
@@ -235,7 +235,7 @@ export class RuiBreadcrumbs extends LitElement {
 		return html`
 			<select aria-label="Select breadcrumb to navigate to" class="selector" @change=${this._handleTruncatedSelectChange}>
 				<option value="" disabled selected>...</option>
-				${pageTitles.map((title, i) => html`<option value=${startIndex + i}>${title}</option>`)}
+				${pageTitles.map((title, i): TemplateResult => html`<option value=${startIndex + i}>${title}</option>`)}
 			</select>
 		`;
 	}
@@ -311,9 +311,9 @@ export class RuiBreadcrumbs extends LitElement {
 		if (truncate) {
 			let pageTitles: string[] = [];
 			if (standardCrumbs) {
-				pageTitles = standardCrumbArr.slice(loopCount, -1).map(crumb => crumb.title  || '')
+				pageTitles = standardCrumbArr.slice(loopCount, -1).map((crumb): string => crumb.title  || '')
 			} else {
-				pageTitles = this._customCrumbs.slice(loopCount, -1).map(crumb => {
+				pageTitles = this._customCrumbs.slice(loopCount, -1).map((crumb): string => {
 					let title = crumb.textContent || ''
 					if (crumb.dataset.truncatedLabel) {
 						title = crumb.dataset.truncatedLabel;

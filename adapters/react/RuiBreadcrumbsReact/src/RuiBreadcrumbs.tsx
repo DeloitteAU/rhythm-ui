@@ -8,29 +8,88 @@
 import React from 'react';
 import '@rhythm-ui/rui-breadcrumbs';
 
+import {
+	IRuiBreadcrumbsProps,
+	IRuiBreadcrumbsCrumbProps,
+	IRuiBreadcrumbsSeperatorProps,
+} from './IRuiBreadcrumbs';
+
 /**
- * Breadcrumb Item wrapps the rui-link in a li element which is passed into the slot "crumb".
- * It is then exposed as Item. to be used as Breadcrumbs.Item
+ * Breadcrumb Crumb wrapps the rui-link in an anchor element by default which is passed into the slot "crumb".
+ * It is then exposed as Crumb. to be used as Breadcrumbs.Crumb
  */
+export const Crumb = (props: IRuiBreadcrumbsCrumbProps): React.ReactNode => {
+	const {as, truncatedLabel, ...otherProps} = props;
 
+	let elementType = 'a';
+	if (as) {
+		elementType = as;
+	}
 
-export const BreadcrumbItem = (props): React.ReactNode => { //eslint-disable-line react/no-multi-comp
-	const {...otherProps} = props;
-	const active = props.active ? 'page' : undefined;
+	const crumbProps = {
+		slot: 'crumb',
+		...otherProps,
+	};
 
-	return React.createElement('li', {
-		'slot': 'crumb',
-		'aria-current': active,
-	}, <a {...otherProps} > {props.children}</a>,
-	);
+	if (truncatedLabel) {
+		crumbProps['data-truncated-label'] = truncatedLabel;
+	}
+
+	const crumbEl = React.createElement(elementType, crumbProps);
+
+	return crumbEl;
 };
 
-export class RuiBreadcrumbs extends React.Component { //eslint-disable-line react/no-multi-comp
-	public static Item = BreadcrumbItem;
+export const Seperator = (props: IRuiBreadcrumbsSeperatorProps): React.ReactNode => {
+	const {as, ...otherProps} = props;
+
+	let elementType = 'span';
+	if (as) {
+		elementType = as;
+	}
+
+	const crumbEl = React.createElement(elementType, {
+		slot: 'seperator',
+		...otherProps,
+	});
+
+	return crumbEl;
+};
+
+export class RuiBreadcrumbs extends React.Component<IRuiBreadcrumbsProps> {
+	// used to add event listeners to element
+	private ruiBreadcrumbsEl = React.createRef<HTMLElement>();
+
+	public static Crumb = Crumb;
+	public static Seperator = Seperator;
+
+	public componentDidMount(): void {
+		const {onCrumbSelect, onCrumbClick} = this.props;
+		if (onCrumbSelect || onCrumbClick) {
+			const el: HTMLElement | null = this.ruiBreadcrumbsEl.current;
+			if (el) {
+				if (onCrumbClick) {
+					el.addEventListener('rui-breadcrumbs-item-click', (e: CustomEvent): void => { onCrumbClick(e.detail.crumbIndex); });
+				}
+
+				if (onCrumbSelect) {
+					el.addEventListener('rui-breadcrumbs-item-select', (e: CustomEvent): void => { onCrumbSelect(e.detail.crumbIndex); });
+				}
+			}
+		}
+	}
 
 	public render() {
+		const {maxCrumbs, onCrumbSelect, onCrumbClick, ...otherProps} = this.props;
+
+		const props = otherProps;
+
+		if (maxCrumbs) {
+			props['max-crumbs'] = maxCrumbs;
+		}
+
 		return (
-			<rui-breadcrumbs {...this.props}>
+			<rui-breadcrumbs ref={this.ruiBreadcrumbsEl} {...props}>
 				{this.props.children}
 			</rui-breadcrumbs >
 		);
