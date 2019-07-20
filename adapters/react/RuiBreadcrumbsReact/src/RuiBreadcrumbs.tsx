@@ -126,12 +126,16 @@ export class RuiBreadcrumbs extends React.Component<IRuiBreadcrumbsProps> {
 	 * Render rui-breadcrumbs component, with any attribute name conversions applied
 	 */
 	public render(): React.ReactNode {
-		const {maxCrumbs, onCrumbSelect, onCrumbClick, ...otherProps} = this.props;
+		const {maxCrumbs, crumbs, onCrumbSelect, onCrumbClick, ...otherProps} = this.props;
 
 		const props = otherProps;
 
 		if (maxCrumbs) {
 			props['max-crumbs'] = maxCrumbs;
+		}
+
+		if (crumbs) {
+			props.crumbs = JSON.stringify(crumbs);
 		}
 
 		return (
