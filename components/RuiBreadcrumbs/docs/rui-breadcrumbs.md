@@ -88,11 +88,99 @@ rendered label via the `data-truncated-label` attribute
 </rui-breadcrumbs>
 ```
 
+## Custom navigation behaviour
+If you require custom navigation behavour, you have a few avenues available to you.
 
- ## Variables
+### Click/Select events when using `crumbs` attribute
+If using the `crumbs` attribute, if you do not provide a url, a `rui-breadcrumbs-item-click` event 
+will be dispatched, with the index of the selected crumb available via `event.detail.crumbIndex`. 
+```html
+<script>
+	const onBreadcrumbClick = (e) => {
+		const crumbIndex = e.detail.crumbIndex;
+		console.log(`Crumb ${crumbIndex} clicked!`);
+	}
+	const breadcrumbsEl = document.getElementById('breadcrumbs');
+	if (breadcrumbsEl) {
+		breadcrumbsEl.addEventListener('rui-breadcrumbs-item-click', onBreadcrumbClick);
+	}
+</script>
 
-| CSS Variable | Default Value | Description |
-| --- | --- | --- |
-| --color | #000000 | The base colour for the breadcrumbs  | 
-| --hover-color | #01447E | Hover colour for the breadcrumbs  | 
-| --padding | 8px | padding size  | 
+<rui-breadcrumbs
+	id="breadcrumbs"
+	crumbs='[
+    	{"title": "Home"},
+    	{"title": "Breadcrumb 1"},
+		{"title": "Breadcrumb 2"},
+		{"title": "Breadcrumb 3"}
+	]'
+>
+</rui-breadcrumbs> 
+```
+
+If using the `max-crumbs` attribute, a `rui-breadcrumbs-item-select` event will fire when a crumb is selected from the select input, with the index of the selected crumb available via `event.detail.crumbIndex`.
+```html
+<script>
+	const onBreadcrumbSelect = (e) => {
+		const crumbIndex = e.detail.crumbIndex;
+		console.log(`Crumb ${crumbIndex} selected!`);
+	}
+	const breadcrumbsEl = document.getElementById('breadcrumbs');
+	if (breadcrumbsEl) {
+		breadcrumbsEl.addEventListener('rui-breadcrumbs-item-select', onBreadcrumbSelect);
+	}
+</script>
+<rui-breadcrumbs
+	id="breadcrumbs"
+	max-crumbs="2"
+	crumbs='[
+    	{"title": "Home"},
+    	{"title": "Breadcrumb 1"},
+		{"title": "Breadcrumb 2"},
+		{"title": "Breadcrumb 3"}
+	]'
+>
+</rui-breadcrumbs> 
+```
+
+### When using custom crumbs
+If using custom crumbs via the `crumb` slot, note that `rui-breadcrumbs-item-select` events will not
+be dispatched, instead - you should provide your own onclick functions to the elements you pass in
+
+```html
+<script>
+	const onBreadcrumbClick = (index) => {
+		console.log(`Crumb ${index} clicked!`);
+	}
+</script>
+<rui-breadcrumbs>
+	<a slot="crumb" onclick="onBreadcrumbClick(0)">Link 1</a>
+	<a slot="crumb" onclick="onBreadcrumbClick(1)">Link 2</a>
+	<span slot="crumb">Active Link</span>
+</rui-breadcrumbs> 
+```
+
+However, if no href is passed to your custom crumbs, the `rui-breadcrumbs-item-select` event will still
+be fired from the truncated menu
+
+```html
+<script>
+	const onBreadcrumbSelect = (e) => {
+		const crumbIndex = e.detail.crumbIndex;
+		console.log(`Crumb ${crumbIndex} selected!`);
+	}
+	const breadcrumbsEl = document.getElementById('breadcrumbs');
+	if (breadcrumbsEl) {
+		breadcrumbsEl.addEventListener('rui-breadcrumbs-item-select', onBreadcrumbSelect);
+	}
+</script>
+<rui-breadcrumbs
+	id="breadcrumbs"
+	max-crumbs="2"
+>
+	<a slot="crumb">Link 1</a>
+	<a slot="crumb">Link 2</a>
+	<a slot="crumb">Link 2</a>
+	<span slot="crumb">Active Link</span>
+</rui-breadcrumbs> 
+```
