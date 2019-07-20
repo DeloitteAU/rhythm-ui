@@ -55,7 +55,13 @@ a:hover {
 	color: #512DA8;
 }
 
+rui-breadcrumbs {
+	--rui-breadcrumbs__color-visited: #0074DD;
+	--rui-breadcrumbs__color-hover: #0074DD;
+}
+
 rui-breadcrumbs a,
-a:visited {
+a:visited,
+a:hover {
 	color: #0074DD;
 }
