@@ -160,5 +160,4 @@ be dispatched, instead - you should provide your own onclick functions to the el
 </rui-breadcrumbs> 
 ```
 
-However, if no href is passed to your custom crumbs, the `rui-breadcrumbs-item-select` event will still
-be fired from the truncated menu
+However, if no href is passed to your custom crumbs, the `rui-breadcrumbs-item-select` event will still be fired from the truncated menu

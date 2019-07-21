@@ -34,20 +34,41 @@ export class RuiBreadcrumbs extends LitElement {
 	 */
 	private _customCrumbs: HTMLElement[] = [];
 
-	/**
-	 * The array of breadcrumbs
-	 */
-	@property({type : Array})
-	public crumbs?: ICrumbConfig[] = [];
+	private _maxCrumbs: number = 7;
+
+	private _crumbs: ICrumbConfig[] = [];
 
 	/**
 	 * The array of breadcrumbs
 	 */
+	@property({type : Array})
+	public get crumbs(): ICrumbConfig[] {
+		return this._crumbs;
+	}
+
+	public set crumbs(crumbs: ICrumbConfig[]) {
+		const oldVal = this.crumbs;
+		this._crumbs = crumbs;
+		this.requestUpdate('crumbs', oldVal);
+	}
+
+	/**
+	 * The maximum number of breadcrumbs to display 
+	 * before truncating
+	 */
 	@property({
 		type : Number,
-		attribute: 'max-crumbs'
+		attribute: 'max-crumbs',
 	})
-	public maxCrumbs?: number = undefined;
+	public get maxCrumbs(): number {
+		return this._maxCrumbs;
+	}
+
+	public set maxCrumbs(maxCrumbs: number) {
+		const oldVal = this.maxCrumbs;
+		this._maxCrumbs = maxCrumbs;
+		this.requestUpdate('maxCrumbs', oldVal);
+	}
 
 	/**
     * The styles for breadcrumbs
