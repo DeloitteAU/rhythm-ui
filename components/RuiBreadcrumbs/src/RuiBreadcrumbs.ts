@@ -202,7 +202,7 @@ export class RuiBreadcrumbs extends LitElement {
 	 * @param index the index of the crumb array we are up to in render loop
 	 */
 	private _renderSeperator(index: number): TemplateResult {
-		let seperatorEl = (index === 0) ? html`` : html`<span aria-hidden="true" class="seperator"></span>`;
+		let seperatorEl = (index === 0) ? html`` : html`<span aria-hidden="true" class="seperator">/</span>`;
 			
 		if (index > 0 && this._seperatorEl) {
 			const seperatorSlotName = index === 1 ? 'seperator' : `seperator-dupe-${index - 1}`

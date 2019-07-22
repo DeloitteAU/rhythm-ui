@@ -52,7 +52,7 @@ If you require a custom seperator you can use the ```seperator``` slot
 		{"title": "Link 5", "url": "#link5" }
 	]'
 >
-	<span aria-hidden="true" slot="seperator">/</span>
+	<span class="chevron-right" aria-hidden="true" slot="seperator"></span>
 </rui-breadcrumbs> 
 ```
 

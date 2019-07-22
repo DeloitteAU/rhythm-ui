@@ -65,3 +65,18 @@ a:visited,
 a:hover {
 	color: #0074DD;
 }
+
+.chevron-right {
+	display: inline;
+	position: relative;
+	padding: 0 6px;
+}
+
+.chevron-right:before {
+	position: absolute;
+	top: 1px;
+	right: 3px;
+	width: 100%;
+	height: 100%;
+	content: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg width='20px' height='20px' viewBox='0 0 16 16' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cg id='icon-/-16-/-chev-right' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cpath d='M11.50025,10.50025 C11.37225,10.50025 11.24425,10.45125 11.14625,10.35425 L8.00025,7.20725 L4.85425,10.35425 C4.65825,10.54925 4.34225,10.54925 4.14625,10.35425 C3.95125,10.15825 3.95125,9.84225 4.14625,9.64625 L7.64625,6.14625 C7.84225,5.95125 8.15825,5.95125 8.35425,6.14625 L11.85425,9.64625 C12.04925,9.84225 12.04925,10.15825 11.85425,10.35425 C11.75625,10.45125 11.62825,10.50025 11.50025,10.50025' id='Icon' fill='%23000000' fill-rule='nonzero' transform='translate(8.000250, 8.250250) rotate(-270.000000) translate(-8.000250, -8.250250) '%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+}
