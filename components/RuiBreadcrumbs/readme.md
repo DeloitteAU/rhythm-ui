@@ -22,7 +22,7 @@ If you do not need custom label elements, you can configure the breadcrumbs by p
 ```
 
 ## Breadcrumb Truncation
-If you have space limitations, you can set a max amount of crumbs to display before truncation via the `max-crumbs` attribute.
+By default, the max amount of crumbs that can display before truncation is 7. If you wish to modify this value, you can set a max amount of crumbs to display before truncation via the `max-crumbs` attribute. 
 
 ```html preview
 <rui-breadcrumbs
