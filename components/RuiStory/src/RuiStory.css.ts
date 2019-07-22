@@ -30,150 +30,175 @@ export const variables = css`
 		/**
 		 * @variable The base text colour of the story
 		 */
-		--color: #000;
+		--rui-story__color: #000;
 
 		/**
 		 * @variable The base background colour of the story
 		 */
-		--background-color: #F2F2F2;
+		--rui-story__background-color: #F2F2F2;
 
 		/**
 		 * @variable The colour of the bottom border stripe
 		 */
-		--border-bottom-color: #000;
+		--rui-story__border-bottom-color: #000;
 
 		/**
 		 * @variable The width of the bottom border stripe
 		 */
-		--border-bottom-width: 4px;
+		--rui-story__border-bottom-width: 4px;
 
 		/**
 		 * @variable The styling for the bottom border stripe
 		 */
-		--border-bottom: var(--border-bottom-width) solid var(--border-bottom-color);
+		--rui-story__border-bottom: var(--rui-story__border-bottom-width) solid var(--rui-story__border-bottom-color);
 
 		/**
 		 * @variable Font size of the domain text
 		 */
-		--domain-font-size: 11px;
+		--rui-story__domain-font-size: 11px;
+
+		/**
+		 * @variable Font weight of domain text
+		 */
+		--rui-story__domain-font-weight: bold;
+
+		/**
+		 * @variable Text transform of the domain text
+		 */
+		--rui-story__domain-text-transform: uppercase;
 
 		/**
 		 * @variable Content text colour
 		 */
-		--dynamic-content-color: #5F5F5F;
+		--rui-story__dynamic-content-color: #5F5F5F;
 
 		/**
 		 * @variable Content font-size
 		 */
-		--dynamic-content-font-size: 16px;
+		--rui-story__dynamic-content-font-size: 16px;
 
 		/**
 		 * @variable cta text colour
 		 */
-		--cta-color: #000;
+		--rui-story__cta-color: #000;
 
 		/**
 		 * @variable cta font size
 		 */
-		--cta-font-size: 14px;
+		--rui-story__cta-font-size: 14px;
+
+		/**
+		 * @variable cta font weight
+		 */
+		--rui-story__cta-font-weight: bold;
+
+		/**
+		 * @variable cta text decoration
+		 */
+		--rui-story__cta-text-decoration: none;
 
 		/**
 		 * @variable cta text line height
 		 */
-		--cta-line-height: 1.43;
+		--rui-story__cta-line-height: 1.43;
 
 		/**
 		 * @variable cta text letter spacing
 		 */
-		--cta-letter-spacing: -0.1px;
+		--rui-story__cta-letter-spacing: -0.1px;
 
 		/**
 		 * @variable Hover colour of the cta
 		 */
-		--cta-color-hover: #5F5F5F;
+		--rui-story__cta-color-hover: #5F5F5F;
 
 		/**
 		 * @variable The default image background colour
 		 */
-		--img-container-background-color: #000;
+		--rui-story__img-container-background-color: #000;
 
 		/**
 		 * @variable The height of the story image
 		 */
-		--img-container-height: 216px;
+		--rui-story__img-container-height: 216px;
 
 		/**
 		 * @variable The minimum height for the content of the story
 		 */
-		--content-container-min-height: 348px;
+		--rui-story__content-container-min-height: 348px;
 
 		/**
 		 * @variable The padding for the sides of the content
 		 */
-		--content-container-padding-sides: 24px;
+		--rui-story__content-container-padding-sides: 24px;
 
 		/**
 		 * @variable The padding for the top and bottom of the content
 		 */
-		--content-container-padding-top-bottom: 34px;
+		--rui-story__content-container-padding-top-bottom: 34px;
 
 		/**
 		 * @variable The padding for the content
 		 */
-		--content-container-padding: var(--content-container-padding-top-bottom) var(--content-container-padding-sides);
+		--rui-story__content-container-padding: var(--rui-story__content-container-padding-top-bottom) var(--rui-story__content-container-padding-sides);
 
 		/**
 		 * @variable Title text colour
 		 */
-		--title-colour: #000;
+		--rui-story__title-colour: #000;
 
 		/**
 		 * @variable The font size of the title
 		 */
-		--title-font-size: 22px;
+		--rui-story__title-font-size: 22px;
+
+		/**
+		 * @variable The font weight of the title
+		 */
+		--rui-story__title-font-weight: bold;
 
 		/**
 		 * @variable The line height of the title
 		 */
-		--title-line-height: 26px;
+		--rui-story__title-line-height: 26px;
 
 		/**
 		 * @variable Letter spacing of title
 		 */
-		--title-letter-spacing: -0.5px;
+		--rui-story__title-letter-spacing: -0.5px;
 
 		/**
 		 * @variable Margin of title
 		 */
-		--title-margin: 6px 0 10px 0;
+		--rui-story__title-margin: 6px 0 10px 0;
 	}
 
 	/* BP variable overrides */
 	${bp('m', css`
 		:host {
-			--img-container-height: 260px;
+			--rui-story__img-container-height: 260px;
 		}
 	`)}
 
 	${bp('l', css`
 		:host {
-			--img-container-height: 228px;
+			--rui-story__img-container-height: 228px;
 		}
 	`)}
 
 	${bp('xl', css`
 		:host {
-			--img-container-height: 288px;
-			--content-container-min-height: 352px; 
-			--content-container-padding-sides: 40px;
-			--title-font-size: 28px;
-			--title-line-height: 36px;
+			--rui-story__img-container-height: 288px;
+			--rui-story__content-container-min-height: 352px; 
+			--rui-story__content-container-padding-sides: 40px;
+			--rui-story__title-font-size: 28px;
+			--rui-story__title-line-height: 36px;
 		}
 	`)}
 
 	${bp('xxl', css`
 		:host {
-			--img-container-height: 392px;
+			--rui-story__img-container-height: 392px;
 		}
 	`)}
 `;
@@ -183,50 +208,49 @@ export const variables = css`
  */
 export const layout = css`
 	.story {
-		color: var(--color);
 		width: 100%;
-		background-color: var(--background-color);
-		border-bottom: var(--border-bottom);
 		height: 100%;
 		display: flex;
 		flex-direction: column;
+		color: var(--rui-story__color);
+		background-color: var(--rui-story__background-color);
+		border-bottom: var(--rui-story__border-bottom);
 	}
 
 	.img-container {
-		height: var(--img-container-height);
 		text-align: center;
-		background-color: var(--img-container-background-color);
+		height: var(--rui-story__img-container-height);
+		background-color: var(--rui-story__img-container-background-color);
 	}
 
 	.content-container {
-		padding: var(--content-container-padding);
-		min-height: calc(var(--content-container-min-height) - (2 * var(--padding-top-bottom)));
 		flex: 1;
 		display: flex;
 		flex-direction: column;
+		padding: var(--rui-story__content-container-padding);
 	}
 
 	.domain {
-		font-size: var(--domain-font-size);
-		text-transform: uppercase;
 		margin: 0;
-		font-weight: bold;
+		font-size: var(--rui-story__domain-font-size);
+		text-transform: var(--rui-story__domain-text-transform);
+		font-weight: var(--rui-story__domain-font-weight);
 	}
 
 	.title {
-		font-size: var(--title-font-size);
-		line-height: var(--title-line-height);
-		letter-spacing: var(--title-letter-spacing);
-		margin: var(--title-margin);
-		font-weight: bold;
 		overflow: hidden;
 		word-break: break-word;
+		font-weight: var(--rui-story__title-font-weight);
+		font-size: var(--rui-story__title-font-size);
+		line-height: var(--rui-story__title-line-height);
+		letter-spacing: var(--rui-story__title-letter-spacing);
+		margin: var(--rui-story__title-margin);
 	}
 
 	.dynamic-content {
 		flex: 1;
-		color: var(--dynamic-content-color);
-		font-size: var(--dynamic-content-font-size);
+		color: var(--rui-story__dynamic-content-color);
+		font-size: var(--rui-story__dynamic-content-font-size);
 	}
 
 	.img-container > ::slotted(img) {
@@ -237,16 +261,16 @@ export const layout = css`
 	}
 
 	.cta-container > ::slotted(a) {
-		color: var(--cta-color);
-		text-decoration: none;
-		font-size: var(--cta-font-size);
-		font-weight: bold;
-		line-height: var(--cta-line-height);
-		letter-spacing: var(--cta-letter-spacing);
+		text-decoration: var(--rui-story__cta-text-decoration);
+		font-weight: var(--rui-story__cta-font-weight);
+		color: var(--rui-story__cta-color);
+		font-size: var(--rui-story__cta-font-size);
+		line-height: var(--rui-story__cta-line-height);
+		letter-spacing: var(--rui-story__cta-letter-spacing);
 	}
 
 	.cta-container > ::slotted(a:hover) {
-		color: var(--cta-color-hover);
+		color: var(--rui-story__cta-color-hover);
 	}
 `;
 
