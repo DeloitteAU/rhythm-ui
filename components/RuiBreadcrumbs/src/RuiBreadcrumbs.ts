@@ -78,7 +78,6 @@ export class RuiBreadcrumbs extends LitElement {
     public static get styles(): CSSResultArray {
         return [variables, layout];
 	}
-	
 
 	/**
 	 * Once the component is connected to the dom, we can begin 
