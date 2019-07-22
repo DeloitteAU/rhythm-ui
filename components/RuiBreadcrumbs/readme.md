@@ -118,12 +118,18 @@ will be dispatched, with the index of the selected crumb available via `event.de
 </rui-breadcrumbs> 
 ```
 
-If using the `max-crumbs` attribute, a `rui-breadcrumbs-item-select` event will fire when a crumb is selected from the select input, with the index of the selected crumb available via `event.detail.crumbIndex`.
+If you need to implement different logic depending on if a base crumb is clicked or an option is selected from the truncated crumb select input, you can differentiate the logic via `e.detail.truncated` boolean.
 ```html
 <script>
 	const onBreadcrumbSelect = (e) => {
 		const crumbIndex = e.detail.crumbIndex;
-		console.log(`Crumb ${crumbIndex} selected!`);
+		const isTruncated = e.detail.truncated;
+		if (isTruncated) {
+			console.log(`Crumb ${crumbIndex} selected from truncated menu!`);
+		} else {
+			console.log(`Crumb ${crumbIndex} clicked!`);
+		}
+		
 	}
 	const breadcrumbsEl = document.getElementById('breadcrumbs');
 	if (breadcrumbsEl) {
@@ -159,5 +165,3 @@ be dispatched, instead - you should provide your own onclick functions to the el
 	<span slot="crumb">Active Link</span>
 </rui-breadcrumbs> 
 ```
-
-However, if no href is passed to your custom crumbs, the `rui-breadcrumbs-item-select` event will still be fired from the truncated menu

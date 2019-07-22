@@ -141,24 +141,12 @@ export class RuiBreadcrumbs extends LitElement {
 	 * this is only generated if no href value has been provided and does not 
 	 * apply to user provided crumbs
 	 */
-	private _generateItemClickEvent(crumbIndex: number): CustomEvent {
+	private _generateItemClickEvent(crumbIndex: number, isTruncated: boolean): CustomEvent {
 		return new CustomEvent('rui-breadcrumbs-item-click', {
 			bubbles: true,
 			detail: {
 				crumbIndex,
-			}
-		});
-	}
-
-	/**
-	 * Event fired when one of the items in the truncated breadcrumb select
-	 * is selected
-	 */
-	private _generateTruncatedSelectEvent(crumbIndex: number): CustomEvent {
-		return new CustomEvent('rui-breadcrumbs-item-select', {
-			bubbles: true,
-			detail: {
-				crumbIndex,
+				truncated: isTruncated,
 			}
 		});
 	}
@@ -172,7 +160,7 @@ export class RuiBreadcrumbs extends LitElement {
 	 */
 	private _handleTruncatedSelectChange(e): void {
 		const indexSelected = e.target.value;
-		const evt = this._generateTruncatedSelectEvent(indexSelected);
+		const evt = this._generateItemClickEvent(indexSelected, true);
 		
 
 		if (this.crumbs && this.crumbs.length > 0) {
@@ -232,7 +220,7 @@ export class RuiBreadcrumbs extends LitElement {
 			} else if (crumb.url) {
 				crumbEl = html`<a href=${crumb.url}>${crumb.title}</a>`;
 			} else {
-				const evt = this._generateItemClickEvent(index);
+				const evt = this._generateItemClickEvent(index, false);
 				const onClick = ():void => { this.dispatchEvent(evt); }
 				crumbEl = html`<a @click=${onClick}>${crumb.title}</a>`;
 			}

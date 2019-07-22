@@ -76,14 +76,7 @@ export class RuiBreadcrumbs extends React.Component<IRuiBreadcrumbsProps> {
 	 * Click handler for when the crumb item click event is fired
 	 */
 	private _handleCrumbClick = (e: CustomEvent): void => {
-		this.props.onCrumbClick(e.detail.crumbIndex);
-	}
-
-	/**
-	 * Click handler for when the crumb item selected event is fired
-	 */
-	private _handleCrumbSelect = (e: CustomEvent): void => {
-		this.props.onCrumbSelect(e.detail.crumbIndex);
+		this.props.onCrumbClick(e.detail.crumbIndex, e.detail.truncated);
 	}
 
 	/**
@@ -91,16 +84,10 @@ export class RuiBreadcrumbs extends React.Component<IRuiBreadcrumbsProps> {
 	 * we attach event listeners and fire coresponding handler functions
 	 */
 	public componentDidMount(): void {
-		const {onCrumbSelect, onCrumbClick} = this.props;
+		const {onCrumbClick} = this.props;
 		const el: HTMLElement | null = this.ruiBreadcrumbsEl.current;
-		if ((onCrumbSelect || onCrumbClick) && el) {
-			if (onCrumbClick) {
-				el.addEventListener('rui-breadcrumbs-item-click', this._handleCrumbClick);
-			}
-
-			if (onCrumbSelect) {
-				el.addEventListener('rui-breadcrumbs-item-select', this._handleCrumbSelect);
-			}
+		if (onCrumbClick && el) {
+			el.addEventListener('rui-breadcrumbs-item-click', this._handleCrumbClick);
 		}
 	}
 
@@ -108,17 +95,11 @@ export class RuiBreadcrumbs extends React.Component<IRuiBreadcrumbsProps> {
 	 * Clean up any event listeners if any are set
 	 */
 	public componentWillUnmount(): void {
-		const {onCrumbSelect, onCrumbClick} = this.props;
+		const {onCrumbClick} = this.props;
 		const el: HTMLElement | null = this.ruiBreadcrumbsEl.current;
 
-		if ((onCrumbSelect || onCrumbClick) && el) {
-			if (onCrumbClick) {
-				el.removeEventListener('rui-breadcrumbs-item-click', this._handleCrumbClick);
-			}
-
-			if (onCrumbSelect) {
-				el.removeEventListener('rui-breadcrumbs-item-select', this._handleCrumbSelect);
-			}
+		if (onCrumbClick && el) {
+			el.removeEventListener('rui-breadcrumbs-item-click', this._handleCrumbClick);
 		}
 	}
 
@@ -126,7 +107,7 @@ export class RuiBreadcrumbs extends React.Component<IRuiBreadcrumbsProps> {
 	 * Render rui-breadcrumbs component, with any attribute name conversions applied
 	 */
 	public render(): React.ReactNode {
-		const {maxCrumbs, crumbs, onCrumbSelect, onCrumbClick, ...otherProps} = this.props;
+		const {maxCrumbs, crumbs, onCrumbClick, ...otherProps} = this.props;
 
 		const props = otherProps;
 

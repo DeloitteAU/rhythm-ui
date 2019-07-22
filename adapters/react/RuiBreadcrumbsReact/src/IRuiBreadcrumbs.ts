@@ -21,7 +21,6 @@ export interface IRuiBreadcrumbsProps {
     as?: string,
     maxCrumbs?: number,
     children: React.ReactNode[] | React.ReactNode;
-    onCrumbSelect: Function,
     onCrumbClick: Function,
     crumbs?: ICrumbConfig[]
 }

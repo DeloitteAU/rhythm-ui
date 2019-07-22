@@ -86,8 +86,7 @@ If you require custom navigation behavour, you have a few avenues available to y
 
 ### Click/Select events when using `crumbs` attribute
 If using the `crumbs` prop, if you do not provide a url, you can react to breadcrumb clicks
-via the `onCrumbClick` prop which expects a function with the index of the clicked crumb as 
-its only argument.
+via the `onCrumbClick` prop which expects a function of the form `(crumbIndex, isTruncated) => {}`
 ```html
 <RuiBreadcrumbs
     onCrumbClick={(i) => { console.log(`Crumb ${i} clicked!`);}}
@@ -101,12 +100,18 @@ its only argument.
 </RuiBreadcrumbs> 
 ```
 
-If using the `maxCrumbs` prop, a `onCrumbSelected` prop will fire when a crumb is selected from the select input.
+If you need to implement different logic depending on if a base crumb is clicked or an option is selected from the truncated crumb select input, you can differentiate the logic via the second argument to the onCrumbClick function.
 
 ```html
 <RuiBreadcrumbs
     maxCrumbs={2}
-    onCrumbSelect={(i) => { console.log(`Crumb ${i} selected!`);}}
+    onCrumbClick={(i, isTruncated) => {
+        if (isTruncated) {
+			console.log(`Crumb ${i} selected from truncated menu!`);
+		} else {
+			console.log(`Crumb ${i} clicked!`);
+		}
+    }}
 	crumbs={[
     	{title: "Home", url: "#home"},
     	{title: "Breadcrumb 1", url: "#b1"},
@@ -148,6 +153,3 @@ export class ExpandCollapseController extends React.Component {
     }
 }
 ```
-
-However, if no href is passed to your custom crumbs, the `onCrumbSelect` function will still
-be fired from the truncated menu
