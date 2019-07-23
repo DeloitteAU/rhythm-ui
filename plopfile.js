@@ -60,12 +60,6 @@ const reactActions = [
 		pattern: `"@mdx-js\/react"\: "\^1\.0\.0-rc\.5",`,
 		template: `		"@rhythm-ui/{{packageName name}}-react": "^1.0.0",`,
 	},
-	{
-		type: 'append',
-		path: 'www/src/templates/Markdown/Markdown.tsx',
-		pattern: `//Import here//`,
-		template: `import '@rhythm-ui/{{packageName name}}-react';`,
-	},
 	// import react adaptor in gatsby site so markdown files will display
 	{
 		type: 'modify',
