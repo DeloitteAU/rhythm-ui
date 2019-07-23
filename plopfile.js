@@ -51,7 +51,7 @@ const reactActions = [
 		type: 'add',
 		path: `${REACT_PATH}/README.md`,
 		templateFile: `${PLOP_REACT}/readme.md.hbs`
-  },
+  	},
 	//append the file into the www package json file at the top of the list
 	{
 		type: 'append',
@@ -65,6 +65,13 @@ const reactActions = [
 		path: 'www/src/templates/Markdown/Markdown.tsx',
 		pattern: `//Import here//`,
 		template: `import '@rhythm-ui/{{packageName name}}-react';`,
+	},
+	// import react adaptor in gatsby site so markdown files will display
+	{
+		type: 'modify',
+		path: 'www/src/templates/Markdown/Markdown.tsx',
+		pattern: /(@@ GENERATOR IMPORT COMPONENT)/g,
+		template: "$1\nimport '@rhythm-ui/{{packageName name}}-react';",
 	}
 ];
 
@@ -135,8 +142,8 @@ const checkComponent = () => {
 
 const ensureRui = text => `rui ${text.replace(/Rui/gi, "")}`;
 
-// name comes in as 'rui <component name>' and for a package we just need '< componentname>'
-const packageName = text => text.replace(/rui/gi, "").trim().toLowerCase();
+// converts 'rui component name' and for a package we just need 'component-name'
+const packageName = text => text.replace(/rui/gi, "").trim().split(' ').join('-').toLowerCase();
 
 module.exports = plop => {
 	plop.setHelper('packageName', packageName);
@@ -203,16 +210,16 @@ module.exports = plop => {
                     path: `${PATH}/src/index.ts`,
                     templateFile: `${PLOP_PATH}/src/index.ts.hbs`
                 },
-								{
-									type: 'add',
-									path: `${PATH}/tests/{{pascalCase name}}.test.ts`,
-									templateFile: `${PLOP_PATH}/tests/Component.test.ts.hbs`
-								},
-								{
-									type: 'add',
-									path: `${PATH}/tests/tsconfig.json`,
-									templateFile: `${PLOP_PATH}/tests/tsconfig.json.hbs`
-								},
+				{
+					type: 'add',
+					path: `${PATH}/tests/{{pascalCase name}}.test.ts`,
+					templateFile: `${PLOP_PATH}/tests/Component.test.ts.hbs`
+				},
+				{
+					type: 'add',
+					path: `${PATH}/tests/tsconfig.json`,
+					templateFile: `${PLOP_PATH}/tests/tsconfig.json.hbs`
+				}
             ]);
             if (data.adapter === 'React' || data.adapter === 'Both') {
                 actions = actions.concat(reactActions)
