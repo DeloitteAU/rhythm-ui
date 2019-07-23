@@ -47,19 +47,6 @@ const reactActions = [
 		path: `${REACT_PATH}/tsconfig.json`,
 		templateFile: `${PLOP_REACT}/tsconfig.json.hbs`
 	},
-	{
-		type: 'add',
-		path: `${REACT_PATH}/README.md`,
-		templateFile: `${PLOP_REACT}/readme.md.hbs`
-  	},
-	//append the file into the www package json file at the top of the list
-	{
-		type: 'append',
-		path: 'www/package.json',
-		// Pattern tells plop where in the file to inject the template
-		pattern: `"@mdx-js\/react"\: "\^1\.0\.0-rc\.5",`,
-		template: `		"@rhythm-ui/{{packageName name}}-react": "^1.0.0",`,
-	},
 	// import react adaptor in gatsby site so markdown files will display
 	{
 		type: 'modify',
