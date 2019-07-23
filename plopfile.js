@@ -58,13 +58,13 @@ const reactActions = [
 		path: 'www/package.json',
 		// Pattern tells plop where in the file to inject the template
 		pattern: `"@mdx-js\/react"\: "\^1\.0\.0-rc\.5",`,
-		template: `		"@rhythm-ui/{{kebabCase name}}-react": "^1.0.0",`,
+		template: `		"@rhythm-ui/{{packageName name}}-react": "^1.0.0",`,
 	},
 	{
 		type: 'append',
 		path: 'www/src/templates/Markdown/Markdown.tsx',
 		pattern: `//Import here//`,
-		template: `import '@rhythm-ui/{{kebabCase name}}-react';`,
+		template: `import '@rhythm-ui/{{packageName name}}-react';`,
 	}
 ];
 
@@ -135,7 +135,11 @@ const checkComponent = () => {
 
 const ensureRui = text => `rui ${text.replace(/Rui/gi, "")}`;
 
+// name comes in as 'rui <component name>' and for a package we just need '< componentname>'
+const packageName = text => text.replace(/rui/gi, "").trim().toLowerCase();
+
 module.exports = plop => {
+	plop.setHelper('packageName', packageName);
     plop.setGenerator('component', {
         description: 'create a new component',
 
