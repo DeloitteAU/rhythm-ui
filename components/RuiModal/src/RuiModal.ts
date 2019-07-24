@@ -117,7 +117,7 @@ export class RuiModal extends LitElement {
 		return html`
 			<div id="modal-container" class="${this.open ? 'modal-container open': 'modal-container'}">>
 				<div role="dialog" id="modal" aria-modal="true" class="${this.open ? 'modal open': 'modal'}">
-					<a href="/test">Another</a>
+					<a href="#">Another</a>
 					<slot id="modal-content"></slot>
 					<button @click=${():void => {this.open = false; }}>Close modal</button>
 				</div>
