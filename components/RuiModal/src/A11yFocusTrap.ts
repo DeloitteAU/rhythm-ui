@@ -10,10 +10,6 @@ export default class FocusTrap {
     public constructor(element: HTMLElement, id: string, inititiallyFocusedEl?: HTMLElement) {
         this._trappedEl = element;
 
-        if (document && document.activeElement) {
-            this._initialDocumentFocusEl = document.activeElement as HTMLElement;
-        }
-
         if (inititiallyFocusedEl) {
             this._initiallyFocusedEl = inititiallyFocusedEl;
         }
@@ -40,6 +36,10 @@ export default class FocusTrap {
     }
 
     public focusFirstEl(): void {
+
+        if (document && document.activeElement) {
+            this._initialDocumentFocusEl = document.activeElement as HTMLElement;
+        }
 
         if (this._initiallyFocusedEl) {
             this._initiallyFocusedEl.focus();
