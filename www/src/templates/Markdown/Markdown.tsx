@@ -4,7 +4,7 @@ import {graphql} from 'gatsby';
 import {css} from '@emotion/core';
 
 // Import these so markdown files render if they are using these tags
-//Import here//
+// @@ GENERATOR IMPORT COMPONENT
 import '@rhythm-ui/rui-card-react';
 import '@rhythm-ui/button-react';
 import '@rhythm-ui/story-react';
