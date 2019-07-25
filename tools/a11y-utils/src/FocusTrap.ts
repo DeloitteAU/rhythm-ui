@@ -36,6 +36,9 @@ export default class FocusTrap {
     // the parent element of the trap
     private _parentEl: HTMLElement | null = null;
 
+    // whether or not the trap is currently active
+    private _isActive: boolean = false;
+
     /**
      * Here we set up the elements required for the focus trap to operate,
      * and save the references to the elements we will need later.
@@ -82,6 +85,11 @@ export default class FocusTrap {
      * the trap start and end divs that we created for the trap
      */
     public destroy = (): void => {
+
+        if (this.isActive) {
+            this.free();
+        }
+
         if (this._parentEl) {
             if (this._trapStartEl) {
                 this._parentEl.removeChild(this._trapStartEl);
@@ -118,6 +126,8 @@ export default class FocusTrap {
             this.hideOthers(this._parentEl);
             this.focusFirstEl();
         }
+
+        this.isActive = true;
     }
 
     /**
@@ -139,7 +149,9 @@ export default class FocusTrap {
         }
 
         this.unhideOthers();
-		this.restoreFocus();
+        this.restoreFocus();
+        
+        this.isActive = false;
     }
 
     /**
@@ -263,6 +275,14 @@ export default class FocusTrap {
         return this._trappedEl 
             ? this._getFocusableElements(this._trappedEl)
             : [];
+    }
+
+    public get isActive(): boolean {
+        return this._isActive;
+    }
+
+    public set isActive(isActive: boolean) {
+        this._isActive = isActive;
     }
 
     /**

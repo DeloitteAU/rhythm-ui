@@ -134,6 +134,14 @@ export class RuiModal extends LitElement {
 		}
 	}
 
+	public disconnectedCallback() {
+		super.disconnectedCallback();
+
+		if (this._focusTrap) {
+			this._focusTrap.destroy();
+		}
+	}
+
 	/**
 	 * Render method
 	 * @slot This is a slot test
