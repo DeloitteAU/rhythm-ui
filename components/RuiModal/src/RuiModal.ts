@@ -18,8 +18,22 @@ export class RuiModal extends LitElement {
 	private _modalEl: HTMLElement | null = null;
 	private _modalContainerEl: HTMLElement | null = null;
 	private _open: boolean = false;
-
 	private _a11yUtils: A11yUtils = new A11yUtils();
+
+	@property({
+		type : Boolean,
+		attribute: 'no-click-outside-close',
+		converter: (value): boolean => value === undefined,
+	})
+	public clickOutsideClose: boolean = true;
+
+	@property({
+		type : Boolean,
+		attribute: 'no-esc-btn-close',
+		converter: (value): boolean => value === undefined,
+	})
+	public escBtnClose: boolean = true;
+
 
 	@property({
 		type : Boolean,
@@ -66,11 +80,18 @@ export class RuiModal extends LitElement {
 		
 	}
 
+	private _handleKeyPress = (e): void => {
+		if (e.keyCode === 27 || e.key === "Escape") {
+			this.open = false;
+		}
+	}
+
 	/* #region Methods */
 
-	private _initialiseModal(): void {
+	private _initialiseModal = (): void => {
 		if (this.shadowRoot) {
 			const modalEl = this.shadowRoot.querySelector('#modal') as HTMLElement;
+			
 			if (modalEl) {
 				this._modalEl = modalEl;
 				this._focusTrap = new FocusTrap(modalEl, 'rui-modal');
@@ -86,14 +107,22 @@ export class RuiModal extends LitElement {
 
 				this._modalContainerEl.addEventListener('click', (e): void => {
 					if (e.target === this._modalContainerEl) {
-						this.open = false;
+						if (this.clickOutsideClose) {
+							this.open = false;
+						}				
 					}
 				})
 			}
+
+
+			if (this.escBtnClose) {
+				document.addEventListener('keydown', this._handleKeyPress);
+			}
+			
 		}
 	}
 
-	private _handleModalOpen(): void {
+	private _handleModalOpen = (): void => {
 		document.body.style.overflow = 'hidden';
 		this._a11yUtils.hideOthers(this);
 		if (this._focusTrap) {
@@ -101,7 +130,7 @@ export class RuiModal extends LitElement {
 		}
 	}
 
-	private _handleModalClose(): void {
+	private _handleModalClose = (): void => {
 		document.body.style.overflow = '';
 		this._a11yUtils.unhideOthers();
 		if (this._focusTrap) {
@@ -115,7 +144,7 @@ export class RuiModal extends LitElement {
 	 */
 	public render(): TemplateResult {
 		return html`
-			<div id="modal-container" class="${this.open ? 'modal-container open': 'modal-container'}">>
+			<div id="modal-container" tabindex="-1" class="${this.open ? 'modal-container open': 'modal-container'}">
 				<div role="dialog" id="modal" aria-modal="true" class="${this.open ? 'modal open': 'modal'}">
 					<a href="#">Another</a>
 					<slot id="modal-content"></slot>
