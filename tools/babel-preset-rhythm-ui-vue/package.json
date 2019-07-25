@@ -1,0 +1,15 @@
+{
+	"name": "babel-preset-rhythm-ui-vue",
+	"version": "1.0.0",
+	"license": "BSD-3-Clause",
+	"main": "index.js",
+	"dependencies": {
+		"@babel/cli": "^7.4.4",
+		"@babel/core": "^7.4.4",
+		"babel-preset-rhythm-ui": "^1.0.0",
+		"babel-preset-vue": "^2.0.2"
+	},
+	"devDependencies": {
+		"@babel/plugin-transform-typescript": "^7.4.5"
+	}
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import {graphql, StaticQuery, Link} from 'gatsby';
-import headerStyles from './Header.css';
+import * as styles from './Header.css';
 import Search from '../Search/Search';
 
 export class Header extends React.Component {
@@ -15,8 +15,11 @@ export class Header extends React.Component {
 					}
 				`}
 				render={data => (
-					<header css={headerStyles}>
+					<header css={styles.headerStyles}>
 						<Link to="/">Rhythm UI Design System</Link>
+						<ul css={styles.nav}>
+							<li><Link to="/docs/components/rui-expand-collapse">Components</Link></li>
+						</ul>
 						<Search searchIndex={data.siteSearchIndex.index} />
 					</header>
 				)}

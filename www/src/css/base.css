@@ -5,16 +5,26 @@ body,
 	height: 100%;
 }
 
-.cm {
-	padding: 30px;
+.hero {
+	background: #893799;
+	background: linear-gradient(to bottom, #893799 0%, #563383 100%);
+	color: #FFFFFF;
+	padding: 150px 0 150px;
+	position: relative;
 }
 
-rui-story .cm {  /* stylelint-disable-line selector-type-no-unknown */
-	padding: 0;
+.hero .hero__content {
+	position: relative;
+	z-index: 2;
+
+	/* Allow users to interact with particles behind the test */
+	pointer-events: none;
+	user-select: none;
 }
 
-rui-story .story-cta > .plus-icon {  /* stylelint-disable-line selector-type-no-unknown */
-	margin-left: 5px;
+.hero p,
+.hero a {
+	color: #FFFFFF;
 }
 
 .example-image-el {
@@ -32,4 +42,17 @@ rui-grid {
 
 rui-expand-collapse > p {
 	margin: 0;
+}
+
+canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+
+.feature {
+	padding: 90px 0;
 }

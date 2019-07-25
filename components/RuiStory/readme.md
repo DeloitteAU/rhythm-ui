@@ -15,7 +15,7 @@ Stories take up the width and height of their containers. They take a title and 
     domain="Domain"
 >
     <div slot="img" class="example-image-el">Image Element</div>
-    <div slot="content" class="cm cm-rich-text">
+    <div slot="content">
         <p>Your custom content</p>
     </div>
     <a class="story-cta" href="http://localhost:8000" slot="cta">
@@ -34,7 +34,7 @@ News items look their best when given an image, title and some content. However 
             title="Title"
         >
             <div slot="img" class="example-image-el">Image Element</div>
-            <div slot="content" class="cm cm-rich-text">
+            <div slot="content">
                 <p>Your custom content
                 </p>
             </div>
@@ -45,7 +45,7 @@ News items look their best when given an image, title and some content. However 
         <rui-story
         >
             <div slot="img" class="example-image-el">Image Element</div>
-            <div slot="content" class="cm cm-rich-text">
+            <div slot="content">
                 <p>Your custom content
                 </p>
             </div>
@@ -58,7 +58,7 @@ News items look their best when given an image, title and some content. However 
             title="Title"
         >
             <div slot="img" class="example-image-el">Image Element</div>
-            <div slot="content" class="cm cm-rich-text">
+            <div slot="content">
                 <p>Your custom content
                 </p>
             </div>
@@ -78,7 +78,7 @@ Below is a fully populated row of stories, along with some externally styled con
             domain="Perspectives"
         >
             <img slot="img" class="story-img" src="https://bit.ly/313MP5R" />
-            <div slot="content" class="cm cm-rich-text">
+            <div slot="content">
                 <p>At Deloitte we help our clients navigate complex challenges 
                     brought about by technological innovation and changes in consumer behaviour.
                 </p>
@@ -94,7 +94,7 @@ Below is a fully populated row of stories, along with some externally styled con
             domain="Ready. Set. Emerge!"
         >
             <img slot="img" class="story-img" src="https://bit.ly/2QIxoeD" />
-            <div slot="content" class="cm cm-rich-text">
+            <div slot="content">
                 <p>Emerging technoligies are significantly transforming our
                     lives and organisations. How do we manage this growth, and harness it?
                 </p>
@@ -110,7 +110,7 @@ Below is a fully populated row of stories, along with some externally styled con
             domain="Energy Accelerated"
         >
             <img slot="img" class="story-img" src="https://bit.ly/2Xio7ws" />
-            <div slot="content" class="cm cm-rich-text">
+            <div slot="content">
                 <p>We are in the middle of an energy transition. What will you 
                     do today to embrace the enery transition and shape the future of energy?
                 </p>

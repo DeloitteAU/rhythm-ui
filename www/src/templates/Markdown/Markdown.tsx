@@ -1,13 +1,14 @@
-/* eslint react/no-multi-comp:0 */
-
 import {MDXRenderer} from 'gatsby-mdx';
 import {MDXProvider} from '@mdx-js/react';
 import {graphql} from 'gatsby';
 import {css} from '@emotion/core';
 
 // Import these so markdown files render if they are using these tags
+// @@ GENERATOR IMPORT COMPONENT
+import '@rhythm-ui/rui-card-react';
 import '@rhythm-ui/button-react';
 import '@rhythm-ui/story-react';
+import '@rhythm-ui/rui-breadcrumbs-react';
 import '@rhythm-ui/expand-collapse-react';
 import '@rhythm-ui/pagination-react';
 import RuiLayout from '@rhythm-ui/layout-react';
@@ -103,9 +104,9 @@ const Template = ({
 	const githubUrlPath = `
 	${process.env.GATSBY_GITHUB_URL}${replaceChar(relativeUrlPath)}/readme.md
 	`;
-
+	/* eslint-disable react/display-name */
 	const mdxComponents = {
-		pre: (props: any) => { //eslint-disable-line react/display-name
+		pre: (props: any) => { //eslint-disable-line react/no-multi-comp
 
 			const preProps = preToCodeBlock(props);
 
@@ -147,7 +148,7 @@ const Template = ({
 							{h.depth === 3 && <span style={{marginRight: 10}} /> }<a href={h.link}>{h.label}</a>
 						</div>
 					))}
-					{data.ruidocs.nodes.length && <div><a href="#variables">CSS Variables</a></div>}
+					{data.ruidocs.nodes.length && <div><a href="#css-variables">CSS Variables</a></div>}
 					<br /><br />
 					<a href={githubUrlPath} target="_blank">Edit this page</a>
 				</aside>
