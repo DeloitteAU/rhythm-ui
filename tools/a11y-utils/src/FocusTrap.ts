@@ -217,6 +217,11 @@ export default class FocusTrap {
         this._lastFocusedEl = event.target;
     }
 
+    /**
+     * If the trap start element that we created is focused,
+     * we either have to wrap around to the last focusable element
+     * or the first depending on what the last focused element is
+     */
     private _handleTrapStartFocus = (): void => {
         const focusableElements: HTMLElement[] = this.focusableElements;
 
@@ -231,6 +236,11 @@ export default class FocusTrap {
         }
     }
 
+    /**
+     * If the trap end element that we created is focused,
+     * we either have to wrap around to the last focusable element
+     * or the first depending on what the last focused element is
+     */
     private _handleTrapEndFocus = (): void => {
         const focusableElements: HTMLElement[] = this.focusableElements;
 
@@ -245,18 +255,30 @@ export default class FocusTrap {
         }
     }
 
+    /**
+     * returns all focusable elements within the focus trap, appart from
+     * the trap start and end elements
+     */
     public get focusableElements(): HTMLElement[] {
         return this._trappedEl 
             ? this._getFocusableElements(this._trappedEl)
             : [];
     }
 
+    /**
+     * Used to restore focuse to the initially focused element in the 
+     * document before the trap was activated
+     */
     public restoreFocus = (): void => {
         if (this._initialDocumentFocusEl) {
             this._initialDocumentFocusEl.focus();
         }
     }
 
+    /**
+     * A recursive function that traverses all elements within the 
+     * given element and returns an array of all focusable elements
+     */
     private _getFocusableElements = (element: HTMLElement): HTMLElement[] => {
 		
 		let focusableElements: HTMLElement[] = [];
@@ -264,6 +286,8 @@ export default class FocusTrap {
         const TRAP_START_ID = this._trapStartEl ? this._trapStartEl.id : '';
         const TRAP_END_ID = this._trapEndEl ? this._trapEndEl.id : '';
 
+        // if the current element is focusable and not the trap start or end element then we
+        // add it to the focusable elements array
 		if (this._isFocusable(element) && element.id !== TRAP_START_ID && element.id !== TRAP_END_ID) {
 			focusableElements = [
 				...focusableElements,
@@ -273,13 +297,15 @@ export default class FocusTrap {
 
 		const numChildNodes = element.childNodes.length;
 
+        // if the element is a web component with a shadowroot, then need to traverse the shadow root
 		if (element.shadowRoot) {
             // FIXME
             const el = element.shadowRoot as unknown as HTMLElement;
 			focusableElements = [
 				...focusableElements,
 				...this._getFocusableElements(el)
-			]
+            ]
+        // if the element has children then need to traverse each child
 		} else if (numChildNodes > 0) {
 			for (let i = 0; i < numChildNodes; i++) {
 				const el = element.childNodes[i] as HTMLElement;
@@ -287,7 +313,9 @@ export default class FocusTrap {
 					...focusableElements,
 					...this._getFocusableElements(el)
 				]
-			}
+            }
+            
+        // if the element is a slot, need to traverse each of the assigned nodes
 		} else if (element instanceof HTMLSlotElement) {
 			const slottedNodes = element.assignedNodes();
 			if (slottedNodes.length > 0) {
@@ -304,6 +332,11 @@ export default class FocusTrap {
 		return focusableElements;
     }
     
+    /**
+     * Returns whether an element is focusable or not,
+     * currently buttons, inputs, selects, textarea elements are all focusable
+     * as well as any element with a href attribute or a tabindex other than -1
+     */
     private _isFocusable = (element: HTMLElement): boolean => {
 		if (element instanceof HTMLButtonElement) { return true; }
 		if (element instanceof HTMLInputElement) { return true; }
