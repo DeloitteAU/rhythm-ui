@@ -21,6 +21,7 @@
 		"ruidocs": "^1.0.0"
 	},
 	"dependencies": {
-		"lit-element": "^2.1.0"
+		"lit-element": "^2.1.0",
+		"@rhythm-ui/a11y-utils": "^1.0.0"
 	}
 }

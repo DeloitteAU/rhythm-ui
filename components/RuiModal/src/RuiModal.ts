@@ -6,10 +6,9 @@
 */
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import {FocusTrap} from '@rhythm-ui/a11y-utils';
 import {variables, layout} from './RuiModal.css'
 
-import FocusTrap from './A11yFocusTrap';
-import A11yUtils from './A11yUtils';
 
 export class RuiModal extends LitElement {
 
@@ -18,7 +17,6 @@ export class RuiModal extends LitElement {
 	private _modalEl: HTMLElement | null = null;
 	private _modalContainerEl: HTMLElement | null = null;
 	private _open: boolean = false;
-	private _a11yUtils: A11yUtils = new A11yUtils();
 
 	@property({
 		type : Boolean,
@@ -97,7 +95,7 @@ export class RuiModal extends LitElement {
 				this._focusTrap = new FocusTrap(modalEl, 'rui-modal');
 
 				if (this.open) {
-					this._focusTrap.focusFirstEl();
+					this._focusTrap.trap();
 				}
 			}
 			
@@ -124,17 +122,15 @@ export class RuiModal extends LitElement {
 
 	private _handleModalOpen = (): void => {
 		document.body.style.overflow = 'hidden';
-		this._a11yUtils.hideOthers(this);
 		if (this._focusTrap) {
-			this._focusTrap.focusFirstEl();
+			this._focusTrap.trap();
 		}
 	}
 
 	private _handleModalClose = (): void => {
 		document.body.style.overflow = '';
-		this._a11yUtils.unhideOthers();
 		if (this._focusTrap) {
-			this._focusTrap.restoreFocus();
+			this._focusTrap.free();
 		}
 	}
 
