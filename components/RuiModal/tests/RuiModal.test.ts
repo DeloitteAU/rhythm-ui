@@ -12,7 +12,7 @@ import TestUtils from '../../../TestUtils';
 describe('RuiModal', () => {
 
 	it('Renders', async () => {
-		const ele = await TestUtils.render('rui-modal', {}, '');
+		const ele = await TestUtils.render('rui-modal', {open: true}, '');
 		expect(ele).toBeDefined();
 
 		// Enable if your component has a shadow root
