@@ -246,7 +246,7 @@ export const layout = css`
 
 		font-size: var(--rui-pagination__font-size);
 		font-weight: var(--rui-pagination__font-weight);
-		width: var(--rui-pagination__width);
+		min-width: var(--rui-pagination__width);
 		height: var(--rui-pagination__height);
 		text-align: var(--rui-pagination__text-align);
 		margin: var(--rui-pagination__margin);
@@ -281,15 +281,13 @@ export const layout = css`
 
 	.pagination-link:not(.disabled):not(.pagination-link--current):focus:after {
 		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-
+		top: -4px;
+		left: -4px;
 		border: var(--rui-pagination__after-border-focus);
 		background: var(--rui-pagination__after-background-focus);
 		content: var(--rui-pagination__after-content-focus);
-		width: var(--rui-pagination__width);
-		height: var(--rui-pagination__height);
+		width: calc(100% + 4px);
+		height: calc(100% + 4px);
 		border-radius: var(--rui-pagination__border-radius);
 	}
 
