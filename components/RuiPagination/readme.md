@@ -17,12 +17,11 @@ The pagination links are configured via the `items` attribute. The current pages
         "2": {"href": "#2"},
         "3": {"href": "#3"},
         "4": {"href": "#4"},
-        "5": {"href": "#5"},
-        "6": {"href": "#6"}
+        "5": {"href": "#5"}
     }'
     next-link="#"
     prev-link="#"
-    current-page="1">
+    current-page="3">
 </rui-pagination>
 ```
 
@@ -36,12 +35,11 @@ If you wish to use custom labels, not the default 1, 2, 3..., page numbers, then
         "2": {"label": "02", "href": "#2"},
         "3": {"label": "03", "href": "#3"},
         "4": {"label": "04", "href": "#4"},
-        "5": {"label": "05", "href": "#5"},
-        "6": {"label": "06", "href": "#6"}
+        "5": {"label": "05", "href": "#5"}
     }'
     next-link="#"
     prev-link="#"
-    current-page="1">
+    current-page="3">
 </rui-pagination>
 ```
 
