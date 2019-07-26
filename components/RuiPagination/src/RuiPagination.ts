@@ -57,6 +57,8 @@ export class RuiPagination extends LitElement {
 
 	private leftEllipsesEl: HTMLElement | null = null;
 	private rightEllipsesEl: HTMLElement | null = null;
+	private nextSlottedEl: HTMLElement | null = null;
+	private prevSlottedEl: HTMLElement | null = null;
 
 	/**
 	 * Here we duplicate the provided ellipses slotted content and also
@@ -74,6 +76,16 @@ export class RuiPagination extends LitElement {
 			this.rightEllipsesEl = this.leftEllipsesEl.cloneNode(true) as HTMLElement;
 			this.rightEllipsesEl.slot = 'ellipses-dupe';
 			this.appendChild(this.rightEllipsesEl);
+		}
+
+		const nextSlottedEl = this.querySelector('[slot=next]') as HTMLElement;
+		if (nextSlottedEl) {
+			this.nextSlottedEl = nextSlottedEl
+		}
+
+		const prevSlottedEl = this.querySelector('[slot=prev]') as HTMLElement;
+		if (prevSlottedEl) {
+			this.prevSlottedEl = prevSlottedEl
 		}
 	}	
 	
@@ -199,36 +211,38 @@ export class RuiPagination extends LitElement {
 		const isCurrentPage = currentPage === pageNumber;
 
 		const itemConfig = this.items[pageNumber] || {};
+		console.log(itemConfig);
 		const label = itemConfig.label || pageNumber;
 		const href = itemConfig.href || false;
 
+		let tag = html``;
 		if (isCurrentPage) {
-			return html`
-				<li>
-					<a class="pagination-link${isCurrentPage ? ' pagination-link--current' : ''}" aria-label="Goto page ${pageNumber}">${label}</a>
-				</li>
+			tag = html`
+				<a class="pagination-link${isCurrentPage ? ' pagination-link--current' : ''}" aria-label="Goto page ${pageNumber}">${label}</a>
 			`
 		} else if (href) {
-			return html`
-				<li>
-					<a class="pagination-link${isCurrentPage ? ' pagination-link--current' : ''}" href="${href}" aria-label="Goto page ${pageNumber}">${label}</a>
-				</li>
+			tag = html`
+				<a class="pagination-link${isCurrentPage ? ' pagination-link--current' : ''}" href="${href}" aria-label="Goto page ${pageNumber}">${label}</a>
 			`
 		} else {
 			const evt = this._generateItemClickEvent(pageNumber);
 			const onClick = ():void => { this.dispatchEvent(evt); }
-			return html`
-				<li>
+			tag =  html`
 					<a class="pagination-link${isCurrentPage ? ' pagination-link--current' : ''}" @click=${onClick} aria-label="Goto page ${pageNumber}">${label}</a>
-				</li>
 			`
 		}
+
+		return html`
+			<li class="pagination-item${isCurrentPage ? ' pagination-item--current' : ''}">
+				${tag}
+			</li>
+		`
 		
 	}
 
 	private _renderEllipsesItem(side: string): TemplateResult {
 		return html`
-			<li>
+			<li class="pagination-item">
 				<div class="ellipses">
 					<slot name=${(side === 'left') ? 'ellipses' : 'ellipses-dupe'}></slot>
 				</div>
@@ -275,25 +289,33 @@ export class RuiPagination extends LitElement {
 		let classes = 'pagination-link pagination-link--previous';
 		if (isDisabled) { classes += ' disabled'}
 
+
+		const prevEl = this.prevSlottedEl
+			? html`<slot name="prev-content"></slot>`
+			: html`<span class="arrow arrow-left"></span>`;
+
 		if (isDisabled) {
-			tag = html`<span class=${classes}><slot name="prev-content"></slot></span>`;
+			tag = html`<span class=${classes}>${prevEl}</span>`;
 		} else if (this.prevlink) {
 			const href = isDisabled ? false : this.prevlink;
 			tag = html`
 				<a class=${classes} aria-label=${ariaLabel} ?href=${href}>
-					<slot name="prev-content"></slot>
+					${prevEl}
 				</a>`
 		} else {
 			const evt = this._generatePrevClickEvent();
 			const onClick = ():void => { this.dispatchEvent(evt); }
 			tag = html`
 				<a class=${classes} aria-label=${ariaLabel} @click=${onClick}>
-					<slot name="prev-content"></slot>
+					${prevEl}
 				</a>`
 		}
+
+		let liClasses = 'pagination-item';
+		if (isDisabled) { liClasses += ' disabled'}
 		
 		return html`
-			<li>
+			<li class=${liClasses}>
 				${tag}
 			</li>
 		`;
@@ -308,25 +330,32 @@ export class RuiPagination extends LitElement {
 		let classes = 'pagination-link pagination-link--next';
 		if (isDisabled) { classes += ' disabled'}
 
+		const nextEl = this.nextSlottedEl
+			? html`<slot name="next-content"></slot>`
+			: html`<span class="arrow arrow-right"></span>`;
+
 		if (isDisabled) {
-			tag = html`<span class=${classes}><slot name="next-content"></slot></span>`;
+			tag = html`<span class=${classes}>${nextEl}</span>`;
 		} else if (this.nextlink) {
 			const href = isDisabled ? false : this.nextlink;
 			tag = html`
 				<a class=${classes} aria-label=${ariaLabel} ?href=${href}>
-					<slot name="next-content"></slot>
+					${nextEl}
 				</a>`
 		} else {
 			const evt = this._generateNextClickEvent();
 			const onClick = ():void => { this.dispatchEvent(evt); }
 			tag = html`
 				<a class=${classes} aria-label=${ariaLabel} @click=${onClick}>
-					<slot name="next-content"></slot>
+					${nextEl}
 				</a>`
 		}
+
+		let liClasses = 'pagination-item';
+		if (isDisabled) { liClasses += ' disabled'}
 		
 		return html`
-			<li>
+			<li class=${liClasses}>
 				${tag}
 			</li>
 		`;

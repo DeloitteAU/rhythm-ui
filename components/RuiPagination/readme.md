@@ -8,18 +8,18 @@ Readme file for rui-pagination
 ```html preview
     <rui-pagination
         items='{
-            "1": {"href": "#1"},
-            "2": {"href": "#2"},
-            "3": {"href": "#3"},
-            "4": {"href": "#4"},
-            "5": {"href": "#5"},
-            "6": {"href": "#6"}
+            "1": {"label": "01", "href": "#1"},
+            "2": {"label": "02", "href": "#2"},
+            "3": {"label": "03", "href": "#3"},
+            "4": {"label": "04", "href": "#4"},
+            "5": {"label": "05", "href": "#5"},
+            "6": {"label": "06", "href": "#6"}
         }'
+        nextlink="#"
+        prevlink="#"
         current-page="1"
         pages-shown="3"
         num-pages="6">
-        <span slot="prev-content">Previous</span>
-        <span slot="next-content">Next</span>
         <span slot="ellipses">...</span>
     </rui-pagination>
 ```
