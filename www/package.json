@@ -36,6 +36,7 @@
     "@rhythm-ui/button-react": "^1.0.0",
     "@rhythm-ui/expand-collapse-react": "^1.0.0",
     "@rhythm-ui/grid-react": "^1.0.0",
+	"@rhythm-ui/icon-react": "^1.0.0",
     "@rhythm-ui/layout-react": "^1.0.0",
     "@rhythm-ui/rui-breadcrumbs-react": "^1.0.0",
     "@rhythm-ui/rui-card-react": "^1.0.0",
