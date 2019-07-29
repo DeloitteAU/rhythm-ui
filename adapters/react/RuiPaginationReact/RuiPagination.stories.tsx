@@ -1,6 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import {withKnobs, number, object, string} from '@storybook/addon-knobs';
+import {withKnobs, number, object, text} from '@storybook/addon-knobs';
 import RuiPagination from './src';
 import Readme from './README.md';
 
@@ -23,9 +23,9 @@ storiesOf('Pagination', module)
 	.add('Playground', () => (
 		<RuiPagination
 			currentPage={number('currentPage', 3)}
-			items={object('items', playgroundItems)}
-			nextLink={string('nextLink', '#')}
-			prevLink={string('prevLink', '#')}
+			items={object('crumbs', playgroundItems)}
+			nextLink={text('nextLink', '#')}
+			prevLink={text('prevLink', '#')}
 			pagesShown={number('pagesShown', 5)}
 		/>
 	))

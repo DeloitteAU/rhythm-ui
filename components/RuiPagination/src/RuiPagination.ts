@@ -8,57 +8,114 @@
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
 import {variables, layout} from './RuiPagination.css'
 
+interface IRuiPaginationItems {
+	[key: string]: {
+		label?: string,
+		href?: string,
+	}
+}
 
 export class RuiPagination extends LitElement {
+	// reference to the left shown ellipses element
+	private leftEllipsesEl: HTMLElement | null = null;
+
+	// reference to the right shown ellipses element
+	private rightEllipsesEl: HTMLElement | null = null;
+
+	// reference to the next element
+	private nextSlottedEl: HTMLElement | null = null;
+
+	// reference to the prev element
+	private prevSlottedEl: HTMLElement | null = null;
 
 	/**
 	 * Indicates which page the user is currently on
 	 */
+	private _currentPage: number = 1;
 	@property({
 		type : Number,
 		attribute: 'current-page',
 	})
-	public currentPage = 1;
+	public get currentPage(): number {
+		return this._currentPage;
+	}
+	public set currentPage(currentPage: number) {
+		const oldVal = this._currentPage;
+		this._currentPage = currentPage;
+		this.requestUpdate('currentPage', oldVal);
+	}
 
 	/**
 	 * Indcates how many pages can be shown before truncation logic applies.
 	 * If not provided, all pages will be shown
 	 */
+	private _pagesToShow?: number;
 	@property({
 		type : Number,
 		attribute: 'pages-shown'
 	})
-	public pagesToShow?;
+	public get pagesToShow(): number | undefined {
+		return this._pagesToShow;
+	};
+	public set pagesToShow(pagesToShow: number | undefined) {
+		const oldVal = this._pagesToShow;
+		this._pagesToShow = pagesToShow;
+		this.requestUpdate('pagesToShow', oldVal);
+	}
 
 	/**
 	 * Indicates how many pages total are present in cases where the
 	 * user doesn't want to use the items attribute
 	 */
+	private _numberOfPages?: number;
 	@property({
 		type : Number,
 		attribute: 'num-pages'
 	})
-	public numberOfPages?;
+	public get numberOfPages(): number | undefined {
+		return this._numberOfPages;
+	};
+	public set numberOfPages(numberOfPages: number | undefined) {
+		const oldVal = this._numberOfPages;
+		this._numberOfPages = numberOfPages;
+		this.requestUpdate('numberOfPages', oldVal);
+	}
 
 	/**
 	 * The href to direct to on previous item click,
 	 * if not provided, an event will be dispatched instead
 	 */
+	private _prevLink?: string;
 	@property({
 		type : String,
 		attribute: 'prev-link'
 	})
-	public prevLink?;
+	public get prevLink(): string | undefined {
+		return this._prevLink;
+	};
+	public set prevLink(prevLink: string | undefined) {
+		const oldVal = this._prevLink;
+		this._prevLink = prevLink;
+		this.requestUpdate('prevLink', oldVal);
+	}
 
 	/**
 	 * The href to direct to on next item click,
 	 * if not provided, an event will be dispatched instead
 	 */
+	private _nextLink?: string;
 	@property({
 		type : String,
 		attribute: 'next-link'
 	})
-	public nextLink?;
+	public get nextLink(): string | undefined {
+		return this._nextLink;
+	};
+	public set nextLink(nextLink: string | undefined) {
+		const oldVal = this._nextLink;
+		this._nextLink = nextLink;
+		this.requestUpdate('nextLink', oldVal);
+	}
 
 	/**
 	 * An object of the form:
@@ -72,22 +129,18 @@ export class RuiPagination extends LitElement {
 	 * that is used to configure where the pagination items should
 	 * link to and what their labels should be (if not page number)
 	 */
+	private _items?: IRuiPaginationItems;
 	@property({
 		type : Object,
 	})
-	public items = {};
-
-	// reference to the left shown ellipses element
-	private leftEllipsesEl: HTMLElement | null = null;
-
-	// reference to the right shown ellipses element
-	private rightEllipsesEl: HTMLElement | null = null;
-
-	// reference to the next element
-	private nextSlottedEl: HTMLElement | null = null;
-
-	// reference to the prev element
-	private prevSlottedEl: HTMLElement | null = null;
+	public get items(): IRuiPaginationItems | undefined {
+		return this._items;
+	};
+	public set items(items: IRuiPaginationItems | undefined) {
+		const oldVal = this._items;
+		this._items = items;
+		this.requestUpdate('items', oldVal);
+	}
 
 	/**
 	 * Here we duplicate the provided ellipses slotted content and also
@@ -118,7 +171,6 @@ export class RuiPagination extends LitElement {
 		if (prevSlottedEl) {
 			this.prevSlottedEl = prevSlottedEl
 		}
-
 
 		/**
 		 * If user has not passed in number of pages the number of pages
@@ -189,6 +241,17 @@ export class RuiPagination extends LitElement {
 	 */
 	private _calculatePageStartEnd(): number[] {
 		let pageStart = 1;
+
+		// this should be set in the connectedCallback
+		if (this.numberOfPages === undefined) {
+			return [1, 1];
+		}
+
+		// this should be set in the connectedCallback
+		if (this.pagesToShow === undefined) {
+			return [1, this.numberOfPages]
+		}
+
 		let pageEnd = this.numberOfPages;
 
 		// if the number of pages to show is greater or equal to the number of pages
@@ -247,28 +310,6 @@ export class RuiPagination extends LitElement {
 	/* #region Methods */
 
 	/**
-	 * handle updates to attributes to make them reactive
-	 */
-	public attributeChangedCallback(name, oldVal, newVal): void {
-		switch(name) {
-			case 'current-page':
-				this.currentPage = newVal;
-				this.requestUpdate('currentPage', oldVal);
-				break;
-			case 'pages-shown':
-				this.pagesToShow = newVal;
-				this.requestUpdate('pagesToShow', oldVal);
-				break;
-			case 'num-pages':
-				this.numberOfPages = newVal;
-				this.requestUpdate('numberOfPages', oldVal);
-				break;
-		}
-
-		super.attributeChangedCallback(name, oldVal, newVal);
-	  }
-
-	/**
 	 * Renders a pagination item based on the given pageNumber.
 	 * If the page is the current page then it renders the item
 	 * as the active item
@@ -279,7 +320,7 @@ export class RuiPagination extends LitElement {
 	private _renderPaginationItem(pageNumber, currentPage): TemplateResult {
 		const isCurrentPage = currentPage === pageNumber;
 
-		const itemConfig = this.items[pageNumber] || {};
+		const itemConfig = (this.items && this.items[pageNumber]) ? this.items[pageNumber] : {};
 		const label = itemConfig.label || pageNumber;
 		const href = itemConfig.href || false;
 
