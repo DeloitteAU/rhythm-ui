@@ -283,20 +283,22 @@ export class RuiPagination extends LitElement {
 		const label = itemConfig.label || pageNumber;
 		const href = itemConfig.href || false;
 
+		const ariaLabel = `Goto page ${pageNumber}`;
+
 		let tag = html``;
 		if (isCurrentPage) {
 			tag = html`
-				<a class="pagination-link${isCurrentPage ? ' pagination-link--current' : ''}" aria-label="Goto page ${pageNumber}">${label}</a>
+				<a class="pagination-link${isCurrentPage ? ' pagination-link--current' : ''}" aria-label="${ariaLabel}">${label}</a>
 			`
 		} else if (href) {
 			tag = html`
-				<a class="pagination-link${isCurrentPage ? ' pagination-link--current' : ''}" href="${href}" aria-label="Goto page ${pageNumber}">${label}</a>
+				<a class="pagination-link${isCurrentPage ? ' pagination-link--current' : ''}" href="${href}" aria-label="${ariaLabel}">${label}</a>
 			`
 		} else {
 			const evt = this._generateItemClickEvent(pageNumber);
 			const onClick = (e):void => { e.preventDefault(); this.dispatchEvent(evt); }
 			tag =  html`
-					<a class="pagination-link${isCurrentPage ? ' pagination-link--current' : ''}" href="#" @click=${onClick} aria-label="Goto page ${pageNumber}">${label}</a>
+					<a class="pagination-link${isCurrentPage ? ' pagination-link--current' : ''}" href="#" @click=${onClick} aria-label="${ariaLabel}">${label}</a>
 			`
 		}
 
