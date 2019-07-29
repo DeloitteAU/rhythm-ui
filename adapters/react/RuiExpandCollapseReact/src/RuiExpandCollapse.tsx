@@ -65,7 +65,7 @@ export const Details = (props: IExpandCollapseDetailsProps): React.ReactNode => 
  */
 export class RuiExpandCollapse extends React.Component<IRuiExpandCollapseProps> {
 
-	// used to modify change handler on element
+	// used to modify change d on element
 	private ruiExpandCollapseEl = React.createRef<IHTMLRuiExpandCollapseElement>();
 
 	// expose Summary component as <RuiExpandCollapse.Summary>

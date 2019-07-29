@@ -71,9 +71,7 @@ In this case you should provide the `num-pages` attribute to let the component k
 ```
 
 ## Truncation
-If you have a lot of pages, you can specify how many to show before truncation
-via the `pages-shown` attribute. Note that the first and last pages are 
-always accessible.
+If you have a lot of pages, you can specify how many to show before truncation via the `pages-shown` attribute. Note that the first and last pages are always accessible.
 
 ```html preview
 <rui-pagination

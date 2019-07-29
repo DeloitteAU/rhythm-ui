@@ -41,17 +41,6 @@ export class RuiPagination extends LitElement {
 	})
 	public nextLink = '';
 
-	/**
-	 * Object containing a maping between page numbers and 
-	 * display text/links
-	 * 
-	 * {
-	 * 	1: {
-	 * 		href: '#', // 
-	 * 		label: 'First Page' // only include if not page number
-	 * 	}
-	 * }
-	 */
 	@property({
 		type : Object,
 	})
@@ -114,13 +103,6 @@ export class RuiPagination extends LitElement {
 	public static get styles(): CSSResultArray {
 		return [variables, layout];
 	}
-
-	// public onnextclick() {}
-
-	// public onprevclick() {}
-
-	// public onitemclick(pageNumber: number) {}
-
 
 	private _generateNextClickEvent(): CustomEvent {
 		return new CustomEvent('rui-pagination-next-click', {
@@ -268,7 +250,8 @@ export class RuiPagination extends LitElement {
 				<div class="ellipses">
 					${el}
 				</div>
-			</li>`;
+			</li>
+		`;
 	}
 
 	private _renderPaginationItems(): TemplateResult[] {
