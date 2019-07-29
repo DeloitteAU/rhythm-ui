@@ -11,52 +11,90 @@ import {variables, layout} from './RuiPagination.css'
 
 export class RuiPagination extends LitElement {
 
+	/**
+	 * Indicates which page the user is currently on
+	 */
 	@property({
 		type : Number,
 		attribute: 'current-page',
 	})
 	public currentPage = 1;
 
+	/**
+	 * Indcates how many pages can be shown before truncation logic applies.
+	 * If not provided, all pages will be shown
+	 */
 	@property({
 		type : Number,
 		attribute: 'pages-shown'
 	})
 	public pagesToShow?;
 
+	/**
+	 * Indicates how many pages total are present in cases where the
+	 * user doesn't want to use the items attribute
+	 */
 	@property({
 		type : Number,
 		attribute: 'num-pages'
 	})
 	public numberOfPages?;
 
+	/**
+	 * The href to direct to on previous item click,
+	 * if not provided, an event will be dispatched instead
+	 */
 	@property({
 		type : String,
 		attribute: 'prev-link'
 	})
-	public prevLink = '';
+	public prevLink?;
 
+	/**
+	 * The href to direct to on next item click,
+	 * if not provided, an event will be dispatched instead
+	 */
 	@property({
 		type : String,
 		attribute: 'next-link'
 	})
-	public nextLink = '';
+	public nextLink?;
 
+	/**
+	 * An object of the form:
+	 * {
+	 * 	 [pageNumber]: {
+	 * 		href?: where the page should link,
+	 * 		label?: a custom label, pageNumber by default
+	 * 	 }
+	 * }
+	 *
+	 * that is used to configure where the pagination items should
+	 * link to and what their labels should be (if not page number)
+	 */
 	@property({
 		type : Object,
 	})
 	public items = {};
 
+	// reference to the left shown ellipses element
 	private leftEllipsesEl: HTMLElement | null = null;
+
+	// reference to the right shown ellipses element
 	private rightEllipsesEl: HTMLElement | null = null;
+
+	// reference to the next element
 	private nextSlottedEl: HTMLElement | null = null;
+
+	// reference to the prev element
 	private prevSlottedEl: HTMLElement | null = null;
 
 	/**
 	 * Here we duplicate the provided ellipses slotted content and also
 	 * display it in the ellipses-dupe slot
-	 * 
+	 *
 	 * Web components do not provide a first class way to render the same provided slot
-	 * content in two places, so we copy the slotted content and change the slot value to 
+	 * content in two places, so we copy the slotted content and change the slot value to
 	 * get around this for the ellipses
 	 */
 	public connectedCallback(): void {
@@ -69,17 +107,23 @@ export class RuiPagination extends LitElement {
 			this.appendChild(this.rightEllipsesEl);
 		}
 
+		// keep reference to next element if user passed it in
 		const nextSlottedEl = this.querySelector('[slot=next-content]') as HTMLElement;
 		if (nextSlottedEl) {
 			this.nextSlottedEl = nextSlottedEl
 		}
 
+		// keep reference to prev element if user passed it in
 		const prevSlottedEl = this.querySelector('[slot=prev-content]') as HTMLElement;
 		if (prevSlottedEl) {
 			this.prevSlottedEl = prevSlottedEl
 		}
 
 
+		/**
+		 * If user has not passed in number of pages the number of pages
+		 * is equal to the length of the items object keys
+		 */
 		if (this.numberOfPages === undefined) {
 			if (this.items) {
 				this.numberOfPages = Object.keys(this.items).length;
@@ -88,34 +132,44 @@ export class RuiPagination extends LitElement {
 			}
 		}
 
+		// if no pages to show is defined we default to the total number of pages
 		if (this.pagesToShow === undefined) {
 			this.pagesToShow = this.numberOfPages;
 		}
-	}		
-	
+	}
+
 
 	/**
-	*
-	* The styles for button
-	* @remarks
-	* If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
-	*/
+	 * The styles for button
+	 * @remarks
+	 * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
+	 */
 	public static get styles(): CSSResultArray {
 		return [variables, layout];
 	}
 
+
+	/**
+	 * Event created when next item is triggered
+	 */
 	private _generateNextClickEvent(): CustomEvent {
 		return new CustomEvent('rui-pagination-next-click', {
 			bubbles: true
 		});
 	}
 
+	/**
+	 * Event created when prev item is triggered
+	 */
 	private _generatePrevClickEvent(): CustomEvent {
 		return new CustomEvent('rui-pagination-prev-click', {
 			bubbles: true
 		})
 	}
 
+	/**
+	 * Event created when pagination item is triggered
+	 */
 	private _generateItemClickEvent(pageNumber: number): CustomEvent {
 		return new CustomEvent('rui-pagination-item-click', {
 			bubbles: true,
@@ -124,8 +178,15 @@ export class RuiPagination extends LitElement {
 			}
 		});
 	}
-	
 
+	/**
+	 * _calculatePageStartEnd handles the calculation of the page start and
+	 * end indexes based on the pages to show constraints.
+	 *
+	 * Note that because we always show the first and last pagination item,
+	 * the pagestart and pageend in this case refer to the items to show
+	 * between the ellipses.
+	 */
 	private _calculatePageStartEnd(): number[] {
 		let pageStart = 1;
 		let pageEnd = this.numberOfPages;
@@ -138,14 +199,14 @@ export class RuiPagination extends LitElement {
 
 		// the number of items that should show to the left of the current page
 		const leftShown = Math.floor(this.pagesToShow / 2);
-		
-		// the render logic is slightly different when we are in the 
+
+		// the render logic is slightly different when we are in the
 		// part of the app where ellipses are not shown
 		const leftSideThreshold = leftShown + 2;
-		
+
 		if (this.currentPage <= leftSideThreshold) {
-			// the number of pagination items that should show is 
-			// defined by pages to show + 4 where 
+			// the number of pagination items that should show is
+			// defined by pages to show + 4 where
 			// the 4 comes from the start and end item which are always present,
 			// and the two ellipses slots which may or may not be actual ellipses
 			// e.g | 1 | ... | pages-to-show items | ... | n |
@@ -159,12 +220,12 @@ export class RuiPagination extends LitElement {
 			if (this.currentPage >= rightSideThreshold) {
 				rightTruncate = rightShown - (this.numberOfPages - this.currentPage) + 2
 			}
-			
+
 			pageStart = Math.max(this.currentPage - leftShown - rightTruncate, 1);
 			pageEnd =  Math.min(this.currentPage + rightShown, this.numberOfPages);
 		}
 
-		// if page start is at 3, then to the left will be 1 and ... 
+		// if page start is at 3, then to the left will be 1 and ...
 		// rather than spend a space on ..., may as well render the 2 instead
 		// | 1 | ... | 3 |  => | 1 | 2 | 3 |
 		if (pageStart === 3) {
@@ -185,6 +246,9 @@ export class RuiPagination extends LitElement {
 
 	/* #region Methods */
 
+	/**
+	 * handle updates to attributes to make them reactive
+	 */
 	public attributeChangedCallback(name, oldVal, newVal): void {
 		switch(name) {
 			case 'current-page':
@@ -204,6 +268,14 @@ export class RuiPagination extends LitElement {
 		super.attributeChangedCallback(name, oldVal, newVal);
 	  }
 
+	/**
+	 * Renders a pagination item based on the given pageNumber.
+	 * If the page is the current page then it renders the item
+	 * as the active item
+	 *
+	 * @param pageNumber Number of page to render
+	 * @param currentPage Currently active page
+	 */
 	private _renderPaginationItem(pageNumber, currentPage): TemplateResult {
 		const isCurrentPage = currentPage === pageNumber;
 
@@ -233,9 +305,14 @@ export class RuiPagination extends LitElement {
 				${tag}
 			</li>
 		`
-		
 	}
 
+	/**
+	 * Renders the ellipses item, will use the given custom ellipses element if present,
+	 * otherwise will render default ...
+	 *
+	 * @param side which side of the pagination the ellipses is appearing on
+	 */
 	private _renderEllipsesItem(side: string): TemplateResult {
 
 		let el = html``;
@@ -254,6 +331,10 @@ export class RuiPagination extends LitElement {
 		`;
 	}
 
+	/**
+	 * Handles the overall rendering logic of the pagination, 
+	 * including rendering of ellipses
+	 */
 	private _renderPaginationItems(): TemplateResult[] {
 		if (this.numberOfPages === 1) {
 			return [this._renderPaginationItem(1,1)];
@@ -286,6 +367,11 @@ export class RuiPagination extends LitElement {
 		return paginationItems;
 	}
 
+	/**
+	 * handles rendering of the previous pagination item
+	 * using user provided previous content if provided or 
+	 * default arrow left
+	 */
 	private _renderPrev(): TemplateResult {
 		let tag: TemplateResult = html``;
 		const isDisabled = (this.currentPage <= 1);
@@ -318,7 +404,7 @@ export class RuiPagination extends LitElement {
 
 		let liClasses = 'pagination-item';
 		if (isDisabled) { liClasses += ' disabled'}
-		
+
 		return html`
 			<li class=${liClasses}>
 				${tag}
@@ -326,6 +412,11 @@ export class RuiPagination extends LitElement {
 		`;
 	}
 
+	/**
+	 * handles rendering of the next pagination item
+	 * using user provided next content if provided or 
+	 * default arrow right
+	 */
 	private _renderNext(): TemplateResult {
 		let tag: TemplateResult = html``;
 
@@ -358,7 +449,7 @@ export class RuiPagination extends LitElement {
 
 		let liClasses = 'pagination-item';
 		if (isDisabled) { liClasses += ' disabled'}
-		
+
 		return html`
 			<li class=${liClasses}>
 				${tag}
@@ -367,16 +458,16 @@ export class RuiPagination extends LitElement {
 	}
 
 	/**
-	* Render method
-		* @slot This is a slot test
-	*/
+	 * Renders the previous, next and pagination items within a
+	 * list
+	 */
 	public render(): TemplateResult {
 		return html`
 			<ul role="navigation" class="pagination">
 				${this._renderPrev()}
 				${this._renderPaginationItems()}
 				${this._renderNext()}
-			</ul>			
+			</ul>
 		`;
 	}
 

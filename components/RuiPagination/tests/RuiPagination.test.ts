@@ -15,8 +15,27 @@ describe('RuiPagination', () => {
 		const ele = await TestUtils.render('rui-pagination', {}, '');
 		expect(ele).toBeDefined();
 
-		// Enable if your component has a shadow root
-		// expect(ele.shadowRoot).toBeDefined();
+		
 	});
 
+	// renders items given via items attribute
+	// renders correct href for items
+	// renders correct label for items
+	// renders current page correctly
+
+
+	// renders prev-link href correctly
+
+	// renders next-link href correctly
+	
+
+	// renders items defined via num-pages attribute
+
+	// renders truncation correctly 
+
+	// renders custom prev-content slot item
+
+	// renders custom next-content slot item
+
+	// renders custom ellipses slot item
 });
