@@ -12,20 +12,14 @@ declare global {
 	}
 }
 
-interface ICrumbConfig {
-    title: string,
-    url?: string
-}
-
 export interface IRuiBreadcrumbsProps {
-    as?: string,
     maxCrumbs?: number,
     children: React.ReactNode[] | React.ReactNode;
-    onCrumbClick: Function,
-    crumbs?: ICrumbConfig[]
+    onCrumbSelect?: Function,
 }
 
 export interface IRuiBreadcrumbsCrumbProps {
+    href?: string,
     truncatedLabel?: string,
     as?: string,
     children: React.ReactNode[] | React.ReactNode;

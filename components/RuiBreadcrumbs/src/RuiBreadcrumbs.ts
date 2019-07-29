@@ -9,15 +9,6 @@ import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-el
 import {variables, layout} from './RuiBreadcrumbs.css'
 
 /**
- * ICrumbConfig describes the structure of the 
- * objects expected within the crumbs JSON array
- */
-interface ICrumbConfig {
-	title: string,
-	url: string
-}
-
-/**
  * RuiBreadcrumbs provide a way for users to see where they are in the 
  * websites IA, as well as providing an easy way to navigate to previously 
  * visited areas
@@ -30,32 +21,15 @@ export class RuiBreadcrumbs extends LitElement {
 	private _seperatorEl: HTMLSlotElement | null = null;
 
 	/**
-	 * An array of the custom slotted crumb elements (if provided)
+	 * An array of the custom slotted crumb elements
 	 */
-	private _customCrumbs: HTMLElement[] = [];
-
-	private _maxCrumbs: number = 7;
-
-	private _crumbs: ICrumbConfig[] = [];
-
-	/**
-	 * The array of breadcrumbs
-	 */
-	@property({type : Array})
-	public get crumbs(): ICrumbConfig[] {
-		return this._crumbs;
-	}
-
-	public set crumbs(crumbs: ICrumbConfig[]) {
-		const oldVal = this.crumbs;
-		this._crumbs = crumbs;
-		this.requestUpdate('crumbs', oldVal);
-	}
+	private _crumbs: HTMLElement[] = [];
 
 	/**
 	 * The maximum number of breadcrumbs to display 
 	 * before truncating
 	 */
+	private _maxCrumbs: number = 7;
 	@property({
 		type : Number,
 		attribute: 'max-crumbs',
@@ -63,7 +37,6 @@ export class RuiBreadcrumbs extends LitElement {
 	public get maxCrumbs(): number {
 		return this._maxCrumbs;
 	}
-
 	public set maxCrumbs(maxCrumbs: number) {
 		const oldVal = this.maxCrumbs;
 		this._maxCrumbs = maxCrumbs;
@@ -82,23 +55,23 @@ export class RuiBreadcrumbs extends LitElement {
 	/**
 	 * Once the component is connected to the dom, we can begin 
 	 * the process of setting up the necessary variables/slots 
-	 * to accomodate custom user crumbs or seperators
+	 * to accomodate user crumbs and/or custom seperators
 	 */
 	public connectedCallback(): void {
 		super.connectedCallback();
 
 		/**
-		 * If custom crumbs are provided, we keep a reference to them in an 
+		 * If crumbs are provided, we keep a reference to them in an 
 		 * array for easy access later, as well as adding the appropriate 
 		 * aria attribute if it has not been provided.
 		 * 
 		 * We also modify the slot value for each so that they can be slotted 
 		 * easily later.
 		 */
-		this._customCrumbs = [...this.querySelectorAll('[slot=crumb]')] as HTMLElement[];
-		if (this._customCrumbs.length > 0) {
-			this._customCrumbs.forEach((crumbEl, i):void => {
-				if (i === this._customCrumbs.length - 1) {
+		this._crumbs = [...this.querySelectorAll('[slot=crumb]')] as HTMLElement[];
+		if (this._crumbs.length > 0) {
+			this._crumbs.forEach((crumbEl, i):void => {
+				if (i === this._crumbs.length - 1) {
 					if (!crumbEl.hasAttribute('aria-current')) {
 						crumbEl.setAttribute('aria-current','page');
 					}
@@ -117,8 +90,8 @@ export class RuiBreadcrumbs extends LitElement {
 		 */
 		this._seperatorEl = this.querySelector('[slot=seperator]');
 		if (this._seperatorEl) {
-			if ( (this.crumbs && this.crumbs.length > 2) || this._customCrumbs.length > 2) {
-				const length = this.crumbs ? this.crumbs.length : this._customCrumbs.length
+			if (this._crumbs.length > 2) {
+				const length = this._crumbs.length
 				
 				// the number of seperators shown is always the number of breadcrumbs - 1
 				const numSeperators = length - 1;
@@ -137,16 +110,14 @@ export class RuiBreadcrumbs extends LitElement {
 	/* #region Methods */
 
 	/**
-	 * Event fired when one of the breadcrumb items has been clicked. Note that 
-	 * this is only generated if no href value has been provided and does not 
-	 * apply to user provided crumbs
+	 * Event fired when one of the truncated breadcrumbs is clicked
+	 * if the item does not have a href value
 	 */
-	private _generateItemClickEvent(crumbIndex: number, isTruncated: boolean): CustomEvent {
-		return new CustomEvent('rui-breadcrumbs-item-click', {
+	private _generateItemSelectEvent(crumbIndex: number): CustomEvent {
+		return new CustomEvent('rui-breadcrumbs-item-select', {
 			bubbles: true,
 			detail: {
 				crumbIndex,
-				truncated: isTruncated,
 			}
 		});
 	}
@@ -160,25 +131,14 @@ export class RuiBreadcrumbs extends LitElement {
 	 */
 	private _handleTruncatedSelectChange(e): void {
 		const indexSelected = e.target.value;
-		const evt = this._generateItemClickEvent(indexSelected, true);
+		const evt = this._generateItemSelectEvent(indexSelected);
 		
 
-		if (this.crumbs && this.crumbs.length > 0) {
-			const crumb = this.crumbs[indexSelected];
-
-			if (crumb.url) {
-				window.location.href = crumb.url;
-			} else {
-				this.dispatchEvent(evt);
-			}
-
+		const crumb = this._crumbs[indexSelected] as HTMLElement;
+		if (crumb.hasAttribute('href')) {
+			window.location.href = crumb.getAttribute('href') || '#';
 		} else {
-			const crumb = this._customCrumbs[indexSelected] as HTMLElement;
-			if (crumb.hasAttribute('href')) {
-				window.location.href = crumb.getAttribute('href') || '#';
-			} else {
-				this.dispatchEvent(evt);
-			}
+			this.dispatchEvent(evt);
 		}
 	}
 
@@ -201,33 +161,13 @@ export class RuiBreadcrumbs extends LitElement {
 	}
 
 	/**
-	 * Renders an individual breadcrumb, if the user has provided custom
-	 * crumbs then it renders a slot with the correct slot name.
+	 * Renders an individual breadcrumb, it renders a slot with the correct slot name.
 	 * 
-	 * If using crumbs config json, it renders a non-interactable anchor for 
-	 * the active crumb, renders a standard link if a url is provided, if 
-	 * no url is provided we render an anchor tag with an onclick that dispatches
-	 * an event
 	 * @param index the index of the crumb array we are up to in render loop
 	 * @param isActiveCrumb whether or not the current crumb is the active page
 	 */
-	private _renderCrumb(index: number, isActiveCrumb: boolean): TemplateResult {
-		let crumbEl = html``;
-		if (this.crumbs && this.crumbs.length > 0) {
-			const crumb = this.crumbs[index]
-			if (isActiveCrumb) {
-				crumbEl = html`<a aria-current="page">${crumb.title}</a>`;
-			} else if (crumb.url) {
-				crumbEl = html`<a href=${crumb.url}>${crumb.title}</a>`;
-			} else {
-				const evt = this._generateItemClickEvent(index, false);
-				const onClick = ():void => { this.dispatchEvent(evt); }
-				crumbEl = html`<a @click=${onClick}>${crumb.title}</a>`;
-			}
-		} else {
-			crumbEl = html`<slot name=${`crumb-${index + 1}`}></slot>`
-		}
-
+	private _renderCrumb(index: number): TemplateResult {
+		const crumbEl = html`<slot name=${`crumb-${index + 1}`}></slot>`
 		return crumbEl;
 	}
 
@@ -250,26 +190,15 @@ export class RuiBreadcrumbs extends LitElement {
 
 	/**
 	 * Contains the core render logic for looping through and rendering the array of 
-	 * list elements representing the breadcrumbs. Logic is slightly different depending
-	 * on if the user is using custom crumbs, or has provided any truncation limits via
-	 * max-crumbs attribute.
+	 * list elements representing the breadcrumbs.
 	 */
 	private _renderBreadCrumbs(): TemplateResult[] {
 		
 		// the array of list elements we will eventually return
 		const crumbEls: TemplateResult[] = [];
 
-		// whether or not the user used the JSON crumbs config or has provided custom crumbs
-		const standardCrumbs = !!this.crumbs && this.crumbs.length > 0;
-		
-		// can create new always defined variable once we know we are using standard crumbs
-		let standardCrumbArr: ICrumbConfig[] = []
-		if (standardCrumbs) {
-			standardCrumbArr = this.crumbs as ICrumbConfig[];
-		}
-
 		// find out the length of JSON crumbs array or custom crumbs array
-		const numCrumbs = standardCrumbs ? standardCrumbArr.length : this._customCrumbs.length;
+		const numCrumbs = this._crumbs.length;
 
 		// how many times to go through the initial loop
 		let loopCount = numCrumbs;
@@ -297,7 +226,7 @@ export class RuiBreadcrumbs extends LitElement {
 			const isActiveCrumb = i === (numCrumbs - 1)
 			
 			const seperatorEl = this._renderSeperator(i);
-			const crumbEl = this._renderCrumb(i, isActiveCrumb)
+			const crumbEl = this._renderCrumb(i)
 
 			let listElClasses = 'breadcrumb__item';
 			if (isActiveCrumb) {
@@ -318,18 +247,14 @@ export class RuiBreadcrumbs extends LitElement {
 		 */
 		if (truncate) {
 			let pageTitles: string[] = [];
-			if (standardCrumbs) {
-				pageTitles = standardCrumbArr.slice(loopCount, -1).map((crumb): string => crumb.title  || '')
-			} else {
-				pageTitles = this._customCrumbs.slice(loopCount, -1).map((crumb): string => {
-					let title = crumb.textContent || ''
-					if (crumb.dataset.truncatedLabel) {
-						title = crumb.dataset.truncatedLabel;
-					}
+			pageTitles = this._crumbs.slice(loopCount, -1).map((crumb): string => {
+				let title = crumb.textContent || ''
+				if (crumb.dataset.truncatedLabel) {
+					title = crumb.dataset.truncatedLabel;
+				}
 
-					return title;
-				})
-			}
+				return title;
+			})
 
 			const truncatedCrumbSelect = this._renderTruncatedCrumbSelect(loopCount, pageTitles);
 			let seperatorEl = this._renderSeperator(loopCount + 1);
@@ -339,7 +264,7 @@ export class RuiBreadcrumbs extends LitElement {
 
 			// if we truncated then we also have to render the final active crumb
 			seperatorEl = this._renderSeperator(numCrumbs - 1);
-			const crumbEl = this._renderCrumb(numCrumbs - 1, true)
+			const crumbEl = this._renderCrumb(numCrumbs - 1);
 			listEl = html`<li class="breadcrumb__item current">${seperatorEl}${crumbEl}</li>`;
 			crumbEls.push(listEl);
 		}

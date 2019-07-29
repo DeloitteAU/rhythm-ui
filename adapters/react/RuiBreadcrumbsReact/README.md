@@ -3,153 +3,79 @@
 Breadcrumbs indicate location of the current page with links back to the pages navigated through to get there. 
 
 ## Basic Usage
-If you do not need custom label elements, you can configure the breadcrumbs by passing in an array containing the titles and links of the breadcrumbs via the `crumbs` prop. The last link given will always be the active link.
+The `RuiBreadcrumbs` component expects you to pass child elements for each of the crumbs you wish to display. 
+Each child should use the `RuiBreadcrumbs.Crumb` subcomponent. The last element passed in should be the `active` crumb, which should not have any `href` or `onclick` behaviour. 
 
-```html
-<RuiBreadcrumbs
-	crumbs={[
-    	{title: "Home", url: "#home"},
-    	{title: "Breadcrumb 1", url: "#b1"},
-		{title: "Breadcrumb 2", url: "#b2" },
-		{title: "Breadcrumb 3", url: "#b3" }
-	]}
-/>
-```
-
-## Breadcrumb Truncation
-If you have space limitations, you can set a max amount of crumbs to display before truncation via the `maxCrumbs` prop.
-
-```html
-<RuiBreadcrumbs
-	maxCrumbs={3}
-	crumbs={[
-    	{title: 'Home', url: '#home'},
-    	{title: 'Breadcrumb 1', url: '#b1' },
-		{title: 'Breadcrumb 2', url: '#b2' },
-		{title: 'Breadcrumb 3', url: '#b3' },
-        {title: 'Breadcrumb 4', url: '#b3' },
-        {title: 'Breadcrumb 5', url: '#b3' }
-	]}
-/>
-```
-
-## Custom Seperators
-If you require a custom seperator you can use the `RuiBreadcrumbs.Seperator` subcomponent
-```html
-<RuiBreadcrumbs
-	crumbs={[
-    	{title: 'Home', url: '#home'},
-    	{title: 'Breadcrumb 1', url: '#b1' },
-		{title: 'Breadcrumb 2', url: '#b2' },
-		{title: 'Breadcrumb 3', url: '#b3' },
-        {title: 'Breadcrumb 4', url: '#b3' },
-        {title: 'Breadcrumb 5', url: '#b3' }
-	]}
->
-    <RuiBreadcrumbs.Seperator aria-hidden="true">/</RuiBreadcrumbs.Seperator>
+```jsx
+<RuiBreadcrumbs>
+	<RuiBreadcrumbs.Crumb href="#home">Home</RuiBreadcrumbs.Crumb>
+	<RuiBreadcrumbs.Crumb href="#b1">Breadcrumb 1</RuiBreadcrumbs.Crumb>
+	<RuiBreadcrumbs.Crumb href="#b2">Breadcrumb 2</RuiBreadcrumbs.Crumb>
+	<RuiBreadcrumbs.Crumb as="span">Breadcrumb 3</RuiBreadcrumbs.Crumb>
 </RuiBreadcrumbs> 
 ```
 
-Keep in mind that if you provide a custom seperator, you are in charge of its accessibility, remember to add appropriate aria attributes as needed.
+## Breadcrumb Truncation
+By default, the max amount of crumbs that can display before truncation is 7. If you wish to modify this value, you can set a max amount of crumbs to display before truncation via the `maxCrumbs` prop. 
 
-## Custom Crumbs
-If you require more control over the individual breadcrumbs, you can use the `RuiBreadcrumbs.Crumb` subcomponent. Please keep in mind that when using this pattern, the order of crumbs is the same as the order the children appear in the component.
-
-```html
-<RuiBreadcrumbs> 
-    <RuiBreadcrumbs.Crumb href="#l1">Link 1 <span>custom richtext</span></RuiBreadcrumbs.Crumb>
-    <RuiBreadcrumbs.Crumb href="#l2">Link 2</RuiBreadcrumbs.Crumb>
-    <RuiBreadcrumbs.Crumb as="span">Active Link</RuiBreadcrumbs.Crumb>
+```jsx
+<RuiBreadcrumbs
+	maxCrumbs={3}
+>
+    <RuiBreadcrumbs.Crumb href="#home">Home</RuiBreadcrumbs.Crumb>
+	<RuiBreadcrumbs.Crumb href="#b1">Breadcrumb 1</RuiBreadcrumbs.Crumb>
+    <RuiBreadcrumbs.Crumb href="#b2">Breadcrumb 2</RuiBreadcrumbs.Crumb>
+    <RuiBreadcrumbs.Crumb href="#b3">Breadcrumb 3</RuiBreadcrumbs.Crumb>
+    <RuiBreadcrumbs.Crumb href="#b4">Breadcrumb 4</RuiBreadcrumbs.Crumb>
+	<RuiBreadcrumbs.Crumb as="span">Breadcrumb 5</RuiBreadcrumbs.Crumb>
 </RuiBreadcrumbs>
 ```
 
-*Note: You cannot mix usage of `crumbs` prop and ```RuiBreadcrumbs.Crumb```
-
-### Custom Crumb Titles When Truncated
+### Titles When Truncated
 Rendering of option titles within a truncated select
 uses the text content of the provided element. If this is
 not wanted, you can provide an override to the 
 rendered label via the `truncatedLabel` prop
 
-```html
-<RuiBreadcrumbs maxCrumbs={3}>
-    <RuiBreadcrumbs.Crumb href="#l1">Link 1</RuiBreadcrumbs.Crumb>
-    <RuiBreadcrumbs.Crumb truncatedLabel="Link 2 Custom Label" href="#l2">Link 2</RuiBreadcrumbs.Crumb>
-    <RuiBreadcrumbs.Crumb href="#l3">Link 3</RuiBreadcrumbs.Crumb>
-    <RuiBreadcrumbs.Crumb href="#l4">Link 4</RuiBreadcrumbs.Crumb>
-    <RuiBreadcrumbs.Crumb as="span">Active Link</RuiBreadcrumbs.Crumb>
+```jsx
+<RuiBreadcrumbs maxCrumbs={2}>
+	<RuiBreadcrumbs.Crumb href="#home">Home</RuiBreadcrumbs.Crumb>
+	<RuiBreadcrumbs.Crumb href="#b1">Breadcrumb 1</RuiBreadcrumbs.Crumb>
+    <RuiBreadcrumbs.Crumb truncatedLabel="Link 2 custom label" href="#b2">Breadcrumb 2</RuiBreadcrumbs.Crumb>
+    <RuiBreadcrumbs.Crumb href="#b3">Breadcrumb 3</RuiBreadcrumbs.Crumb>
+    <RuiBreadcrumbs.Crumb href="#b4">Breadcrumb 4</RuiBreadcrumbs.Crumb>
+	<RuiBreadcrumbs.Crumb as="span">Breadcrumb 5</RuiBreadcrumbs.Crumb>
 </RuiBreadcrumbs>
 ```
 
-## Custom navigation behaviour
-If you require custom navigation behavour, you have a few avenues available to you.
+### Custom behaviour when truncated
+Clicking a truncated breadcrumb option will navigate to the elements href by default, if no href is provided the `onItemSelect` function will be fired, with the index of the selected crumb available as the first argument.
 
-### Click/Select events when using `crumbs` attribute
-If using the `crumbs` prop, if you do not provide a url, you can react to breadcrumb clicks
-via the `onCrumbClick` prop which expects a function of the form `(crumbIndex, isTruncated) => {}`
-```html
-<RuiBreadcrumbs
-    onCrumbClick={(i) => { console.log(`Crumb ${i} clicked!`);}}
-	crumbs={[
-    	{title: "Home", url: "#home"},
-    	{title: "Breadcrumb 1", url: "#b1"},
-		{title: "Breadcrumb 2", url: "#b2" },
-		{title: "Breadcrumb 3", url: "#b3" }
-	]}
->
+```jsx
+<RuiBreadcrumbs maxCrumbs={2} onCrumbSelect={(i) => {
+    console.log(`Crumb ${i} selected!`);
+}}>
+	<RuiBreadcrumbs.Crumb href="#home">Home</RuiBreadcrumbs.Crumb>
+	<RuiBreadcrumbs.Crumb href="#b1">Breadcrumb 1</RuiBreadcrumbs.Crumb>
+    <RuiBreadcrumbs.Crumb href="#b2">Breadcrumb 2</RuiBreadcrumbs.Crumb>
+    <RuiBreadcrumbs.Crumb href="#b3">Breadcrumb 3</RuiBreadcrumbs.Crumb>
+    <RuiBreadcrumbs.Crumb href="#b4">Breadcrumb 4</RuiBreadcrumbs.Crumb>
+	<RuiBreadcrumbs.Crumb as="span">Breadcrumb 5</RuiBreadcrumbs.Crumb>
+</RuiBreadcrumbs>
+```
+
+## Custom Seperators
+If you require a custom seperator you can use the ```RuiBreadcrumbs.Seperator``` subcomponent
+```jsx
+<RuiBreadcrumbs>
+	<RuiBreadcrumbs.Crumb href="#home">Home</RuiBreadcrumbs.Crumb>
+	<RuiBreadcrumbs.Crumb href="#b1">Breadcrumb 1</RuiBreadcrumbs.Crumb>
+    <RuiBreadcrumbs.Crumb href="#b2">Breadcrumb 2</RuiBreadcrumbs.Crumb>
+    <RuiBreadcrumbs.Crumb href="#b3">Breadcrumb 3</RuiBreadcrumbs.Crumb>
+    <RuiBreadcrumbs.Crumb href="#b4">Breadcrumb 4</RuiBreadcrumbs.Crumb>
+	<RuiBreadcrumbs.Crumb as="span">Breadcrumb 5</RuiBreadcrumbs.Crumb>
+	<RuiBreadcrumbs.Seperator className="chevron-right" aria-hidden="true" as="span"></RuiBreadcrumbs.Seperator>
 </RuiBreadcrumbs> 
 ```
 
-If you need to implement different logic depending on if a base crumb is clicked or an option is selected from the truncated crumb select input, you can differentiate the logic via the second argument to the onCrumbClick function.
-
-```html
-<RuiBreadcrumbs
-    maxCrumbs={2}
-    onCrumbClick={(i, isTruncated) => {
-        if (isTruncated) {
-			console.log(`Crumb ${i} selected from truncated menu!`);
-		} else {
-			console.log(`Crumb ${i} clicked!`);
-		}
-    }}
-	crumbs={[
-    	{title: "Home", url: "#home"},
-    	{title: "Breadcrumb 1", url: "#b1"},
-		{title: "Breadcrumb 2", url: "#b2" },
-		{title: "Breadcrumb 3", url: "#b3" }
-	]}
->
-</RuiBreadcrumbs> 
-```
-
-### When using custom crumbs
-If using custom crumbs via the `crumb` prop, note that the onCrumbClick function will not
-be called, instead - you should provide your own onclick functions to the elements you pass in
-
-```js
-import React from 'react'
-
-export class ExpandCollapseController extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            open: false,
-        };
-    }
-
-    handleClick = (i) => {
-        console.log(`Custom crumb ${i} clicked!`);
-    }
-
-    render() {
-        return (
-            <RuiBreadcrumbs> 
-            <RuiBreadcrumbs.Crumb onClick={this.handleClick.bind(null, 0)}>Link 1 <span>custom richtext</span></RuiBreadcrumbs.Crumb>
-            <RuiBreadcrumbs.Crumb onClick={this.handleClick.bind(null, 1)}>Link 2</RuiBreadcrumbs.Crumb>
-            <RuiBreadcrumbs.Crumb as="span">Active Link</RuiBreadcrumbs.Crumb>
-        </RuiBreadcrumbs>
-        )
-    }
-}
-```
+Keep in mind that if you provide a custom seperator, you are in charge of its accessibility, remember to add appropriate aria attributes as needed.

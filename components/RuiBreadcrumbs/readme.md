@@ -7,17 +7,16 @@ title: "rui-breadcrumbs"
 Breadcrumbs indicate location of the current page with links back to the pages navigated through to get there. 
 
 ## Basic Usage
-If you do not need custom label elements, you can configure the breadcrumbs by passing in a JSON array containing the titles and links of the breadcrumbs. The last link given will always be the active link.
+The `rui-breadcrumbs` component expects you to pass child elements for each of the crumbs you wish to display. 
+Each child should use the `slot="crumb"` attribute and be an anchor tag. The last element passed in should be 
+the `active` crumb, which should not have any `href` or `onclick` behaviour. 
 
 ```html preview
-<rui-breadcrumbs
-	crumbs='[
-    	{"title": "Home", "url": "#home"},
-    	{"title": "Breadcrumb 1", "url": "#b1"},
-		{"title": "Breadcrumb 2", "url": "#b2" },
-		{"title": "Breadcrumb 3", "url": "#b3" }
-	]'
->
+<rui-breadcrumbs>
+	<a slot="crumb" href="#home">Home</a>
+	<a slot="crumb" href="#b1">Breadcrumb 1</a>
+	<a slot="crumb" href="#b2">Breadcrumb 2</a>
+	<span slot="crumb">Breadcrumb 3</span>
 </rui-breadcrumbs> 
 ```
 
@@ -25,54 +24,17 @@ If you do not need custom label elements, you can configure the breadcrumbs by p
 By default, the max amount of crumbs that can display before truncation is 7. If you wish to modify this value, you can set a max amount of crumbs to display before truncation via the `max-crumbs` attribute. 
 
 ```html preview
-<rui-breadcrumbs
-	max-crumbs="3"
-	crumbs='[
-    	{"title": "Home", "url": "#home"},
-    	{"title": "Breadcrumb 1", "url": "#b1"},
-		{"title": "Breadcrumb 2", "url": "#b2" },
-		{"title": "Breadcrumb 3", "url": "#b3" },
-		{"title": "Breadcrumb 4", "url": "#b4" },
-		{"title": "Breadcrumb 5", "url": "#b5" }
-	]'
->
+<rui-breadcrumbs max-crumbs="3">
+	<a slot="crumb" href="#home">Home</a>
+	<a slot="crumb" href="#b1">Breadcrumb 1</a>
+	<a slot="crumb" href="#b2">Breadcrumb 2</a>
+	<a slot="crumb" href="#b3">Breadcrumb 3</a>
+	<a slot="crumb" href="#b4">Breadcrumb 4</a>
+	<span slot="crumb">Breadcrumb 5</span>
 </rui-breadcrumbs> 
 ```
 
-## Custom Seperators
-If you require a custom seperator you can use the ```seperator``` slot
-```html preview
-<rui-breadcrumbs
-	crumbs='[
-    	{"title": "Home", "url": "#home"},
-    	{"title": "Link 1", "url": "#link1"},
-		{"title": "Link 2", "url": "#link2" },
-		{"title": "Link 3", "url": "#link3" },
-		{"title": "Link 4", "url": "#link4" },
-		{"title": "Link 5", "url": "#link5" }
-	]'
->
-	<span class="chevron-right" aria-hidden="true" slot="seperator"></span>
-</rui-breadcrumbs> 
-```
-
-Keep in mind that if you provide a custom seperator, you are in charge of its accessibility, remember to add appropriate aria attributes as needed.
-
-
-## Custom Crumbs
-If you require more control over the individual breadcrumbs, you can use the ```crumb``` slot to provide the breadcrumb items. Please keep in mind that when using this pattern, the order of crumbs is the same as the order the children appear in the component.
-
-```html preview
-<rui-breadcrumbs> 
-	<a slot="crumb" href="#l1"> Link 1 <span>custom richtext</a>
-	<a slot="crumb" href="#l2" > Link 2 </a>
-	<span slot="crumb">Active Link </span>
-</rui-breadcrumbs>
-```
-
-*Note: You cannot mix usage of slotted crumbs and the ```crumbs``` attribute crumbs*
-
-### Custom Crumb Titles When Truncated
+### Titles When Truncated
 Rendering of option titles within a truncated select
 uses the text content of the provided element. If this is
 not wanted, you can provide an override to the 
@@ -88,80 +50,40 @@ rendered label via the `data-truncated-label` attribute
 </rui-breadcrumbs>
 ```
 
-## Custom navigation behaviour
-If you require custom navigation behavour, you have a few avenues available to you.
+### Custom behaviour when truncated
+Clicking a truncated breadcrumb option will navigate to the elements href by default, if no href is provided 
+a `rui-breadcrumbs-item-select` event will be fired, with the selected crumb available via `event.detail.crumbIndex`.
 
-### Click/Select events when using `crumbs` attribute
-If using the `crumbs` attribute, if you do not provide a url, a `rui-breadcrumbs-item-click` event 
-will be dispatched, with the index of the selected crumb available via `event.detail.crumbIndex`. 
 ```html
 <script>
-	const onBreadcrumbClick = (e) => {
-		const crumbIndex = e.detail.crumbIndex;
-		console.log(`Crumb ${crumbIndex} clicked!`);
-	}
-	const breadcrumbsEl = document.getElementById('breadcrumbs');
-	if (breadcrumbsEl) {
-		breadcrumbsEl.addEventListener('rui-breadcrumbs-item-click', onBreadcrumbClick);
+	const el = document.getElementById('truncated-event-example');
+	if (el) {
+		el.addEventListener('rui-breadcrumbs-item-select', (e) => {
+			console.log(`Crumb ${e.detail.crumbIndex} selected!`;)
+		})
 	}
 </script>
-
-<rui-breadcrumbs
-	id="breadcrumbs"
-	crumbs='[
-    	{"title": "Home"},
-    	{"title": "Breadcrumb 1"},
-		{"title": "Breadcrumb 2"},
-		{"title": "Breadcrumb 3"}
-	]'
->
-</rui-breadcrumbs> 
+<rui-breadcrumbs id="truncated-event-example" max-crumbs="2">
+	<a slot="crumb" href="#l1"> Link 1 </a>
+	<a data-truncated-label="Link 2 Custom Label" slot="crumb" href="l2"> Link 2 <span>some other content</span> </a>
+	<a slot="crumb" href="#l3" > Link 3 </a>
+	<a slot="crumb" href="#l4" > Link 4 </a>
+	<span slot="crumb">Active Link </span>
+</rui-breadcrumbs>
 ```
 
-If you need to implement different logic depending on if a base crumb is clicked or an option is selected from the truncated crumb select input, you can differentiate the logic via `e.detail.truncated` boolean.
-```html
-<script>
-	const onBreadcrumbSelect = (e) => {
-		const crumbIndex = e.detail.crumbIndex;
-		const isTruncated = e.detail.truncated;
-		if (isTruncated) {
-			console.log(`Crumb ${crumbIndex} selected from truncated menu!`);
-		} else {
-			console.log(`Crumb ${crumbIndex} clicked!`);
-		}
-		
-	}
-	const breadcrumbsEl = document.getElementById('breadcrumbs');
-	if (breadcrumbsEl) {
-		breadcrumbsEl.addEventListener('rui-breadcrumbs-item-select', onBreadcrumbSelect);
-	}
-</script>
-<rui-breadcrumbs
-	id="breadcrumbs"
-	max-crumbs="2"
-	crumbs='[
-    	{"title": "Home"},
-    	{"title": "Breadcrumb 1"},
-		{"title": "Breadcrumb 2"},
-		{"title": "Breadcrumb 3"}
-	]'
->
-</rui-breadcrumbs> 
-```
-
-### When using custom crumbs
-If using custom crumbs via the `crumb` slot, note that `rui-breadcrumbs-item-click` events will not
-be dispatched, instead - you should provide your own onclick functions to the elements you pass in
-
-```html
-<script>
-	const onBreadcrumbClick = (index) => {
-		console.log(`Crumb ${index} clicked!`);
-	}
-</script>
+## Custom Seperators
+If you require a custom seperator you can use the ```seperator``` slot
+```html preview
 <rui-breadcrumbs>
-	<a slot="crumb" onclick="onBreadcrumbClick(0)">Link 1</a>
-	<a slot="crumb" onclick="onBreadcrumbClick(1)">Link 2</a>
-	<span slot="crumb">Active Link</span>
+	<a slot="crumb" href="#home">Home</a>
+	<a slot="crumb" href="#b1">Breadcrumb 1</a>
+	<a slot="crumb" href="#b2">Breadcrumb 2</a>
+	<a slot="crumb" href="#b3">Breadcrumb 3</a>
+	<a slot="crumb" href="#b4">Breadcrumb 4</a>
+	<span slot="crumb">Breadcrumb 5</span>
+	<span class="chevron-right" aria-hidden="true" slot="seperator"></span>
 </rui-breadcrumbs> 
 ```
+
+Keep in mind that if you provide a custom seperator, you are in charge of its accessibility, remember to add appropriate aria attributes as needed.

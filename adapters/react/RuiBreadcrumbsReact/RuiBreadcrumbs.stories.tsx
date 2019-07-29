@@ -5,15 +5,6 @@ import {RuiBreadcrumbs} from './src';
 import Readme from './README.md';
 
 
-const playgroundsCrumbs = [
-	{title: 'Home', url: '#home'},
-	{title: 'Breadcrumb 1', url: '#b1'},
-	{title: 'Breadcrumb 2', url: '#b2'},
-	{title: 'Breadcrumb 3', url: '#b3'},
-	{title: 'Breadcrumb 4', url: '#b3'},
-	{title: 'Breadcrumb 5', url: '#b3'},
-];
-
 storiesOf('Breadcrumbs', module)
 	.addParameters({
 		readme: {
@@ -21,53 +12,44 @@ storiesOf('Breadcrumbs', module)
 		},
 	})
 	.addDecorator(withKnobs)
-	.add('Playground', () => (
-		<RuiBreadcrumbs
-			maxCrumbs={number('maxCrumbs', 7)}
-			crumbs={object('crumbs', playgroundsCrumbs)}
-		/>
-	))
-	.add('Basic Breadcrumbs', () => (
-		<RuiBreadcrumbs
-			crumbs={[
-				{title: 'Home', url: '#home'},
-				{title: 'Breadcrumb 1', url: '#b1'},
-				{title: 'Breadcrumb 2', url: '#b2'},
-				{title: 'Breadcrumb 3', url: '#b3'},
-			]}
-		/>
-	))
-	.add('Truncated Breadcrumbs', () => (
-		<RuiBreadcrumbs
-			maxCrumbs={3}
-			crumbs={[
-				{title: 'Home', url: '#home'},
-				{title: 'Breadcrumb 1', url: '#b1'},
-				{title: 'Breadcrumb 2', url: '#b2'},
-				{title: 'Breadcrumb 3', url: '#b3'},
-				{title: 'Breadcrumb 4', url: '#b3'},
-				{title: 'Breadcrumb 5', url: '#b3'},
-			]}
-		/>
-	))
-	.add('Custom Seperators', () => (
-		<RuiBreadcrumbs
-			crumbs={[
-				{title: 'Home', url: '#home'},
-				{title: 'Breadcrumb 1', url: '#b1'},
-				{title: 'Breadcrumb 2', url: '#b2'},
-				{title: 'Breadcrumb 3', url: '#b3'},
-				{title: 'Breadcrumb 4', url: '#b3'},
-				{title: 'Breadcrumb 5', url: '#b3'},
-			]}
-		>
-			<RuiBreadcrumbs.Seperator aria-hidden="true">/</RuiBreadcrumbs.Seperator>
+	.add('Basic Usage', () => (
+		<RuiBreadcrumbs>
+			<RuiBreadcrumbs.Crumb href="#home">Home</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb href="#b1">Breadcrumb 1</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb href="#b2">Breadcrumb 2</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb as="span">Breadcrumb 3</RuiBreadcrumbs.Crumb>
 		</RuiBreadcrumbs>
 	))
-	.add('Custom Crumbs', () => (
+	.add('Truncation', () => (
+		<RuiBreadcrumbs
+			maxCrumbs={3}
+		>
+			<RuiBreadcrumbs.Crumb href="#home">Home</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb href="#b1">Breadcrumb 1</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb href="#b2">Breadcrumb 2</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb href="#b3">Breadcrumb 3</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb href="#b4">Breadcrumb 4</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb as="span">Breadcrumb 5</RuiBreadcrumbs.Crumb>
+		</RuiBreadcrumbs>
+	))
+	.add('Custom Truncation Labels', () => (
+		<RuiBreadcrumbs maxCrumbs={2}>
+			<RuiBreadcrumbs.Crumb href="#home">Home</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb href="#b1">Breadcrumb 1</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb truncatedLabel="Link 2 custom label" href="#b2">Breadcrumb 2</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb href="#b3">Breadcrumb 3</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb href="#b4">Breadcrumb 4</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb as="span">Breadcrumb 5</RuiBreadcrumbs.Crumb>
+		</RuiBreadcrumbs>
+	))
+	.add('Custom Seperators', () => (
 		<RuiBreadcrumbs>
-			<RuiBreadcrumbs.Crumb href="#l1">Link 1 <span>custom richtext</span></RuiBreadcrumbs.Crumb>
-			<RuiBreadcrumbs.Crumb href="#l2">Link 2</RuiBreadcrumbs.Crumb>
-			<RuiBreadcrumbs.Crumb as="span">Active Link</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb href="#home">Home</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb href="#b1">Breadcrumb 1</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb href="#b2">Breadcrumb 2</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb href="#b3">Breadcrumb 3</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb href="#b4">Breadcrumb 4</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Crumb as="span">Breadcrumb 5</RuiBreadcrumbs.Crumb>
+			<RuiBreadcrumbs.Seperator aria-hidden="true" as="span">#</RuiBreadcrumbs.Seperator>
 		</RuiBreadcrumbs>
 	));

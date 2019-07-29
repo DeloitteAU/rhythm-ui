@@ -73,21 +73,21 @@ export class RuiBreadcrumbs extends React.Component<IRuiBreadcrumbsProps> {
 
 
 	/**
-	 * Click handler for when the crumb item click event is fired
+	 * Click handler for when the crumb item select event is fired
 	 */
-	private _handleCrumbClick = (e: CustomEvent): void => {
-		this.props.onCrumbClick(e.detail.crumbIndex, e.detail.truncated);
+	private _handleCrumbSelect = (e: CustomEvent): void => {
+		this.props.onCrumbSelect(e.detail.crumbIndex);
 	}
 
 	/**
-	 * If the user has specified a custom click or select handler then
+	 * If the user has specified a custom select handler then
 	 * we attach event listeners and fire coresponding handler functions
 	 */
 	public componentDidMount(): void {
-		const {onCrumbClick} = this.props;
+		const {onCrumbSelect} = this.props;
 		const el: HTMLElement | null = this.ruiBreadcrumbsEl.current;
-		if (onCrumbClick && el) {
-			el.addEventListener('rui-breadcrumbs-item-click', this._handleCrumbClick);
+		if (onCrumbSelect && el) {
+			el.addEventListener('rui-breadcrumbs-item-select', this._handleCrumbSelect);
 		}
 	}
 
@@ -95,11 +95,11 @@ export class RuiBreadcrumbs extends React.Component<IRuiBreadcrumbsProps> {
 	 * Clean up any event listeners if any are set
 	 */
 	public componentWillUnmount(): void {
-		const {onCrumbClick} = this.props;
+		const {onCrumbSelect} = this.props;
 		const el: HTMLElement | null = this.ruiBreadcrumbsEl.current;
 
-		if (onCrumbClick && el) {
-			el.removeEventListener('rui-breadcrumbs-item-click', this._handleCrumbClick);
+		if (onCrumbSelect && el) {
+			el.removeEventListener('rui-breadcrumbs-item-select', this._handleCrumbSelect);
 		}
 	}
 
@@ -107,16 +107,12 @@ export class RuiBreadcrumbs extends React.Component<IRuiBreadcrumbsProps> {
 	 * Render rui-breadcrumbs component, with any attribute name conversions applied
 	 */
 	public render(): React.ReactNode {
-		const {maxCrumbs, crumbs, onCrumbClick, ...otherProps} = this.props;
+		const {maxCrumbs, onCrumbSelect, ...otherProps} = this.props;
 
 		const props = otherProps;
 
 		if (maxCrumbs) {
 			props['max-crumbs'] = maxCrumbs;
-		}
-
-		if (crumbs) {
-			props.crumbs = JSON.stringify(crumbs);
 		}
 
 		return (
