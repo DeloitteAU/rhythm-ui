@@ -100,7 +100,6 @@ You can specify what content appears in the next/previous links with the
 ```
 
 
-
 ### Custom ellipses elements
 You can specify what the ellipses looks like via the `ellipses` slot
 

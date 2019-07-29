@@ -8,10 +8,76 @@
 import React from 'react';
 import '@rhythm-ui/pagination';
 
-import {IRuiPaginationProps} from './IRuiPagination';
+import {
+	IRuiPaginationProps,
+	IRuiPaginationEllipsesProps,
+	IRuiPaginationPreviousProps,
+	IRuiPaginationNextProps,
+} from './IRuiPagination';
+
+
+export const Ellipses = (props: IRuiPaginationEllipsesProps): React.ReactNode => {
+	const {as, ...otherProps} = props;
+
+	let elementType = 'div';
+	if (as) {
+		elementType = as;
+	}
+
+	const ellipsesProps = {
+		slot: 'ellipses',
+		...otherProps,
+	};
+
+	const ellipsesEl = React.createElement(elementType, ellipsesProps);
+
+	return ellipsesEl;
+};
+
+export const Previous = (props: IRuiPaginationPreviousProps): React.ReactNode => {
+	const {as, ...otherProps} = props;
+
+	let elementType = 'span';
+	if (as) {
+		elementType = as;
+	}
+
+	const prevProps = {
+		slot: 'prev-content',
+		...otherProps,
+	};
+
+	const prevEl = React.createElement(elementType, prevProps);
+
+	return prevEl;
+};
+
+export const Next = (props: IRuiPaginationNextProps): React.ReactNode => {
+	const {as, ...otherProps} = props;
+
+	let elementType = 'span';
+	if (as) {
+		elementType = as;
+	}
+
+	const nextProps = {
+		slot: 'next-content',
+		...otherProps,
+	};
+
+	const nextEl = React.createElement(elementType, nextProps);
+
+	return nextEl;
+};
 
 export default class RuiPagination extends React.Component<IRuiPaginationProps> {
 	private ruiPaginationEl = React.createRef<HTMLElement>();
+
+	public static Ellipses = Ellipses;
+
+	public static Next = Next;
+
+	public static Previous = Previous;
 
 	private _handleItemClick = (e: Event): void => {
 		const customEvt = e as CustomEvent;

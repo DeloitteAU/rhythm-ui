@@ -1,3 +1,5 @@
+import {string} from 'prop-types';
+
 /**
 * Copyright Deloitte Digital 2019
 *
@@ -16,6 +18,18 @@ declare global {
 export interface IRuiPaginationItem {
 	title?: string,
 	url?: string,
+}
+
+export interface IRuiPaginationEllipsesProps {
+	as?: string,
+}
+
+export interface IRuiPaginationPreviousProps {
+	as?: string,
+}
+
+export interface IRuiPaginationNextProps {
+	as?: string,
 }
 
 export interface IRuiPaginationProps {
