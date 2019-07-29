@@ -16,6 +16,10 @@ import {
 } from './IRuiPagination';
 
 
+/**
+ * Ellipses subcomponent is used for rendering custom ellipses
+ * elements
+ */
 export const Ellipses = (props: IRuiPaginationEllipsesProps): React.ReactNode => {
 	const {as, ...otherProps} = props;
 
@@ -34,6 +38,11 @@ export const Ellipses = (props: IRuiPaginationEllipsesProps): React.ReactNode =>
 	return ellipsesEl;
 };
 
+
+/**
+ * Previous subcomponent is used for rendering custom previous content
+ * for the pagination
+ */
 export const Previous = (props: IRuiPaginationPreviousProps): React.ReactNode => {
 	const {as, ...otherProps} = props;
 
@@ -52,6 +61,10 @@ export const Previous = (props: IRuiPaginationPreviousProps): React.ReactNode =>
 	return prevEl;
 };
 
+/**
+ * Next subcomponent is used for rendering custom next content
+ * for the pagination
+ */
 export const Next = (props: IRuiPaginationNextProps): React.ReactNode => {
 	const {as, ...otherProps} = props;
 
@@ -70,15 +83,28 @@ export const Next = (props: IRuiPaginationNextProps): React.ReactNode => {
 	return nextEl;
 };
 
+
+/**
+ * RuiPagination adapts the rui-pagination component for react
+ */
 export default class RuiPagination extends React.Component<IRuiPaginationProps> {
+
+	// Need to keep a ref to the element to attach event listeners
 	private ruiPaginationEl = React.createRef<HTMLElement>();
 
+	// Expose ellipses subcomponent as RuiPagination.Ellipses
 	public static Ellipses = Ellipses;
 
+	// Expose next subcomponent as RuiPagination.Next
 	public static Next = Next;
 
+	// Expose previous subcomponent as RuiPagination.Previous
 	public static Previous = Previous;
 
+	/**
+	 * Event handler for event fired when one of the pagination items is clicked
+	 * if no href is provided
+	 */
 	private _handleItemClick = (e: Event): void => {
 		const customEvt = e as CustomEvent;
 		const {onItemClick} = this.props;
@@ -87,6 +113,10 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 		}
 	}
 
+	/**
+	 * Event handler for when the next page link is clicked when no
+	 * nextLink prop is provided
+	 */
 	private _handleNextClick = (): void => {
 		const {onNextClick} = this.props;
 		if (onNextClick) {
@@ -94,6 +124,10 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 		}
 	}
 
+	/**
+	 * Event handler for when the previous page link is clicked when no
+	 * prevLink prop is provided
+	 */
 	private _handlePrevClick = (): void => {
 		const {onPrevClick} = this.props;
 		if (onPrevClick) {
@@ -102,6 +136,10 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 	}
 
 
+	/**
+	 * Check whether we have a reference to the underlying element,
+	 * if we do, attach any custom event listeners as needed
+	 */
 	public componentDidMount(): void {
 		const {onItemClick, onPrevClick, onNextClick} = this.props;
 		const el: HTMLElement | null = this.ruiPaginationEl.current;
@@ -121,6 +159,9 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 		}
 	}
 
+	/**
+	 * Remove any event listeners that were set originally
+	 */
 	public componentWillUnmount(): void {
 		const {onItemClick, onPrevClick, onNextClick} = this.props;
 		const el: HTMLElement | null = this.ruiPaginationEl.current;
@@ -141,6 +182,10 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 	}
 
 
+	/**
+	 * Take any props, if they are present, map them to the underlying
+	 * element attributes
+	 */
 	public render(): React.ReactNode {
 		const {
 			currentPage,

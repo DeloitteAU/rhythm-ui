@@ -15,32 +15,42 @@ declare global {
 	}
 }
 
-export interface IRuiPaginationItem {
-	title?: string,
-	url?: string,
+interface IJSXCoreProps {
+	style?: object,
+	className?: string,
 }
 
-export interface IRuiPaginationEllipsesProps {
-	as?: string,
+export interface IRuiPaginationItems {
+	[key: string]: {
+		label?: string,
+		href?: string,
+	}
 }
 
-export interface IRuiPaginationPreviousProps {
+export interface IRuiPaginationEllipsesProps extends IJSXCoreProps {
 	as?: string,
+	children?: React.ReactNode[] | React.ReactNode;
 }
 
-export interface IRuiPaginationNextProps {
+export interface IRuiPaginationPreviousProps extends IJSXCoreProps {
 	as?: string,
+	children?: React.ReactNode[] | React.ReactNode;
+}
+
+export interface IRuiPaginationNextProps extends IJSXCoreProps {
+	as?: string,
+	children?: React.ReactNode[] | React.ReactNode;
 }
 
 export interface IRuiPaginationProps {
-	children: React.ReactNode,
+	children?: React.ReactNode[] | React.ReactNode;
 	onItemClick?: Function,
 	onPrevClick?: Function,
 	onNextClick?: Function,
 	currentPage: number,
 	pagesShown?: number,
 	numPages?: number,
-	items?: IRuiPaginationItem[],
+	items?: IRuiPaginationItems,
 	nextLink?: string,
 	prevLink?: string,
 }

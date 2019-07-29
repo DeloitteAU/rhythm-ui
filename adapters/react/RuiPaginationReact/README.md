@@ -79,8 +79,8 @@ You can specify what content appears in the next/previous links with the
 <RuiPagination
     currentPage={3}
     numPages={5}>
-    <RuiPagination.Previous styles={{padding: '0 5px'}}>Previous</RuiPagination.Previous>
-    <RuiPagination.Next styles={{padding: '0 5px'}}>Next</RuiPagination.Next>
+    <RuiPagination.Previous style={{padding: '0 5px'}}>Previous</RuiPagination.Previous>
+    <RuiPagination.Next style={{padding: '0 5px'}}>Next</RuiPagination.Next>
 </RuiPagination>
 ```
 
