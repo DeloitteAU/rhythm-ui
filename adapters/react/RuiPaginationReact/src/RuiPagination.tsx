@@ -181,7 +181,6 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 		}
 	}
 
-
 	/**
 	 * Take any props, if they are present, map them to the underlying
 	 * element attributes
