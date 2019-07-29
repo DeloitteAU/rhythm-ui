@@ -24,18 +24,6 @@ describe('RuiPagination', () => {
 		const ele = await TestUtils.render('rui-pagination', {}, '');
 		expect(ele).toBeDefined();
 	});
-
-	it('Renders items given via the items attribute', async () => {
-		const ele = await TestUtils.render('rui-pagination', {
-			items: exampleBasicItems,
-			'current-page': '3'
-		}, '');
-
-		const paginationListItems = ele.shadowRoot.querySelectorAll('li');
-		
-		const expectedLength = Object.keys(exampleBasicItems).length + 2;
-		expect(paginationListItems.length).toEqual(expectedLength)
-	})
 	
 	// renders items given via items attribute
 	// renders correct href for items
