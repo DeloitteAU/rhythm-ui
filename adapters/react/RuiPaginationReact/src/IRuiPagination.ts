@@ -1,5 +1,3 @@
-import {string} from 'prop-types';
-
 /**
 * Copyright Deloitte Digital 2019
 *
