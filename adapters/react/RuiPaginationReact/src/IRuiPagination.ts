@@ -52,4 +52,6 @@ export interface IRuiPaginationProps {
 	generateHref: Function,
 	generateLabel: Function,
 	generateAriaLabel: Function,
+	nextAriaLabel?: string,
+	prevAriaLabel?: string,
 }

@@ -121,6 +121,18 @@ Pagination item labels and aria labels can be overriden via the `generateLabel` 
 </rui-pagination>
 ```
 
+### Custom previous/next aria-labels
+You can specify the aria labels that appears in the next/previous links with the `next-aria-label` and `prev-aria-label` attributes. 
+
+```html preview
+<rui-pagination
+    current-page="3"
+    num-pages="5"
+    next-aria-label="custom next label"
+    prev-aria-label="custom prev label">
+</rui-pagination>
+```
+
 ### Custom previous/next elements
 You can specify what content appears in the next/previous links with the
 `next-content` and `prev-content` slots. 

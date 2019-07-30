@@ -223,6 +223,8 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 			onItemClick,
 			onPrevClick,
 			onNextClick,
+			nextAriaLabel,
+			prevAriaLabel,
 			generateHref,
 			generateLabel,
 			generateAriaLabel,
@@ -236,6 +238,8 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 		if (numPages) { props['num-pages'] = numPages; }
 		if (nextLink) { props['next-link'] = nextLink; }
 		if (prevLink) { props['prev-link'] = prevLink; }
+		if (nextAriaLabel) { props['next-aria-label'] = nextAriaLabel; }
+		if (prevAriaLabel) { props['prev-aria-label'] = prevAriaLabel; }
 
 		return (
 			<rui-pagination ref={this._ruiPaginationEl} {...props}>

@@ -54,6 +54,18 @@ Pagination item labels and aria labels can be overriden via the `generateLabel` 
 </RuiPagination>
 ```
 
+### Custom previous/next aria-labels
+You can specify the aria labels that appears in the next/previous links with the `nextAriaLabel` and `prevAriaLabel` props. 
+
+```jsx
+<RuiPagination
+    currentPage={3}
+    numPages={5}
+    nextAriaLabel="custom next label"
+    prevAriaLabel="custom prev label">
+</RuiPagination>
+```
+
 ### Custom previous/next elements
 You can specify what content appears in the next/previous links with the
 `RuiPagination.Next` and `RuiPagination.Previous` subcomponents. 
