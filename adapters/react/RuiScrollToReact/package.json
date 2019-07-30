@@ -1,0 +1,28 @@
+
+{
+	"name": "@rhythm-ui/scroll-to-react",
+	"version": "1.0.0",
+	"main": "lib/index.js",
+	"scripts": {
+		"start": "yarn clean && concurrently \"yarn start:babel\" \"yarn start:declarations\"",
+		"start:babel": "babel -w -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --copy-files",
+		"start:declarations": "tsc --declaration --emitDeclarationOnly --watch",
+		"build": "yarn build:babel && yarn build:declarations",
+		"build:babel": "babel -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --ignore *.d.ts --copy-files",
+		"build:declarations": "tsc --declaration --emitDeclarationOnly",
+		"clean": "rimraf lib"
+	},
+	"files": [
+		"lib/"
+	],
+	"devDependencies": {
+		"babel-preset-rhythm-ui-react": "^1.0.0",
+		"react": "^16.8.6"
+	},
+	"dependencies": {
+		"@rhythm-ui/scroll-to": "^1.0.0"
+	},
+	"peerDependencies": {
+		"react": ">= 16"
+	}
+}
