@@ -10,13 +10,6 @@ import '../src';
 import TestUtils from '../../../TestUtils';
 
 
-const exampleBasicItems = `{
-	"1": {"href": '#1'},
-	"2": {"href": '#2'},
-	"3": {"href": '#3'},
-	"4": {"href": '#4'},
-	"5": {"href": '#5'},
-}`
 
 describe('RuiPagination', () => {
 
@@ -24,24 +17,32 @@ describe('RuiPagination', () => {
 		const ele = await TestUtils.render('rui-pagination', {}, '');
 		expect(ele).toBeDefined();
 	});
+
+	// renders pagination items correctly
+
+	// next/prev renders by default
+
+	// disabled renders by default
 	
-	// renders items given via items attribute
-	// renders correct href for items
-	// renders correct label for items
-	// renders current page correctly
+	// current renders by default 
 
+	// renders truncation correctly
 
-	// renders prev-link href correctly
+	// uses given next link
 
-	// renders next-link href correctly
-	
-	// renders items defined via num-pages attribute
+	// uses given prev link
 
-	// renders truncation correctly 
+	// uses given next aria label
 
-	// renders custom prev-content slot item
+	// uses given prev aria label
 
-	// renders custom next-content slot item
+	// allows generateHref override
 
-	// renders custom ellipses slot item
+	// allows generateLabel override
+
+	// allows generateAriaLabel override
+
+	// allows custom next element
+
+	// allows custom prev element
 });

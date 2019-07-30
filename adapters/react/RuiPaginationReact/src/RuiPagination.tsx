@@ -13,6 +13,7 @@ import {
 	IRuiPaginationEllipsesProps,
 	IRuiPaginationPreviousProps,
 	IRuiPaginationNextProps,
+	IHTMLRuiPaginationElement,
 } from './IRuiPagination';
 
 
@@ -90,7 +91,7 @@ export const Next = (props: IRuiPaginationNextProps): React.ReactNode => {
 export default class RuiPagination extends React.Component<IRuiPaginationProps> {
 
 	// Need to keep a ref to the element to attach event listeners
-	private ruiPaginationEl = React.createRef<HTMLElement>();
+	private _ruiPaginationEl = React.createRef<IHTMLRuiPaginationElement>();
 
 	// Expose ellipses subcomponent as RuiPagination.Ellipses
 	public static Ellipses = Ellipses;
@@ -141,10 +142,31 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 	 * if we do, attach any custom event listeners as needed
 	 */
 	public componentDidMount(): void {
-		const {onItemClick, onPrevClick, onNextClick} = this.props;
-		const el: HTMLElement | null = this.ruiPaginationEl.current;
+		const {
+			onItemClick,
+			onPrevClick,
+			onNextClick,
+			generateHref,
+			generateLabel,
+			generateAriaLabel,
+		} = this.props;
+		const el: IHTMLRuiPaginationElement | null = this._ruiPaginationEl.current;
 
 		if (el) {
+
+			//let refreshNeeded = false;
+			if (generateHref) {
+				el.generateHref = generateHref;
+			}
+
+			if (generateLabel) {
+				el.generateLabel = generateLabel;
+			}
+
+			if (generateAriaLabel) {
+				el.generateAriaLabel = generateAriaLabel;
+			}
+
 			if (onItemClick) {
 				el.addEventListener('rui-pagination-item-click', this._handleItemClick);
 			}
@@ -164,7 +186,7 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 	 */
 	public componentWillUnmount(): void {
 		const {onItemClick, onPrevClick, onNextClick} = this.props;
-		const el: HTMLElement | null = this.ruiPaginationEl.current;
+		const el: IHTMLRuiPaginationElement | null = this._ruiPaginationEl.current;
 
 		if (el) {
 			if (onItemClick) {
@@ -190,9 +212,14 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 			currentPage,
 			pagesShown,
 			numPages,
-			items,
 			nextLink,
 			prevLink,
+			onItemClick,
+			onPrevClick,
+			onNextClick,
+			generateHref,
+			generateLabel,
+			generateAriaLabel,
 			...otherProps
 		} = this.props;
 
@@ -203,10 +230,9 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 		if (numPages) { props['num-pages'] = numPages; }
 		if (nextLink) { props['next-link'] = nextLink; }
 		if (prevLink) { props['prev-link'] = prevLink; }
-		if (items) { props.items = JSON.stringify(items); }
 
 		return (
-			<rui-pagination ref={this.ruiPaginationEl} {...props}>
+			<rui-pagination ref={this._ruiPaginationEl} {...props}>
 				{this.props.children}
 			</rui-pagination >
 		);

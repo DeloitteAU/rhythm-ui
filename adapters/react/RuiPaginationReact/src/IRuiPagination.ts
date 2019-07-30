@@ -13,16 +13,15 @@ declare global {
 	}
 }
 
+export interface IHTMLRuiPaginationElement extends HTMLElement {
+	generateHref: Function,
+	generateLabel: Function,
+	generateAriaLabel: Function,
+}
+
 interface IJSXCoreProps {
 	style?: object,
 	className?: string,
-}
-
-export interface IRuiPaginationItems {
-	[key: string]: {
-		label?: string,
-		href?: string,
-	}
 }
 
 export interface IRuiPaginationEllipsesProps extends IJSXCoreProps {
@@ -48,7 +47,9 @@ export interface IRuiPaginationProps {
 	currentPage: number,
 	pagesShown?: number,
 	numPages?: number,
-	items?: IRuiPaginationItems,
 	nextLink?: string,
 	prevLink?: string,
+	generateHref: Function,
+	generateLabel: Function,
+	generateAriaLabel: Function,
 }

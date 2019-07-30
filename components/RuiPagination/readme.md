@@ -7,66 +7,74 @@ title: "rui-pagination"
 Pagination is used to allow the user to navigate between paginated content pages easily. 
 
 ## Basic usage
-The pagination links are configured via the `items` attribute. The current pages is indicated via the `current-page` attribute. In addition to this, the next and previous page button links are configured via the `next-link` and `prev-link` attributes.
+By default, pagination requires you to specify which page is the current page via the `current-page` attribute and how many pages are in the pagination in total via the `num-pages` attribute. When a pagination item is selected, the following 
+events will be fired: 
 
-### Items config
-```html preview
-<rui-pagination
-    items='{
-        "1": {"href": "#1"},
-        "2": {"href": "#2"},
-        "3": {"href": "#3"},
-        "4": {"href": "#4"},
-        "5": {"href": "#5"}
-    }'
-    next-link="#"
-    prev-link="#"
-    current-page="3">
-</rui-pagination>
-```
-
-### Custom labels
-If you wish to use custom labels, not the default 1, 2, 3..., page numbers, then you can specify it within the `items` object via the 
-`label` key. 
-```html preview
-<rui-pagination
-    items='{
-        "1": {"label": "01", "href": "#1"},
-        "2": {"label": "02", "href": "#2"},
-        "3": {"label": "03", "href": "#3"},
-        "4": {"label": "04", "href": "#4"},
-        "5": {"label": "05", "href": "#5"}
-    }'
-    next-link="#"
-    prev-link="#"
-    current-page="3">
-</rui-pagination>
-```
-
-### Using onclick events
-If you need to implement some custom onclick/navigation behaviour, you can simply not use the `href` key in your `items` values and omit the 
-`prev-link` and `next-link` attributes as needed. 
-In this case you should provide the `num-pages` attribute to let the component know how many page items to render. 
-
-`rui-pagination-next-click` will be fired when no `next-link` is provided.
-`rui-pagination-prev-click` will be fired when no `prev-link` is provided.
+`rui-pagination-next-click` when the next item is clicked
+`rui-pagination-prev-click` will be fired when the previous item is clicked
 `rui-pagination-item-click` will be fired when on of the pagination items is clicked, with the page number available via `event.detail.pageNumber`
 
+<Script script={
+    () => {
+        const el = document.getElementById('onclick-example');
+        console.log(el);
+        if (el) {
+            el.addEventListener('rui-pagination-next-click', () => { alert('Next button clicked!')});
+
+            el.addEventListener('rui-pagination-prev-click', () => { alert('Previous button clicked!')});
+
+            el.addEventListener('rui-pagination-item-click', (e) => { alert(`Page ${e.detail.pageNumber} clicked!`)});
+        }
+    }
+}></Script>
 ```html preview
 <script>
     const el = document.getElementById('onclick-example');
     if (el) {
-        el.addEventListener('rui-pagination-next-click', () => { console.log('Next button clicked!')})
+        el.addEventListener('rui-pagination-next-click', () => { alert('Next button clicked!')});
 
-        el.addEventListener('rui-pagination-prev-click', () => { console.log('Previous button clicked!')})
+        el.addEventListener('rui-pagination-prev-click', () => { alert('Previous button clicked!')});
 
-        el.addEventListener('rui-pagination-item-click', (e) => { console.log(`Page ${e.detail.pageNumber} clicked!`)})
+        el.addEventListener('rui-pagination-item-click', (e) => { alert(`Page ${e.detail.pageNumber} clicked!`)});
     }
 </script>
 <rui-pagination
     id="onclick-example"
     current-page="3"
     num-pages="5">
+</rui-pagination>
+```
+
+
+## Using hrefs
+If you do not wish to implement onclick behaviours, the items can be given hrefs by use of the `generateHref` method of the element. This is a function that takes the page number as an argument and expects you to return a href string. 
+
+Hrefs for the next and previous links can be defined by the `next-link`  and `prev-link` attributes.
+
+
+<Script script={
+    () => {
+        const el = document.getElementById('href-example');
+        if (el) {
+            el.generateHref = (pageNum) => `#${pageNum}`;
+            el.requestUpdate();
+        }
+    }
+}></Script>
+```html preview
+<script>
+    const el = document.getElementById('href-example');
+    if (el) {
+        el.generateHref = (pageNum) => `#${pageNum}`;
+        el.requestUpdate();
+    }
+</script>
+<rui-pagination
+    id="href-example"
+    current-page="3"
+    num-pages="5"
+    next-link="#next"
+    prev-link="#prev">
 </rui-pagination>
 ```
 
@@ -81,14 +89,42 @@ If you have a lot of pages, you can specify how many to show before truncation v
 </rui-pagination>
 ```
 
+## Customising
 
-## Custom elements
+### Custom page labels
+Pagination item labels and aria labels can be overriden via the `generateLabel` and `generateAriaLabel` functions
 
+<Script script={
+    () => {
+        const el = document.getElementById('custom-label-example');
+        if (el) {
+            el.generateLabel = (pageNum) => (pageNum < 10) ? `0${pageNum}` : pageNum;
+            el.generateAriaLabel = (pageNum) => `Visit page ${pageNum}`;
+            el.requestUpdate();
+        }
+    }
+}></Script>
+```html preview
+<script>
+    const el = document.getElementById('custom-label-example');
+    if (el) {
+        el.generateLabel = (pageNum) => (pageNum < 10) ? `0${pageNum}` : pageNum;
+        el.generateAriaLabel = (pageNum) => `Visit page ${pageNum}`;
+        el.requestUpdate();
+    }
+</script>
+<rui-pagination
+    id="custom-label-example"
+    current-page="3"
+    num-pages="5"
+    next-link="#next"
+    prev-link="#prev">
+</rui-pagination>
+```
 
 ### Custom previous/next elements
 You can specify what content appears in the next/previous links with the
 `next-content` and `prev-content` slots. 
-
 
 ```html preview
 <rui-pagination
@@ -102,7 +138,6 @@ You can specify what content appears in the next/previous links with the
 
 ### Custom ellipses elements
 You can specify what the ellipses looks like via the `ellipses` slot
-
 
 ```html preview
 <style>

@@ -21,6 +21,8 @@ import {Header} from '../../components/Header';
 import {Footer} from '../../components/Footer';
 import {Navigation} from '../../components/Navigation';
 import {Code} from '../../components/Code';
+import {Script} from '../../components/Script';
+
 import {
 	findIndexOf,
 	replaceStringWith,
@@ -116,6 +118,7 @@ const Template = ({
 
 			return <pre {...props} />;
 		},
+		Script,
 	};
 
 	// breadcrumbs={breadcrumbs} pageTitle={pageTitle} relativeUrlPath={relativeUrlPath}

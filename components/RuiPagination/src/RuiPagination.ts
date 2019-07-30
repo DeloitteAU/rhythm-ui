@@ -8,13 +8,6 @@
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
 import {variables, layout} from './RuiPagination.css'
 
-interface IRuiPaginationItems {
-	[key: string]: {
-		label?: string,
-		href?: string,
-	}
-}
-
 export class RuiPagination extends LitElement {
 	// reference to the left shown ellipses element
 	private leftEllipsesEl: HTMLElement | null = null;
@@ -67,15 +60,15 @@ export class RuiPagination extends LitElement {
 	 * Indicates how many pages total are present in cases where the
 	 * user doesn't want to use the items attribute
 	 */
-	private _numberOfPages?: number;
+	private _numberOfPages: number = 1;
 	@property({
 		type : Number,
 		attribute: 'num-pages'
 	})
-	public get numberOfPages(): number | undefined {
+	public get numberOfPages(): number {
 		return this._numberOfPages;
 	};
-	public set numberOfPages(numberOfPages: number | undefined) {
+	public set numberOfPages(numberOfPages: number) {
 		const oldVal = this._numberOfPages;
 		this._numberOfPages = numberOfPages;
 		this.requestUpdate('numberOfPages', oldVal);
@@ -118,29 +111,29 @@ export class RuiPagination extends LitElement {
 	}
 
 	/**
-	 * An object of the form:
-	 * {
-	 * 	 [pageNumber]: {
-	 * 		href?: where the page should link,
-	 * 		label?: a custom label, pageNumber by default
-	 * 	 }
-	 * }
-	 *
-	 * that is used to configure where the pagination items should
-	 * link to and what their labels should be (if not page number)
+	 * user overrideable function for generating 
+	 * href's for each pagination item. 
 	 */
-	private _items?: IRuiPaginationItems;
-	@property({
-		type : Object,
-	})
-	public get items(): IRuiPaginationItems | undefined {
-		return this._items;
-	};
-	public set items(items: IRuiPaginationItems | undefined) {
-		const oldVal = this._items;
-		this._items = items;
-		this.requestUpdate('items', oldVal);
+	public generateHref = (page: number): string | null => {
+		return null;
 	}
+
+	/**
+	 * user overrideable function for generating 
+	 * labels for each pagination item. 
+	 */
+	public generateLabel = (page: number) => {
+		return `${page}`;
+	}
+
+	/**
+	 * user overrideable function for generating 
+	 * aria labels for each pagination item. 
+	 */
+	public generateAriaLabel = (page: number) => {
+		return `Goto page ${page}`;
+	}
+
 
 	/**
 	 * Here we duplicate the provided ellipses slotted content and also
@@ -172,21 +165,9 @@ export class RuiPagination extends LitElement {
 			this.prevSlottedEl = prevSlottedEl
 		}
 
-		/**
-		 * If user has not passed in number of pages the number of pages
-		 * is equal to the length of the items object keys
-		 */
-		if (this.numberOfPages === undefined) {
-			if (this.items) {
-				this.numberOfPages = Object.keys(this.items).length;
-			} else {
-				this.numberOfPages = 1;
-			}
-		}
-
 		// if no pages to show is defined we default to the total number of pages
 		if (this.pagesToShow === undefined) {
-			this.pagesToShow = this.numberOfPages;
+			this.pagesToShow = this.numberOfPages || 1;
 		}
 	}
 
@@ -241,22 +222,14 @@ export class RuiPagination extends LitElement {
 	 */
 	private _calculatePageStartEnd(): number[] {
 		let pageStart = 1;
-
-		// this should be set in the connectedCallback
-		if (this.numberOfPages === undefined) {
-			return [1, 1];
-		}
-
-		// this should be set in the connectedCallback
-		if (this.pagesToShow === undefined) {
-			return [1, this.numberOfPages]
-		}
-
 		let pageEnd = this.numberOfPages;
 
 		// if the number of pages to show is greater or equal to the number of pages
 		// then we should just display every page as a pagination item
-		if (this.pagesToShow >= this.numberOfPages) {
+		if (
+			this.pagesToShow === undefined ||
+			this.pagesToShow >= this.numberOfPages
+		  ) {
 			return [pageStart, pageEnd];
 		}
 
@@ -319,12 +292,10 @@ export class RuiPagination extends LitElement {
 	 */
 	private _renderPaginationItem(pageNumber, currentPage): TemplateResult {
 		const isCurrentPage = currentPage === pageNumber;
-
-		const itemConfig = (this.items && this.items[pageNumber]) ? this.items[pageNumber] : {};
-		const label = itemConfig.label || pageNumber;
-		const href = itemConfig.href || false;
-
-		const ariaLabel = `Goto page ${pageNumber}`;
+ 
+		const label = this.generateLabel(pageNumber);
+		const href = this.generateHref(pageNumber);
+		const ariaLabel = this.generateAriaLabel(pageNumber);
 
 		let tag = html``;
 		if (isCurrentPage) {
@@ -379,6 +350,7 @@ export class RuiPagination extends LitElement {
 	 * including rendering of ellipses
 	 */
 	private _renderPaginationItems(): TemplateResult[] {
+		console.log('render pagination items')
 		if (this.numberOfPages === 1) {
 			return [this._renderPaginationItem(1,1)];
 		}
