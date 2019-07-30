@@ -11,12 +11,13 @@ import TestUtils from '../../../TestUtils';
 
 describe('RuiIcon', () => {
 
-	it('Renders', async () => {
+	it('Renders correctly', async () => {
 		const ele = await TestUtils.render('rui-icon', {}, '');
 		expect(ele).toBeDefined();
 
 		// Enable if your component has a shadow root
-		// expect(ele.shadowRoot).toBeDefined();
+		expect(ele.shadowRoot).toBeDefined();
+		expect(ele.shadowRoot.firstElementChild.tagName.toLowerCase()).toBe('img');
 	});
 
 });

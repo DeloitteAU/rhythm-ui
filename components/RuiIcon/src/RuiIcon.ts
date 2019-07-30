@@ -9,11 +9,6 @@ import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-el
 import {variables, layout} from './RuiIcon.css'
 
 export class RuiIcon extends LitElement {
-
-	public constructor() {
-		super();
-	}
-
 	/**
 	 * Icon source
 	 */
@@ -52,17 +47,8 @@ export class RuiIcon extends LitElement {
 		* @slot This is a slot test
 	*/
 	public render(): TemplateResult {
-		let style = '';
-		let src = '';
-
-		if (this.hover) {
-			style = `mask: url(${this.src}); -webkit-mask: url(${this.src}); mask-size: contain; -webkit-mask-size: contain;`; //Currently vendor prefixes are required for this value
-		} else {
-			src = this.src;
-		}
-
 		return html`
-			<img src="${src}" alt="${this.alt}" style="${style}" class="${this.hover ? 'hover' : ''}"/>
+			<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="${this.alt}" style="--rui-icon__url: url(${this.src})" class="${this.hover ? 'hover' : ''}"/>
 		`;
 	}
 
