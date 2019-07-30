@@ -63,7 +63,7 @@ export const Seperator = (props: IRuiBreadcrumbsSeperatorProps): React.ReactNode
  */
 export class RuiBreadcrumbs extends React.Component<IRuiBreadcrumbsProps> {
 	// used to add event listeners to element
-	private ruiBreadcrumbsEl = React.createRef<HTMLElement>();
+	private _ruiBreadcrumbsEl = React.createRef<HTMLElement>();
 
 	// Crumb subcomponent accessed via RuiBreadcrumbs.Crumb
 	public static Crumb = Crumb;
@@ -85,7 +85,7 @@ export class RuiBreadcrumbs extends React.Component<IRuiBreadcrumbsProps> {
 	 */
 	public componentDidMount(): void {
 		const {onCrumbSelect} = this.props;
-		const el: HTMLElement | null = this.ruiBreadcrumbsEl.current;
+		const el: HTMLElement | null = this._ruiBreadcrumbsEl.current;
 		if (onCrumbSelect && el) {
 			el.addEventListener('rui-breadcrumbs-item-select', this._handleCrumbSelect);
 		}
@@ -96,7 +96,7 @@ export class RuiBreadcrumbs extends React.Component<IRuiBreadcrumbsProps> {
 	 */
 	public componentWillUnmount(): void {
 		const {onCrumbSelect} = this.props;
-		const el: HTMLElement | null = this.ruiBreadcrumbsEl.current;
+		const el: HTMLElement | null = this._ruiBreadcrumbsEl.current;
 
 		if (onCrumbSelect && el) {
 			el.removeEventListener('rui-breadcrumbs-item-select', this._handleCrumbSelect);
@@ -116,7 +116,7 @@ export class RuiBreadcrumbs extends React.Component<IRuiBreadcrumbsProps> {
 		}
 
 		return (
-			<rui-breadcrumbs ref={this.ruiBreadcrumbsEl} {...props}>
+			<rui-breadcrumbs ref={this._ruiBreadcrumbsEl} {...props}>
 				{this.props.children}
 			</rui-breadcrumbs >
 		);
