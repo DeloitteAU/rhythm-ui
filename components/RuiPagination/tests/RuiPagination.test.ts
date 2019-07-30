@@ -41,7 +41,53 @@ describe('RuiPagination', () => {
 		})
 	});
 
-	// renders truncation correctly
+	it('Renders truncation', async () => {
+		const ele = await TestUtils.render('rui-pagination', {
+			'current-page': 10,
+			'num-pages': 20,
+			'pages-shown': 5,
+		}, '');
+
+		const items = ele.shadowRoot.querySelectorAll('li');
+		// 5 items shown + 2 ellipses + first and last item + next & prev
+		expect(items.length).toEqual(11) 
+
+		items.forEach((item, i) => {
+			const a = item.querySelector('a');
+
+			const PREV_INDEX = 0;
+			const NEXT_INDEX = 10;
+			const LEFT_ELLIPSES_INDEX = 2;
+			const RIGHT_ELLIPSES_INDEX = 8;
+			const CURRENT_INDEX = 5;
+
+			const calculatePageNum = (index) => {
+				if (index === 1) { return 1; }
+				if (index >= 3 && index <= 7) {
+					return index + 5;
+				}
+				if (index === 9) {
+					return 20;
+				}
+				
+
+				return index;
+			}
+
+			if (i === PREV_INDEX) {
+				expect(a.classList).toContain('pagination-link--previous')
+			} else if (i === NEXT_INDEX) {
+				expect(a.classList).toContain('pagination-link--next')
+			} else if (i === LEFT_ELLIPSES_INDEX || i === RIGHT_ELLIPSES_INDEX) {
+				expect(item.textContent.trim()).toEqual('...')
+			} else {
+				if (i === CURRENT_INDEX) {
+					expect(a.classList).toContain('pagination-link--current');
+				}
+				expect(a.textContent).toEqual(`${calculatePageNum(i)}`)
+			}
+		})
+	});
 
 	it('Renders given next href', async () => {
 		const ele = await TestUtils.render('rui-pagination', {
@@ -188,5 +234,25 @@ describe('RuiPagination', () => {
 		expect(customPrev.getAttribute('id')).toEqual('custom-prev')
 	});
 
-	// Renders custom ellipses content
+	it('Renders custom prev content', async () => {
+		const ele = await TestUtils.render('rui-pagination', {
+			'current-page': 10,
+			'num-pages': 20,
+			'pages-shown': 5,
+		}, `
+			<span id="custom-ellipses" slot="ellipses">...</span>
+		`);
+
+		const items = ele.shadowRoot.querySelectorAll('li');
+		const leftEllipsesEl = items[2];
+		const rightEllipsesEl = items[8];
+
+		const leftSlot = leftEllipsesEl.querySelector('slot');
+		const leftID = leftSlot.assignedNodes()[0].getAttribute('id');
+		expect(leftID).toEqual('custom-ellipses');
+
+		const rightSlot = rightEllipsesEl.querySelector('slot');
+		const rightID = rightSlot.assignedNodes()[0].getAttribute('id');
+		expect(rightID).toEqual('custom-ellipses');	
+	});
 });
