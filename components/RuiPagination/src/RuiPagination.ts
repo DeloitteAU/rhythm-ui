@@ -93,6 +93,24 @@ export class RuiPagination extends LitElement {
 	}
 
 	/**
+	 * Used to override the aria label used 
+	 * for the previous link
+	 */
+	private _prevAriaLabel?: string;
+	@property({
+		type : String,
+		attribute: 'prev-aria-label'
+	})
+	public get prevAriaLabel(): string | undefined {
+		return this._prevAriaLabel;
+	};
+	public set prevAriaLabel(prevAriaLabel: string | undefined) {
+		const oldVal = this._prevAriaLabel;
+		this._prevAriaLabel = prevAriaLabel;
+		this.requestUpdate('prevAriaLabel', oldVal);
+	}
+
+	/**
 	 * The href to direct to on next item click,
 	 * if not provided, an event will be dispatched instead
 	 */
@@ -111,10 +129,27 @@ export class RuiPagination extends LitElement {
 	}
 
 	/**
+	 * Used to override the aria label used 
+	 * for the next link
+	 */
+	private _nextAriaLabel?: string;
+	@property({
+		type : String,
+		attribute: 'next-aria-label'
+	})
+	public get nextAriaLabel(): string | undefined {
+		return this._nextAriaLabel;
+	};
+	public set nextAriaLabel(nextAriaLabel: string | undefined) {
+		const oldVal = this._nextAriaLabel;
+		this._nextAriaLabel = nextAriaLabel;
+		this.requestUpdate('nextAriaLabel', oldVal);
+	}
+
+	/**
 	 * user overrideable function for generating 
 	 * href's for each pagination item. 
 	 */
-	@property()
 	public generateHref = (page: number): string | null => {
 		return null;
 	}
@@ -134,7 +169,6 @@ export class RuiPagination extends LitElement {
 	public generateAriaLabel = (page: number) => {
 		return `Goto page ${page}`;
 	}
-
 
 	/**
 	 * Here we duplicate the provided ellipses slotted content and also
@@ -384,82 +418,58 @@ export class RuiPagination extends LitElement {
 	}
 
 	/**
-	 * handles rendering of the previous pagination item
-	 * using user provided previous content if provided or 
-	 * default arrow left
+	 * handles rendering of the previous/next pagination items
+	 * using user provided content if provided
 	 */
-	private _renderPrev(): TemplateResult {
+	private _renderPrevNext = (type: 'previous' | 'next') => {
 		let tag: TemplateResult = html``;
-		const isDisabled = (this.currentPage <= 1);
-		const ariaLabel = "Goto previous page";
+		
+		const isPrevious  = type === 'previous';
 
-		let classes = 'pagination-link pagination-link--previous';
-		if (isDisabled) { classes += ' disabled'}
-
-
-		const prevEl = this.prevSlottedEl
-			? html`<slot name="prev-content"></slot>`
-			: html`<span class="arrow arrow-left"></span>`;
-
-		if (isDisabled) {
-			tag = html`<span class=${classes}>${prevEl}</span>`;
-		} else if (this.prevLink) {
-			const href = isDisabled ? false : this.prevLink;
-			tag = html`
-				<a class="${classes}" aria-label="${ariaLabel}" href="${href}">
-					${prevEl}
-				</a>`
-		} else {
-			const evt = this._generatePrevClickEvent();
-			const onClick = (e):void => { e.preventDefault(); this.dispatchEvent(evt); }
-			tag = html`
-				<a href="#" class="${classes}" aria-label="${ariaLabel}" @click=${onClick}>
-					${prevEl}
-				</a>`
+		const isDisabled = isPrevious ? (this.currentPage <= 1) : (this.currentPage >= this.numberOfPages);
+		const userProvidedLink = isPrevious ? !!this.prevLink : !!this.nextLink;
+		let href = '#';
+		if (userProvidedLink) {
+			if  (isPrevious) {
+				href = this.prevLink || '#';
+			} else {
+				href = this.nextLink || '#';
+			}
 		}
 
-		let liClasses = 'pagination-item';
-		if (isDisabled) { liClasses += ' disabled'}
+		let ariaLabel = '';
+		let classes = 'pagination-link'
+		let innerEl = html``;
 
-		return html`
-			<li class=${liClasses}>
-				${tag}
-			</li>
-		`;
-	}
+		if (isPrevious) {
+			ariaLabel = this.prevAriaLabel ? this.prevAriaLabel : "Goto previous page";
+			classes += ' pagination-link--previous';
+			innerEl = this.prevSlottedEl
+				? html`<slot name="prev-content"></slot>`
+				: html`<span class="arrow arrow-left"></span>`;
+		} else {
+			ariaLabel = this.nextAriaLabel ? this.nextAriaLabel : "Goto next page";
+			classes += ' pagination-link--next';
+			innerEl = this.nextSlottedEl
+				? html`<slot name="next-content"></slot>`
+				: html`<span class="arrow arrow-right"></span>`;
+		}
 
-	/**
-	 * handles rendering of the next pagination item
-	 * using user provided next content if provided or 
-	 * default arrow right
-	 */
-	private _renderNext(): TemplateResult {
-		let tag: TemplateResult = html``;
-
-		const isDisabled = (this.currentPage >= this.numberOfPages);
-		const ariaLabel = "Goto next page";
-
-		let classes = 'pagination-link pagination-link--next';
 		if (isDisabled) { classes += ' disabled'}
 
-		const nextEl = this.nextSlottedEl
-			? html`<slot name="next-content"></slot>`
-			: html`<span class="arrow arrow-right"></span>`;
-
 		if (isDisabled) {
-			tag = html`<span class="${classes}">${nextEl}</span>`;
-		} else if (this.nextLink) {
-			const href = isDisabled ? false : this.nextLink;
+			tag = html`<span class=${classes}>${innerEl}</span>`;
+		} else if (userProvidedLink) {
 			tag = html`
 				<a class="${classes}" aria-label="${ariaLabel}" href="${href}">
-					${nextEl}
+					${innerEl}
 				</a>`
 		} else {
-			const evt = this._generateNextClickEvent();
+			const evt = isPrevious ? this._generatePrevClickEvent() : this._generateNextClickEvent();
 			const onClick = (e):void => { e.preventDefault(); this.dispatchEvent(evt); }
 			tag = html`
 				<a href="#" class="${classes}" aria-label="${ariaLabel}" @click=${onClick}>
-					${nextEl}
+					${innerEl}
 				</a>`
 		}
 
@@ -480,9 +490,9 @@ export class RuiPagination extends LitElement {
 	public render(): TemplateResult {
 		return html`
 			<ul role="navigation" class="pagination">
-				${this._renderPrev()}
+				${this._renderPrevNext('previous')}
 				${this._renderPaginationItems()}
-				${this._renderNext()}
+				${this._renderPrevNext('next')}
 			</ul>
 		`;
 	}
