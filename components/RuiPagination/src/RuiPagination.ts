@@ -146,6 +146,7 @@ export class RuiPagination extends LitElement {
 	 */
 	public connectedCallback(): void {
 		super.connectedCallback();
+
 		this.leftEllipsesEl = this.querySelector('[slot=ellipses]');
 		if (this.leftEllipsesEl) {
 			// clone node returns node so we cast to HTMLElement
@@ -351,7 +352,6 @@ export class RuiPagination extends LitElement {
 	 * including rendering of ellipses
 	 */
 	private _renderPaginationItems(): TemplateResult[] {
-		console.log('render pagination items')
 		if (this.numberOfPages === 1) {
 			return [this._renderPaginationItem(1,1)];
 		}

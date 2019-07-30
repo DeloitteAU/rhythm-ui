@@ -17,7 +17,6 @@ events will be fired:
 <Script script={
     () => {
         const el = document.getElementById('onclick-example');
-        console.log(el);
         if (el) {
             el.addEventListener('rui-pagination-next-click', () => { alert('Next button clicked!')});
 
