@@ -5,14 +5,6 @@ import RuiPagination from './src';
 import Readme from './README.md';
 
 
-const playgroundItems = {
-	1: {label: '01', href: '#1'},
-	2: {label: '02', href: '#2'},
-	3: {label: '03', href: '#3'},
-	4: {label: '04', href: '#4'},
-	5: {label: '05', href: '#5'},
-};
-
 storiesOf('Pagination', module)
 	.addParameters({
 		readme: {
@@ -22,35 +14,21 @@ storiesOf('Pagination', module)
 	.addDecorator(withKnobs)
 	.add('Playground', () => (
 		<RuiPagination
+			onNextClick={() => {alert('Next button clicked!');}}
+			onPrevClick={() => {alert('Prev button clicked!');}}
+			onItemClick={pageNumber => {alert(`Page ${pageNumber} clicked!`);}}
 			currentPage={number('currentPage', 3)}
-			items={object('crumbs', playgroundItems)}
-			nextLink={text('nextLink', '#')}
-			prevLink={text('prevLink', '#')}
+			numPages={number('numPages', 5)}
 			pagesShown={number('pagesShown', 5)}
 		/>
 	))
-	.add('Playground (Custom Events)', () => (
+	.add('Using hrefs', () => (
 		<RuiPagination
-			currentPage={number('currentPage', 5)}
-			numPages={number('numPages', 10)}
-			pagesShown={number('pagesShown', 10)}
-			onNextClick={() => { alert('Next clicked!');}}
-			onPrevClick={() => { alert('Prev clicked!');}}
-			onItemClick={page => { alert(`Item ${page} clicked!`);}}
-		/>
-	))
-	.add('Items Config', () => (
-		<RuiPagination
-			items={{
-				1: {href: '#1'},
-				2: {href: '#2'},
-				3: {href: '#3'},
-				4: {href: '#4'},
-				5: {href: '#5'},
-			}}
-			nextLink="#"
-			prevLink="#"
+			generateHref={pageNum => `#${pageNum}`}
 			currentPage={3}
+			numPages={5}
+			nextLink="#next"
+			prevLink="#prev"
 		/>
 	))
 	.add('Custom Previous/Next Elements', () => (
@@ -61,6 +39,14 @@ storiesOf('Pagination', module)
 			<RuiPagination.Previous style={{padding: '0 5px'}}>Previous</RuiPagination.Previous>
 			<RuiPagination.Next style={{padding: '0 5px'}}>Next</RuiPagination.Next>
 		</RuiPagination>
+	))
+	.add('Custom page labels', () => (
+		<RuiPagination
+			generateLabel={pageNum => ((pageNum < 10) ? `0${pageNum}` : pageNum)}
+			generateAriaLabel={pageNum => `Visit page ${pageNum}`}
+			currentPage={3}
+			numPages={5}
+		/>
 	))
 	.add('Custom Ellipses Elements', () => {
 		const ellipsesStyle = {

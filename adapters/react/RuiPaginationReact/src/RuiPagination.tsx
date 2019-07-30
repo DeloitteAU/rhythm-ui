@@ -154,17 +154,20 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 
 		if (el) {
 
-			//let refreshNeeded = false;
+			let refreshNeeded = false;
 			if (generateHref) {
 				el.generateHref = generateHref;
+				refreshNeeded = true;
 			}
 
 			if (generateLabel) {
 				el.generateLabel = generateLabel;
+				refreshNeeded = true;
 			}
 
 			if (generateAriaLabel) {
 				el.generateAriaLabel = generateAriaLabel;
+				refreshNeeded = true;
 			}
 
 			if (onItemClick) {
@@ -178,6 +181,9 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 			if (onNextClick) {
 				el.addEventListener('rui-pagination-next-click', this._handleNextClick);
 			}
+
+			if (refreshNeeded) { this.forceUpdate(); }
+
 		}
 	}
 

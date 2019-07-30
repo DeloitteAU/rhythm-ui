@@ -114,6 +114,7 @@ export class RuiPagination extends LitElement {
 	 * user overrideable function for generating 
 	 * href's for each pagination item. 
 	 */
+	@property()
 	public generateHref = (page: number): string | null => {
 		return null;
 	}

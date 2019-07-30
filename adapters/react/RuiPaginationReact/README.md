@@ -2,59 +2,29 @@
 Pagination is used to allow the user to navigate between paginated content pages easily. 
 
 ## Basic usage
-The pagination links are configured via the `items` prop. The current pages is indicated via the `currentPage` prop. In addition to this, the next and previous page button links are configured via the `nextLink` and `prevLink` props.
-
-### Items config
+By default, pagination requires you to specify which page is the current page via the `currentPage` prop and how many pages are in the pagination in total via the `numPages` prop. The behaviour when a pagination item is selected, can be configured via the `onItemClick`, `onNextClick` and `onPrevClick` functions.
 ```jsx
 <RuiPagination
-    items={{
-        1: { href: '#1' },
-        2: { href: '#2' },
-        3: { href: '#3' },
-        4: { href: '#4' },
-        5: { href: '#5' }
-    }}
-    nextLink='#'
-    prevLink='#'
-    currentPage={3}>
+    onItemClick={() => {alert('Next button clicked!');}}
+    onNextClick={() => {alert('Prev button clicked!');}}
+    onPrevClick={(pageNumber) => {alert(`Page ${pageNumber} clicked!`)}}
+    currentPage={3}
+    numPages={5}>
 </RuiPagination>
 ```
 
-### Custom labels
-If you wish to use custom labels, not the default 1, 2, 3..., page numbers, then you can specify it within the `items` prop via the 
-`label` key. 
-```jsx
-<RuiPagination
-    items={{
-        1: { label: '01', href: '#1' },
-        2: { label: '02', href: '#2' },
-        3: { label: '03', href: '#3' },
-        4: { label: '04', href: '#4' },
-        5: { label: '0', href: '#5' }
-    }}
-    nextLink='#'
-    prevLink='#'
-    currentPage={3}>
-</RuiPagination>
-```
+## Using hrefs
+If you do not wish to implement onclick behaviours, the items can be given hrefs by use of the `generateHref` prop. This is a function that takes the page number as an argument and expects you to return a href string. 
 
-### Using onclick handlers
-If you need to implement some custom onclick/navigation behaviour, you can simply not use the `href` key in your `items` prop and omit the 
-`prevLink` and `nextLink` props as needed. 
-In this case you should provide the `numPages` attribute to let the component know how many page items to render. 
-
-`onNextClick` will be fired when no `nextLink` is provided.
-`onPrevClick` will be fired when no `prevLink` is provided.
-`onItemClick` will be fired when one of the pagination items is clicked, with the page number available as the first argument
+Hrefs for the next and previous links can be defined by the `nextLink`  and `prevLink` props.
 
 ```jsx
 <RuiPagination
-    id="onclick-example"
+    generateHref={(pageNum) => `#${pageNum}`}
     currentPage={3}
     numPages={5}
-    onNextClick={() => { console.log('Next Clicked!'); }}
-    onPrevClick={() => { console.log('Prev Clicked!'); }}
-    onItemClick={(item) => { console.log(`Item ${item} Clicked!`); }}>
+    nextLink="#next"
+    prevLink="#prev">
 </RuiPagination>
 ```
 
@@ -69,11 +39,24 @@ If you have a lot of pages, you can specify how many to show before truncation v
 </RuiPagination>
 ```
 
-## Custom elements
+## Customising
+
+### Custom page labels
+Pagination item labels and aria labels can be overriden via the `generateLabel` and `generateAriaLabel` props
+
+```jsx
+<RuiPagination
+    generateLabel={(pageNum) => (pageNum < 10) ? `0${pageNum}` : pageNum}
+    generateAriaLabel={(pageNum) => `Visit page ${pageNum}`}
+    currentPage={3}
+    numPages={5}
+>
+</RuiPagination>
+```
 
 ### Custom previous/next elements
 You can specify what content appears in the next/previous links with the
-`RuiPagination.Previous` and `RuiPagination.Next` subcomponents. 
+`RuiPagination.Next` and `RuiPagination.Previous` subcomponents. 
 
 ```jsx
 <RuiPagination
@@ -84,25 +67,10 @@ You can specify what content appears in the next/previous links with the
 </RuiPagination>
 ```
 
-
 ### Custom ellipses elements
 You can specify what the ellipses looks like via the `RuiPagination.Ellipses` subcomponent
 
 ```jsx
-<style>
-    .custom-ellipses {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .ellipses-item {
-        width: 3px;
-        height: 3px;
-        margin: 0 1px;
-        background: #333;
-    }
-</style>
 <RuiPagination
     currentPage={10}
     pagesShown={5}
