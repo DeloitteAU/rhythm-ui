@@ -21,7 +21,6 @@ export class RuiScrollTo extends React.Component<IRuiScrollToProps> {
 		const {noSmoothScroll, scrollContainer, children, ...otherProps} = this.props;
 		const props = otherProps;
 		if (noSmoothScroll) {
-			console.log(noSmoothScroll);
 			props['no-smooth-scroll'] = true;
 		}
 
@@ -29,8 +28,11 @@ export class RuiScrollTo extends React.Component<IRuiScrollToProps> {
 			props['scroll-container'] = scrollContainer;
 		}
 
+		// will throw an error if number of children is not === 1
+		// otherwise will return only child
 		const firstChild = React.Children.only(children);
 
+		// need to add slot to the given child
 		let TriggerEl = null;
 		if (firstChild) {
 			TriggerEl = React.cloneElement(firstChild, {slot: 'scroll-trigger'});

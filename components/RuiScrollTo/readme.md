@@ -68,6 +68,9 @@ The container will then scroll the window to the parent container and scroll the
     <p>Target is 1000px below</p>
     <div style="height: 1000px;"></div>
     <div id="scroll-within-scroll-example" style="border: 2px solid red">target</div>
+    <div style="height: 1000px;"></div>
 </div>
-
 ```
+
+<div style="height: 1000px;"></div>
+<div style="height: 1000px;"></div>
