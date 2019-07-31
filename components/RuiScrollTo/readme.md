@@ -64,6 +64,7 @@ E.g.
     <button slot="scroll-trigger">Scroll wont work</button>
 </rui-scroll-to>
 <div style="height: 100px; border: 1px solid red; overflow: scroll">
+    <p>Target is 1000px below</p>
     <div style="height: 1000px;"></div>
     <div id="scroll-within-scroll-example" style="border: 2px solid red">target</div>
 </div>
