@@ -6,6 +6,13 @@
 */
 
 /**
+ * Safari, Edge, IE11 require a smooth scroll polyfill currently
+ */
+import smoothscroll from 'smoothscroll-polyfill';
+
+smoothscroll.polyfill();
+
+/**
 * Register the Web Component with customElements
 * @param tag - The HTML tag to use
 */
