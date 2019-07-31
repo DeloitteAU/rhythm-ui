@@ -10,19 +10,11 @@ import {css} from 'lit-element';
 /**
 	*  RuiScrollTo Variables
 */
-export const variables = css`
-	:host {
-		--padding: 10px;
-	}
-`;
+export const variables = css``;
 
 /**
 	* RuiScrollTo CSS
 */
-export const layout = css`
-	:host {
-		--padding: 10px;
-	}
-`;
+export const layout = css``;
 
 export default [variables, layout];

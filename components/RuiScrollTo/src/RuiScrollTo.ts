@@ -8,7 +8,61 @@
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
 import {variables, layout} from './RuiScrollTo.css'
 
+
+/**
+ * RuiScrollTo Provides functionality to add scroll-to behaviour
+ * to a given trigger element on click
+ */
 export class RuiScrollTo extends LitElement {
+
+	private _scrollTriggerEl: HTMLElement | null = null;
+
+	@property({type : String})
+	public to?;
+
+	@property({type : Number})
+	public offset = 0;
+
+	@property({
+		type : Boolean,
+		attribute: 'no-smooth-scroll'
+	})
+	public noSmoothScroll?;
+
+
+	public connectedCallback() {
+		super.connectedCallback();
+
+		const scrollTriggerEl = this.querySelector('[slot=scroll-trigger]') as HTMLElement;
+		if (scrollTriggerEl) {
+			this._scrollTriggerEl = scrollTriggerEl;
+			this._scrollTriggerEl.onclick = this._scrollHandler
+		}
+	}
+
+
+	private _scrollHandler = (): void => {
+		if (
+			!this._scrollTriggerEl ||
+			!window ||
+			!window.scrollTo
+		) { return; }
+
+		let yCoordinate = 0;
+
+		if (this.to) {
+			const targetEl = document.querySelector(this.to);
+			if (!targetEl) { return; }
+			
+			yCoordinate = targetEl.getBoundingClientRect().top + window.pageYOffset;
+		}
+		
+		window.scrollTo({
+			top: yCoordinate + this.offset,
+			behavior: this.noSmoothScroll ? 'auto' : 'smooth'
+		});
+
+	}
 
 	/**
 	*
@@ -24,14 +78,10 @@ export class RuiScrollTo extends LitElement {
 
 	/* #region Methods */
 
-	/**
-	* Render method
-		* @slot This is a slot test
-	*/
 	public render(): TemplateResult {
 		return html`
-			<slot> </slot>
-			`;
+			<slot name="scroll-trigger"></slot>
+		`;
 	}
 
 	/* #endregion */
