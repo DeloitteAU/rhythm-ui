@@ -16,6 +16,9 @@ declare global {
 	}
 }
 
-export interface IRuiScrollTo {
-	children: ReactNode;
+export interface IRuiScrollToProps {
+	children: ReactNode,
+	to: string,
+	scrollContainer: string,
+	noSmoothScroll: boolean,
 }

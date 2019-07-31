@@ -54,16 +54,17 @@ If you do not wish to use smooth scroll, you can disable it via the
 <div id="jump-scroll-example" style="border: 2px solid red">target</div>
 ```
 
+## Scrolling to elements within other scrollable elements
+If you need to scroll to an element within another scrollable element you will need to use the `scroll-container` attribute, which is a selector string for the scrollable container.
 
-## Limitations
-The component currently cannot scroll to elements within other scrollable elements, if this behaviour is needed then use of a 3rd party scroll library or the native `Element.scrollIntoView` method if no offset is required.
+The container will then scroll the window to the parent container and scroll the given container to the target element.
 
-E.g.
 ```html preview
-<rui-scroll-to to="#scroll-within-scroll-example">
-    <button slot="scroll-trigger">Scroll wont work</button>
+<rui-scroll-to scroll-container="#scroll-container" to="#scroll-within-scroll-example">
+    <button slot="scroll-trigger">Scroll within scroll</button>
 </rui-scroll-to>
-<div style="height: 100px; border: 1px solid red; overflow: scroll">
+<div style="height: 300px; background: #333"></div>
+<div id="scroll-container" style="height: 100px; border: 1px solid red; overflow: scroll">
     <p>Target is 1000px below</p>
     <div style="height: 1000px;"></div>
     <div id="scroll-within-scroll-example" style="border: 2px solid red">target</div>

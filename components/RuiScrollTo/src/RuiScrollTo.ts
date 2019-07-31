@@ -20,6 +20,12 @@ export class RuiScrollTo extends LitElement {
 	@property({type : String})
 	public to?;
 
+	@property({
+		type: String,
+		attribute: 'scroll-container'
+	})
+	public scrollContainer?;
+
 	@property({type : Number})
 	public offset = 0;
 
@@ -49,6 +55,7 @@ export class RuiScrollTo extends LitElement {
 		) { return; }
 
 		let yCoordinate = 0;
+		let scrollContainer = window;
 
 		if (this.to) {
 			const targetEl = document.querySelector(this.to);
@@ -56,11 +63,25 @@ export class RuiScrollTo extends LitElement {
 			
 			yCoordinate = targetEl.getBoundingClientRect().top + window.pageYOffset;
 		}
-		
-		window.scrollTo({
+
+		if (this.scrollContainer) {
+			
+			const customScrollContainer = document.querySelector(this.scrollContainer);
+			if (!customScrollContainer) { return; }
+			scrollContainer = customScrollContainer;
+			const scrollContainerYCoordinate = customScrollContainer.getBoundingClientRect().top + window.pageYOffset;
+			
+			 window.scrollTo({
+			 	top: scrollContainerYCoordinate,
+			 	behavior: this.noSmoothScroll ? 'auto' : 'smooth'
+			 });
+		}
+
+		scrollContainer.scrollTo({
 			top: yCoordinate + this.offset,
 			behavior: this.noSmoothScroll ? 'auto' : 'smooth'
 		});
+
 
 	}
 
