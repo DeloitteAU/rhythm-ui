@@ -74,6 +74,16 @@ export const layout = css`
 	img.hover:hover {
 		background: var(--rui-icon__hover-color);
 	}
+	
+	/* stylelint-disable-next-line */
+	@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+		img {
+			background: transparent;
+			background-image: var(--rui-icon__url);
+			background-position: center;
+			background-size: contain;
+		}
+	}
 `;
 
 export default [variables, layout];
