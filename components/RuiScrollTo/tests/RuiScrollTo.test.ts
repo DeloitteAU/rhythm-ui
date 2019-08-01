@@ -9,11 +9,52 @@
 import '../src';
 import TestUtils from '../../../TestUtils';
 
-describe('RuiScrollTo', () => {
-	beforeEach(() => {
-		window.scrollTo(0,0);
-	});
+// check whether has scrolled to bottom of page
+const  hasScrolledToBottom = () => {
+	let scrollY = 0;
+	if( typeof( window.pageYOffset ) === 'number' ) {
+		scrollY = window.pageYOffset;
+	} else if( document.body && ( document.body.scrollLeft || document.body.scrollTop ) ) {
+		scrollY = document.body.scrollTop;
+	}
+	
+	const docHeight =  Math.max(
+		document.body.scrollHeight, document.documentElement.scrollHeight,
+		document.body.offsetHeight, document.documentElement.offsetHeight,
+		document.body.clientHeight, document.documentElement.clientHeight
+	);
 
+	return docHeight <= (scrollY + window.innerHeight)
+}
+
+
+
+// returns a promise for when the scroll is complete
+const onScrollComplete = (targetYCoord, timeout = 1000) => {
+	return new Promise((resolve, reject) => {
+		let timeoutCount = 0;
+		const interval = setInterval(() => {
+			if (window.scrollY > targetYCoord - 1 && window.scrollY < targetYCoord + 1) {
+				clearInterval(interval);
+				resolve();
+			} else if (hasScrolledToBottom()) {
+				clearInterval(interval);
+				resolve();
+			} else if (timeoutCount >= timeout) {
+				clearInterval(interval);
+				reject('Timeout exceeded')
+			} else {
+				timeoutCount += 100;
+			}
+		}, 100)
+	})
+} 
+
+describe('RuiScrollTo', () => {
+	beforeEach(async () => {
+		window.scrollTo(0,0);
+		await onScrollComplete(0)
+	})
 	it('Renders', async () => {
 		const ele = await TestUtils.render('rui-scroll-to', {}, '');
 		expect(ele).toBeDefined();
@@ -34,26 +75,29 @@ describe('RuiScrollTo', () => {
 	it('scrolls to top by default', async () => {
 		// prepare test env
 		document.body.innerHTML = `
-			<div style="height: 1000px; background: #333"></div>
+			<div style="height: 3000px; background: #333"></div>
 			<rui-scroll-to>
 				<button id="trigger" slot="scroll-trigger">Click to scroll</button>
 			</rui-scroll-to>
+			<div style="height: 3000px; background: #333"></div>
 		`;
 		
 		await TestUtils.waitForComponentToRender('rui-scroll-to');
-		
 
 		const trigger = document.querySelector('#trigger') as HTMLElement;
 
 		// scroll down to where button is
-		window.scrollTo(0, trigger.getBoundingClientRect().top + window.pageYOffset);
+		const triggerPos = trigger.getBoundingClientRect().top + window.pageYOffset;
+		window.scrollTo(0, triggerPos);
+
+		await onScrollComplete(triggerPos)
+
 		// expect to no longer be at the top of the window
 		expect(window.scrollY).toBeGreaterThan(0);
-		await TestUtils.wait(500)
 		
 		// trigger the scroll to element
 		await trigger.click();
-		await TestUtils.wait(500)
+		await onScrollComplete(0)
 
 		// expect to be scrolled back to the top
 		expect(window.scrollY).toEqual(0);
@@ -67,7 +111,7 @@ describe('RuiScrollTo', () => {
 			</rui-scroll-to>
 			<div style="height: 1000px; background: #333"></div>
 			<div id="target" style="border: 2px solid red">target</div>
-			<div style="height: 1000px; background: #333"></div>
+			<div style="height: 3000px; background: #333"></div>
 			
 		`;
 
@@ -75,28 +119,43 @@ describe('RuiScrollTo', () => {
 
 		const trigger = document.querySelector('#trigger') as HTMLElement;
 		const target = document.querySelector('#target') as HTMLElement;
-		const targetYcoord = target.getBoundingClientRect().top + window.pageYOffset;
+		
 
 		expect(window.scrollY).toEqual(0);
 		await trigger.click();
 		await TestUtils.wait(1000);
-		expect(window.scrollY).toEqual(targetYcoord);
+		const targetTop = target.getBoundingClientRect().top;
+
+		expect(targetTop).toBeGreaterThan(-1);
+		expect(targetTop).toBeLessThan(1);
 	})
 
-	// scrolls to element within another element via 'scroll-container' attribute
 	it('scrolls to element within another scrollable elemenet via "scroll-container" attribute ', async () => {
 		document.body.innerHTML = `
 			<rui-scroll-to scroll-container="#scroll-container" to="#target">
-				<button slot="scroll-trigger">Scroll within scroll</button>
+				<button id="trigger" slot="scroll-trigger">Scroll within scroll</button>
 			</rui-scroll-to>
-			<div style="height: 300px; background: #333"></div>
+			<div style="height: 1000px; background: #333"></div>
 			<div id="scroll-container" style="height: 100px; border: 1px solid red; overflow: scroll">
 				<p>Target is 1000px below</p>
 				<div style="height: 1000px;"></div>
 				<div id="target" style="border: 2px solid red">target</div>
 				<div style="height: 1000px;"></div>
 			</div>
+			<div style="height: 3000px; background: #333"></div>
 		`
+
+		await TestUtils.waitForComponentToRender('rui-scroll-to');
+
+		const trigger = document.querySelector('#trigger') as HTMLElement;
+		const target = document.querySelector('#target') as HTMLElement;
+
+		await trigger.click()
+		await TestUtils.wait(2000)
+		const targetTop = target.getBoundingClientRect().top;
+
+		expect(targetTop).toBeGreaterThan(-1);
+		expect(targetTop).toBeLessThan(1);
 	})
 
 
@@ -108,18 +167,21 @@ describe('RuiScrollTo', () => {
 			</rui-scroll-to>
 			<div style="height: 1000px; background: #333"></div>
 			<div id="target" style="border: 2px solid red">target</div>
-			<div style="height: 1000px; background: #333"></div>
+			<div style="height: 3000px; background: #333"></div>
+			
 		`;
 
 		await TestUtils.waitForComponentToRender('rui-scroll-to');
 
 		const trigger = document.querySelector('#trigger') as HTMLElement;
 		const target = document.querySelector('#target') as HTMLElement;
-		const targetYcoord = target.getBoundingClientRect().top + window.pageYOffset;
 
 		expect(window.scrollY).toEqual(0);
 		await trigger.click();
 		await TestUtils.wait(0);
-		expect(window.scrollY).toEqual(targetYcoord);
+		const targetTop = target.getBoundingClientRect().top;
+
+		expect(targetTop).toBeGreaterThan(-1);
+		expect(targetTop).toBeLessThan(1);
 	})
 });

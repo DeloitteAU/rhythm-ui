@@ -69,16 +69,20 @@ export class RuiScrollTo extends LitElement {
 
 	/**
 	 * Queries the window scroll position every 100 ms to see if we have 
-	 * reached the scroll position in question, 
+	 * reached the scroll position in question
 	 */
-	private _onScrollComplete = (targetYCoord, timeout = 1000) => {
+	private _onScrollComplete = (targetYCoord, timeout = 1000): Promise<void> => {
 		return new Promise((resolve, reject) => {
 			let timeoutCount = 0;
-			const interval = setInterval(() => {
+			const interval = setInterval((): void => {
 				if (window.scrollY > targetYCoord - 1 && window.scrollY < targetYCoord + 1) {
 					clearInterval(interval);
 					resolve();
+				} else if (this._hasScrolledToBottom()) {
+					clearInterval(interval);
+					resolve();
 				} else if (timeoutCount >= timeout) {
+					clearInterval(interval);
 					reject('Timeout exceeded')
 				} else {
 					timeoutCount += 100;
@@ -86,6 +90,27 @@ export class RuiScrollTo extends LitElement {
 			}, 100)
 		})
 	} 
+
+
+	/**
+	 * Detect if we have scrolled as far down as possible on the window
+	 */
+	private _hasScrolledToBottom = (): boolean => {
+		let scrollY = 0;
+		if( typeof( window.pageYOffset ) === 'number' ) {
+			scrollY = window.pageYOffset;
+		} else if( document.body && ( document.body.scrollLeft || document.body.scrollTop ) ) {
+			scrollY = document.body.scrollTop;
+		}
+		
+		const docHeight =  Math.max(
+			document.body.scrollHeight, document.documentElement.scrollHeight,
+			document.body.offsetHeight, document.documentElement.offsetHeight,
+			document.body.clientHeight, document.documentElement.clientHeight
+		);
+
+		return docHeight <= (scrollY + window.innerHeight)
+	}
 
 
 	/**
@@ -166,10 +191,21 @@ export class RuiScrollTo extends LitElement {
 				} catch (e) {
 					userInterferance = true;
 				}
+
+				/**
+				 * If the user has scrolled as far as they can, but the container 
+				 * el is not at the top of the screen, then the top calc below 
+				 * will be off by the difference between the window pos and
+				 * the scroll container pos
+				 */
+				let coordCorrection = 0;
+				if (this._hasScrolledToBottom()) {
+					coordCorrection = window.scrollY - scrollContainerYCoordinate;
+				}
 				
 				// get top of target el from container, taking into account how much the 
 				// scroll container has already scrolled
-				yCoordinate = targetEl.getBoundingClientRect().top + scrollContainer.scrollTop
+				yCoordinate = targetEl.getBoundingClientRect().top + scrollContainer.scrollTop + coordCorrection;
 			} else {
 				// if no scroll container, get top of element and take into account
 				// how much window has already been scrolled
