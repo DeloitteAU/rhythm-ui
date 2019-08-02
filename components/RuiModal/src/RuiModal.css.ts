@@ -12,16 +12,44 @@ import {css} from 'lit-element';
 */
 export const variables = css`
 	:host {
-		color: #000;
+		--rui-modal__margin-sides--medium: 10px;
+		--rui-modal__height-max--medium: 382px;
+		--rui-modal__height-min--medium: 280px;
+		--rui-modal__width--medium: 600px;
+		--rui-modal__margin-sides--small: 10px;
+		--rui-modal__height-max--small: 251px;
+		--rui-modal__height-min--small: 200px;
+		--rui-modal__width--small: 472px;
+		--rui-modal__padding: 20px 40px;
+		--rui-modal__box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.12), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.12);
+		--rui-modal__actions-margin: 10px 0;
+		--rui-modal__actions-padding: 0;
+		--rui-modal__actions-background: none;
+		--rui-modal__actions-border: none;
+		--rui-modal__heading-margin: 10px 0;
+		--rui-modal__heading-padding: 0;
+		--rui-modal__heading-background: none;
+		--rui-modal__heading-border: none;
+		--rui-modal__detail-margin: 0;
+		--rui-modal__detail-padding: 0;
+		--rui-modal__detail-background: none;
+		--rui-modal__detail-border: none;
 	}
 `;
 
-/**
+/**s
 	* RuiModal CSS
 */
 export const layout = css`
 	::slotted([slot="cancel"]) {
 		margin-right: 15px;
+	}
+
+	.modal__heading {
+		margin: var(--rui-modal__heading-margin);
+		padding: var(--rui-modal__heading-padding);
+		background: var(--rui-modal__heading-background);
+		border: var(--rui-modal__heading-border);
 	}
 
 	.modal__heading > ::slotted([slot="heading"]) {
@@ -31,8 +59,12 @@ export const layout = css`
 	}
 
 	.modal__detail {
-		max-height: 300px;
-		overflow: auto;
+		flex: 1;
+		overflow-y: auto;
+		margin: var(--rui-modal__detail-margin);
+		padding: var(--rui-modal__detail-padding);
+		background: var(--rui-modal__detail-background);
+		border: var(--rui-modal__detail-border);
 	}
 
 	.modal__detail > ::slotted([slot="detail"]) {
@@ -42,7 +74,10 @@ export const layout = css`
 	}
 
 	.modal__actions {
-		margin-top: 40px;
+		margin: var(--rui-modal__actions-margin);
+		padding: var(--rui-modal__actions-padding);
+		background: var(--rui-modal__actions-background);
+		border: var(--rui-modal__actions-border);
 	}
 
 	.close-btn {
@@ -80,19 +115,42 @@ export const layout = css`
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		max-width: 488px;
-		width: 100%;
-		min-height: 200px;
 		background-color: white;
-		display: none;
-		padding: 40px;
-		box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.12), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.12);
+		padding: var(--rui-modal__padding);
+		box-shadow: var(--rui-modal__box-shadow);
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: flex-start;
 	}
-
-	.modal-container.open,
-	.modal.open {
+	
+	.modal-container.open {
 		display: block;
 	}
+
+	.modal--fullscreen {
+		width: 100%;
+		height: 100%;
+	}
+
+	.modal.modal--medium {
+		width: calc(100% - (var(--rui-modal__margin-sides--medium) * 2));
+		max-width: calc(var(--rui-modal__width--medium) + (var(--rui-modal__margin-sides--medium) * 2));
+		max-height: var(--rui-modal__height-max--medium);
+		min-height: var(--rui-modal__height-min--medium);
+	}
+
+	.modal.modal--small {
+		width: calc(100% - (var(--rui-modal__margin-sides--small) * 2));
+		max-width: calc(var(--rui-modal__width--small) + (var(--rui-modal__margin-sides--small) * 2));
+		max-height: var(--rui-modal__height-max--small);
+		min-height: var(--rui-modal__height-min--small);
+	}
 `;
+
+/**
+ * 
+ * Mobile size breakpoint
+ */
 
 export default [variables, layout];

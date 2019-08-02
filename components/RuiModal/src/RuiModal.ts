@@ -58,6 +58,13 @@ export class RuiModal extends LitElement {
 
 
 	/**
+	 * The size of the modal
+	 */
+	@property({type: String})
+	public size: 'small' | 'medium' | 'fullscreen' = 'small';
+
+
+	/**
 	 * Handles modal open/close state, engages and releases
 	 * the focus trap on open/close 
 	 */
@@ -262,6 +269,10 @@ export class RuiModal extends LitElement {
 		}
 	}
 
+	/**
+	 * Renders the user provided actions or, if no actions are
+	 * provided - renders the top right close button
+	 */
 	private _renderActions = () => {
 		if (this._hasActions) {
 			return html`
@@ -275,6 +286,10 @@ export class RuiModal extends LitElement {
 		return html`<button aria-label="Close" class="close-btn" @click=${this._onCancel}></button>`
 	}
 
+	/**
+	 * If the user has provided a heading then return it, 
+	 * otherwise return nothing
+	 */
 	private _renderHeading = () => {
 		if (this._hasHeading) {
 			return html`
@@ -283,8 +298,14 @@ export class RuiModal extends LitElement {
 				</div>
 			`
 		}
+
+		return null;
 	}
 
+	/**
+	 * Render the heading (if provided) the main modal content and 
+	 * the actions/close button 
+	 */
 	private _renderModalBody = () => {
 		return html`
 			${this._renderHeading()}
@@ -302,9 +323,10 @@ export class RuiModal extends LitElement {
 	 * @slot This is a slot test
 	 */
 	public render(): TemplateResult {
+
 		return html`
 			<div id="modal-container" tabindex="-1" class="${this.open ? 'modal-container open': 'modal-container'}">
-				<div role="dialog" id="modal" aria-modal="true" class="${this.open ? 'modal open': 'modal'}">
+				<div role="dialog" id="modal" aria-modal="true" class="${`modal modal--${this.size}`}">
 					${this._renderModalBody()}
 				</div>
 			</div>
