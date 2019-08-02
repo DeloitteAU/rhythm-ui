@@ -26,6 +26,9 @@ export class RuiModal extends LitElement {
 
 	// reference to user provided confirm element (if provided)
 	private _confirmEl: HTMLElement | null = null;
+
+	// reference to user provided close element (if provided)
+	private _closeEl: HTMLElement | null = null;
 	
 	// whether or not the user has provided custom actions
 	private _hasActions: boolean = false;
@@ -111,6 +114,15 @@ export class RuiModal extends LitElement {
 
 			if (!this._cancelEl.onclick) {
 				this._cancelEl.onclick = this._onCancel;
+			}
+		}
+
+		const closeEl = this.querySelector('[slot="close"]') as HTMLElement
+		if (closeEl) {
+			this._closeEl = closeEl;
+
+			if (!this._closeEl.onclick) {
+				this._closeEl.onclick = this._onCancel;
 			}
 		}
 
@@ -263,7 +275,7 @@ export class RuiModal extends LitElement {
 	 */
 	public disconnectedCallback() {
 		super.disconnectedCallback();
-
+		document.body.style.overflow = '';
 		if (this._focusTrap) {
 			this._focusTrap.destroy();
 		}
@@ -283,7 +295,14 @@ export class RuiModal extends LitElement {
 			`;
 		}
 
-		return html`<button aria-label="Close" class="close-btn" @click=${this._onCancel}></button>`
+		let closeBtn = html``;
+		if (this._closeEl) {
+			closeBtn =  html`<slot name="close"></slot>`
+		} else {
+			closeBtn = html`<button aria-label="Close" class="close-btn" @click=${this._onCancel}><span class="close"></span></button>`
+		}
+
+		return html`<div class="close-container">${closeBtn}</div>`
 	}
 
 	/**

@@ -85,7 +85,6 @@ export default class FocusTrap {
      * the trap start and end divs that we created for the trap
      */
     public destroy = (): void => {
-
         if (this.isActive) {
             this.free();
         }
@@ -159,17 +158,23 @@ export default class FocusTrap {
      * element within the trap and focuses that
      */
     public focusFirstEl = (): void => {
+        let targetEl: HTMLElement | null = null;
         if (this._initiallyFocusedEl) {
-            this._initiallyFocusedEl.focus();
+            targetEl = this._initiallyFocusedEl;
             this._lastFocusedEl = this._initiallyFocusedEl;
         } else {
             const focusableElements: HTMLElement[] = this.focusableElements;
-
             if (focusableElements.length > 0) {
-                focusableElements[0].focus();
+                targetEl = focusableElements[0];
                 this._lastFocusedEl = focusableElements[0];
             }
         }
+
+        setTimeout(() => {
+            if (targetEl) {
+                targetEl.focus();
+            }
+        }, 0);
     }
 
     /**
