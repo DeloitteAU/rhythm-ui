@@ -7,6 +7,7 @@
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
 import {FocusTrap} from '@rhythm-ui/a11y-utils';
+import {generateUUID} from '@rhythm-ui/utils';
 import {variables, layout} from './RuiModal.css'
 
 
@@ -36,7 +37,10 @@ export class RuiModal extends LitElement {
 	// whether or not the user has provided a heading element
 	private _hasHeading: boolean = false;
 
+	// unique id prefix for internal id's
+	private _uuid: string = generateUUID();
 
+	
 	/**
 	 * An inverted boolean property, used to indicate whether or
 	 * not clicking outside the modal should close it
@@ -66,6 +70,15 @@ export class RuiModal extends LitElement {
 	@property({type: String})
 	public size: 'small' | 'medium' | 'fullscreen' = 'small';
 
+
+	/**
+	 * A selector for the element to focus within the modal initially
+	 */
+	@property({
+		type: String,
+		attribute: 'initially-focused'
+	})
+	public initiallyFocused?;
 
 	/**
 	 * Handles modal open/close state, engages and releases
@@ -204,7 +217,18 @@ export class RuiModal extends LitElement {
 			const modalEl = this.shadowRoot.querySelector('#modal') as HTMLElement;
 			
 			if (modalEl) {
-				this._focusTrap = new FocusTrap(modalEl, 'rui-modal');
+				let initiallyFocusedEl = null;
+				if (this.initiallyFocused) {
+					initiallyFocusedEl = this.querySelector(this.initiallyFocused)
+				}
+				
+
+				const ID = `rui-modal__${this._uuid}`;
+				if (initiallyFocusedEl) {
+					this._focusTrap = new FocusTrap(modalEl, ID, initiallyFocusedEl);
+				} else {
+					this._focusTrap = new FocusTrap(modalEl, ID);
+				}
 
 				if (this.open) {
 					this._focusTrap.trap();

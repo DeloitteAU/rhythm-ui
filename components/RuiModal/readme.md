@@ -5,7 +5,7 @@ title: "rui-modal"
 
 
 # Modal
-The modal...
+Modals allow for the display of 
 
 ## Basic Usage
 Modal content is provided via the `heading` and `detail` slots. This will render a modal with a top right close button by default.
@@ -58,11 +58,8 @@ You can configure the size of the modal via the `size` attribute (size is small 
 </rui-modal>
 ```
 
-
-
 ## Custom Actions
 If you wish to provide some actions to the modal, it supports supplying cancel and confirm actions via the `confirm` and `cancel` slots.
-
 
 <rui-button onClick={() => {
     document.getElementById('modal-two').setAttribute('open', true);
@@ -109,6 +106,23 @@ via the `no-click-outside-close` and `no-esc-btn-close` attributes
     <h2 slot="heading">Modal Heading</h2>
     <div slot="detail">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.</p>
+    </div>
+</rui-modal>
+```
+
+
+## Customising First Focused Element
+By default, the modal will focus the first focusable element found within it, if this is not wanted, you can specify what element to focus first via the `initially-focused` attribute, which expects a selector.
+
+<rui-button onClick={() => {
+    document.getElementById('initial-focus-example').setAttribute('open', true);
+}}>Custom Initial Focus</rui-button>
+
+```html preview
+<rui-modal initially-focused="#focus-here" id="initial-focus-example">
+    <h2 slot="heading">Modal Heading</h2>
+    <div slot="detail">
+        <p id="focus-here" tabindex="0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.</p>
     </div>
 </rui-modal>
 ```
