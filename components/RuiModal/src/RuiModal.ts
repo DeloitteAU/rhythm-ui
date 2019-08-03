@@ -40,6 +40,10 @@ export class RuiModal extends LitElement {
 	// unique id prefix for internal id's
 	private _uuid: string = generateUUID();
 
+	// keeps track of the body overflow style value if set by user already
+	// so we can restore the value when modal closes
+	private _initialBodyOverflowStyle: string = '';
+
 	
 	/**
 	 * An inverted boolean property, used to indicate whether or
@@ -260,6 +264,11 @@ export class RuiModal extends LitElement {
 	 * Block scrolling on the backdrop and set the focus trap to trap
 	 */
 	private _engageFocusTrap = (): void => {
+		// preserve value if this is already set 
+		if (document.body.style.overflow) {
+			this._initialBodyOverflowStyle = document.body.style.overflow;
+		}
+
 		document.body.style.overflow = 'hidden';
 		if (this._focusTrap) {
 			this._focusTrap.trap();
@@ -270,7 +279,7 @@ export class RuiModal extends LitElement {
 	 * Allow scrolling on the backdrop and unset the focus trap
 	 */
 	private _releaseFocusTrap = (): void => {
-		document.body.style.overflow = '';
+		document.body.style.overflow = this._initialBodyOverflowStyle;
 		if (this._focusTrap) {
 			this._focusTrap.free();
 		}
@@ -299,7 +308,7 @@ export class RuiModal extends LitElement {
 	 */
 	public disconnectedCallback() {
 		super.disconnectedCallback();
-		document.body.style.overflow = '';
+		document.body.style.overflow = this._initialBodyOverflowStyle;
 		if (this._focusTrap) {
 			this._focusTrap.destroy();
 		}

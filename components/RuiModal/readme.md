@@ -3,9 +3,9 @@ package: "@rhythm-ui/modal"
 title: "rui-modal"
 ---
 
-
 # Modal
-Modals allow for the display of 
+Modals are used for situations where you need to interupt the user's workflow and bring their attention to something that may
+or may not require their response. 
 
 ## Basic Usage
 Modal content is provided via the `heading` and `detail` slots. This will render a modal with a top right close button by default.
@@ -58,6 +58,23 @@ You can configure the size of the modal via the `size` attribute (size is small 
 </rui-modal>
 ```
 
+## Custom close button
+You can change the default close button via the `close` slot
+
+<rui-button onClick={() => {
+    document.getElementById('close-example').setAttribute('open', true);
+}}>Custom close example</rui-button>
+
+```html preview
+<rui-modal id="close-example">
+    <h2 slot="heading">Modal Heading</h2>
+    <div slot="detail">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.</p>
+    </div>
+    <rui-button size="small" slot="close">x</rui-button>
+</rui-modal>
+```
+
 ## Custom Actions
 If you wish to provide some actions to the modal, it supports supplying cancel and confirm actions via the `confirm` and `cancel` slots.
 
@@ -74,6 +91,32 @@ If you wish to provide some actions to the modal, it supports supplying cancel a
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.</p>
         <p><a href="#">Test test</a>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.</p>
+    </div>
+    <rui-button slot="confirm">Confirm</rui-button>
+    <rui-button slot="cancel" variant="outline">Cancel</rui-button>
+</rui-modal>
+```
+
+## Responding to Modal actions
+The modal emits two types of events, `rui-modal-confirm` is emitted when the user click the 'confirm' slotted action, otherwise if the modal is closed for any other reason the `rui-modal-cancel` event will be emitted. 
+
+```html
+<script>
+    const el = document.getElementByID('modal-action-example')
+    if (el) {
+        el.addEventListener('rui-modal-confirm', () => {
+            alert('User confirmed')
+        })
+
+        el.addEventListener('rui-modal-cancel', () => {
+            alert('User canceled')
+        })
+    }
+</script>
+<rui-modal id="modal-action-example" size="medium">
+    <h2 slot="heading">Modal Heading</h2>
+    <div slot="detail">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.</p>
     </div>
     <rui-button slot="confirm">Confirm</rui-button>
     <rui-button slot="cancel" variant="outline">Cancel</rui-button>
