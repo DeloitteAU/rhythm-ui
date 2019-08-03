@@ -15,6 +15,10 @@ import {
 } from './IRuiModal';
 
 
+/**
+ * The heading that appears in the modal,
+ * a h2 element by default
+ */
 export const Heading = (props: IRuiModalHeadingProps) => {
 	const {as, ...otherProps} = props;
 
@@ -31,6 +35,10 @@ export const Heading = (props: IRuiModalHeadingProps) => {
 	return headingEl;
 };
 
+/**
+ * The detail that appears in the modal, basically the
+ * modal body, a p element by default
+ */
 export const Detail = (props: IRuiModalDetailProps) => {
 	const {as, ...otherProps} = props;
 
@@ -47,6 +55,11 @@ export const Detail = (props: IRuiModalDetailProps) => {
 	return detailEl;
 };
 
+/**
+ * RuiModal is a react adapter for the rui-modal
+ * web component, transforming the attribute names
+ * and adding slots attributes as needed
+ */
 export class RuiModal extends React.Component<IRuiModalProps> {
 	// reference to underlying rui-modal element
 	private _ruiModalEl = React.createRef<HTMLElement>();
@@ -64,17 +77,29 @@ export class RuiModal extends React.Component<IRuiModalProps> {
 		FULLSCREEN: 'fullscreen',
 	}
 
-	private _handleCancel = () => {
+	/**
+	 * Event handler for when modal is closed for
+	 * reasons other than a confirm click
+	 */
+	private _handleCancel = (): void => {
 		const {onCancel} = this.props;
 		if (onCancel) { onCancel(); }
 	}
 
-	private _handleConfirm = () => {
+	/**
+	 * Event handler for when modal is closed
+	 * due to confirm click
+	 */
+	private _handleConfirm = (): void => {
 		const {onConfirm} = this.props;
 		if (onConfirm) { onConfirm(); }
 	}
 
-	public componentDidMount() {
+	/**
+	 * If onCancel or onConfirm functions have been specified
+	 * then set up event handlers
+	 */
+	public componentDidMount(): void {
 		const {onCancel, onConfirm} = this.props;
 		const el: HTMLElement | null = this._ruiModalEl.current;
 		if (el) {
@@ -88,7 +113,11 @@ export class RuiModal extends React.Component<IRuiModalProps> {
 		}
 	}
 
-	public componentWillUnmount() {
+	/**
+	 * If onCancel or onConfirm functions have been specified
+	 * then clean up event handlers
+	 */
+	public componentWillUnmount(): void {
 		const {onCancel, onConfirm} = this.props;
 		const el: IHTMLRuiModalElement | null = this._ruiModalEl.current;
 		if (el) {
@@ -102,6 +131,11 @@ export class RuiModal extends React.Component<IRuiModalProps> {
 		}
 	}
 
+	/**
+	 * Take props and transform them to the names that
+	 * rui-modal expects, also clones and attaches the correct slot
+	 * values to the given cancel/confirm trigger elements
+	 */
 	public render(): JSX.Element {
 		const {
 			noClickOutsideClose,
