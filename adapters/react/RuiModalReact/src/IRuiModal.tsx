@@ -16,6 +16,22 @@ declare global {
 	}
 }
 
-export interface IRuiModal {
-	children: ReactNode;
+export interface IRuiModalProps {
+	children: ReactNode,
+	noClickOutsideClose: boolean,
+	noEscBtnClose: boolean,
+	size: 'small' | 'medium' | 'fullscreen',
+	initiallyFocused: string,
+	onCancel: Function,
+	onConfirm: Function,
+}
+
+export interface IRuiModalDetailProps {
+	as?: string,
+	children: React.ReactNode | React.ReactNodeArray
+}
+
+export interface IRuiModalHeadingProps {
+	as?: string,
+	children: React.ReactNode | React.ReactNodeArray
 }
