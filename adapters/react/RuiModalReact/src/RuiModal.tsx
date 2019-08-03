@@ -145,6 +145,7 @@ export class RuiModal extends React.Component<IRuiModalProps> {
 			onConfirm,
 			cancelTrigger,
 			confirmTrigger,
+			customClose,
 			...otherProps
 		} = this.props;
 
@@ -164,11 +165,17 @@ export class RuiModal extends React.Component<IRuiModalProps> {
 			ConfirmTriggerEl = React.cloneElement(confirmTrigger, {slot: 'confirm'});
 		}
 
+		let CustomCloseEl = null;
+		if (customClose) {
+			CustomCloseEl = React.cloneElement(customClose, {slot: 'close'});
+		}
+
 		return (
 			<rui-modal {...props}>
 				{this.props.children}
 				{CancelTriggerEl}
 				{ConfirmTriggerEl}
+				{CustomCloseEl}
 			</rui-modal >
 		);
 	}
