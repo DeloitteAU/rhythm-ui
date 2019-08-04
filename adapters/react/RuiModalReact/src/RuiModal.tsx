@@ -119,7 +119,7 @@ export class RuiModal extends React.Component<IRuiModalProps> {
 	 */
 	public componentWillUnmount(): void {
 		const {onCancel, onConfirm} = this.props;
-		const el: IHTMLRuiModalElement | null = this._ruiModalEl.current;
+		const el: HTMLElement | null = this._ruiModalEl.current;
 		if (el) {
 			if (onCancel) {
 				el.removeEventListener('rui-modal-cancel', this._handleCancel);
@@ -171,7 +171,7 @@ export class RuiModal extends React.Component<IRuiModalProps> {
 		}
 
 		return (
-			<rui-modal {...props}>
+			<rui-modal ref={this._ruiModalEl} {...props}>
 				{this.props.children}
 				{CancelTriggerEl}
 				{ConfirmTriggerEl}

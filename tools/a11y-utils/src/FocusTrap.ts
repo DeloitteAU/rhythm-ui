@@ -218,7 +218,7 @@ export default class FocusTrap {
                 // do nothing, no need to hide these
             } else {
                 // element should be hidden
-                if (!el.hasAttribute('aria-hidden') || el.getAttribute('aria-hidden') === 'false') {
+                if ((el.hasAttribute && !el.hasAttribute('aria-hidden')) || (el.getAttribute && el.getAttribute('aria-hidden') === 'false')) {
                     el.setAttribute('aria-hidden', 'true');
                     this._hiddenEls.push(el);
                 }
