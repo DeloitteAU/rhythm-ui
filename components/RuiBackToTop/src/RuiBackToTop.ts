@@ -11,6 +11,14 @@ import '@rhythm-ui/scroll-to';
 import {variables, layout} from './RuiBackToTop.css'
 
 export class RuiBackToTop extends LitElement {
+
+	@property({type: String})
+	public label: string = 'Back to Top'
+
+	@property({type: String})
+	public variant: 'icon' | 'custom' | 'default' = 'default';
+
+
 	/**
 	*
 	* The styles for button
@@ -22,14 +30,31 @@ export class RuiBackToTop extends LitElement {
 	}
 
 	private _renderContent = (): TemplateResult => {
-		return html`
-			<button class="btn" slot="scroll-trigger">
-				Back to Top
-				<div class="icon-container">
+		if (this.variant === 'default') {
+			return html`
+				<button class="btn" slot="scroll-trigger">
+					${this.label}
+					<div class="icon-container">
+						<span class="chevron-up"></span>
+					</div>
+				</button>
+			`;
+		}
+		
+		if (this.variant === 'icon') {
+			return html`
+				<button class="btn btn--icon" slot="scroll-trigger" aria-label="${this.label}">
 					<span class="chevron-up"></span>
-				</div>
+				</button>
+			`;
+		}
+
+		return html`
+			<button class="btn btn--custom" slot="scroll-trigger">
+				<slot></slot>
 			</button>
 		`;
+		 
 	}
 
 	/* #endregion */
