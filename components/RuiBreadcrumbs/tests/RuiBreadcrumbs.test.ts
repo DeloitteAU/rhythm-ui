@@ -55,18 +55,11 @@ describe('RuiBreadcrumbs', () => {
     expect(crumbTwo.id).toEqual('custom-active-crumb');
   })
 
-  // check crumbs truncates at 7 items
-  it('Truncates the items at > 7 items by default', async () => {
+  it('Shows all given crumbs by default', async () => {
     const ele = await TestUtils.render('rui-breadcrumbs', {}, eightBreadcrumbChildren);
 
     const crumbs = ele.shadowRoot.querySelectorAll('li');
     expect(crumbs.length).toEqual(8);
-
-    const truncatedCrumbSelect = crumbs[6].querySelector('select');
-    const truncatedCrumbOptions = truncatedCrumbSelect.querySelectorAll('option');
-    
-    expect(truncatedCrumbOptions[0].textContent).toEqual('...')
-    expect(truncatedCrumbOptions[1].textContent).toEqual('Breadcrumb 6')
   });
 
   // check crumbs works with custom truncation limit
