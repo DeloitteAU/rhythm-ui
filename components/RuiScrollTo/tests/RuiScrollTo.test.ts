@@ -134,7 +134,7 @@ describe('RuiScrollTo', () => {
 		// prepare test env
 		document.body.innerHTML = `
 			<rui-scroll-to>
-				<button id="trigger" slot="scroll-trigger" href="#target">Click to scroll</button>
+				<a id="trigger" slot="scroll-trigger" href="#target">Click to scroll</a>
 			</rui-scroll-to>
 			<div style="height: 1000px; background: #333"></div>
 			<div id="target" style="border: 2px solid red">target</div>
