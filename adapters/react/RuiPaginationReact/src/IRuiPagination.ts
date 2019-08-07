@@ -41,9 +41,7 @@ export interface IRuiPaginationNextProps extends IJSXCoreProps {
 
 export interface IRuiPaginationProps {
 	children?: React.ReactNode[] | React.ReactNode;
-	onItemClick?: Function,
-	onPrevClick?: Function,
-	onNextClick?: Function,
+	onPageRequest?: Function,
 	currentPage: number,
 	pagesShown?: number,
 	numPages?: number,

@@ -103,39 +103,16 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 	public static Previous = Previous;
 
 	/**
-	 * Event handler for event fired when one of the pagination items is clicked
+	 * Event handler for event fired when a page is requested
 	 * if no href is provided
 	 */
-	private _handleItemClick = (e: Event): void => {
+	private _handlePageRequest = (e: Event): void => {
 		const customEvt = e as CustomEvent;
-		const {onItemClick} = this.props;
-		if (onItemClick) {
-			onItemClick(customEvt.detail.pageNumber);
+		const {onPageRequest} = this.props;
+		if (onPageRequest) {
+			onPageRequest(customEvt.detail.page);
 		}
 	}
-
-	/**
-	 * Event handler for when the next page link is clicked when no
-	 * nextLink prop is provided
-	 */
-	private _handleNextClick = (): void => {
-		const {onNextClick} = this.props;
-		if (onNextClick) {
-			onNextClick();
-		}
-	}
-
-	/**
-	 * Event handler for when the previous page link is clicked when no
-	 * prevLink prop is provided
-	 */
-	private _handlePrevClick = (): void => {
-		const {onPrevClick} = this.props;
-		if (onPrevClick) {
-			onPrevClick();
-		}
-	}
-
 
 	/**
 	 * Check whether we have a reference to the underlying element,
@@ -143,9 +120,7 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 	 */
 	public componentDidMount(): void {
 		const {
-			onItemClick,
-			onPrevClick,
-			onNextClick,
+			onPageRequest,
 			generateHref,
 			generateLabel,
 			generateAriaLabel,
@@ -170,16 +145,8 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 				refreshNeeded = true;
 			}
 
-			if (onItemClick) {
-				el.addEventListener('rui-pagination-item-click', this._handleItemClick);
-			}
-
-			if (onPrevClick) {
-				el.addEventListener('rui-pagination-prev-click', this._handlePrevClick);
-			}
-
-			if (onNextClick) {
-				el.addEventListener('rui-pagination-next-click', this._handleNextClick);
+			if (onPageRequest) {
+				el.addEventListener('rui-pagination-page-request', this._handlePageRequest);
 			}
 
 			if (refreshNeeded) { this.forceUpdate(); }
@@ -191,20 +158,12 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 	 * Remove any event listeners that were set originally
 	 */
 	public componentWillUnmount(): void {
-		const {onItemClick, onPrevClick, onNextClick} = this.props;
+		const {onPageRequest} = this.props;
 		const el: IHTMLRuiPaginationElement | null = this._ruiPaginationEl.current;
 
 		if (el) {
-			if (onItemClick) {
-				el.removeEventListener('rui-pagination-item-click', this._handleItemClick);
-			}
-
-			if (onPrevClick) {
-				el.removeEventListener('rui-pagination-prev-click', this._handlePrevClick);
-			}
-
-			if (onNextClick) {
-				el.removeEventListener('rui-pagination-next-click', this._handleNextClick);
+			if (onPageRequest) {
+				el.removeEventListener('rui-pagination-page-request', this._handlePageRequest);
 			}
 		}
 	}
@@ -220,9 +179,7 @@ export default class RuiPagination extends React.Component<IRuiPaginationProps> 
 			numPages,
 			nextLink,
 			prevLink,
-			onItemClick,
-			onPrevClick,
-			onNextClick,
+			onPageRequest,
 			nextAriaLabel,
 			prevAriaLabel,
 			generateHref,

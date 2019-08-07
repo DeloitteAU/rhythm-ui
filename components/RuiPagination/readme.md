@@ -7,22 +7,13 @@ title: "rui-pagination"
 Pagination is used to allow the user to navigate between paginated content pages easily. 
 
 ## Basic usage
-By default, pagination requires you to specify which page is the current page via the `current-page` attribute and how many pages are in the pagination in total via the `num-pages` attribute. When a pagination item is selected, the following 
-events will be fired: 
-
-`rui-pagination-next-click` when the next item is clicked
-`rui-pagination-prev-click` will be fired when the previous item is clicked
-`rui-pagination-item-click` will be fired when on of the pagination items is clicked, with the page number available via `event.detail.pageNumber`
+By default, pagination requires you to specify which page is the current page via the `current-page` attribute and how many pages are in the pagination in total via the `num-pages` attribute. When a pagination item is selected, the `rui-pagination-page-request` event will be fired, with the page number available via `event.detail.page`
 
 <Script script={
     () => {
         const el = document.getElementById('onclick-example');
         if (el) {
-            el.addEventListener('rui-pagination-next-click', () => { alert('Next button clicked!')});
-
-            el.addEventListener('rui-pagination-prev-click', () => { alert('Previous button clicked!')});
-
-            el.addEventListener('rui-pagination-item-click', (e) => { alert(`Page ${e.detail.pageNumber} clicked!`)});
+            el.addEventListener('rui-pagination-page-request', (e) => { alert(`Page ${e.detail.page} requested!`)});
         }
     }
 }></Script>
@@ -30,11 +21,7 @@ events will be fired:
 <script>
     const el = document.getElementById('onclick-example');
     if (el) {
-        el.addEventListener('rui-pagination-next-click', () => { alert('Next button clicked!')});
-
-        el.addEventListener('rui-pagination-prev-click', () => { alert('Previous button clicked!')});
-
-        el.addEventListener('rui-pagination-item-click', (e) => { alert(`Page ${e.detail.pageNumber} clicked!`)});
+        el.addEventListener('rui-pagination-page-request', (e) => { alert(`Page ${e.detail.page} requested!`)});
     }
 </script>
 <rui-pagination
@@ -121,7 +108,6 @@ Pagination item labels and aria labels can be overriden via the `generateLabel` 
 </rui-pagination>
 ```
 
-### Custom previous/next aria-labels
 You can specify the aria labels that appears in the next/previous links with the `next-aria-label` and `prev-aria-label` attributes. 
 
 ```html preview

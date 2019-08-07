@@ -217,33 +217,14 @@ export class RuiPagination extends LitElement {
 		return [variables, layout];
 	}
 
-
-	/**
-	 * Event created when next item is triggered
-	 */
-	private _generateNextClickEvent(): CustomEvent {
-		return new CustomEvent('rui-pagination-next-click', {
-			bubbles: true
-		});
-	}
-
-	/**
-	 * Event created when prev item is triggered
-	 */
-	private _generatePrevClickEvent(): CustomEvent {
-		return new CustomEvent('rui-pagination-prev-click', {
-			bubbles: true
-		})
-	}
-
 	/**
 	 * Event created when pagination item is triggered
 	 */
-	private _generateItemClickEvent(pageNumber: number): CustomEvent {
-		return new CustomEvent('rui-pagination-item-click', {
+	private _generatePageRequestEvent(page: number): CustomEvent {
+		return new CustomEvent('rui-pagination-page-request', {
 			bubbles: true,
 			detail: {
-				pageNumber,
+				page,
 			}
 		});
 	}
@@ -343,7 +324,7 @@ export class RuiPagination extends LitElement {
 				<a class="pagination-link${isCurrentPage ? ' pagination-link--current' : ''}" href="${href}" aria-label="${ariaLabel}">${label}</a>
 			`
 		} else {
-			const evt = this._generateItemClickEvent(pageNumber);
+			const evt = this._generatePageRequestEvent(pageNumber);
 			const onClick = (e):void => { e.preventDefault(); this.dispatchEvent(evt); }
 			tag =  html`
 					<a class="pagination-link${isCurrentPage ? ' pagination-link--current' : ''}" href="#" @click=${onClick} aria-label="${ariaLabel}">${label}</a>
@@ -426,6 +407,7 @@ export class RuiPagination extends LitElement {
 		
 		const isPrevious  = type === 'previous';
 
+		const targetPage = isPrevious ? this.currentPage - 1 : this.currentPage + 1;
 		const isDisabled = isPrevious ? (this.currentPage <= 1) : (this.currentPage >= this.numberOfPages);
 		const userProvidedLink = isPrevious ? !!this.prevLink : !!this.nextLink;
 		let href = '#';
@@ -465,7 +447,7 @@ export class RuiPagination extends LitElement {
 					${innerEl}
 				</a>`
 		} else {
-			const evt = isPrevious ? this._generatePrevClickEvent() : this._generateNextClickEvent();
+			const evt = this._generatePageRequestEvent(targetPage);
 			const onClick = (e):void => { e.preventDefault(); this.dispatchEvent(evt); }
 			tag = html`
 				<a href="#" class="${classes}" aria-label="${ariaLabel}" @click=${onClick}>

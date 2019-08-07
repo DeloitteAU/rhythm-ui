@@ -14,9 +14,7 @@ storiesOf('Pagination', module)
 	.addDecorator(withKnobs)
 	.add('Playground', () => (
 		<RuiPagination
-			onNextClick={() => {alert('Next button clicked!');}}
-			onPrevClick={() => {alert('Prev button clicked!');}}
-			onItemClick={pageNumber => {alert(`Page ${pageNumber} clicked!`);}}
+			onPageRequest={pageNumber => {alert(`Page ${pageNumber} requested!`);}}
 			currentPage={number('currentPage', 3)}
 			numPages={number('numPages', 5)}
 			pagesShown={number('pagesShown', 5)}

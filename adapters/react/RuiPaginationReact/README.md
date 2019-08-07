@@ -2,12 +2,10 @@
 Pagination is used to allow the user to navigate between paginated content pages easily. 
 
 ## Basic usage
-By default, pagination requires you to specify which page is the current page via the `currentPage` prop and how many pages are in the pagination in total via the `numPages` prop. The behaviour when a pagination item is selected, can be configured via the `onItemClick`, `onNextClick` and `onPrevClick` functions.
+By default, pagination requires you to specify which page is the current page via the `currentPage` prop and how many pages are in the pagination in total via the `numPages` prop. The behaviour when a pagination item is selected, can be configured via the `onPageRequest` function.
 ```jsx
 <RuiPagination
-    onItemClick={() => {alert('Next button clicked!');}}
-    onNextClick={() => {alert('Prev button clicked!');}}
-    onPrevClick={(pageNumber) => {alert(`Page ${pageNumber} clicked!`)}}
+    onPageRequest={(pageNumber) => {alert(`Page ${pageNumber} selected!`)}}
     currentPage={3}
     numPages={5}>
 </RuiPagination>
@@ -54,7 +52,6 @@ Pagination item labels and aria labels can be overriden via the `generateLabel` 
 </RuiPagination>
 ```
 
-### Custom previous/next aria-labels
 You can specify the aria labels that appears in the next/previous links with the `nextAriaLabel` and `prevAriaLabel` props. 
 
 ```jsx
