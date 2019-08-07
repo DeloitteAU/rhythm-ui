@@ -8,9 +8,13 @@
 /**
  * Safari, Edge, IE11 require a smooth scroll polyfill currently
  */
-import smoothscroll from 'smoothscroll-polyfill';
+//FIXME: We should ask consumers to install this incase they are already using it (avoids it being included twice in the build)
+if (typeof window !== 'undefined') {
+	import('smoothscroll-polyfill').then(m => {
+		m.polyfill();
+	});
+}
 
-smoothscroll.polyfill();
 
 /**
 * Register the Web Component with customElements

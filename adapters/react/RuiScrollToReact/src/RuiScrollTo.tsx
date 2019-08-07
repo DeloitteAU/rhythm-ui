@@ -5,12 +5,17 @@
 * LICENSE file in the root directory of this source tree.
 */
 
-import React from 'react';
+import React, {ReactNode} from 'react';
 import '@rhythm-ui/scroll-to';
 
 import {
 	IRuiScrollToProps,
 } from './IRuiScrollTo';
+
+/* eslint-disable react/no-multi-comp */
+function addExtraProps(Component, extraProps) {
+	return <Component.type {...Component.props} {...extraProps} />;
+}
 
 /**
  * React adapter  for rui-scroll-to component,
@@ -33,14 +38,15 @@ export class RuiScrollTo extends React.Component<IRuiScrollToProps> {
 		const firstChild = React.Children.only(children);
 
 		// need to add slot to the given child
-		let TriggerEl = null;
+		let triggerEl: ReactNode = null;
 		if (firstChild) {
-			TriggerEl = React.cloneElement(firstChild, {slot: 'scroll-trigger'});
+			triggerEl = addExtraProps(firstChild, {slot: 'scroll-trigger'});
+			//TriggerEl = React.cloneElement(firstChild, {slot: 'scroll-trigger'});
 		}
 
 		return (
 			<rui-scroll-to {...props}>
-				{TriggerEl}
+				{triggerEl}
 			</rui-scroll-to >
 		);
 	}
