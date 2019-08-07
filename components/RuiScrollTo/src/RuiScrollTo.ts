@@ -19,6 +19,7 @@ export class RuiScrollTo extends LitElement {
 
 	/**
 	 * A selector for the element that the user wants to scroll to
+	 * @default
 	 */
 	@property({type : String})
 	public to?;
@@ -41,15 +42,13 @@ export class RuiScrollTo extends LitElement {
 	public offset = 0;
 
 	/**
-	 * By default smooth scrolling is used, but in some cases  users may want to 
-	 * 'jump' to the element with no scroll behaviour, they can indicate their 
-	 * preference to jump via the no-smooth-scroll attribute
+	 * Disable smooth scrolling animation
 	 */
 	@property({
 		type : Boolean,
-		attribute: 'no-smooth-scroll'
+		attribute: 'disable-animation'
 	})
-	public noSmoothScroll?;
+	public disableAnimation?;
 
 
 	/**
@@ -65,6 +64,23 @@ export class RuiScrollTo extends LitElement {
 			this._scrollTriggerEl.onclick = this._scrollHandler
 		}
 	}
+
+	/**
+	 * Check if scroll to should animate
+	 */
+	private _shouldAnimate() {
+
+		if (typeof this.disableAnimation === 'boolean') {
+			return !this.disableAnimation;
+		}
+
+		// Check to see if user prefers reduced motion
+		if ('matchMedia' in window && window.matchMedia('(prefers-reduced-motion)').matches) {
+			return false;
+		}
+
+		return true;
+	};
 
 
 	/**
@@ -145,7 +161,7 @@ export class RuiScrollTo extends LitElement {
 		 * but if the element is contained in another scrollable element
 		 * this will be reassigned to scroll container provided by user
 		 */
-		let scrollContainer: Window | HTMLElement = window;
+		let scrollingElement: Window | HTMLElement = window;
 	
 		/**
 		 * In cases where we need to scroll two different containers 
@@ -168,15 +184,15 @@ export class RuiScrollTo extends LitElement {
 				const customScrollContainer = document.querySelector(this.scrollContainer);
 				if (!customScrollContainer) { return; }
 
-				// set scrollcontainer to container el for the final scroll
-				scrollContainer = customScrollContainer as HTMLElement;
+				// set scrollingElement to container el for the final scroll
+				scrollingElement = customScrollContainer as HTMLElement;
 
 				const scrollContainerYCoordinate = customScrollContainer.getBoundingClientRect().top + window.pageYOffset;
 				
 				// scroll window to top of scroll container
 				window.scrollTo({
 					top: scrollContainerYCoordinate,
-					behavior: this.noSmoothScroll ? 'auto' : 'smooth'
+					behavior: this._shouldAnimate() ?  'smooth' : 'auto'
 				});
 
 				/**
@@ -205,7 +221,7 @@ export class RuiScrollTo extends LitElement {
 				
 				// get top of target el from container, taking into account how much the 
 				// scroll container has already scrolled
-				yCoordinate = targetEl.getBoundingClientRect().top + scrollContainer.scrollTop + coordCorrection;
+				yCoordinate = targetEl.getBoundingClientRect().top + scrollingElement.scrollTop + coordCorrection;
 			} else {
 				// if no scroll container, get top of element and take into account
 				// how much window has already been scrolled
@@ -219,9 +235,9 @@ export class RuiScrollTo extends LitElement {
 		 * Use smooth scroll unless user has specified no smooth scroll. 
 		 */
 		if (!userInterferance) {
-			scrollContainer.scrollTo({
+			scrollingElement.scrollTo({
 				top: yCoordinate + this.offset,
-				behavior: this.noSmoothScroll ? 'auto' : 'smooth'
+				behavior: this._shouldAnimate() ?  'smooth' : 'auto'
 			});	
 		}
 	}

@@ -20,5 +20,5 @@ export interface IRuiScrollToProps {
 	children: ReactNode,
 	to: string,
 	scrollContainer: string,
-	noSmoothScroll: boolean,
+	disableAnimation: boolean,
 }

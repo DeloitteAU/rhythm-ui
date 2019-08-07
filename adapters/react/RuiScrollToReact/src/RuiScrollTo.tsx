@@ -18,10 +18,10 @@ import {
  */
 export class RuiScrollTo extends React.Component<IRuiScrollToProps> {
 	public render(): JSX.Element {
-		const {noSmoothScroll, scrollContainer, children, ...otherProps} = this.props;
+		const {disableAnimation, scrollContainer, children, ...otherProps} = this.props;
 		const props = otherProps;
-		if (noSmoothScroll) {
-			props['no-smooth-scroll'] = true;
+		if (disableAnimation) {
+			props['disable-animation'] = true;
 		}
 
 		if (scrollContainer) {
