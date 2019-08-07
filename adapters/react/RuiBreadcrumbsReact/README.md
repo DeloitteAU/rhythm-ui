@@ -16,7 +16,7 @@ Each child should use the `RuiBreadcrumbs.Crumb` subcomponent. The last element 
 ```
 
 ## Breadcrumb Truncation
-By default, the max amount of crumbs that can display before truncation is 7. If you wish to modify this value, you can set a max amount of crumbs to display before truncation via the `maxCrumbs` prop. 
+By default, all crumbs given will display. If you wish to modify this value, you can set a max amount of crumbs to display before truncation via the `maxCrumbs` prop. 
 
 ```jsx
 <RuiBreadcrumbs

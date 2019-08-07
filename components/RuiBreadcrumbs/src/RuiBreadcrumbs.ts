@@ -27,9 +27,12 @@ export class RuiBreadcrumbs extends LitElement {
 
 	/**
 	 * The maximum number of breadcrumbs to display 
-	 * before truncating
+	 * before truncating, we set a default here that the
+	 * user will override, or if none is provided, we
+	 * set this to be equal to the number of crumbs in
+	 * connectedCallback()
 	 */
-	private _maxCrumbs: number = 7;
+	private _maxCrumbs: number = 0;
 	@property({
 		type : Number,
 		attribute: 'max-crumbs',
@@ -70,6 +73,11 @@ export class RuiBreadcrumbs extends LitElement {
 		 */
 		this._crumbs = [...this.querySelectorAll('[slot=crumb]')] as HTMLElement[];
 		if (this._crumbs.length > 0) {
+
+			if (this.maxCrumbs === 0) {
+				this.maxCrumbs = this._crumbs.length;
+			}
+
 			this._crumbs.forEach((crumbEl, i):void => {
 				if (i === this._crumbs.length - 1) {
 					if (!crumbEl.hasAttribute('aria-current')) {
