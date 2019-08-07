@@ -1,6 +1,6 @@
 
 {
-	"name": "@rhythm-ui/{{packageName name}}-react",
+	"name": "@rhythm-ui/scroll-to-react",
 	"version": "1.0.0",
 	"main": "lib/index.js",
 	"scripts": {
@@ -20,7 +20,7 @@
 		"react": "^16.8.6"
 	},
 	"dependencies": {
-		"@rhythm-ui/{{packageName name}}": "^1.0.0"
+		"@rhythm-ui/scroll-to": "^1.0.0"
 	},
 	"peerDependencies": {
 		"react": ">= 16"

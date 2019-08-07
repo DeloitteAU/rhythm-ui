@@ -47,24 +47,25 @@ const reactActions = [
 		path: `${REACT_PATH}/tsconfig.json`,
 		templateFile: `${PLOP_REACT}/tsconfig.json.hbs`
 	},
+	// import react adaptor in gatsby site so markdown files will display
 	{
-		type: 'add',
-		path: `${REACT_PATH}/README.md`,
-		templateFile: `${PLOP_REACT}/readme.md.hbs`
-  },
-	//append the file into the www package json file at the top of the list
-	{
-		type: 'append',
-		path: 'www/package.json',
-		// Pattern tells plop where in the file to inject the template
-		pattern: `"@mdx-js\/react"\: "\^1\.0\.0-rc\.5",`,
-		template: `		"@rhythm-ui/{{kebabCase name}}-react": "^1.0.0",`,
-	},
-	{
-		type: 'append',
+		type: 'modify',
 		path: 'www/src/templates/Markdown/Markdown.tsx',
-		pattern: `//Import here//`,
-		template: `import '@rhythm-ui/{{kebabCase name}}-react';`,
+		pattern: /(@@ GENERATOR IMPORT COMPONENT)/g,
+		template: "$1\nimport '@rhythm-ui/{{packageName name}}-react';",
+	},
+	/**
+	 * Adds new dependency to gatsby site package.json
+	 * ASSUMPTIONS for this to work:
+	 * 1. at least one other @rhythm-ui/some-react-component exists in file
+	 * 2. the newly added package is not the last package listed (as it adds a comma 
+	 * 	  and this will not be valid json if added at end)
+	 */
+	{
+		type: 'modify',
+		path: 'www/package.json',
+		pattern: /("@rhythm-ui\/[a-zA-Z-]*": "\^[0-9]*.[0-9]*.[0-9]*",)/g,
+		template: "$1\n\"@rhythm-ui/{{packageName name}}-react\": \"^1.0.0\",",
 	}
 ];
 
@@ -135,7 +136,11 @@ const checkComponent = () => {
 
 const ensureRui = text => `rui ${text.replace(/Rui/gi, "")}`;
 
+// converts 'rui component name' and for a package we just need 'component-name'
+const packageName = text => text.replace(/rui/gi, "").trim().split(' ').join('-').toLowerCase();
+
 module.exports = plop => {
+	plop.setHelper('packageName', packageName);
     plop.setGenerator('component', {
         description: 'create a new component',
 
@@ -199,16 +204,16 @@ module.exports = plop => {
                     path: `${PATH}/src/index.ts`,
                     templateFile: `${PLOP_PATH}/src/index.ts.hbs`
                 },
-								{
-									type: 'add',
-									path: `${PATH}/tests/{{pascalCase name}}.test.ts`,
-									templateFile: `${PLOP_PATH}/tests/Component.test.ts.hbs`
-								},
-								{
-									type: 'add',
-									path: `${PATH}/tests/tsconfig.json`,
-									templateFile: `${PLOP_PATH}/tests/tsconfig.json.hbs`
-								},
+				{
+					type: 'add',
+					path: `${PATH}/tests/{{pascalCase name}}.test.ts`,
+					templateFile: `${PLOP_PATH}/tests/Component.test.ts.hbs`
+				},
+				{
+					type: 'add',
+					path: `${PATH}/tests/tsconfig.json`,
+					templateFile: `${PLOP_PATH}/tests/tsconfig.json.hbs`
+				}
             ]);
             if (data.adapter === 'React' || data.adapter === 'Both') {
                 actions = actions.concat(reactActions)

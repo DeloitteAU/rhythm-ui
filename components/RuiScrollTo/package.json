@@ -1,5 +1,5 @@
 {
-	"name": "@rhythm-ui/{{packageName name}}",
+	"name": "@rhythm-ui/scroll-to",
 	"version": "1.0.0",
 	"main": "lib/index.js",
 	"license": "BSD-3-Clause",
@@ -21,6 +21,7 @@
 		"ruidocs": "^1.0.0"
 	},
 	"dependencies": {
-		"lit-element": "^2.1.0"
+		"lit-element": "^2.1.0",
+		"smoothscroll-polyfill": "^0.4.4"
 	}
 }

@@ -21,20 +21,62 @@ The last value in the array is the active page.
 ```html preview
 <rui-breadcrumbs 
 	crumbs='[
-    	{"title": "Home", "url": "/my/rul"},
-    	{"title": "Link 1", "url": "/my/rul" }
+		{"title": "Home", "url": "#"},
+		{"title": "Link 1", "url": "#"},
+		{"title": "Link 2", "url": "#"},
+		{"title": "Link 3", "url": "#"},
+		{"title": "Link 4", "url": "#" },
+		{"title": "Active Link", "url": "#" }
+	]'
+/> 
+```
+
+## Collapsed array
+Set maxCrumbs to collapse the list.
+
+```html preview
+<rui-breadcrumbs
+	maxCrumbs='3'
+	crumbs='[
+    	{"title": "Home", "url": "#"},
+    	{"title": "Link 1", "url": "#"},
+    	{"title": "Link 2", "url": "#"},
+    	{"title": "Link 3", "url": "#"},
+    	{"title": "Link 4", "url": "#" },
+        {"title": "Active Link", "url": "#" }
 	]'
 /> 
 ```
 
 ## Manual Links
-To use the rui-link you must wrap them in a list tag. Add aria-current to the link that is active
+To use manual links you must wrap them in a list tag. Add aria-current to the link that is active.
 
 ```html preview
 <rui-breadcrumbs> 
-	<li slot='crumb'> <a href="/#" color='primary'> Link 1 </a> </li>
-	<li slot='crumb' > <a href="/#" > Link 2 </a> </li>
-	<li slot='crumb' aria-current="page" > <a> Active Link </a> </li>
+	<li slot='crumb'> <a href="#"> Home </a> </li>
+	<li slot='crumb'> <a href="#"> Link 1 </a> </li>
+	<li slot='crumb'> <a href="#"> Link 2 </a> </li>
+	<li slot='crumb'> <a href="#"> Link 3 </a> </li>
+	<li slot='crumb'> <a href="#"> Link 4 </a> </li>
+	<li slot='crumb' aria-current="page"> Active Link </li>
 </rui-breadcrumbs>
 
 ```
+
+## Manual Links with a collapsed array
+Collapsed list also works with manual configured links.
+
+```html preview
+<rui-breadcrumbs
+	maxCrumbs='3'
+> 
+	<li slot='crumb'> <a href="#"> Home </a> </li>
+	<li slot='crumb'> <a href="#"> Link 1 </a> </li>
+	<li slot='crumb'> <a href="#"> Link 2 </a> </li>
+	<li slot='crumb'> <a href="#"> Link 3 </a> </li>
+	<li slot='crumb'> <a href="#"> Link 4 </a> </li>
+	<li slot='crumb' aria-current="page"> Active Link </li>
+</rui-breadcrumbs>
+
+```
+
