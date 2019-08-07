@@ -34,10 +34,7 @@ const onScrollComplete = (targetYCoord, timeout = 1000) => {
 	return new Promise((resolve, reject) => {
 		let timeoutCount = 0;
 		const interval = setInterval(() => {
-			if (window.scrollY > targetYCoord - 1 && window.scrollY < targetYCoord + 1) {
-				clearInterval(interval);
-				resolve();
-			} else if (hasScrolledToBottom()) {
+			if ((window.scrollY > targetYCoord - 1 && window.scrollY < targetYCoord + 1) || hasScrolledToBottom()) {
 				clearInterval(interval);
 				resolve();
 			} else if (timeoutCount >= timeout) {

@@ -91,10 +91,7 @@ export class RuiScrollTo extends LitElement {
 		return new Promise((resolve, reject) => {
 			let timeoutCount = 0;
 			const interval = setInterval((): void => {
-				if (window.scrollY > targetYCoord - 1 && window.scrollY < targetYCoord + 1) {
-					clearInterval(interval);
-					resolve();
-				} else if (this._hasScrolledToBottom()) {
+				if ((window.scrollY > targetYCoord - 1 && window.scrollY < targetYCoord + 1) || this._hasScrolledToBottom())  {
 					clearInterval(interval);
 					resolve();
 				} else if (timeoutCount >= timeout) {
