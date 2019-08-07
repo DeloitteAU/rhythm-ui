@@ -96,7 +96,7 @@ describe('RuiScrollTo', () => {
 		expect(window.scrollY).toBeGreaterThan(0);
 		
 		// trigger the scroll to element
-		await trigger.click();
+		trigger.click();
 		await onScrollComplete(0)
 
 		// expect to be scrolled back to the top
@@ -122,7 +122,7 @@ describe('RuiScrollTo', () => {
 		
 
 		expect(window.scrollY).toEqual(0);
-		await trigger.click();
+		trigger.click();
 		await TestUtils.wait(1000);
 		const targetTop = target.getBoundingClientRect().top;
 
@@ -150,7 +150,7 @@ describe('RuiScrollTo', () => {
 		const trigger = document.querySelector('#trigger') as HTMLElement;
 		const target = document.querySelector('#target') as HTMLElement;
 
-		await trigger.click()
+		trigger.click()
 		await TestUtils.wait(2000)
 		const targetTop = target.getBoundingClientRect().top;
 
@@ -177,7 +177,7 @@ describe('RuiScrollTo', () => {
 		const target = document.querySelector('#target') as HTMLElement;
 
 		expect(window.scrollY).toEqual(0);
-		await trigger.click();
+		trigger.click();
 		await TestUtils.wait(0);
 		const targetTop = target.getBoundingClientRect().top;
 
