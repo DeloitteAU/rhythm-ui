@@ -130,6 +130,33 @@ describe('RuiScrollTo', () => {
 		expect(targetTop).toBeLessThan(1);
 	})
 
+	it('scrolls to element given by to href attribute on trigger slot element', async () => {
+		// prepare test env
+		document.body.innerHTML = `
+			<rui-scroll-to>
+				<button id="trigger" slot="scroll-trigger" href="#target>Click to scroll</button>
+			</rui-scroll-to>
+			<div style="height: 1000px; background: #333"></div>
+			<div id="target" style="border: 2px solid red">target</div>
+			<div style="height: 3000px; background: #333"></div>
+			
+		`;
+
+		await TestUtils.waitForComponentToRender('rui-scroll-to');
+
+		const trigger = document.querySelector('#trigger') as HTMLElement;
+		const target = document.querySelector('#target') as HTMLElement;
+		
+
+		expect(window.scrollY).toEqual(0);
+		await trigger.click();
+		await TestUtils.wait(1000);
+		const targetTop = target.getBoundingClientRect().top;
+
+		expect(targetTop).toBeGreaterThan(-1);
+		expect(targetTop).toBeLessThan(1);
+	})
+
 	it('scrolls to element within another scrollable elemenet via "scroll-container" attribute ', async () => {
 		document.body.innerHTML = `
 			<rui-scroll-to scroll-container="#scroll-container" to="#target">
@@ -159,10 +186,10 @@ describe('RuiScrollTo', () => {
 	})
 
 
-	it('respects no-smooth-scroll attribute', async () => {
+	it('respects disable-animation attribute', async () => {
 		// prepare test env
 		document.body.innerHTML = `
-			<rui-scroll-to no-smooth-scroll to="#target">
+			<rui-scroll-to to="#target" disable-animation>
 				<button id="trigger" slot="scroll-trigger">Click to scroll</button>
 			</rui-scroll-to>
 			<div style="height: 1000px; background: #333"></div>
