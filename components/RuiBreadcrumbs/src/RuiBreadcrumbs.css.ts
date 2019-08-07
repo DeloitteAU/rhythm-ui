@@ -169,7 +169,6 @@ export const layout = css`
 	.breadcrumb__item > a,
 	.breadcrumb__item > ::slotted(a),
 	.selector {
-		box-sizing: border-box;
 		cursor: pointer;
 		color: var(--rui-breadcrumbs__color);
 		padding: var(--rui-breadcrumbs__padding);
