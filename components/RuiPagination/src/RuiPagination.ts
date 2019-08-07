@@ -9,17 +9,26 @@ import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-el
 import {variables, layout} from './RuiPagination.css'
 
 export class RuiPagination extends LitElement {
-	// reference to the left shown ellipses element
-	private leftEllipsesEl: HTMLElement | null = null;
+	
+	/**
+	 * Reference to the left shown ellipses element
+	 */
+	private _leftEllipsesEl: HTMLElement | null = null;
 
-	// reference to the right shown ellipses element
-	private rightEllipsesEl: HTMLElement | null = null;
+	/**
+	 * Reference to the right shown ellipses element
+	 */
+	private _rightEllipsesEl: HTMLElement | null = null;
 
-	// reference to the next element
-	private nextSlottedEl: HTMLElement | null = null;
+	/**
+	 * Reference to the next element
+	 */
+	private _nextSlottedEl: HTMLElement | null = null;
 
-	// reference to the prev element
-	private prevSlottedEl: HTMLElement | null = null;
+	/**
+	 * Reference to the prev element
+	 */
+	private _prevSlottedEl: HTMLElement | null = null;
 
 	/**
 	 * Indicates which page the user is currently on
@@ -181,24 +190,24 @@ export class RuiPagination extends LitElement {
 	public connectedCallback(): void {
 		super.connectedCallback();
 
-		this.leftEllipsesEl = this.querySelector('[slot=ellipses]');
-		if (this.leftEllipsesEl) {
+		this._leftEllipsesEl = this.querySelector('[slot=ellipses]');
+		if (this._leftEllipsesEl) {
 			// clone node returns node so we cast to HTMLElement
-			this.rightEllipsesEl = this.leftEllipsesEl.cloneNode(true) as HTMLElement;
-			this.rightEllipsesEl.slot = 'ellipses-dupe';
-			this.appendChild(this.rightEllipsesEl);
+			this._rightEllipsesEl = this._leftEllipsesEl.cloneNode(true) as HTMLElement;
+			this._rightEllipsesEl.slot = 'ellipses-dupe';
+			this.appendChild(this._rightEllipsesEl);
 		}
 
 		// keep reference to next element if user passed it in
 		const nextSlottedEl = this.querySelector('[slot=next-content]') as HTMLElement;
 		if (nextSlottedEl) {
-			this.nextSlottedEl = nextSlottedEl
+			this._nextSlottedEl = nextSlottedEl
 		}
 
 		// keep reference to prev element if user passed it in
 		const prevSlottedEl = this.querySelector('[slot=prev-content]') as HTMLElement;
 		if (prevSlottedEl) {
-			this.prevSlottedEl = prevSlottedEl
+			this._prevSlottedEl = prevSlottedEl
 		}
 
 		// if no pages to show is defined we default to the total number of pages
@@ -246,7 +255,7 @@ export class RuiPagination extends LitElement {
 		if (
 			this.pagesToShow === undefined ||
 			this.pagesToShow >= this.numberOfPages
-		  ) {
+		) {
 			return [pageStart, pageEnd];
 		}
 
@@ -309,7 +318,7 @@ export class RuiPagination extends LitElement {
 	 */
 	private _renderPaginationItem(pageNumber, currentPage): TemplateResult {
 		const isCurrentPage = currentPage === pageNumber;
- 
+
 		const label = this.generateLabel(pageNumber);
 		const href = this.generateHref(pageNumber);
 		const ariaLabel = this.generateAriaLabel(pageNumber);
@@ -347,7 +356,7 @@ export class RuiPagination extends LitElement {
 	private _renderEllipsesItem(side: string): TemplateResult {
 
 		let el = html``;
-		if (this.leftEllipsesEl) {
+		if (this._leftEllipsesEl) {
 			el = html`<slot name=${(side === 'left') ? 'ellipses' : 'ellipses-dupe'}></slot>`
 		} else {
 			el = html`<span>...</span>`
@@ -426,13 +435,13 @@ export class RuiPagination extends LitElement {
 		if (isPrevious) {
 			ariaLabel = this.prevAriaLabel ? this.prevAriaLabel : "Goto previous page";
 			classes += ' pagination-link--previous';
-			innerEl = this.prevSlottedEl
+			innerEl = this._prevSlottedEl
 				? html`<slot name="prev-content"></slot>`
 				: html`<span class="arrow arrow-left"></span>`;
 		} else {
 			ariaLabel = this.nextAriaLabel ? this.nextAriaLabel : "Goto next page";
 			classes += ' pagination-link--next';
-			innerEl = this.nextSlottedEl
+			innerEl = this._nextSlottedEl
 				? html`<slot name="next-content"></slot>`
 				: html`<span class="arrow arrow-right"></span>`;
 		}
