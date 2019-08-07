@@ -144,12 +144,12 @@ describe('RuiScrollTo', () => {
 
 		await TestUtils.waitForComponentToRender('rui-scroll-to');
 
-		const trigger = document.querySelector('#trigger') as HTMLElement;
+		const trigger = document.querySelector('#trigger') as HTMLAnchorElement;
 		const target = document.querySelector('#target') as HTMLElement;
 		
 
 		expect(window.scrollY).toEqual(0);
-		await trigger.click();
+		trigger.click();
 		await TestUtils.wait(1000);
 		const targetTop = target.getBoundingClientRect().top;
 
