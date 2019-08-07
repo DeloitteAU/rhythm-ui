@@ -11,6 +11,7 @@ By default, pagination requires you to specify which page is the current page vi
 
 <Script script={
     () => {
+        if (!document) { return; }
         const el = document.getElementById('onclick-example');
         if (el) {
             el.addEventListener('rui-pagination-page-request', (e) => { alert(`Page ${e.detail.page} requested!`)});
@@ -40,6 +41,7 @@ Hrefs for the next and previous links can be defined by the `next-link`  and `pr
 
 <Script script={
     () => {
+        if (!document) { return; }
         const el = document.getElementById('href-example');
         if (el) {
             el.generateHref = (pageNum) => `#${pageNum}`;
@@ -82,6 +84,7 @@ Pagination item labels and aria labels can be overriden via the `generateLabel` 
 
 <Script script={
     () => {
+        if (!document) { return; }
         const el = document.getElementById('custom-label-example');
         if (el) {
             el.generateLabel = (pageNum) => (pageNum < 10) ? `0${pageNum}` : pageNum;
