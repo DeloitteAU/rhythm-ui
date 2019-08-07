@@ -5,7 +5,7 @@
 * LICENSE file in the root directory of this source tree.
 */
 
-import React from 'react';
+import React, {ReactElement} from 'react';
 import '@rhythm-ui/modal';
 
 import {
@@ -155,17 +155,17 @@ export class RuiModal extends React.Component<IRuiModalProps> {
 		if (noEscBtnClose) { props['no-esc-btn-close'] = noEscBtnClose; }
 		if (initiallyFocused) { props['initially-focused'] = initiallyFocused; }
 
-		let CancelTriggerEl = null;
+		let CancelTriggerEl: ReactElement | null = null;
 		if (cancelTrigger) {
 			CancelTriggerEl = React.cloneElement(cancelTrigger, {slot: 'cancel'});
 		}
 
-		let ConfirmTriggerEl = null;
+		let ConfirmTriggerEl: ReactElement | null = null;
 		if (confirmTrigger) {
 			ConfirmTriggerEl = React.cloneElement(confirmTrigger, {slot: 'confirm'});
 		}
 
-		let CustomCloseEl = null;
+		let CustomCloseEl: ReactElement | null = null;
 		if (customClose) {
 			CustomCloseEl = React.cloneElement(customClose, {slot: 'close'});
 		}

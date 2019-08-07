@@ -6,7 +6,7 @@
 */
 /* eslint import/prefer-default-export: 0 */
 
-import {ReactNode} from 'react';
+import {ReactNode, ReactElement} from 'react';
 
 declare global {
 	namespace JSX {
@@ -24,6 +24,9 @@ export interface IRuiModalProps {
 	initiallyFocused: string,
 	onCancel: Function,
 	onConfirm: Function,
+	cancelTrigger?: ReactElement,
+	confirmTrigger?: ReactElement,
+	customClose?: ReactElement,
 }
 
 export interface IRuiModalDetailProps {
