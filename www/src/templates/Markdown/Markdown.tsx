@@ -82,7 +82,9 @@ const Template = ({
 	data, // this prop will be injected by the GraphQL query below.
 }: {data: any}) => {
 
-	const {doc} = data; // data.markdownRemark holds our post data
+	console.log(data);
+
+	const {doc, ruidocs} = data; // data.markdownRemark holds our post data
 	const {fields, frontmatter, headings} = doc;
 	const {breadcrumbs, relativeUrlPath} = fields;
 	const {title: pageTitle} = frontmatter;
@@ -135,7 +137,7 @@ const Template = ({
 						<div className="s-11">
 							<MDXProvider components={mdxComponents}>
 								<MDXRenderer>{doc.code.body}</MDXRenderer>
-								{data.ruidocs.nodes.map(n => {
+								{ruidocs.nodes.map(n => {
 									return (
 										<MDXRenderer key={n.id}>{n.code.body}</MDXRenderer>
 									);
