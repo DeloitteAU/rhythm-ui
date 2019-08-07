@@ -10,7 +10,15 @@ class TestUtils {
 	 */
 	public static render(tag, attributes = {}, children = ''): Promise<HTMLElement> {
 		TestUtils._renderToDocument(tag, attributes, children);
-		return TestUtils._waitForComponentToRender(tag);
+		return TestUtils.waitForComponentToRender(tag);
+	}
+
+	/**
+	 * Adds a way to delay a test for a given amount of ms
+	 * @param time Time in milliseconds to delay
+	 */
+	public static wait(time): Promise<void> {
+		return new Promise(resolve => setTimeout(resolve, time))
 	}
 
 	/**
@@ -46,7 +54,7 @@ class TestUtils {
 	 * @param {string} tag
 	 * @returns {Promise<HTMLElement>}
 	 */
-	private static _waitForComponentToRender(tag): Promise<HTMLElement> {
+	public static waitForComponentToRender(tag): Promise<HTMLElement> {
 		return new Promise(resolve => {
 			customElements.whenDefined(tag).then(() => {
 				resolve(document.querySelector(tag));
