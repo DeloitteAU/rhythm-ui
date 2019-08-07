@@ -61,7 +61,7 @@ export class RuiScrollTo extends LitElement {
 		const scrollTriggerEl = this.querySelector('[slot=scroll-trigger]') as HTMLElement;
 		if (scrollTriggerEl) {
 			this._scrollTriggerEl = scrollTriggerEl;
-			this._scrollTriggerEl.onclick = this._scrollHandler
+			this._scrollTriggerEl.onclick = this._handleScrollTrigger
 		}
 	}
 
@@ -134,8 +134,8 @@ export class RuiScrollTo extends LitElement {
 	 * trigger. Makes use of window.scrollTo method with scrollOptions object
 	 * to achieve smooth scroll.  
 	 */
-	private _scrollHandler = async (): Promise<void> =>  {
-	
+	private _handleScrollTrigger = async (e): Promise<void> =>  {
+
 		/**
 		 * Ensure we have a reference to the scroll trigger
 		 * and the required functions are present
@@ -171,13 +171,38 @@ export class RuiScrollTo extends LitElement {
 		 */
 		let userInterferance = false;
 
+		// Where we are scrolling to
+		let toSelector = this.to;
+
+		// Handle trigger anchor tags, use their href attribute for to instead
+		// eg <a slot="trigger" href="#some-id"></a>
+		if (this._scrollTriggerEl && this._scrollTriggerEl.tagName === 'A') {
+
+			const anchorTrigger = this._scrollTriggerEl as HTMLAnchorElement;
+
+			if (anchorTrigger.hash) {
+				toSelector = anchorTrigger.hash;
+
+				// Disable default event in favour of our scroll
+				if (e && e.preventDefault) {
+					e.preventDefault();
+				}
+			}
+		}
+
 		/**
 		 * attempt to find element defined by user given 'to' selector,
 		 * if found set the yCoordinate to top of that element
 		 */
-		if (this.to) {
-			const targetEl = document.querySelector(this.to) as HTMLElement;
-			if (!targetEl) { return; }
+		if (toSelector) {
+			const targetEl = document.querySelector(toSelector) as HTMLElement;
+			if (!targetEl) {
+				console.error(`Cannot find element with id "${toSelector}"`);
+				return;
+			}
+
+			// Attempt to give focus to target element
+			targetEl.focus();
 
 			// if scroll container was provided need to scroll to scroll container first
 			if (this.scrollContainer) {
