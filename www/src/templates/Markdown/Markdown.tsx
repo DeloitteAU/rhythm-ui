@@ -9,12 +9,13 @@ import '@rhythm-ui/scroll-to-react';
 import '@rhythm-ui/rui-card-react';
 import '@rhythm-ui/button-react';
 import '@rhythm-ui/story-react';
-import '@rhythm-ui/rui-breadcrumbs-react';
 import '@rhythm-ui/expand-collapse-react';
 import '@rhythm-ui/pagination-react';
+import '@rhythm-ui/breadcrumbs';
 import RuiLayout from '@rhythm-ui/layout-react';
 import RuiGrid from '@rhythm-ui/grid-react';
 import RuiSkipLinks from '@rhythm-ui/skip-links-react';
+
 
 import React from 'react';
 import slug from 'slug';
@@ -82,8 +83,6 @@ const Template = ({
 	data, // this prop will be injected by the GraphQL query below.
 }: {data: any}) => {
 
-	console.log(data);
-
 	const {doc, ruidocs} = data; // data.markdownRemark holds our post data
 	const {fields, frontmatter, headings} = doc;
 	const {breadcrumbs, relativeUrlPath} = fields;
@@ -133,6 +132,11 @@ const Template = ({
 				<Header />
 				<Navigation />
 				<main id="main">
+					<RuiGrid>
+						<div className="s-11">
+							{/* PLACE HOLDER BREADCRUMBS */}
+						</div>
+					</RuiGrid>
 					<RuiGrid>
 						<div className="s-11">
 							<MDXProvider components={mdxComponents}>

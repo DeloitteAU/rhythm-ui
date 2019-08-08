@@ -13,15 +13,15 @@ export const variables = css`
 		/**
 		 * @variable The base colour for the breadcrumbs
 		 */
-		--color: #000000;
+		--color: initial;
 	
 		/**
 		 * @variable Hover colour for the breadcrumbs
 		 */
-		--hover-color: #01447E;
+		--hover-color: initial;
 	
 		/**
-		 * @variable padding size
+		 * @variable crumb padding size
 		 */
 		--padding: 8px;
 
@@ -44,6 +44,8 @@ export const layout = css`
 	nav.crumbs ol,
 	nav.childCrumbs ol {
 		list-style: none;
+		padding: 0;
+		margin: 0;
 	}
 	
 	nav.crumbs li,
