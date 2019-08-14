@@ -66,6 +66,7 @@ export class RuiButton extends LitElement {
 
   /* #endregion */
 
+
   /* #region Methods */
 
   /**

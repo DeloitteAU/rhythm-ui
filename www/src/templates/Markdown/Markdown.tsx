@@ -6,14 +6,17 @@ import {css} from '@emotion/core';
 // Import these so markdown files render if they are using these tags
 // @@ GENERATOR IMPORT COMPONENT
 import '@rhythm-ui/icon-react';
+import '@rhythm-ui/scroll-to-react';
 import '@rhythm-ui/rui-card-react';
 import '@rhythm-ui/button-react';
 import '@rhythm-ui/story-react';
-import '@rhythm-ui/rui-breadcrumbs-react';
 import '@rhythm-ui/expand-collapse-react';
+import '@rhythm-ui/pagination-react';
+import '@rhythm-ui/breadcrumbs';
 import RuiLayout from '@rhythm-ui/layout-react';
 import RuiGrid from '@rhythm-ui/grid-react';
 import RuiSkipLinks from '@rhythm-ui/skip-links-react';
+
 
 import React from 'react';
 import slug from 'slug';
@@ -21,6 +24,8 @@ import {Header} from '../../components/Header';
 import {Footer} from '../../components/Footer';
 import {Navigation} from '../../components/Navigation';
 import {Code} from '../../components/Code';
+import {Script} from '../../components/Script';
+
 import {
 	findIndexOf,
 	replaceStringWith,
@@ -79,7 +84,7 @@ const Template = ({
 	data, // this prop will be injected by the GraphQL query below.
 }: {data: any}) => {
 
-	const {doc} = data; // data.markdownRemark holds our post data
+	const {doc, ruidocs} = data; // data.markdownRemark holds our post data
 	const {fields, frontmatter, headings} = doc;
 	const {breadcrumbs, relativeUrlPath} = fields;
 	const {title: pageTitle} = frontmatter;
@@ -116,6 +121,7 @@ const Template = ({
 
 			return <pre {...props} />;
 		},
+		Script,
 	};
 
 	// breadcrumbs={breadcrumbs} pageTitle={pageTitle} relativeUrlPath={relativeUrlPath}
@@ -129,9 +135,14 @@ const Template = ({
 				<main id="main">
 					<RuiGrid>
 						<div className="s-11">
+							{/* PLACE HOLDER BREADCRUMBS */}
+						</div>
+					</RuiGrid>
+					<RuiGrid>
+						<div className="s-11">
 							<MDXProvider components={mdxComponents}>
 								<MDXRenderer>{doc.code.body}</MDXRenderer>
-								{data.ruidocs.nodes.map(n => {
+								{ruidocs.nodes.map(n => {
 									return (
 										<MDXRenderer key={n.id}>{n.code.body}</MDXRenderer>
 									);
