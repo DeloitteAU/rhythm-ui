@@ -16,12 +16,6 @@ export class RuiIcon extends LitElement {
 	public src: string = '';
 
 	/**
-	 * Icon has hover effect
-	 */
-	@property({type : Boolean})
-	public hover?: boolean = false;
-
-	/**
 	 * Icon alt text
 	 */
 	@property({type : String})
@@ -48,7 +42,7 @@ export class RuiIcon extends LitElement {
 	*/
 	public render(): TemplateResult {
 		return html`
-			<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="${this.alt}" style="--rui-icon__url: url(${this.src})" class="${this.hover ? 'hover' : ''}"/>
+			<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="${this.alt}" style="--rui-icon__url: url(${this.src})"/>
 		`;
 	}
 

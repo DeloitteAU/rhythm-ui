@@ -31,16 +31,6 @@ export const variables = css`
 			 * @variable Icon color (only works for hover setting)
 			 */
 			--rui-icon__color: #114357;
-	
-			/**
-			 * @variable Icon color when hovered (only works for hover setting)
-			 */
-			--rui-icon__hover-color: #F29492;
-	
-			/**
-			 * @variable Icon color when hovered (only works for hover setting)
-			 */
-			--rui-icon__hover-transition: all 0.3s ease;
 		}
 	`;
 
@@ -53,7 +43,6 @@ export const layout = css`
 		width: var(--rui-icon__width);
 		height: var(--rui-icon__height);
 		background: var(--rui-icon__color);
-		transition: var(--rui-icon__hover-transition);
 
 		mask: var(--rui-icon__url);
 		/* stylelint-disable-next-line property-no-vendor-prefix */
@@ -64,15 +53,6 @@ export const layout = css`
 		mask-position: center;
 		/* stylelint-disable-next-line property-no-vendor-prefix */
 		-webkit-mask-position: center;
-	}
-
-	img.hover {
-		background: var(--rui-icon__color);
-		transition: var(--rui-icon__hover-transition);
-	}
-
-	img.hover:hover {
-		background: var(--rui-icon__hover-color);
 	}
 	
 	/* stylelint-disable-next-line */
