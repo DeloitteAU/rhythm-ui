@@ -6,7 +6,7 @@
 */
 
 import React from 'react';
-import '@rhythm-ui/rui-breadcrumbs';
+import '@rhythm-ui/breadcrumbs';
 
 /**
  * Breadcrumb Item wrapps the rui-link in a li element which is passed into the slot "crumb".

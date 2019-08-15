@@ -2,7 +2,7 @@
 package: "@rhythm-ui"
 title: "rui-breadcrumbs"
 ---
-#Breadcrumbs
+# Breadcrumbs
 
 Breadcrumbs indicate location of the current page with links back to the pages navigated through to get there. 
 

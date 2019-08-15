@@ -75,6 +75,7 @@ export const fakeBrowserStyles = css`
 	background-color: rgb(244, 245, 247);
 	border-radius: 3px;
 	padding: 0 8px 8px 8px;
+	margin-bottom: 40px;
 `;
 
 export const fakeBrowswerBarStyles = css`
