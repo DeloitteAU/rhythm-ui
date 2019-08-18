@@ -11,7 +11,7 @@ import '@rhythm-ui/button-react';
 import '@rhythm-ui/story-react';
 import '@rhythm-ui/expand-collapse-react';
 import '@rhythm-ui/pagination-react';
-import '@rhythm-ui/breadcrumbs';
+import RuiBreadcrumbs from '@rhythm-ui/breadcrumbs-react';
 import RuiLayout from '@rhythm-ui/layout-react';
 import RuiGrid from '@rhythm-ui/grid-react';
 import RuiSkipLinks from '@rhythm-ui/skip-links-react';
@@ -134,7 +134,10 @@ const Template = ({
 				<main id="main">
 					<RuiGrid>
 						<div className="s-11">
-							{/* PLACE HOLDER BREADCRUMBS */}
+							<RuiBreadcrumbs>
+								{breadcrumbs.map(b => <a>{b.label}</a>)}
+								<a href="#">{doc.frontmatter.title}</a>
+							</RuiBreadcrumbs>
 						</div>
 					</RuiGrid>
 					<RuiGrid>
@@ -143,7 +146,14 @@ const Template = ({
 								<MDXRenderer>{doc.code.body}</MDXRenderer>
 								{ruidocs.nodes.map(n => {
 									return (
-										<MDXRenderer key={n.id}>{n.code.body}</MDXRenderer>
+										<>
+											<MDXRenderer key={n.id}>{n.code.body}</MDXRenderer>
+											<p>
+												<strong>Missing a variable for a css property?</strong> Please open a Github issue. While we believe less is
+												more for a starting point its worth having the discussion to see if we can include the property
+												you want in this component.
+											</p>
+										</>
 									);
 								})}
 							</MDXProvider>
@@ -153,6 +163,7 @@ const Template = ({
 				<aside>
 					<pre>yarn install {doc.frontmatter.package}</pre>
 					<br /><br />
+					WITHIN THIS ARTICLE
 					{pageHeadings.map(h => (
 						<div key={h.link}>
 							{h.depth === 3 && <span style={{marginRight: 10}} /> }<a href={h.link}>{h.label}</a>
@@ -180,6 +191,7 @@ export const pageQuery = graphql`
 				value
 			}
 			fields {
+				nodeName
 				breadcrumbs {
 					nodeName
 					label

@@ -1,0 +1,29 @@
+# Theming
+
+Customise Rhythm UI components with your own branding & styles.
+
+## For UI Designers
+
+TODO
+
+## For UI Developers
+
+Rhythm UI styles and some markup are self-contained within the **shadow dom** of each component. This removes the brittleness that 
+generally comes with global scoped html, css and js. It also means the components styles are only loaded when in use (which avoids dead code) 
+which is good for performance.
+
+We achieve this by using **web components** under the hood, if you are not familiar with them we suggest you read this [brief introduction](https://www.webcomponents.org/introduction).
+
+The technology that currently underpins all our web components is [LitElement](https://lit-element.polymer-project.org/guide) a framework by Google. While its useful to 
+know *what* we are using, we have **encapsulated** in a way that allows us to change it in the future should we wish too. *Your theme should not depend on LitElement.*
+
+### Styling
+
+When it comes to customising our components you have a few options that each come with step up in complexity.
+
+- **Easy** Use our predefined css variables - *Recommended*
+- **Moderate** Use a hook to inject custom css into a components shadow dom
+- **Advanced** Extend our components and override templates and methods
+
+
+
