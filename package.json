@@ -42,7 +42,7 @@
     "start:react": "node_modules/@storybook/react/bin/index.js -p 6006 -c adapters/react/.storybook",
     "start:vue": "node_modules/@storybook/vue/bin/index.js -p 6007 -c adapters/vue/.storybook",
     "format": "prettier --write src/**/*.{js,jsx}",
-    "generate": "plop"
+    "generate": "plop && yarn install"
   },
   "repository": {
     "type": "git",
