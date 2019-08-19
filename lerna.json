@@ -4,8 +4,9 @@
     "components/**",
     "adapters/react/**",
     "adapters/vue/**",
-	  "tools/**",
-	  "www"
+    "system/**",
+    "tools/**",
+    "www"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,

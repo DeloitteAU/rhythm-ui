@@ -8,33 +8,16 @@
 import React from 'react';
 import '@rhythm-ui/breadcrumbs';
 
-/**
- * Breadcrumb Item wrapps the rui-link in a li element which is passed into the slot "crumb".
- * It is then exposed as Item. to be used as Breadcrumbs.Item
- */
+import {IRuiBreadcrumbs} from './IRuiBreadcrumbs';
 
-
-export const BreadcrumbItem = (props): React.ReactNode => { //eslint-disable-line react/no-multi-comp
-	const {...otherProps} = props;
-	const active = props.active ? 'page' : undefined;
-
-	return React.createElement('li', {
-		'slot': 'crumb',
-		'aria-current': active,
-	}, <a {...otherProps} > {props.children}</a>,
-	);
-};
-
-export class RuiBreadcrumbs extends React.Component { //eslint-disable-line react/no-multi-comp
-	public static Item = BreadcrumbItem;
-
+export class RuiBreadcrumbs extends React.Component<IRuiBreadcrumbs> { //eslint-disable-line react/no-multi-comp
 	public render() {
 		return (
 			<rui-breadcrumbs {...this.props}>
 				{this.props.children}
-			</rui-breadcrumbs >
+			</rui-breadcrumbs>
 		);
 	}
 }
 
-
+export default RuiBreadcrumbs;
