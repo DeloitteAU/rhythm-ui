@@ -31,6 +31,7 @@ export const Navigation = () => (
 								n.fields.relativeUrlPath.indexOf('/docs/components') === 0 ||
 								n.fields.relativeUrlPath.indexOf('/change-log') === 0,
 						)
+						.sort((a,b) => {console.log(a.frontmatter.title , b.frontmatter.title);return a.frontmatter.title - b.frontmatter.title})
 						.map(node => (
 							<li key={node.id}>
 								<Link to={node.fields.relativeUrlPath}>{node.frontmatter.title}</Link>
