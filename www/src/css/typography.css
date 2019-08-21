@@ -3,6 +3,7 @@ body {
 	font: 16px/24px 'Inter', system-ui, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	font-weight: 400;
+	color: #111;
 
 	/* direction: rtl; */
 }
@@ -62,4 +63,13 @@ a:visited {
 
 a:hover {
 	color: #512DA8;
+}
+
+rui-breadcrumbs a {
+	text-decoration: none;
+	color: #111 !important;
+}
+
+rui-breadcrumbs a:hover {
+	text-decoration: underline;
 }

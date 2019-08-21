@@ -6,66 +6,83 @@
 */
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import {getShadowStylesFor} from '@rhythm-ui/styles';
 import {variables, layout} from './RuiBreadcrumbs.css'
 
-
+/**
+ * RuiBreadcrumb component
+ */
 export class RuiBreadcrumbs extends LitElement {
-	public constructor() {
-		super();
-		/**
-		 * set child array
-		 * */
-		this._childArray = [...this.children];
-	}
+
+	/* #region Properties */
 
 	/**
-	 * Private properties to set number of crumbs before and after collapse element
-	 * */
-	private _childArray: any[] = [];
-	private _collapsedArray: any[] = [];
+	 * The breadcrumbs elements
+	 */
+	private _crumbs: TemplateResult[] = [];
+
+	/**
+	 * True shows all the breadcrumbs
+	 */
 	private _isExpanded: boolean = false;
 
-	public set expand(val) {
+	/**
+	 * Setter for _isExpanded
+	 */
+	public set expanded(val) {
 		const oldVal = this._isExpanded;
 		this._isExpanded = val;
-		this.requestUpdate('expand', oldVal);
+		this.requestUpdate('expanded', oldVal);
 	}
 
-	public get expand() { return this._isExpanded; }
-
 	/**
-	 * The array of breadcrumbs
+	 * Getter for _isExpanded
 	 */
-	@property({type : String})
-	public crumbs?: string = '';
+	public get expanded() {
+		return this._isExpanded;
+	}
 
 	/**
-	 * Maximum length of crumbs to show
+	 * Maximum length of crumbs to show before truncation
 	 */
-	@property({type : String})
-	public maxCrumbs?: string = '';
+	@property({type : Number})
+	public max?: number;
 
 	/**
-    *
-    * The styles for breadcrumbs
-    * @remarks
-    * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
-    */
-    public static get styles(): CSSResultArray {
-        return [variables, layout];
-    }
+	* The styles for breadcrumbs
+	*/
+	public static get styles(): CSSResultArray {
+		return [variables, layout, getShadowStylesFor('RuiBreadcrumbs')];
+	}
 
-    /* #endregion */
+	/* #endregion */
 
-    /* #region Methods */
+	/* #region Methods */
+
+	/**
+	 * Connected callback
+	*/
+	public connectedCallback() {
+		super.connectedCallback()
+
+		this._crumbs = 
+			[...this.children]
+			.map((c, i) => {
+				// A11y. Set the aria-current on the last element if not done so
+				if (i === this.children.length - 1 && !c.getAttribute('aria-current')) {
+					c.setAttribute('aria-current', 'page');
+				}
+				return html`<li>${c}</li>`;
+			});
+	}
 
 	/**
 	 * Event handler for expand button, expands
 	 */
-	public onExpandCollapsedCrumbs = () => {
-		console.log('event')
-		this.expand = true;
-	};
+	private _handleExpandButtonClick = () => {
+		this.expanded = true;
+		this.dispatchEvent(new Event('onexpand'));
+	}
 
 	/**
 	 * Create collapsed crumb list array
@@ -73,7 +90,17 @@ export class RuiBreadcrumbs extends LitElement {
 	 * @returns {T[] | HTMLLIElement[][]}
 	 */
 	public createCollapsedCrumbArray = (array, maxLength) => {
-		const collapseEl = html`<li class="expand-el"><button class="expand-btn" aria-expanded="false" @click=${this.onExpandCollapsedCrumbs}>... <span class="vh">Show all breadcrumbs</span></button></li>`;
+		const collapseEl = html`
+			<li>
+				<button
+					class="expand-btn"
+					aria-expanded="false"
+					aria-label="Show hidden breadcrumbs"
+					@click=${this._handleExpandButtonClick}
+				>
+					&hellip;
+				</button>
+			</li>`;
 
 		const collapseArray = [
 			...array.slice(0, 1),
@@ -90,23 +117,14 @@ export class RuiBreadcrumbs extends LitElement {
 	 */
 	public render(): TemplateResult {
 
-		if (this.crumbs) {
-			const crumbsArray = JSON.parse(this.crumbs);
-			const activeCrumb = crumbsArray.pop();
-			this._childArray = crumbsArray.map((crumb: { url: unknown; title: unknown; }) => html`<li><a href=${crumb.url}>${crumb.title}</a></li> `)
-			this._childArray.push(html`<li aria-current="page" > ${activeCrumb.title }</li>`);
-		}
-
-		if (this.maxCrumbs) {
-			this._collapsedArray = this.createCollapsedCrumbArray(this._childArray, parseInt(this.maxCrumbs))
-		}
-
-		const crumbsToShow = (!this._isExpanded && !!this.maxCrumbs) ? this._collapsedArray : this._childArray;
+		const crumbs = (!this.expanded && !!this.max) ? 
+			this.createCollapsedCrumbArray(this._crumbs, this.max)
+			: this._crumbs;
 
 		return html`
-			<nav aria-label="Breadcrumb" class="crumbs">
+			<nav aria-label="Breadcrumbs" class="crumbs">
 				<ol>
-					${crumbsToShow.map((child) => (child))}
+					${crumbs}
 				</ol>
 			</nav>
 		`
