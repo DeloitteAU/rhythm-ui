@@ -1,18 +1,15 @@
 rui-button rui-icon {
-	margin-left: 15px;
-
-	--rui-icon__display: inline-block;
 	--rui-icon__width: 12px;
 	--rui-icon__height: 12px;
 	--rui-icon__color: #FFFFFF;
 }
 
-.rui-btn-icon-left {
+.custom-button-icon {
 	--rui-button__padding: 15px 25px 15px 47px;
 	position: relative;
 }
 
-.rui-btn-icon-left rui-icon {
+.custom-button-icon rui-icon {
 	margin: 0;
 	position: absolute;
 	left: 25px;
@@ -23,7 +20,7 @@ rui-button rui-icon {
 	transition: all 250ms ease;
 }
 
-.rui-btn-icon-left:hover rui-icon {
+.custom-button-icon:hover rui-icon {
 	--rui-icon__color: #FFF;
 	animation-name: bounce;
 	/* stylelint-disable-next-line property-no-vendor-prefix */

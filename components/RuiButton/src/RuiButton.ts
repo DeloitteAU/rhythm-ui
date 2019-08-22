@@ -7,6 +7,7 @@
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
 import {ifDefined} from 'lit-html/directives/if-defined.js';
+import {getShadowStylesFor} from '@rhythm-ui/styles';
 import {variables, layout} from './RuiButton.css'
 
 /**
@@ -55,13 +56,19 @@ export class RuiButton extends LitElement {
 	public href? = undefined;
 
 	/**
+	 * Set button aria-label
+	 */
+	@property({type: String})
+	public label?: '';
+
+	/**
 	 *
 	 * The styles for button
 	 * @remarks
 	 * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	 */
 	public static get styles(): CSSResultArray {
-		return [variables, layout];
+		return [variables, layout, getShadowStylesFor('RuiButton')];
 	}
 
 	/* #endregion */
@@ -75,23 +82,25 @@ export class RuiButton extends LitElement {
 	 */
 	public render(): TemplateResult {
 
-// If href has not been defined use <button>
+		// If href has not been defined use <button>
 		if (!this.href && this.behaviour !== 'anchor') {
 			return html`
 				<button
 					class="btn"
 					?disabled=${this.disabled}
+					aria-label="${ifDefined(this.label)}"
 				>
 					<slot></slot>
 				</button>
 			`;
 		}
 
-// Use <a>
+		// Use <a>
 		return html`
 			<a
 				class="btn"
 				href=${ifDefined(this.href)}
+				aria-label="${ifDefined(this.label)}"
 			>
 				<slot></slot>
 			</a>
