@@ -245,6 +245,7 @@ export const layout = css`
 		user-select: none;
 		white-space: nowrap;
 		vertical-align: middle;
+		box-sizing: border-box;
 
 		line-height: var(--rui-button__line-height);
 		align-items: var(--rui-button__align-items);
@@ -284,40 +285,6 @@ export const layout = css`
 		transform: var(--rui-button__transform-active);
 	}
 
-	/* Disabled */
-	:host([disabled]) .btn,
-	:host([disabled]) .btn:hover,
-	:host([disabled]) .btn:focus,
-	:host([disabled]) .btn:active {
-		cursor: var(--rui-button__cursor-disabled);
-		background-color: var(--rui-button__background-color-disabled);
-		color: var(--rui-button__color-disabled);
-		transform: var(--rui-button__transform-disabled);
-		border: var(--rui-button__border-disabled);
-	}
-
-	/* Variants */
-	:host([variant="outline"]) .btn {
-		--rui-button__background-color: transparent;
-		--rui-button__border-active: var(--rui-button__border);
-		--rui-button__border-focus: var(--rui-button__border);
-		--rui-button__border-hover: var(--rui-button__border);
-		--rui-button__border: 1px solid var(--rui-button__border-color);
-		--rui-button__color: var(--global-gray-color-3, #595457);
-	}
-
-	:host([variant="ghost"]) .btn {
-		--rui-button__background-color-active: var(--global-gray-color-3, #595457);
-		--rui-button__background-color-focus: var(--global-gray-color-3, #595457);
-		--rui-button__background-color-hover: var(--global-gray-color-3, #595457);
-		--rui-button__background-color: transparent;
-		--rui-button__border-active: none;
-		--rui-button__border-focus: none;
-		--rui-button__border-hover: none;
-		--rui-button__border: none;
-		--rui-button__color: var(--global-gray-color-3, #595457);
-	}
-
 	/* Themes */
 
 	/* Primary Theming */
@@ -345,6 +312,40 @@ export const layout = css`
 		--rui-button__background-color-hover: var(--global-tertiary-shade-4, #B71C1C);
 		--rui-button__background-color-active: var(--global-tertiary-shade-4, #B71C1C);
 		--rui-button__background-color-focus: var(--global-tertiary-shade-4, #B71C1C);
+	}
+
+	/* Variants */
+	:host([variant="outline"]) .btn {
+		--rui-button__background-color: transparent;
+		--rui-button__border-active: var(--rui-button__border);
+		--rui-button__border-focus: var(--rui-button__border);
+		--rui-button__border-hover: var(--rui-button__border);
+		--rui-button__border: 1px solid var(--rui-button__border-color);
+		--rui-button__color: var(--global-gray-color-3, #595457);
+	}
+
+	:host([variant="ghost"]) {
+		--rui-button__background-color-active: var(--global-gray-color-3, #595457);
+		--rui-button__background-color-focus: var(--global-gray-color-3, #595457);
+		--rui-button__background-color-hover: var(--global-gray-color-3, #595457);
+		--rui-button__background-color: transparent;
+		--rui-button__border-active: none;
+		--rui-button__border-focus: none;
+		--rui-button__border-hover: none;
+		--rui-button__border: none;
+		--rui-button__color: var(--global-gray-color-3, #595457);
+	}
+	
+	/* Disabled */
+	:host([disabled]) .btn,
+	:host([disabled]) .btn:hover,
+	:host([disabled]) .btn:focus,
+	:host([disabled]) .btn:active {
+		cursor: var(--rui-button__cursor-disabled);
+		background-color: var(--rui-button__background-color-disabled);
+		color: var(--rui-button__color-disabled);
+		transform: var(--rui-button__transform-disabled);
+		border: var(--rui-button__border-disabled);
 	}
 
 	/* Sizes */

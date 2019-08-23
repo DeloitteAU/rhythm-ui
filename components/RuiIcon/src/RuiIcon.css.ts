@@ -13,11 +13,6 @@ import {css} from 'lit-element';
 export const variables = css`
 		:host {
 			/**
-			 * @variable The padding on each breadcrumb link item
-			 */
-			--rui-icon__display: inline-block;
-	
-			/**
 			 * @variable Icon width
 			 */
 			--rui-icon__width: 60px;
@@ -28,7 +23,7 @@ export const variables = css`
 			--rui-icon__height: 60px;
 	
 			/**
-			 * @variable Icon color (only works for hover setting)
+			 * @variable Icon color (does not work for IE)
 			 */
 			--rui-icon__color: #114357;
 		}
@@ -39,10 +34,10 @@ export const variables = css`
  */
 export const layout = css`
 	img {
-		display: var(--rui-icon__display);
 		width: var(--rui-icon__width);
 		height: var(--rui-icon__height);
 		background: var(--rui-icon__color);
+		background-repeat: no-repeat;
 
 		mask: var(--rui-icon__url);
 		/* stylelint-disable-next-line property-no-vendor-prefix */
