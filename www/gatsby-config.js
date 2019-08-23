@@ -78,7 +78,7 @@ module.exports = {
 		// 			{
 		// 				// For including gif files
 		// 				resolve: 'gatsby-remark-copy-linked-files',
-		// 			}
+		// 			},
 		// 		],
 		// 	},
 		// },
