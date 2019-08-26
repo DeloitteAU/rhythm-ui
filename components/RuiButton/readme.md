@@ -11,73 +11,79 @@ Buttons provide a clickable element, which can be used in forms, or anywhere tha
 <rui-button>Button</rui-button>
 ```
 ```css
-	/* Font */
-	--rui-button__font-size: 1rem;
-	--rui-button__font-weight: 400;
-	--rui-button__color: #FFF;
-	--rui-button__line-height: 1em;
-	
-	/* Dimensions */
-	--rui-button__padding: 15px 25px;
-	--rui-button__border-radius: 4px;
-	
-	/* Aesthetic */
-	--rui-button__display: inline-block;
-	--rui-button__flex-direction: row;
-	--rui-button__justify-content: flex-start;
-	--rui-button__align-items: flex-start;
-	--rui-button__transform: none;
-	--rui-button__transition: background-color 250ms, color 250ms, opacity 250ms, font-size 250ms;
-	--rui-button__cursor: pointer;
-	--rui-button__background-color: var(--global-gray-color-3, #673AB7);
-	--rui-button__border: none;
-	
-	/* Hover */
-	--rui-button__color-hover: var(--rui-button__color);
-	--rui-button__background-color-hover: var(--global-gray-color-4, #311B92);
-	--rui-button__border-hover: var(--rui-button__border);
-	--rui-button__transform-hover: none;
-	
-	/* Focus */
-	--rui-button__color-focus: var(--rui-button__color);
-	--rui-button__background-color-focus: var(--global-gray-color-4, #311B92);
-	--rui-button__border-focus: var(--rui-button__border);
-	--rui-button__transform-focus: none;
-	
-	/* Active */
-	--rui-button__color-active: var(--rui-button__color);
-	--rui-button__background-color-active: var(--global-gray-color-4, #311B92);
-	--rui-button__border-active: var(--rui-button__border);
-	--rui-button__transform-active: translateY(1px);
-	
-	/* Visited */
-	--rui-button__color-visited: var(--rui-button__color);
-	--rui-button__background-color-visited: var(--global-gray-color-4, #311B92);
-	--rui-button__border-visited: var(--rui-button__border);
-	--rui-button__transform-visited: translateY(1px);
-	
-	/* Disabled */
-	--rui-button__color-disabled: var(--global-gray-color-2, #CCC);
-	--rui-button__background-color-disabled: var(--global-gray-color-1, #DDD);
-	--rui-button__border-disabled: none;
-	--rui-button__transform-disabled: none;
-	--rui-button__cursor-disabled: not-allowed;
+/* Font */
+--rui-button__font-size: 1rem;
+--rui-button__font-weight: 400;
+--rui-button__color: #FFF;
+--rui-button__line-height: 1em;
+
+/* Dimensions */
+--rui-button__padding: 15px 25px;
+--rui-button__border-radius: 4px;
+--rui-button__width: auto;
+--rui-button__max-width-min: auto;
+--rui-button__max-width: auto;
+
+/* Aesthetic */
+--rui-button__display: inline-block;
+--rui-button__flex-direction: row;
+--rui-button__justify-content: flex-start;
+--rui-button__align-items: flex-start;
+--rui-button__transform: none;
+--rui-button__transition: background-color 250ms, color 250ms, opacity 250ms, font-size 250ms;
+--rui-button__cursor: pointer;
+--rui-button__background-color: var(--global-gray-color-3, #673AB7);
+--rui-button__border: none;
+
+/* Hover */
+--rui-button__color-hover: var(--rui-button__color);
+--rui-button__background-color-hover: var(--global-gray-color-4, #311B92);
+--rui-button__border-hover: var(--rui-button__border);
+--rui-button__transform-hover: none;
+
+/* Focus */
+--rui-button__color-focus: var(--rui-button__color);
+--rui-button__background-color-focus: var(--global-gray-color-4, #311B92);
+--rui-button__border-focus: var(--rui-button__border);
+--rui-button__transform-focus: none;
+
+/* Active */
+--rui-button__color-active: var(--rui-button__color);
+--rui-button__background-color-active: var(--global-gray-color-4, #311B92);
+--rui-button__border-active: var(--rui-button__border);
+--rui-button__transform-active: translateY(1px);
+
+/* Visited */
+--rui-button__color-visited: var(--rui-button__color);
+--rui-button__background-color-visited: var(--global-gray-color-4, #311B92);
+--rui-button__border-visited: var(--rui-button__border);
+--rui-button__transform-visited: translateY(1px);
+
+/* Disabled */
+--rui-button__color-disabled: var(--global-gray-color-2, #CCC);
+--rui-button__background-color-disabled: var(--global-gray-color-1, #DDD);
+--rui-button__border-disabled: none;
+--rui-button__transform-disabled: none;
+--rui-button__cursor-disabled: not-allowed;
 ```
 
 ## Configuration
 
 |Prop|Values|Notes|
 |---|---|---|
-|Types| **primary/secondary/tertiary** |Set button type|
-|Variants|**fill/outline/tertiary**|Set button variant|
-|Sizes|**small/normal/large**|Set button size|
-|Disabled|**true/false**|Set button disabled state|
-|Behaviour|**button/submit/reset/anchor**|Set button behaviour, if unspecified the default `button` will be set, unless an href has been specified then it will be an `a` tag|
-|label|**string**|Set button aria-label, should be used if the button only displays an icon to the user|
+|Types| **primary / secondary / tertiary** |Sets the button type|
+|Variants|**fill / outline / tertiary**|Sets the button variant|
+|Sizes|**small / normal / large**|Sets the button size|
+|Disabled|**true / false**|Sets the button disabled state|
+|Behaviour|**button / submit / reset / anchor**|Sets the button behaviour, if unspecified the default `button` will be set, unless an href has been specified then it will be an `a` tag|
+|label|**string**|Sets the button aria-label, should be used if the button only displays an icon to the user|
 
 ## Styles
 
 ### Types
+
+Type options are: **primary | secondary | tertiary**
+
 ```html preview
 <rui-button type="primary">Primary</rui-button>
 <rui-button type="secondary">Secondary</rui-button>
@@ -113,7 +119,9 @@ rui-button[type="tertiary"] {
 ```
 
 ### Variants
-Variant options are: **fill|outline|tertiary**
+
+Variant options are: **fill | outline | tertiary**
+
 ```html preview
 <rui-button variant="fill">Fill</rui-button>
 <rui-button variant="outline">Outline</rui-button>
@@ -144,7 +152,8 @@ rui-button[variant="ghost"] {
 ```
 
 ### Sizes
-Size options are: **small|normal|large**
+
+Size options are: **small | normal | large**
 
 ```html preview
 <rui-button size="small">Small</rui-button>
@@ -164,8 +173,10 @@ rui-button[size="large"] {
 }
 ```
 
-## Disabled
+### Disabled
+
 Button can be disabled by using the disabled prop
+
 ```html preview
 <rui-button disabled>Disabled</rui-button>
 ```
@@ -182,7 +193,9 @@ rui-button {
 > (Disabled is not supported with the anchor behaviour)
 
 ### Icons
-Button can accept iconography by adding the icon in the desired location relative to the text, styling the icon is like styling any regular nested html element.
+
+Button can accept iconography by adding the icon in the desired location relative to the text, styling the icon is like styling any regular nested html element. If you create an icon only button please specify the `label` property to provide the appropriate A11Y support.
+
 ```html preview
 <rui-button>Proceed <rui-icon src="http://pluspng.com/img-png/right-arrow-png-right-arrow-512.png"></rui-icon></rui-button>
 <rui-button label="Proceed"><rui-icon src="http://pluspng.com/img-png/right-arrow-png-right-arrow-512.png"></rui-icon></rui-button>
@@ -194,19 +207,37 @@ rui-button rui-icon {
 	--rui-icon__height: 12px;
 	--rui-icon__color: #ffffff;
 }
+
 rui-button:hover rui-icon {
 	--rui-icon__color: #000000;
 }
 ```
 
-### Sizes
-Button can accept iconography by adding the icon in the desired location relative to the text, styling the icon is like styling any regular nested html element.
+### Widths
+
+To control the width of the button specify the (min/max) width of the button
+
 ```html preview
-<rui-button>Proceed</rui-button>
+<rui-button class="max">This button has a maximum width</rui-button>
+<rui-button class="min">This button has a minimum width</rui-button>
+<rui-button class="full">This button is full width</rui-button>
+```
+```css
+rui-button.max {
+	--rui-button__max-width: 250px;
+}
+
+rui-button.min {
+	--rui-button__min-width: 500px;
+}
+
+rui-button.full {
+	--rui-button__width: 100%;
+}
 ```
 
-
 ## Behaviour
+
 Behaviour options are: **button|submit|reset|anchor** (if nothing is specified the default will be set unless an href has been specified)
 ```html preview
 <rui-button behaviour="button">Button (default)</rui-button>
@@ -214,17 +245,33 @@ Behaviour options are: **button|submit|reset|anchor** (if nothing is specified t
 <rui-button behaviour="reset">Form Reset</rui-button>
 <rui-button behaviour="anchor">Anchor</rui-button>
 <rui-button href="#">Href</rui-button>
-<rui-button onClick="() => {window.alert('button clicked')}"}">onClick</rui-button>
+<rui-button @click="() => {window.alert('button clicked')}"}">onClick</rui-button>
 
+```
+
+## Customise
+
+If you want customise the CSS beyond the variables use the `createShadowStyles` utility function. This function allows you to customise any CSS property and update the CSS for the shadow dom that otherwise would not be possible.
+```js
+import {css} from 'lit-element';
+import {createShadowStyles} from '@rhythm-ui/styles';
+
+createShadowStyles({
+	RuiButton: css`
+		.btn {}
+	`
+})
 ```
 
 
 ## Extending
 
+For more customisation of both the HTML and CSS you can extend the component.
+
 ```js
 import RuiButton from '@rhythm-ui/button';
 
-export class MyBUtton extends RuiButton {
+export class MyButton extends RuiButton {
 	static tag() {
 		return 'my-button';
 	}

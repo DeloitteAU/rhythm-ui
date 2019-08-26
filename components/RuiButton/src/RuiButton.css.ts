@@ -50,6 +50,21 @@ export const variables = css`
 		 */
 		--rui-button__border-radius: 4px;
 
+		/**
+		 * @variable Width
+		 */
+		--rui-button__width: auto;
+
+		/**
+		 * @variable Minimum Width
+		 */
+		--rui-button__min-width: auto;
+
+		/**
+		 * @variable Maximum Width
+		 */
+		--rui-button__max-width: auto;
+
 		/****************************
 		 * AESTHETIC
 		 ***************************/
@@ -233,7 +248,6 @@ export const layout = css`
 	:host {
 		display: inline-block;
 		width: auto;
-		box-sizing: border-box;
 	}
 
 	:host[disabled] {
@@ -256,6 +270,9 @@ export const layout = css`
 		display: inline-block;
 		box-sizing: border-box;
 
+		width: var(--rui-button__width);
+		min-width: var(--rui-button__min-width);
+		max-width: var(--rui-button__max-width);
 		line-height: var(--rui-button__line-height);
 		align-items: var(--rui-button__align-items);
 		background-color: var(--rui-button__background-color);
