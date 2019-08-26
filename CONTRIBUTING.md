@@ -130,6 +130,19 @@ automatic commit that increments the version numbers. You don't need to commit t
 1. Select the new version (or enter a custom one) adhering to the principles of semantic versioning.
 1. Lerna will create a new release of the packages that have been updated. It will create a new git commit/tag and publish to npm.
 
+## Developing on Windows
+
+If you develop on Windows you might run into issues that your Mac/Linux counterparts have never encountered. Here's a suggested setup to combat this:
+
+1. Git bash (ensure you have included the bash terminal and commands in your system PATHs)
+2. nvm for Windows
+3. Node 11.11.0
+4. Yarn 1.17.3
+
+Getting the node and yarn version correct helps to prevent issues relating to git bash path modification (https://github.com/yarnpkg/yarn/issues/5717) and multiple packages of the same dependency issues with yarn workspaces.
+
+If you get the issue `Something went wrong installing the 'sharp' module` try doing `npm uninstall expo-cli -g` before running yarn again. (https://github.com/lovell/sharp/issues/1696)
+
 ## License
 
 By contributing to Rhythm UI, you agree that your contributions will be licensed under the BSD-3-Clause license.
