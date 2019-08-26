@@ -6,9 +6,15 @@
 */
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import {getShadowStylesFor} from '@rhythm-ui/styles';
 import {variables, layout} from './RuiHeroBanner.css'
 
 export class RuiHeroBanner extends LitElement {
+	/**
+	 * Icon source
+	 */
+	@property({type : String})
+	public img: string = '';
 
 	/**
 	*
@@ -17,7 +23,7 @@ export class RuiHeroBanner extends LitElement {
 	* If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	*/
 	public static get styles(): CSSResultArray {
-		return [variables, layout];
+		return [variables, layout, getShadowStylesFor('RuiHeroBanner')];
 	}
 
 	/* #endregion */
@@ -30,7 +36,7 @@ export class RuiHeroBanner extends LitElement {
 	*/
 	public render(): TemplateResult {
 		return html`
-			<div class="hero-banner">
+			<div class="hero-banner" style="--rui-hero-banner__background-image: url(${this.img})">
 				<slot name="overlay"></slot>
 				<div class="hero-banner-content">
 					<slot></slot>

@@ -6,6 +6,7 @@
 */
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import {getShadowStylesFor} from '@rhythm-ui/styles';
 import {variables, layout} from './RuiIcon.css'
 
 export class RuiIcon extends LitElement {
@@ -29,7 +30,7 @@ export class RuiIcon extends LitElement {
 	* If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	*/
 	public static get styles(): CSSResultArray {
-		return [variables, layout];
+		return [variables, layout, getShadowStylesFor('RuiIcon')];
 	}
 
 	/* #endregion */

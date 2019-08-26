@@ -11,23 +11,72 @@ import {css} from 'lit-element';
 	*  RuiHeroBanner Variables
 */
 export const variables = css`
-    :host {
-		
-    }
-	`;
+	:host {
+		/****************************
+		 * DIMENSIONS
+		 ***************************/
+
+		/**
+		 * @variable The regular padding
+		 */
+		--rui-hero-banner__padding: 15px 25px;
+
+		/**
+		 * @variable Width
+		 */
+		--rui-hero-banner__height: auto;
+
+		/**
+		 * @variable Minimum Width
+		 */
+		--rui-hero-banner__min-height: auto;
+
+		/**
+		 * @variable Maximum Width
+		 */
+		--rui-hero-banner__max-height: auto;
+
+		/****************************
+		 * AESTHETIC
+		 ***************************/
+ 
+		/**
+		 * @variable Background colour
+		 */
+		--rui-hero-banner__background-colour: #FEDFED;
+
+		/**
+		 * @variable Background image
+		 */
+		--rui-hero-banner__background-image: undefined;
+
+		/**
+		 * @variable Background position
+		 */
+		--rui-hero-banner__background-position: center;
+	}
+`;
 
 /**
 	* RuiHeroBanner CSS
 */
 export const layout = css`
-    :host {
+	:host {
+		padding: 0;
+		margin: 0;
 		width: 100%;
-		min-height: 
-		background-color:
-		background-image:
-		background-position:
+	}
+
+	.hero-banner {
+		height: var(--rui-hero-banner__height);
+		min-height: var(--rui-hero-banner__min-height);
+		max-height: var(--rui-hero-banner__max-height);
+		padding: var(--rui-hero-banner__padding);
+		background-color: var(--rui-hero-banner__background-colour);
+		background-image: var(--rui-hero-banner__background-image);
+		background-position: var(--rui-hero-banner__background-position);
 		background-repeat: no-repeat;
-		background-size: contain
+		background-size: cover;
 	}
 `;
 
