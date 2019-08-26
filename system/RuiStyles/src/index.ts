@@ -7,7 +7,7 @@
 
 import {css as _css, CSSResult} from 'lit-element';
 
-// Proxy css incase we ever change how this works
+// Proxy css in case we ever change how this works
 export const css = _css;
 
 // Private dictionary for stashing styles
