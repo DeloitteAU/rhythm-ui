@@ -32,7 +32,7 @@ import {
 } from '../../utils/stringUtils';
 
 //import './prism.css';
-import './Markdown.css';
+import './Guide.css';
 
 //import Code from '../components/Code'
 const preToCodeBlock = (preProps: any) => {
@@ -84,7 +84,7 @@ const Template = ({
 	data, // this prop will be injected by the GraphQL query below.
 }: {data: any}) => {
 
-	const {doc, ruidocs} = data; // data.markdownRemark holds our post data
+	const {doc, nav} = data; // data.markdownRemark holds our post data
 	const {fields, frontmatter, headings} = doc;
 	const {breadcrumbs, relativeUrlPath} = fields;
 	const {title: pageTitle} = frontmatter;
@@ -131,10 +131,10 @@ const Template = ({
 			<RuiSkipLinks />
 			<RuiLayout type="rembrandt">
 				<Header />
-				<Navigation />
+				<Navigation nodes={nav.nodes} />
 				<main id="main">
 					<RuiGrid>
-						<div className="s-11">
+						<div className="s-10 p-l-2">
 							<RuiBreadcrumbs>
 								{breadcrumbs.map(b => <a>{b.label}</a>)}
 								<a href="#">{doc.frontmatter.title}</a>
@@ -142,36 +142,20 @@ const Template = ({
 						</div>
 					</RuiGrid>
 					<RuiGrid>
-						<div className="s-11">
+						<div className="s-10 p-l-2">
 							<MDXProvider components={mdxComponents}>
 								<MDXRenderer>{doc.code.body}</MDXRenderer>
-								{ruidocs.nodes.map(n => {
-									return (
-										<>
-											<MDXRenderer key={n.id}>{n.code.body}</MDXRenderer>
-											<p>
-												<strong>Missing a variable for a css property?</strong> Please open a Github issue. While we believe less is
-												more for a starting point its worth having the discussion to see if we can include the property
-												you want in this component.
-											</p>
-										</>
-									);
-								})}
 							</MDXProvider>
 						</div>
 					</RuiGrid>
 				</main>
 				<aside>
-					<pre>yarn install {doc.frontmatter.package}</pre>
-					<br /><br />
 					WITHIN THIS ARTICLE
 					{pageHeadings.map(h => (
 						<div key={h.link}>
 							{h.depth === 3 && <span style={{marginRight: 10}} /> }<a href={h.link}>{h.label}</a>
 						</div>
 					))}
-					{data.ruidocs.nodes.length && <div><a href="#css-variables">CSS Variables</a></div>}
-					<br /><br />
 					<a href={githubUrlPath} target="_blank">Edit this page</a>
 				</aside>
 				<Footer />
@@ -181,7 +165,7 @@ const Template = ({
 };
 
 export const pageQuery = graphql`
-	query MDXQuery($id: String!, $fileAbsolutePath: String!) {
+	query ArticleQuery($id: String!) {
 		doc: mdx(id: {eq: $id}) {
 			id
 			code {
@@ -205,11 +189,16 @@ export const pageQuery = graphql`
 				package
 			}
 		}
-		ruidocs: allMdx(filter: {fields: {parentFileAbsolutePath: {eq: $fileAbsolutePath}}}) {
+		nav: allMdx(filter: {fields: {relativeUrlPath: {regex: "/^\/guides/"}}}) {
 			nodes {
 				id
-				code {
-					body
+				frontmatter {
+					title
+				}
+				fields {
+					relativeUrlPath
+					nodeTitle
+					relativeUrlPath
 				}
 			}
 		}

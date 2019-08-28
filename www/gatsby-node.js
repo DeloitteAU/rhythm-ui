@@ -6,7 +6,8 @@ const {createFilePath} = require('gatsby-source-filesystem');
 exports.createPages = ({actions, graphql}) => {
 	const {createPage} = actions;
 
-	const mdxTemplate = path.resolve('src/templates/Markdown/Markdown.tsx');
+	const componentTemplate = path.resolve('src/templates/Component/Component.tsx');
+	const guideTemplate = path.resolve('src/templates/Guide/Guide.tsx');
 
 	return graphql(`
 		{
@@ -38,9 +39,20 @@ exports.createPages = ({actions, graphql}) => {
 			// TODO: Use a front-matter variable to opt out creating pages from .md instead eg "meta: true"
 			// TODO: And use filter in the above query
 			if (relativeUrlPath.indexOf('.ruidocs') < 0) {
+
+				let template;
+				switch (relativeUrlPath.split('/')[1]) {
+					case 'components':
+						template = componentTemplate;
+						break;
+					default:
+						template = guideTemplate;
+						break;
+				}
+
 				createPage({
 					path: relativeUrlPath,
-					component: mdxTemplate,
+					component: template,
 					context: {
 						id: edge.node.id,
 						fileAbsolutePath: edge.node.fileAbsolutePath,
@@ -71,7 +83,7 @@ exports.onCreateNode = ({node, actions, getNode}) => {
 				slug = frontmatter.title.replace(/\s/g, '-').toLowerCase();
 			}
 
-			relativeUrlPath = `/docs/components/${slug}`;
+			relativeUrlPath = `/components/${slug}`;
 		}
 
 		// setting the relative path for CHANGELOG.md
