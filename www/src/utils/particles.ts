@@ -435,8 +435,10 @@ export function init(canvas: HTMLCanvasElement): void {
 		// Start Update
 
 		const grd = context.createLinearGradient(0, 0, 0, screenHeight);
-		grd.addColorStop(0, '#893799');
-		grd.addColorStop(1, '#563383');
+		// grd.addColorStop(0, '#893799');
+		// grd.addColorStop(1, '#563383');
+		grd.addColorStop(0, '#4829b2');
+		grd.addColorStop(1, '#0030AE');
 
 		const loop = function() {
 			let i, len, g, p;

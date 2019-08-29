@@ -30,12 +30,11 @@ export const Default: SFC<IProps> = ({children}) => (
 		}
 	`}
 		render={data => (
-			<RuiLayout type="picasso">
+			<RuiLayout type="monet">
 				<Header />
 				<main>
 					{children}
 				</main>
-				<Navigation />
 				<Footer />
 			</RuiLayout>
 		)}
