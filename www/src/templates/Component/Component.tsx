@@ -2,6 +2,8 @@ import {MDXRenderer} from 'gatsby-mdx';
 import {MDXProvider} from '@mdx-js/react';
 import {graphql} from 'gatsby';
 import {css} from '@emotion/core';
+import slug from 'slug';
+import React from 'react';
 
 // Import these so markdown files render if they are using these tags
 // @@ GENERATOR IMPORT COMPONENT
@@ -17,9 +19,7 @@ import RuiLayout from '@rhythm-ui/layout-react';
 import RuiGrid from '@rhythm-ui/grid-react';
 import RuiSkipLinks from '@rhythm-ui/skip-links-react';
 
-
-import React from 'react';
-import slug from 'slug';
+import Layout from '../../components/Layout';
 import {Header} from '../../components/Header';
 import {Footer} from '../../components/Footer';
 import {Navigation} from '../../components/Navigation';
@@ -89,8 +89,6 @@ const Template = ({
 	const {breadcrumbs, relativeUrlPath} = fields;
 	const {title: pageTitle} = frontmatter;
 
-	console.log(nav);
-
 	const pageHeadings = headings
 		.filter(h => h.depth === 2 || h.depth === 3)
 		.map((heading: any) => {
@@ -129,57 +127,30 @@ const Template = ({
 	// breadcrumbs={breadcrumbs} pageTitle={pageTitle} relativeUrlPath={relativeUrlPath}
 
 	return (
-		<React.Fragment>
-			<RuiSkipLinks />
-			<RuiLayout type="rembrandt">
-				<Header />
-				<Navigation nodes={nav.nodes} />
-				<main id="main">
-					<RuiGrid>
-						<div className="s-10 p-l-2">
-							<RuiBreadcrumbs>
-								{breadcrumbs.map(b => <a>{b.label}</a>)}
-								<a href="#">{doc.frontmatter.title}</a>
-							</RuiBreadcrumbs>
-						</div>
-					</RuiGrid>
-					<RuiGrid>
-						<div className="s-10 p-l-2">
-							<MDXProvider components={mdxComponents}>
-								<MDXRenderer>{doc.code.body}</MDXRenderer>
-								{ruidocs.nodes.map(n => {
-									return (
-										<>
-											<MDXRenderer key={n.id}>{n.code.body}</MDXRenderer>
-											<p>
-												<strong>Missing a variable for a css property?</strong> Please open a Github issue. While we believe less is
-												more for a starting point its worth having the discussion to see if we can include the property
-												you want in this component.
-											</p>
-										</>
-									);
-								})}
-							</MDXProvider>
-						</div>
-					</RuiGrid>
-				</main>
-				<aside>
-					<pre>yarn install {doc.frontmatter.package}</pre>
-					<br /><br />
-					WITHIN THIS ARTICLE
-					{pageHeadings.map(h => (
-						<div key={h.link}>
-							{h.depth === 3 && <span style={{marginRight: 10}} /> }<a href={h.link}>{h.label}</a>
-						</div>
-					))}
-					{data.ruidocs.nodes.length && <div><a href="#css-variables">CSS Variables</a></div>}
-					<br /><br />
-					<a href={githubUrlPath} target="_blank">Edit this page</a>
-				</aside>
-				<Footer />
-			</RuiLayout>
-		</React.Fragment>
+		<Layout
+			title={pageTitle}
+			nav={nav.nodes}
+			breadcrumbs={breadcrumbs}
+			tocs={pageHeadings}
+			editPath={githubUrlPath}
+			markdown={doc.code.body}
+		>
+			<pre>yarn install {doc.frontmatter.package}</pre>
+			{ruidocs.nodes.map(n => {
+				return (
+					<>
+						<MDXRenderer key={n.id}>{n.code.body}</MDXRenderer>
+						<p>
+							<strong>Missing a variable for a css property?</strong> Please open a Github issue. While we believe less is
+							more for a starting point its worth having the discussion to see if we can include the property
+							you want in this component.
+						</p>
+					</>
+				);
+			})}
+		</Layout>
 	);
+
 };
 
 export const pageQuery = graphql`
