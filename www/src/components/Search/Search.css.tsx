@@ -1,5 +1,9 @@
 import {css} from '@emotion/core';
 
+export const search = css`
+	display: flex;
+`;
+
 export const searchLabelStyle = css`
 	display: block;
 	font-size: 12px;
