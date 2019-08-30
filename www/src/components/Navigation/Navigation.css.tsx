@@ -1,8 +1,6 @@
 import {css} from '@emotion/core';
 
 const navigationStyles = css`
-	border-right: 1px solid rgba(0, 0, 0, 0.1);
-
 	ul {
 		margin: 0;
 		padding: 0;
@@ -37,9 +35,9 @@ const navigationStyles = css`
 
 	a:after {
 		opacity: 0;
-		transform: translateX(-92px);
-		width: 100px;
-		background: rgb(138, 75, 175);
+		transform: translateX(-14px);
+		width: 22px;
+		background: #6C5CE7;
 		border-radius: 4px;
 	}
 
@@ -50,12 +48,12 @@ const navigationStyles = css`
 
 	a:hover:before {
 		transform: scale(1);
-		background: rgb(138, 75, 175);
+		background: #6C5CE7;
 	}
 
 	a.active,
 	a:hover {
-		color: #893799;
+		color: #6C5CE7;
 	}
 
 	a.active:after {

@@ -2,6 +2,8 @@ import {MDXRenderer} from 'gatsby-mdx';
 import {MDXProvider} from '@mdx-js/react';
 import {graphql} from 'gatsby';
 import {css} from '@emotion/core';
+import React from 'react';
+import slug from 'slug';
 
 // Import these so markdown files render if they are using these tags
 // @@ GENERATOR IMPORT COMPONENT
@@ -12,19 +14,8 @@ import '@rhythm-ui/button-react';
 import '@rhythm-ui/story-react';
 import '@rhythm-ui/expand-collapse-react';
 import '@rhythm-ui/pagination-react';
-import RuiBreadcrumbs from '@rhythm-ui/breadcrumbs-react';
-import RuiLayout from '@rhythm-ui/layout-react';
-import RuiGrid from '@rhythm-ui/grid-react';
-import RuiSkipLinks from '@rhythm-ui/skip-links-react';
 
-
-import React from 'react';
-import slug from 'slug';
-import {Header} from '../../components/Header';
-import {Footer} from '../../components/Footer';
-import {Navigation} from '../../components/Navigation';
-import {Code} from '../../components/Code';
-import {Script} from '../../components/Script';
+import Layout from '../../components/Layout';
 
 import {
 	findIndexOf,
@@ -34,31 +25,6 @@ import {
 //import './prism.css';
 import './Guide.css';
 
-//import Code from '../components/Code'
-const preToCodeBlock = (preProps: any) => {
-	if (
-		// children is MDXTag
-		preProps.children
-		// MDXTag props
-		&& preProps.children.props
-		// if MDXTag is going to render a <code>
-		&& preProps.children.props.mdxType === 'code'
-	) {
-		const {
-			children: codeString,
-			props,
-		} = preProps.children.props;
-
-		return {
-			codeString: codeString.trim(),
-			language: preProps.children.props.className && preProps.children.props.className.split('-')[1],
-			preview: !!preProps.children.props.preview,
-			...props,
-		};
-	}
-
-	return null;
-};
 
 // regex capitalizing anything after "-"
 const makeUpperCaseAfterMinusSign = (str: string): string =>
@@ -88,7 +54,6 @@ const Template = ({
 	const {fields, frontmatter, headings} = doc;
 	const {breadcrumbs, relativeUrlPath} = fields;
 	const {title: pageTitle} = frontmatter;
-
 	const pageHeadings = headings
 		.filter(h => h.depth === 2 || h.depth === 3)
 		.map((heading: any) => {
@@ -109,58 +74,16 @@ const Template = ({
 	const githubUrlPath = `
 	${process.env.GATSBY_GITHUB_URL}${replaceChar(relativeUrlPath)}/readme.md
 	`;
-	/* eslint-disable react/display-name */
-	const mdxComponents = {
-		pre: (props: any) => { //eslint-disable-line react/no-multi-comp
-
-			const preProps = preToCodeBlock(props);
-
-			if (preProps) {
-				return <Code {...preProps} />;
-			}
-
-			return <pre {...props} />;
-		},
-		Script,
-	};
-
-	// breadcrumbs={breadcrumbs} pageTitle={pageTitle} relativeUrlPath={relativeUrlPath}
 
 	return (
-		<React.Fragment>
-			<RuiSkipLinks />
-			<RuiLayout type="rembrandt">
-				<Header />
-				<Navigation nodes={nav.nodes} />
-				<main id="main">
-					<RuiGrid>
-						<div className="s-10 p-l-2">
-							<RuiBreadcrumbs>
-								{breadcrumbs.map(b => <a>{b.label}</a>)}
-								<a href="#">{doc.frontmatter.title}</a>
-							</RuiBreadcrumbs>
-						</div>
-					</RuiGrid>
-					<RuiGrid>
-						<div className="s-10 p-l-2">
-							<MDXProvider components={mdxComponents}>
-								<MDXRenderer>{doc.code.body}</MDXRenderer>
-							</MDXProvider>
-						</div>
-					</RuiGrid>
-				</main>
-				<aside>
-					WITHIN THIS ARTICLE
-					{pageHeadings.map(h => (
-						<div key={h.link}>
-							{h.depth === 3 && <span style={{marginRight: 10}} /> }<a href={h.link}>{h.label}</a>
-						</div>
-					))}
-					<a href={githubUrlPath} target="_blank">Edit this page</a>
-				</aside>
-				<Footer />
-			</RuiLayout>
-		</React.Fragment>
+		<Layout
+			title={pageTitle}
+			nav={nav.nodes}
+			breadcrumbs={breadcrumbs}
+			tocs={pageHeadings}
+			editPath={githubUrlPath}
+			markdown={doc.code.body}
+		/>
 	);
 };
 
