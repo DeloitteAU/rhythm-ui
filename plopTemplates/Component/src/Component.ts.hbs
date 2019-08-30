@@ -6,6 +6,7 @@
 */
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import {getShadowStylesFor} from '@rhythm-ui/styles';
 import {variables, layout} from './{{pascalCase name}}.css'
 
 export class {{pascalCase name}} extends LitElement {
@@ -17,7 +18,7 @@ export class {{pascalCase name}} extends LitElement {
 	* If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	*/
 	public static get styles(): CSSResultArray {
-		return [variables, layout];
+		return [variables, layout, getShadowStylesFor('{{pascalCase name}}')];
 	}
 
 	/* #endregion */
