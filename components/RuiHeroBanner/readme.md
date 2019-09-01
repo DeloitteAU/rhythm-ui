@@ -10,7 +10,8 @@ title: "rui-hero-banner"
 
 |Prop|Values|Notes|
 |---|---|---|
-| img | String | Image url to display as background image|
+| img | String | Image url to display as background image |
+| overlay | Boolean | Toggle for the overlay if image is set through CSS |
 
 ## Default
 ```html preview
@@ -23,24 +24,22 @@ title: "rui-hero-banner"
 	</p>
 </rui-hero-banner>
 ```
-
-
-## Banner with image
-```html preview
-<rui-hero-banner img="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3150&q=80">
-	<div slot="overlay"></div>
-	<h1>Title</h1>
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sem libero, eleifend in consequat ut, egestas vel lectus.
-		Sed placerat eget mauris quis viverra. Phasellus volutpat sed justo feugiat viverra. 
-		Vestibulum egestas justo lobortis quam laoreet, non aliquam mauris luctus.
-	</p>
-</rui-hero-banner>
+```css
+--rui-hero-banner__height: auto;
+--rui-hero-banner__min-height: auto;
+--rui-hero-banner__max-height: auto;
+--rui-hero-banner__background-colour: #FEDFED;
+--rui-hero-banner__content-padding: 15px 25px;
+--rui-hero-banner__content-max-width: 100%;
 ```
 
-## Banner with actions
+
+## Banner with image and actions
+Hero Banner has slots for content and a slot for CTA buttons. By default the Hero Banner comes with a non-visible overlay when an image has been specified. To show the overlay specify the overlay variables.
+It is possible to set the image directly using CSS `--rui-hero-banner__background-image`, however when using this you need to set the `overlay` property on the root `<rui-hero-banner overlay>` to show the overlay.
+
 ```html preview
-<rui-hero-banner>
+<rui-hero-banner img="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3150&q=80">
 	<h1>Title</h1>
 	<p>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sem libero, eleifend in consequat ut, egestas vel lectus.
@@ -52,6 +51,12 @@ title: "rui-hero-banner"
 		<rui-button type="secondary">Secondary</rui-button>
 	</div>
 </rui-hero-banner>
+```
+```css
+--rui-hero-banner__background-position: center;
+--rui-hero-banner__overlay-colour: #FFF;
+--rui-hero-banner__overlay-opacity: 0.5;
+
 ```
 
 ## Customise

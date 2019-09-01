@@ -11,10 +11,16 @@ import {variables, layout} from './RuiHeroBanner.css'
 
 export class RuiHeroBanner extends LitElement {
 	/**
-	 * Icon source
+	 * Image source
 	 */
 	@property({type : String})
 	public img: string = '';
+
+	/**
+	 * Overlay toggle (if no Image has been specified)
+	 */
+	@property({type : Boolean})
+	public overlay: boolean = false;
 
 	/**
 	*
@@ -37,7 +43,7 @@ export class RuiHeroBanner extends LitElement {
 	public render(): TemplateResult {
 		return html`
 			<div class="hero-banner" style="--rui-hero-banner__background-image: url(${this.img})">
-				<slot name="overlay"></slot>
+				${this.img || this.overlay ? html`<div class="overlay"></div>` : html``}
 				<div class="hero-banner-content">
 					<slot></slot>
 					<slot name="actions"></slot>

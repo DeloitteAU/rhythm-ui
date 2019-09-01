@@ -17,11 +17,6 @@ export const variables = css`
 		 ***************************/
 
 		/**
-		 * @variable The regular padding
-		 */
-		--rui-hero-banner__padding: 15px 25px;
-
-		/**
 		 * @variable Width
 		 */
 		--rui-hero-banner__height: auto;
@@ -35,6 +30,16 @@ export const variables = css`
 		 * @variable Maximum Width
 		 */
 		--rui-hero-banner__max-height: auto;
+
+		/**
+		 * @variable The content padding
+		 */
+		--rui-hero-banner__content-padding: 15px 25px;
+	
+		/**
+		 * @variable The content max-width
+		 */
+		--rui-hero-banner__content-max-width: 100%;
 
 		/****************************
 		 * AESTHETIC
@@ -54,6 +59,16 @@ export const variables = css`
 		 * @variable Background position
 		 */
 		--rui-hero-banner__background-position: center;
+
+		/**
+		 * @variable Overlay colour
+		 */
+		--rui-hero-banner__overlay-colour: #000;
+
+		/**
+		 * @variable Overlay opacity
+		 */
+		--rui-hero-banner__overlay-opacity: 0;
 	}
 `;
 
@@ -62,21 +77,38 @@ export const variables = css`
 */
 export const layout = css`
 	:host {
+		position: relative;
 		padding: 0;
 		margin: 0;
 		width: 100%;
 	}
 
 	.hero-banner {
+		position: relative;
 		height: var(--rui-hero-banner__height);
 		min-height: var(--rui-hero-banner__min-height);
 		max-height: var(--rui-hero-banner__max-height);
-		padding: var(--rui-hero-banner__padding);
 		background-color: var(--rui-hero-banner__background-colour);
 		background-image: var(--rui-hero-banner__background-image);
 		background-position: var(--rui-hero-banner__background-position);
 		background-repeat: no-repeat;
 		background-size: cover;
+	}
+
+	.overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: #FFF;
+		opacity: 0.5;
+	}
+
+	.hero-banner-content {
+		position: relative;
+		max-width: var(--rui-hero-banner__content-max-width);
+		padding: var(--rui-hero-banner__content-padding);
 	}
 `;
 
