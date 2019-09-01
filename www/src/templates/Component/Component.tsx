@@ -14,6 +14,7 @@ import '@rhythm-ui/button-react';
 import '@rhythm-ui/story-react';
 import '@rhythm-ui/expand-collapse-react';
 import '@rhythm-ui/pagination-react';
+import '@rhythm-ui/header-react';
 import RuiBreadcrumbs from '@rhythm-ui/breadcrumbs-react';
 import RuiLayout from '@rhythm-ui/layout-react';
 import RuiGrid from '@rhythm-ui/grid-react';
