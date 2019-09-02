@@ -64,7 +64,7 @@ const reactActions = [
 	{
 		type: 'modify',
 		path: 'www/package.json',
-		pattern: /("@rhythm-ui\/[a-zA-Z-]*": "\^[0-9]*.[0-9]*.[0-9]*",)/g,
+		pattern: /("@rhythm-ui\/[a-zA-Z-]*": "\^[0-9]*.[0-9]*.[0-9]*",)/,
 		template: "$1\n\"@rhythm-ui/{{packageName name}}-react\": \"^1.0.0\",",
 	}
 ];
