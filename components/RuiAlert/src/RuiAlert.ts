@@ -6,6 +6,7 @@
 */
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import {getShadowStylesFor} from '@rhythm-ui/styles';
 import {variables, layout} from './RuiAlert.css'
 
 export class RuiAlert extends LitElement {
@@ -17,7 +18,7 @@ export class RuiAlert extends LitElement {
 	* If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	*/
 	public static get styles(): CSSResultArray {
-		return [variables, layout];
+		return [variables, layout, getShadowStylesFor('RuiAlert')]
 	}
 
 	/* #endregion */
@@ -31,6 +32,7 @@ export class RuiAlert extends LitElement {
 	public render(): TemplateResult {
 		return html`
 			<slot> </slot>
+			<slot name="dismissable"></slot>
 			`;
 	}
 
