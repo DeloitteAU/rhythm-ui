@@ -31,8 +31,10 @@ export class RuiAlert extends LitElement {
 	*/
 	public render(): TemplateResult {
 		return html`
-			<slot> </slot>
-			<slot name="dismissable"></slot>
+			<div class="alert">
+				<slot> </slot>
+				<slot name="dismissable"></slot>
+			</div>
 			`;
 	}
 

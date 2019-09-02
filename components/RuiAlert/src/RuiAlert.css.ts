@@ -8,20 +8,35 @@
 import {css} from 'lit-element';
 
 /**
-	*  RuiAlert Variables
-*/
+ *  RuiAlert Variables
+ */
 export const variables = css`
-    :host {
-
-    }
-	`;
+	:host {
+		/**
+		 * @variable The alert border size
+		 */
+		--rui-button__border-size: 1px;
+	}
+`;
 
 /**
-	* RuiAlert CSS
-*/
+ * RuiAlert CSS
+ */
 export const layout = css`
-    :host {
-
+	.alert {
+		word-break: break-word;
+		color: #334EAF;
+		background-color: #E7EBF7;
+		position: relative;
+		padding: 0.75rem 1.25rem;
+		margin-bottom: 1rem;
+		border: var(--rui-button__border-size) solid transparent;
+		border-color: #B7C2E8;
+		border-radius: 0.3125rem;
+	}
+	
+	::slotted(*) {
+		margin: 0;
 	}
 `;
 
