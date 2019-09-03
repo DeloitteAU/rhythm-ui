@@ -13,3 +13,4 @@ import './src/css/normalize.css';
 import './src/css/typography.css';
 import './src/css/base.css';
 import './src/css/components/button.css';
+import './src/css/components/alert.css';
