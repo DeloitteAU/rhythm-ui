@@ -21,26 +21,86 @@ title: "rui-alert"
 	<p> This is an alert </p>
 </rui-alert>
 ```
+```css
+--rui-alert__padding: 0.75rem 1.25rem;
+--rui-alert__color: #334EAF;
+--rui-alert__background-color: #E7EBF7;
+--rui-alert__border-size: 1px;
+--rui-alert__border-color: #B7C2E8;
+--rui-alert__border-radius: 0.3125rem;
+```
 
 ### Types
 
-```html preview
+```html preview	
+
 <rui-alert type="success">
-	<rui-icon></rui-icon>
+	<rui-icon src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDBWMHoiLz48cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptMCAxOGMtNC40MSAwLTgtMy41OS04LThzMy41OS04IDgtOCA4IDMuNTkgOCA4LTMuNTkgOC04IDh6bTQuNTktMTIuNDJMMTAgMTQuMTdsLTIuNTktMi41OEw2IDEzbDQgNCA4LTh6Ii8+PC9zdmc+">
+	</rui-icon>
 	<p> This is a success alert </p>
 </rui-alert>
+
 <rui-alert type="warning">
-	<rui-icon></rui-icon>
+	<rui-icon src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDBWMHoiLz48cGF0aCBkPSJNMTIgNS45OUwxOS41MyAxOUg0LjQ3TDEyIDUuOTlNMTIgMkwxIDIxaDIyTDEyIDJ6bTEgMTRoLTJ2Mmgydi0yem0wLTZoLTJ2NGgydi00eiIvPjwvc3ZnPg==">
+	</rui-icon>
 	<p> This is a warning alert </p>
 </rui-alert>
+
 <rui-alert type="error">
-	<rui-icon></rui-icon>
+	<rui-icon src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDBWMHoiLz48cGF0aCBkPSJNMTQuNTkgOEwxMiAxMC41OSA5LjQxIDggOCA5LjQxIDEwLjU5IDEyIDggMTQuNTkgOS40MSAxNiAxMiAxMy40MSAxNC41OSAxNiAxNiAxNC41OSAxMy40MSAxMiAxNiA5LjQxIDE0LjU5IDh6TTEyIDJDNi40NyAyIDIgNi40NyAyIDEyczQuNDcgMTAgMTAgMTAgMTAtNC40NyAxMC0xMFMxNy41MyAyIDEyIDJ6bTAgMThjLTQuNDEgMC04LTMuNTktOC04czMuNTktOCA4LTggOCAzLjU5IDggOC0zLjU5IDgtOCA4eiIvPjwvc3ZnPg==">
+	</rui-icon>
 	<p> This is an error alert </p>
 </rui-alert>
+
 <rui-alert type="info">
-	<rui-icon></rui-icon>
+	<rui-icon src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDBWMHoiLz48cGF0aCBkPSJNMTEgMThoMnYtMmgtMnYyem0xLTE2QzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0wIDE4Yy00LjQxIDAtOC0zLjU5LTgtOHMzLjU5LTggOC04IDggMy41OSA4IDgtMy41OSA4LTggOHptMC0xNGMtMi4yMSAwLTQgMS43OS00IDRoMmMwLTEuMS45LTIgMi0yczIgLjkgMiAyYzAgMi0zIDEuNzUtMyA1aDJjMC0yLjI1IDMtMi41IDMtNSAwLTIuMjEtMS43OS00LTQtNHoiLz48L3N2Zz4=">
+	</rui-icon>
 	<p> This is an info alert </p>
 </rui-alert>
+```
+```css
+rui-alert > rui-icon {
+	--rui-icon__width: 40px;
+	--rui-icon__height: 40px;
+	margin-right: 20px;
+}
+
+rui-alert[type=success] {
+	 --rui-alert__color: #259A3F;
+	 --rui-alert__background-color: #E5F4E9;
+	 --rui-alert__border-color: #B2DFBC;
+ }
+
+rui-alert[type=success] rui-icon {
+	--rui-icon__color: #259A3F;
+}
+
+rui-alert[type=warning] {
+	--rui-alert__color: #EBB206;
+	--rui-alert__background-color: #FFF8E1;
+	--rui-alert__border-color: #FFFE9A6;
+}
+rui-alert[type=warning] rui-icon {
+	--rui-icon__color: #EBB206;
+}
+
+rui-alert[type=error] {
+	--rui-alert__color: #CA313F;
+	--rui-alert__background-color: #FBE7E9;
+	--rui-alert__border-color: #F2B6BC;
+}
+rui-alert[type=error] rui-icon {
+	--rui-icon__color: #CA313F;
+}
+
+rui-alert[type=info] {
+	--rui-alert__color: #1595A9;
+	--rui-alert__background-color: #E3F4F6;
+	--rui-alert__border-color: #ABDEE5;
+}
+rui-alert[type=info] rui-icon {
+	--rui-icon__color: #1595A9;
+}
 ```
 
 ## Behaviour
@@ -50,8 +110,33 @@ title: "rui-alert"
 ```html preview
 <rui-alert>
 	<p> This is a dismissable alert </p>
-	<rui-button slot="dismiss" label="Dismiss alert"><rui-icon></rui-icon></rui-button>
+	<rui-button class="dismissible" slot="dismissible" label="Dismiss alert">
+		<rui-icon src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDBWMHoiLz48cGF0aCBkPSJNMTkgNi40MUwxNy41OSA1IDEyIDEwLjU5IDYuNDEgNSA1IDYuNDEgMTAuNTkgMTIgNSAxNy41OSA2LjQxIDE5IDEyIDEzLjQxIDE3LjU5IDE5IDE5IDE3LjU5IDEzLjQxIDEyIDE5IDYuNDF6Ii8+PC9zdmc+">
+		</rui-icon>
+	</rui-button>
 </rui-alert>
+```
+```css
+rui-alert rui-button {
+	margin: -12px;
+	--rui-button__padding: 12px;
+	--rui-button__background-color: transparent;
+	--rui-button__background-color-hover: transparent;
+	--rui-button__background-color-focus: transparent;
+	--rui-button__focus-outline: -webkit-focus-ring-color auto 5px;
+
+}
+
+rui-alert rui-button rui-icon {
+	--rui-icon__width: 25px;
+	--rui-icon__height: 25px;
+	--rui-icon__color: var(--global-gray-color-3, #673AB7);
+}
+
+rui-alert rui-button:hover rui-icon {
+	--rui-icon__color: var(--global-gray-color-4, #311B92);
+}
+
 ```
 
 ## Customising

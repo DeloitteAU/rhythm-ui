@@ -13,9 +13,34 @@ import {css} from 'lit-element';
 export const variables = css`
 	:host {
 		/**
+		 * @variable The alert
+		 */
+		--rui-alert__padding: 0.75rem 1.25rem;
+
+		/**
+		 * @variable The alert colour
+		 */
+		--rui-alert__color: #334EAF;
+
+		/**
+		 * @variable The alert
+		 */
+		--rui-alert__background-color: #E7EBF7;
+
+		/**
 		 * @variable The alert border size
 		 */
-		--rui-button__border-size: 1px;
+		--rui-alert__border-size: 1px;
+
+		/**
+		 * @variable The alert
+		 */
+		--rui-alert__border-color: #B7C2E8;
+
+		/**
+		 * @variable The alert
+		 */
+		--rui-alert__border-radius: 0.3125rem;
 	}
 `;
 
@@ -23,18 +48,28 @@ export const variables = css`
  * RuiAlert CSS
  */
 export const layout = css`
-	.alert {
-		word-break: break-word;
-		color: #334EAF;
-		background-color: #E7EBF7;
-		position: relative;
-		padding: 0.75rem 1.25rem;
-		margin-bottom: 1rem;
-		border: var(--rui-button__border-size) solid transparent;
-		border-color: #B7C2E8;
-		border-radius: 0.3125rem;
+	:host {
+		display: block;
 	}
-	
+
+	.alert {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		position: relative;
+		padding: var(--rui-alert__padding);
+		color: var(--rui-alert__color);
+		background-color: var(--rui-alert__background-color);
+		border: var(--rui-alert__border-size) solid transparent;
+		border-color: var(--rui-alert__border-color);
+		border-radius: var(--rui-alert__border-radius);
+		word-break: break-word;
+	}
+
+	.dismissible {
+		margin-left: auto;
+	}
+
 	::slotted(*) {
 		margin: 0;
 	}
