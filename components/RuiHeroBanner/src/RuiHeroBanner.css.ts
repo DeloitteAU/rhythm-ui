@@ -17,17 +17,17 @@ export const variables = css`
 		 ***************************/
 
 		/**
-		 * @variable Width
+		 * @variable Height
 		 */
 		--rui-hero-banner__height: auto;
 
 		/**
-		 * @variable Minimum Width
+		 * @variable Minimum Height
 		 */
 		--rui-hero-banner__min-height: auto;
 
 		/**
-		 * @variable Maximum Width
+		 * @variable Maximum Height
 		 */
 		--rui-hero-banner__max-height: auto;
 

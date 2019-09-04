@@ -2,10 +2,13 @@ import {MDXRenderer} from 'gatsby-mdx';
 import {MDXProvider} from '@mdx-js/react';
 import {graphql} from 'gatsby';
 import {css} from '@emotion/core';
+import slug from 'slug';
+import React from 'react';
 
 // Import these so markdown files render if they are using these tags
 // @@ GENERATOR IMPORT COMPONENT
 import '@rhythm-ui/hero-banner-react';
+import '@rhythm-ui/alert-react';
 import '@rhythm-ui/icon-react';
 import '@rhythm-ui/scroll-to-react';
 import '@rhythm-ui/rui-card-react';
@@ -18,9 +21,7 @@ import RuiLayout from '@rhythm-ui/layout-react';
 import RuiGrid from '@rhythm-ui/grid-react';
 import RuiSkipLinks from '@rhythm-ui/skip-links-react';
 
-
-import React from 'react';
-import slug from 'slug';
+import Layout from '../../components/Layout';
 import {Header} from '../../components/Header';
 import {Footer} from '../../components/Footer';
 import {Navigation} from '../../components/Navigation';
@@ -33,7 +34,7 @@ import {
 } from '../../utils/stringUtils';
 
 //import './prism.css';
-import './Markdown.css';
+import './Component.css';
 
 //import Code from '../components/Code'
 const preToCodeBlock = (preProps: any) => {
@@ -85,7 +86,7 @@ const Template = ({
 	data, // this prop will be injected by the GraphQL query below.
 }: {data: any}) => {
 
-	const {doc, ruidocs} = data; // data.markdownRemark holds our post data
+	const {doc, nav, ruidocs} = data; // data.markdownRemark holds our post data
 	const {fields, frontmatter, headings} = doc;
 	const {breadcrumbs, relativeUrlPath} = fields;
 	const {title: pageTitle} = frontmatter;
@@ -128,57 +129,30 @@ const Template = ({
 	// breadcrumbs={breadcrumbs} pageTitle={pageTitle} relativeUrlPath={relativeUrlPath}
 
 	return (
-		<React.Fragment>
-			<RuiSkipLinks />
-			<RuiLayout type="rembrandt">
-				<Header />
-				<Navigation />
-				<main id="main">
-					<RuiGrid>
-						<div className="s-11">
-							<RuiBreadcrumbs>
-								{breadcrumbs.map(b => <a>{b.label}</a>)}
-								<a href="#">{doc.frontmatter.title}</a>
-							</RuiBreadcrumbs>
-						</div>
-					</RuiGrid>
-					<RuiGrid>
-						<div className="s-11">
-							<MDXProvider components={mdxComponents}>
-								<MDXRenderer>{doc.code.body}</MDXRenderer>
-								{ruidocs.nodes.map(n => {
-									return (
-										<>
-											<MDXRenderer key={n.id}>{n.code.body}</MDXRenderer>
-											<p>
-												<strong>Missing a variable for a css property?</strong> Please open a Github issue. While we believe less is
-												more for a starting point its worth having the discussion to see if we can include the property
-												you want in this component.
-											</p>
-										</>
-									);
-								})}
-							</MDXProvider>
-						</div>
-					</RuiGrid>
-				</main>
-				<aside>
-					<pre>yarn install {doc.frontmatter.package}</pre>
-					<br /><br />
-					WITHIN THIS ARTICLE
-					{pageHeadings.map(h => (
-						<div key={h.link}>
-							{h.depth === 3 && <span style={{marginRight: 10}} /> }<a href={h.link}>{h.label}</a>
-						</div>
-					))}
-					{data.ruidocs.nodes.length && <div><a href="#css-variables">CSS Variables</a></div>}
-					<br /><br />
-					<a href={githubUrlPath} target="_blank">Edit this page</a>
-				</aside>
-				<Footer />
-			</RuiLayout>
-		</React.Fragment>
+		<Layout
+			title={pageTitle}
+			nav={nav.nodes}
+			breadcrumbs={breadcrumbs}
+			tocs={pageHeadings}
+			editPath={githubUrlPath}
+			markdown={doc.code.body}
+		>
+			<pre>yarn install {doc.frontmatter.package}</pre>
+			{ruidocs.nodes.map(n => {
+				return (
+					<>
+						<MDXRenderer key={n.id}>{n.code.body}</MDXRenderer>
+						<p>
+							<strong>Missing a variable for a css property?</strong> Please open a Github issue. While we believe less is
+							more for a starting point its worth having the discussion to see if we can include the property
+							you want in this component.
+						</p>
+					</>
+				);
+			})}
+		</Layout>
 	);
+
 };
 
 export const pageQuery = graphql`
@@ -204,6 +178,19 @@ export const pageQuery = graphql`
 			frontmatter {
 				title
 				package
+			}
+		}
+		nav: allMdx(filter: {fields: {relativeUrlPath: {regex: "/^\/components/"}}}) {
+			nodes {
+				id
+				frontmatter {
+					title
+				}
+				fields {
+					relativeUrlPath
+					nodeTitle
+					relativeUrlPath
+				}
 			}
 		}
 		ruidocs: allMdx(filter: {fields: {parentFileAbsolutePath: {eq: $fileAbsolutePath}}}) {

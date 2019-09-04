@@ -249,7 +249,7 @@ Behaviour options are: **button|submit|reset|anchor** (if nothing is specified t
 
 ```
 
-## Customise
+## Customising
 
 If you want customise the CSS beyond the variables use the `createShadowStyles` utility function. This function allows you to customise any CSS property and update the CSS for the shadow dom that otherwise would not be possible.
 ```js

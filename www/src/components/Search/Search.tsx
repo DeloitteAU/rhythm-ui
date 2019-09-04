@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'gatsby';
 import {Index} from 'elasticlunr';
-import {css} from '@emotion/core';
 import {ISearchProps, ISearchState} from './ISearch';
-import {searchLabelStyle, searchBoxStyle} from './Search.css';
+import * as styles from './Search.css';
 
 //TODO: Figure out how to give type to "this.index" from constructor.
 export default class Search extends Component<ISearchProps, ISearchState> {
@@ -32,11 +31,12 @@ export default class Search extends Component<ISearchProps, ISearchState> {
 
 	public render() {
 		return (
-			<div>
-				<label css={searchLabelStyle}>Search for components</label>
-				<input type="text" value={this.state.query} onChange={this._handleSearch} />
+			<form css={styles.search}>
+				<label css={styles.searchLabelStyle} aria-label="search">
+					<input type="text" value={this.state.query} onChange={this._handleSearch} />
+				</label>
 				<div>
-					<ul css={searchBoxStyle}>
+					<ul css={styles.searchBoxStyle}>
 						{this.state.results.map(page => (
 							<li key={page.id}>
 								<Link to={page.urlPath}>{page.title}</Link>
@@ -44,7 +44,7 @@ export default class Search extends Component<ISearchProps, ISearchState> {
 						))}
 					</ul>
 				</div>
-			</div>
+			</form>
 		);
 	}
 }

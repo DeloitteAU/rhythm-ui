@@ -1,0 +1,7 @@
+items:
+  - title: Getting Started
+    to: /getting-started
+  - title: Components
+    to: /components/rui-breadcrumbs
+  - title: Guides
+    to: /guides
