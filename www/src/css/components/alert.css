@@ -1,0 +1,69 @@
+rui-alert {
+	margin-bottom: 20px;
+}
+
+rui-alert > rui-icon {
+	--rui-icon__width: 40px;
+	--rui-icon__height: 40px;
+	margin-right: 20px;
+}
+
+rui-alert[type=success] {
+	--rui-alert__color: #259A3F;
+	--rui-alert__background-color: #E5F4E9;
+	--rui-alert__border-color: #B2DFBC;
+}
+
+rui-alert[type=success] rui-icon {
+	--rui-icon__color: #259A3F;
+}
+
+rui-alert[type=warning] {
+	--rui-alert__color: #EBB206;
+	--rui-alert__background-color: #FFF8E1;
+	--rui-alert__border-color: #FFE9A6;
+}
+
+rui-alert[type=warning] rui-icon {
+	--rui-icon__color: #EBB206;
+}
+
+rui-alert[type=error] {
+	--rui-alert__color: #CA313F;
+	--rui-alert__background-color: #FBE7E9;
+	--rui-alert__border-color: #F2B6BC;
+}
+
+rui-alert[type=error] rui-icon {
+	--rui-icon__color: #CA313F;
+}
+
+rui-alert[type=info] {
+	--rui-alert__color: #1595A9;
+	--rui-alert__background-color: #E3F4F6;
+	--rui-alert__border-color: #ABDEE5;
+}
+
+rui-alert[type=info] rui-icon {
+	--rui-icon__color: #1595A9;
+}
+
+rui-alert rui-button {
+	margin: -12px;
+
+	--rui-button__padding: 12px;
+	--rui-button__background-color: transparent;
+	--rui-button__background-color-hover: transparent;
+	--rui-button__background-color-focus: transparent;
+	--rui-button__focus-outline: -webkit-focus-ring-color auto 5px;
+}
+
+rui-alert rui-button rui-icon {
+	--rui-icon__width: 25px;
+	--rui-icon__height: 25px;
+	--rui-icon__color: var(--global-gray-color-3, #673AB7);
+}
+
+rui-alert rui-button:hover rui-icon {
+	--rui-icon__color: var(--global-gray-color-4, #311B92);
+}

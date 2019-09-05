@@ -8,21 +8,17 @@
 import {css} from 'lit-element';
 
 /**
-	*  RuiHeader Variables
-*/
+ *  RuiHeader Variables
+ */
 export const variables = css`
-    :host {
-
-    }
-	`;
+	:host {}
+`;
 
 /**
-	* RuiHeader CSS
-*/
+ * RuiHeader CSS
+ */
 export const layout = css`
-    :host {
-
-	}
+	:host {}
 `;
 
 export default [variables, layout];

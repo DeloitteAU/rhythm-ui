@@ -6,6 +6,7 @@
  */
 
 import {LitElement, html, CSSResultArray, TemplateResult} from 'lit-element';
+import {getShadowStylesFor} from '@rhythm-ui/styles';
 import {variables, layout} from './RuiSkipLinks.css'
 
 /**
@@ -22,7 +23,7 @@ export class RuiSkipLinks extends LitElement {
    * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
    */
   public static get styles(): CSSResultArray {
-    return [variables, layout];
+    return [variables, layout, getShadowStylesFor('RuiSkipLinks')];
   }
 
   /* #endregion */

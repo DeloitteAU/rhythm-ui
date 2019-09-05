@@ -71,11 +71,11 @@ Buttons provide a clickable element, which can be used in forms, or anywhere tha
 
 |Prop|Values|Notes|
 |---|---|---|
-|Types| **primary / secondary / tertiary** |Sets the button type|
-|Variants|**fill / outline / tertiary**|Sets the button variant|
-|Sizes|**small / normal / large**|Sets the button size|
-|Disabled|**true / false**|Sets the button disabled state|
-|Behaviour|**button / submit / reset / anchor**|Sets the button behaviour, if unspecified the default `button` will be set, unless an href has been specified then it will be an `a` tag|
+|type| **primary / secondary / tertiary** |Sets the button type|
+|variant|**fill / outline / tertiary**|Sets the button variant|
+|size|**small / normal / large**|Sets the button size|
+|disabled|**true / false**|Sets the button disabled state|
+|behaviour|**button / submit / reset / anchor**|Sets the button behaviour, if unspecified the default `button` will be set, unless an href has been specified then it will be an `a` tag|
 |label|**string**|Sets the button aria-label, should be used if the button only displays an icon to the user|
 
 ## Styles
