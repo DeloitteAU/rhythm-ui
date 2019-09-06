@@ -11,14 +11,32 @@ import {css} from 'lit-element';
  *  RuiHeader Variables
  */
 export const variables = css`
-	:host {}
+	:host {
+		rui-header__header-breakpoint: 768px;
+	}
 `;
 
 /**
  * RuiHeader CSS
  */
 export const layout = css`
-	:host {}
+	.mobile {
+		display: block;
+	}
+
+	.desktop {
+		display: none;
+	}
+
+	@media screen and (min-width: var(rui-header__header-breakpoint)) {
+		.mobile {
+			display: none;
+		}
+
+		.desktop {
+			display: block;
+		}
+	}
 `;
 
 export default [variables, layout];

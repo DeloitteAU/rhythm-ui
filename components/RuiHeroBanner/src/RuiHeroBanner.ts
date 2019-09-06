@@ -24,7 +24,7 @@ export class RuiHeroBanner extends LitElement {
 
 	/**
 	*
-	* The styles for button
+	* The styles for hero banner
 	* @remarks
 	* If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	*/
