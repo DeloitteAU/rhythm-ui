@@ -10,6 +10,7 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
+  registry: 'https://pkgs.dev.azure.com/jennasalau/_packaging/Rui/npm/registry/'
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -27,7 +28,7 @@ steps:
     displayName: 'Build @rhythm-ui components'
   - script: |
       yarn lerna version 0.0.0-canary.$(Build.SourceVersion) --no-git-tag-version --no-push --yes
-      yarn lerna exec --scope "@rhythm-ui/*" -- npm pack
+      yarn lerna exec --scope "@rhythm-ui/*" -- npm publish --registry $(registry)
     displayName: 'Package @rhythm-ui components'
   - script: |
       yarn build:site
@@ -36,7 +37,3 @@ steps:
     inputs:
       pathToPublish: www/public
       artifactName: RUI_SITE
-  - upload:
-    - '**/*.tgz'
-    artifact: RUI_PACKAGES
-    seal: true
