@@ -18,21 +18,21 @@ steps:
   - task: NodeTool@0
     inputs:
       versionSpec: '10.x'
-    displayName: 'Install Node.js'
+    displayName: 'Install Node'
 
   - script: |
       yarn install && yarn bootstrap
-    displayName: 'install dependencies'
+    displayName: 'Install Dependencies'
 
   - script: |
-      yarn lerna run --parallel --scope "@rhythm-ui/*" build
-    displayName: 'build @rhythm-ui packages'
+      yarn build:components
+    displayName: 'Build @rhythm-ui components'
 
   - script: |
       yarn lerna version 0.0.0-canary.$(Build.SourceVersion) --no-git-tag-version --no-push
       yarn lerna exec "npm pack" --scope "@rhythm-ui/*"
-    displayName: 'create @rhythm-ui packages'
+    displayName: 'Package @rhythm-ui components'
 
   - script: |
       yarn build:site
-    displayName: 'build site'
+    displayName: 'Build site'
