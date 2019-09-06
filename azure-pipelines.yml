@@ -37,6 +37,6 @@ steps:
       pathToPublish: www/public
       artifactName: RUI_SITE
   - upload:
-    - **/*.tgz
+    - '**/*.tgz'
     artifact: RUI_PACKAGES
     seal: true
