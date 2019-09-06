@@ -1,0 +1,39 @@
+trigger:
+  branches:
+    include:
+    - '*'
+    exclude:
+    - dependabot/*
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+  registry: 'https://pkgs.dev.azure.com/jennasalau/_packaging/Rui/npm/registry/'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '10.x'
+    displayName: 'Install Node'
+  - script: |
+      yarn install && yarn bootstrap
+    displayName: 'Install Dependencies'
+  - script: |
+      yarn build:components
+    displayName: 'Build @rhythm-ui components'
+  - script: |
+      yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
+      node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --registry=$(registry)"
+    displayName: 'Package @rhythm-ui components'
+  - script: |
+      yarn build:site
+    displayName: 'Build site'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: www/public
+      artifactName: RUI_SITE

@@ -7,9 +7,20 @@
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
 import {getShadowStylesFor} from '@rhythm-ui/styles';
-import {variables, layout} from './{{pascalCase name}}.css'
+import {variables, layout} from './RuiHeroBanner.css'
 
-export class {{pascalCase name}} extends LitElement {
+export class RuiHeroBanner extends LitElement {
+	/**
+	 * Image source
+	 */
+	@property({type : String})
+	public img: string = '';
+
+	/**
+	 * Overlay toggle (if no Image has been specified)
+	 */
+	@property({type : Boolean})
+	public overlay: boolean = false;
 
 	/**
 	*
@@ -18,7 +29,7 @@ export class {{pascalCase name}} extends LitElement {
 	* If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	*/
 	public static get styles(): CSSResultArray {
-		return [variables, layout, getShadowStylesFor('{{pascalCase name}}')];
+		return [variables, layout, getShadowStylesFor('RuiHeroBanner')];
 	}
 
 	/* #endregion */
@@ -31,11 +42,17 @@ export class {{pascalCase name}} extends LitElement {
 	*/
 	public render(): TemplateResult {
 		return html`
-			<slot> </slot>
+			<div class="hero-banner" style="--rui-hero-banner__background-image: url(${this.img})">
+				${this.img || this.overlay ? html`<div class="overlay"></div>` : html``}
+				<div class="hero-banner-content">
+					<slot></slot>
+					<slot name="actions"></slot>
+				</div>
+			</div>
 			`;
 	}
 
 	/* #endregion */
 }
 
-export default {{pascalCase name}};
+export default RuiHeroBanner;

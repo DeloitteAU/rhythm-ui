@@ -162,6 +162,11 @@ export const variables = css`
 		 */
 		--rui-button__transform-focus: none;
 
+		/**
+		 * @variable  The button outline when focused
+		 */
+		--rui-button__focus-outline: 1px solid transparent;
+
 		/****************************
 		 * ACTIVE STYLES
 		 ***************************/
@@ -301,6 +306,7 @@ export const layout = css`
 		background-color: var(--rui-button__background-color-focus);
 		border: var(--rui-button__border-focus);
 		transform: var(--rui-button__transform-focus);
+		outline: var(--rui-button__focus-outline);
 	}
 
 	.btn:active {
