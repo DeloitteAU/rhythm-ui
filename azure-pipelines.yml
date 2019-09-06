@@ -1,0 +1,38 @@
+trigger:
+  branches:
+    include:
+    - '*'
+    exclude:
+    - dependabot/*
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '10.x'
+    displayName: 'Install Node.js'
+
+  - script: |
+      yarn install && yarn bootstrap
+    displayName: 'install dependencies'
+
+  - script: |
+      yarn lerna run --parallel --scope "@rhythm-ui/*" build
+    displayName: 'build @rhythm-ui packages'
+
+  - script: |
+      yarn lerna version 0.0.0-canary.$(Build.SourceVersion) --no-git-tag-version --no-push
+      yarn lerna exec "npm pack" --scope "@rhythm-ui/*"
+    displayName: 'create @rhythm-ui packages'
+
+  - script: |
+      yarn build:site
+    displayName: 'build site'
