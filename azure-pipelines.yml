@@ -32,11 +32,11 @@ steps:
   - script: |
       yarn build:site
     displayName: 'Build site'
-  - task: CopyFiles@2
-    inputs:
-      contents: 'www/public/**'
-      targetFolder: $(Build.ArtifactStagingDirectory)/www
   - task: PublishBuildArtifacts@1
     inputs:
-      pathToPublish: $(Build.ArtifactStagingDirectory)/www
-      artifactName: Website
+      pathToPublish: www/public
+      artifactName: RUI_SITE
+  - upload:
+    - **/*.tgz
+    artifact: RUI_PACKAGES
+    seal: true

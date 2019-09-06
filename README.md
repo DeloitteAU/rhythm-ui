@@ -1,4 +1,4 @@
-# Rhythm UI
+# Rhythm UI [![Build Status](https://dev.azure.com/jennasalau/Rhythm%20UI/_apis/build/status/DeloitteDigitalAPAC.rhythm-ui?branchName=master)](https://dev.azure.com/jennasalau/Rhythm%20UI/_build/latest?definitionId=1&branchName=master)
 
 > 👷‍ PLEASE NOTE: This library is currently still in development and all api's are subject to change.️ Please use with caution.
 
