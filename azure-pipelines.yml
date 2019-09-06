@@ -27,7 +27,7 @@ steps:
     displayName: 'Build @rhythm-ui components'
   - script: |
       yarn lerna version 0.0.0-canary.$(Build.SourceVersion) --no-git-tag-version --no-push
-      yarn lerna exec "npm pack" --scope "@rhythm-ui/*"
+      yarn lerna exec --scope "@rhythm-ui/*" -- npm pack
     displayName: 'Package @rhythm-ui components'
   - script: |
       yarn build:site
