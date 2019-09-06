@@ -1,0 +1,12 @@
+{
+	"name": "babel-preset-rhythm-ui-react",
+	"version": "1.0.0",
+	"license": "BSD-3-Clause",
+	"main": "index.js",
+	"dependencies": {
+		"@babel/cli": "^7.4.4",
+		"@babel/core": "^7.4.4",
+		"@babel/preset-react": "^7.0.0",
+		"babel-preset-rhythm-ui": "^1.0.0"
+	}
+}

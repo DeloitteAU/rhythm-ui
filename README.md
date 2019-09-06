@@ -7,8 +7,16 @@ delightful user experiences that are battle tested, future proof and scalable th
 
 Rhythm is designed to be integrated as easily as possible into any and all web frameworks.
 
+## Browsers support
+
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari-ios/safari-ios_48x48.png" alt="iOS Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>iOS Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera |
+| --------- | --------- | --------- | --------- | --------- | --------- |
+| IE11, Edge | last 2 versions| last 2 versions| last 2 versions| last 2 versions| last 2 versions
+
+IE11 and Edge will require the [Web Components Polyfill](https://www.webcomponents.org/polyfills)
+
 ## Contributing
-    
+
 The main purpose of this repository is to continue to evolve Rhythm UI, making it better and easier to use. Development of 
 Rhythm happens on GitHub, and we welcome any contributions, bug fixes and improvements. 
 Please read below to learn how you can take part in improving Rhythm.

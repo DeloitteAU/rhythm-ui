@@ -1,0 +1,61 @@
+
+/**
+ * Copyright Deloitte Digital 2019
+ *
+ * This source code is licensed under the BSD-3-Clause license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+body {
+	--global-primary-color: #03A9F4;
+	--global-primary-shade-1: #E1F5FE;
+	--global-primary-shade-2: #B3E5FC;
+	--global-primary-shade-3: #4FC3F7;
+	--global-primary-shade-4: #0288D1;
+	--global-primary-shade-5: #0277BD;
+	--global-secondary-color: #673AB7;
+	--global-secondary-shade-1: #EDE7F6;
+	--global-secondary-shade-2: #D1C4E9;
+	--global-secondary-shade-3: #9575CD;
+	--global-secondary-shade-4: #512DA8;
+	--global-secondary-shade-5: #311B92;
+	--global-tertiary-color: #9E1946;
+	--global-tertiary-shade-1: #D1215D;
+	--global-tertiary-shade-2: #C01E55;
+	--global-tertiary-shade-3: #AF1C4E;
+	--global-tertiary-shade-4: #771335;
+	--global-tertiary-shade-5: #63102C;
+	--global-accent-color: #009688;
+	--global-accent-shade-1: #E0F2F1;
+	--global-accent-shade-2: #B2DFDB;
+	--global-accent-shade-3: #4DB6AC;
+	--global-accent-shade-4: #00796B;
+	--global-accent-shade-5: #004D40;
+	--global-accent-2-color: #8BC34A;
+	--global-accent-2-shade-1: #E7F6D5;
+	--global-accent-2-shade-2: #C5E1A5;
+	--global-accent-2-shade-3: #AED581;
+	--global-accent-2-shade-4: #689F38;
+	--global-accent-2-shade-5: #558B2F;
+	--global-accent-3-color: #F44336;
+	--global-accent-3-shade-1: #FFDDE0;
+	--global-accent-3-shade-2: #FFCDD2;
+	--global-accent-3-shade-3: #EF9A9A;
+	--global-accent-3-shade-4: #D32F2F;
+	--global-accent-3-shade-5: #B71C1C;
+	--global-neutral-shade-1: #F2F2F2;
+	--global-neutral-shade-2: #E8E9E9;
+	--global-neutral-shade-3: #D1D3D4;
+	--global-neutral-shade-4: #BABDBF;
+	--global-neutral-shade-5: #808488;
+	--global-neutral-shade-6: #666A6D;
+	--global-neutral-shade-7: #4D5052;
+	--global-neutral-shade-8: #212122;
+	--global-white-color: #FFF;
+	--global-black-color: #000;
+	--global-gray-color: #999;
+	--global-gray-color-1: #DDD;
+	--global-gray-color-2: #CCC;
+	--global-gray-color-3: #595457;
+	--global-gray-color-4: #333;
+}

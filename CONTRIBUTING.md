@@ -2,6 +2,31 @@
 
 Thank you for helping. Here are a few guidelines that will help you along the way.
 
+## Code of Conduct
+
+We have adopted a [Code of Conduct](https://github.com/DeloitteDigitalAPAC/rhythm-ui/blob/master/CODE_OF_CONDUCT.md) that we expect project contributors
+to adhere to. Please read the full text so that you can understand what actions will and will not be tolerated.
+
+## Branch Structure
+
+All stable releases are to be tagged. At any given time, `rhythm-ui-mk-2` represents the latest development version of the library. 
+Patches or hotfix releases are prepared on an independent branch.
+
+If you send a pull request, please do it against the `rhythm-ui-mk-2` branch.
+
+## Bugs
+
+We are using [GitHub Issues](https://github.com/DeloitteDigitalAPAC/rhythm-ui/issues) to track bugs.
+
+## Proposing a Change
+
+If you intend to change the API, or make any large changes to the implementation, please 
+[file an issue](https://github.com/DeloitteDigitalAPAC/rhythm-ui/issues/new). This lets the team 
+reach an agreement on your idea before you put significant effort into it.
+
+If you’re only fixing a bug, it’s fine to submit a pull request right away but we still recommend to file an issue detailing what 
+you’re fixing. This is helpful in case we don’t accept that specific fix but want to keep track of the issue.
+
 ## Submitting a Pull Request
 
 If you decide to fix an issue, please be sure to check the comment thread in case somebody is already working on a fix. 
@@ -11,52 +36,85 @@ don’t accidentally duplicate your effort.
 If somebody claims an issue but doesn’t follow up for more than two weeks, it’s fine to take over it but you should 
 still leave a comment.
 
-### Branch Structure
+**Before submitting a Pull Request**, please make sure the following is done:
 
-All stable releases are to be tagged. At any given time, `master` represents the latest development version of the library. 
-Patches or hotfix releases are prepared on an independent branch.
+- If you’ve fixed a bug or added code that should be tested, add tests!
+- Make sure the Test suite passes `yarn test`
+- Make sure your code lints `yarn lint`
+- Make sure your code is formatted `yarn format`
 
-## Getting started
+## Development Workflow
 
-Please create a new branch or form from master, however hotfixes should be branched off the relevent tag rather than master.
+After cloning Rhythm UI, run `yarn && yarn bootstrap` to fetch its dependencies. Then, you can run several commands:
 
-### Testing the documentation site
+- `yarn lint` checks the code style.
+- `yarn clean` removes build artifacts.
+- `yarn test` runs the test suite.
+- `yarn build` builds the components and their documentation sites.
+- `yarn start` runs the documentation site in development mode.
+- `yarn start:react` runs the React Storybook site in development mode.
+- `yarn start:vue` runs the Vue Storybook site in development mode.
+- `yarn format` formats your code with [Prettier](https://github.com/prettier/prettier).
+- `yarn generate` starts the guided componenent generator.
 
-Coming soon!
+We recommend developing Web Components while running the documentation site with `yarn start`.
 
-### Coding style
+Use `yarn start:react` or `yarn start:vue` if you are developing Web Component adapters.
+
+## Coding style
 
 Please follow the coding style of the current code base. This project uses eslint, so if possible, enable linting in your 
 editor. 
 
 ## Rhythm UI Architecture
 
-Rhythm is split into multiple [packages](#https://github.com/DeloitteDigitalAPAC/rhythm-ui/tree/master/packages). 
+Rhythm UI is split into multiple packages. 
 
 Each package falls into one of the following categories:
 
-- **Subsystem:** A package that contains common functionality and/or business logic used by multiple base components.
-- **Base Component:** A package that contains only Sass and/or vanilla Javascript. 
-- **Adapter:** A Package that encapsulates a base component for a specific framework. eg React, Vue or even jQuery.
+- **Subsystem:** A package that contains common functionality and/or business logic used by multiple components.
+- **Component:** A package that contains a native Web Component. We are using [Lit Element](https://lit-element.polymer-project.org/).
+- **Adapter:** A Package that encapsulates a component for a specific framework. eg React, Vue or Angular.
 
-## Sass
+*Suggested Reading guides*:
 
-All of the CSS is authored using [Sass](http://sass-lang.com/). Subsystems should contain only mixins which then are
-imported by the base components.
+- https://lit-element.polymer-project.org/guide
+- https://developers.google.com/web/fundamentals/web-components/
+- https://medium.com/@pietmichal/how-to-test-a-web-component-b5d64d5e8bb0
 
-## JavaScript
+### Creating new components with Plop
 
-All Javascript is written in ES Modules using ECMAScript.
+To boilerplate components or adapters run `yarn generate` and follow the prompts.
 
-A base component's Javascript should only contain business logic that can be reused across multiple adapters.  
-**Base components should NEVER directly query or manipulate the DOM.** If a base component needs to access the `window`
-object it should check that it exists first.
+Read more our [guide on plop](https://github.com/DeloitteDigitalAPAC/rhythm-ui/blob/master/PLOP.md).
 
-Each package must compile to ES5 into a `lib` folder.
+## Styles
 
-## HTML
+Please note we only use [Static Styles](https://lit-element.polymer-project.org/guide/styles#static-styles) for their performance benifits.
 
-HTML templates are NOT provided. Instead, the required HTML structure's are documented.
+All styles written should be kept to minimal skeleton rules only that allows good extensionbility.
+
+### CSS Variables
+
+The css variables you create should follow the 
+scope-property-modifier naming pattern. All component variables should also be prefixed with `rui-<component-name>__` to prevent 
+namespace conflicts
+
+| Name | Description | Usage |
+| --- | --- | -- |
+| Scope | A descriptive name close to the target element's class name that indicates what element(s) this variable is targeting | Use when targeting an element of the the web component that is not the base style. If you are adding the variable to the base element, no scope is required. |
+| Property | The css property that the variable is being used for. | This should always be included, match the css property name wherever possible |
+| Modifier | A string describing a variable that only applies for certain states of the component | Use when you need to define a variable that only applies for certain states of the component |
+
+Examples:
+
+| Variable | Description |
+| --- | ---|
+|--rui-my-component__color | Only property is used here so we assume this will be the base text colour for element |
+|--rui-my-component__icon-height| Specifies we are talking about an element with the class .icon, and refering to the height property|
+|--rui-my-component__carousel-btn-color-disabled | Target the carousel button colour when the button is disabled|
+
+Each variable decleration must be decorated with `/* @variable Some Description */` so it appears on the documentation site.
 
 ## Publishing
 
@@ -72,18 +130,19 @@ automatic commit that increments the version numbers. You don't need to commit t
 1. Select the new version (or enter a custom one) adhering to the principles of semantic versioning.
 1. Lerna will create a new release of the packages that have been updated. It will create a new git commit/tag and publish to npm.
 
+## Developing on Windows
+
+If you develop on Windows you might run into issues that your Mac/Linux counterparts have never encountered. Here's a suggested setup to combat this:
+
+1. Git bash (ensure you have included the bash terminal and commands in your system PATHs)
+2. nvm for Windows
+3. Node 11.11.0
+4. Yarn 1.17.3
+
+Getting the node and yarn version correct helps to prevent issues relating to git bash path modification (https://github.com/yarnpkg/yarn/issues/5717) and multiple packages of the same dependency issues with yarn workspaces.
+
+If you get the issue `Something went wrong installing the 'sharp' module` try doing `npm uninstall expo-cli -g` before running yarn again. (https://github.com/lovell/sharp/issues/1696)
+
 ## License
 
-By contributing your code to the Rhythm GitHub repository, you agree to license your contribution under the BSD-3-Clause license.
-
-## Publishing
-
-Instructions for publishing new releases:
-
-1. Check out the master branch.
-1. Do not manually change version numbers in lerna.json or package.json files (they are updated programatically).
-1. Update the CHANGELOG.md file and add the changes to the git staging area. These changes will be included in the automatic commit that increments the version numbers. You don't need to commit them separately.
-1. Run Lerna's publish command, and pass in your One Time Password for npm as an environment variable: NPM_CONFIG_OTP=yourtoken lerna publish.
-1. Select the new version (or enter a custom one) adhering to the principles of semantic versioning.
-
-Lerna will create a new release of the packages that have been updated. It will create a new git commit/tag and publish to npm.
+By contributing to Rhythm UI, you agree that your contributions will be licensed under the BSD-3-Clause license.

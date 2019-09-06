@@ -1,0 +1,35 @@
+{
+  "extends": [
+    "../../.eslintrc.js",
+    "plugin:vue/recommended"
+  ],
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+    "ecmaFeatures": {
+      "legacyDecorators": true
+    }
+  },
+  "overrides": [
+		{
+			"files": ["**/*.vue"],
+			"rules": {
+        "no-console": 2,
+        "new-cap": [
+          "warn", {
+          "capIsNewExceptions": [
+            "Component",
+            "Emit",
+            "Inject",
+            "Mixins",
+            "Model",
+            "Prop",
+            "PropSync",
+            "Provide",
+            "Watch"
+            ]
+          }
+        ]
+			}
+		}
+	]
+}

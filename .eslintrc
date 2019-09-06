@@ -1,8 +1,0 @@
-{
-  "extends": "eslint-config-deloitte-react",
-  "env": {
-    "browser": true,
-    "node": true,
-    "jest": true
-  }
-}

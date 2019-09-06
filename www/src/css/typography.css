@@ -1,0 +1,75 @@
+html,
+body {
+	font: 16px/24px 'Inter', system-ui, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	font-weight: 400;
+	color: #111;
+
+	/* direction: rtl; */
+}
+
+@supports (font-variation-settings: normal) {
+	html,
+	body { font-family: 'Inter var', sans-serif; }
+}
+
+h1 {
+	text-transform: capitalize;
+	font: 700 48px/1.2 'Inter', sans-serif;
+	margin-bottom: 10px;
+
+	/* color: #802bb1; */
+}
+
+h1 + p {
+	font-size: 17px;
+	color: rgb(109, 109, 109);
+	line-height: 1.7;
+	max-width: 60em;
+}
+
+@media (min-width: 768px) {
+	p {
+		max-width: 85%;
+	}
+}
+
+pre {
+	font-family: "Courier 10 Pitch", Courier, monospace;
+	font-size: 95%;
+	line-height: 140%;
+	white-space: pre;
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace;
+	padding: 0 3px;
+	font-size: 0.94em;
+	word-break: break-word;
+	display: inline;
+	color: #D14;
+	white-space: pre;
+	background: rgba(255, 229, 100, 0.3);
+}
+
+a,
+a:active,
+a:visited {
+	color: #6C5CE7;
+}
+
+a:hover {
+	color: #512DA8;
+}
+
+rui-breadcrumbs a {
+	text-decoration: none;
+	color: #111 !important;
+}
+
+rui-breadcrumbs a:hover {
+	text-decoration: underline;
+}
