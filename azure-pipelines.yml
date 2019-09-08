@@ -43,13 +43,13 @@ steps:
       contents: '**' 
       targetFolder: $(Build.ArtifactStagingDirectory)/docs
       cleanTargetFolder: true
-    - task: ArchiveFiles@2
-      inputs:
-        rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/docs' 
-        #includeRootFolder: true 
-        archiveType: 'zip'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-docs.zip'
-        replaceExistingArchive: true 
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/docs' 
+      #includeRootFolder: true 
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-docs.zip'
+      replaceExistingArchive: true 
   - task: PublishBuildArtifacts@1
     inputs:
       pathToPublish: $(Build.ArtifactStagingDirectory)
