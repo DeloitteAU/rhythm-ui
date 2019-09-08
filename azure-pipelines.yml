@@ -22,8 +22,6 @@ steps:
       versionSpec: '10.x'
     displayName: 'Install Node'
   - task: npmAuthenticate@0
-    inputs:
-      workingFile: .npmrc
   - script: |
       yarn install && yarn bootstrap
     displayName: 'Install Dependencies'
