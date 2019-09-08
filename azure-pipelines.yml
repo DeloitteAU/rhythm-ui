@@ -36,20 +36,40 @@ steps:
     displayName: 'Build @rhythm-ui components'
   - script: |
       yarn build:site
-    displayName: 'Build site'
+    displayName: 'Build docs'
   - task: CopyFiles@2
     inputs:
       sourceFolder: ./www/public
       contents: '**' 
       targetFolder: $(Build.ArtifactStagingDirectory)/docs
       cleanTargetFolder: true
+    displayName: Stage Docs
   - task: ArchiveFiles@2
     inputs:
       rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/docs' 
       #includeRootFolder: true 
       archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-docs.zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/docs.zip'
       replaceExistingArchive: true
+    displayName: Zip Docs
+  - script: |
+      yarn build:storybook:react
+    displayName: 'Build react docs'
+  - task: CopyFiles@2
+    inputs:
+      sourceFolder: ./.out-react
+      contents: '**' 
+      targetFolder: $(Build.ArtifactStagingDirectory)/react-docs
+      cleanTargetFolder: true
+    displayName: Stage React Docs
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/react-docs' 
+      #includeRootFolder: true 
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/react-docs.zip'
+      replaceExistingArchive: true
+    displayName: Zip React Docs
   - script: |
       yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
       node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --loglevel=verbose --userconfig=$(npmrcPath)"
@@ -57,5 +77,9 @@ steps:
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   - task: PublishBuildArtifacts@1
     inputs:
-      pathToPublish: $(Build.ArtifactStagingDirectory)
+      pathToPublish: $(Build.ArtifactStagingDirectory)/docs.zip
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: $(Build.ArtifactStagingDirectory)/react-docs.zip
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
