@@ -4,7 +4,6 @@ package-lock.json
 lib/
 dist/
 .cache/
-.npmrc
 .out
 .out-react
 .out-vue
