@@ -11,7 +11,6 @@ resources:
 variables:
   tag: '$(Build.BuildId)'
   registry: 'https://pkgs.dev.azure.com/jennasalau/_packaging/Rui/npm/registry/'
-  npmtoken: ''
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -21,7 +20,12 @@ steps:
     inputs:
       versionSpec: '10.x'
     displayName: 'Install Node'
+  - script: |
+      touch .npmrc
+    displayName: 'Create .npmrc file'
   - task: npmAuthenticate@0
+    inputs:
+      workingFile: .npmrc
   - script: |
       yarn install && yarn bootstrap
     displayName: 'Install Dependencies'
