@@ -9,8 +9,9 @@ resources:
 - repo: self
 
 variables:
-  tag: '$(Build.BuildId)'
+  tag: '$(Build.BuildNumber)'
   registry: 'https://pkgs.dev.azure.com/jennasalau/_packaging/Rui/npm/registry/'
+  npmrcPath: '$(Agent.BuildDirectory)/.npmrc'
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -22,7 +23,7 @@ steps:
     displayName: 'Install Node'
   - task: npmAuthenticate@0
     inputs:
-      workingFile: /home/vsts/.npmrc
+      workingFile: $(npmrcPath)
   - script: |
       yarn install
       yarn bootstrap
@@ -32,7 +33,7 @@ steps:
     displayName: 'Build @rhythm-ui components'
   - script: |
       yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
-      node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm config list -l && npm publish --loglevel=verbose --registry=$(registry)"
+      node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --loglevel=verbose --registry=$(registry) --userconfig=$(npmrcPath)"
     displayName: 'Deploy @rhythm-ui components'
   - script: |
       yarn build:site
