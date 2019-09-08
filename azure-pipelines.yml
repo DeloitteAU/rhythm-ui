@@ -16,6 +16,10 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+  - task: DeleteFiles@1
+    inputs:
+      sourceFolder: .ruidocs/
+      contents: '*'
   - task: NodeTool@0
     inputs:
       versionSpec: '10.x'
@@ -31,10 +35,6 @@ steps:
       yarn build:components
     displayName: 'Build @rhythm-ui components'
   - script: |
-      yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
-      node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --loglevel=verbose --userconfig=$(npmrcPath)"
-    displayName: 'Deploy @rhythm-ui components'
-  - script: |
       yarn build:site
     displayName: 'Build site'
   - task: CopyFiles@2
@@ -49,7 +49,13 @@ steps:
       #includeRootFolder: true 
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-docs.zip'
-      replaceExistingArchive: true 
+      replaceExistingArchive: true
+  - script: |
+      yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
+      node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --loglevel=verbose --userconfig=$(npmrcPath)"
+    displayName: 'Deploy @rhythm-ui components'
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   - task: PublishBuildArtifacts@1
     inputs:
       pathToPublish: $(Build.ArtifactStagingDirectory)
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
