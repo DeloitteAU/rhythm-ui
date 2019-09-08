@@ -24,15 +24,23 @@ steps:
     inputs:
       workingFile: .npmrc
   - script: |
-      yarn install && yarn bootstrap
+      yarn install
+      yarn bootstrap
     displayName: 'Install Dependencies'
   - script: |
       yarn build:components
     displayName: 'Build @rhythm-ui components'
   - script: |
       yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
-      node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --registry=$(registry)"
-    displayName: 'Deploy @rhythm-ui components'
+      node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
+      #node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --registry=$(registry)"
+      # MOVE ALL TARBALLS TO ROOT READY FOR ARTIFACTING
+      find ./**/*.tgz -exec sh -c 'mv "$@" "$0"' ./ {} \+
+    displayName: 'Package @rhythm-ui components'
+  - script: |
+      npm config list -l
+      find ./*.tgz -print0 | xargs -0 -n1 npm publish --loglevel=verbose --registry=$(registry)
+      displayName: 'Deploy @rhythm-ui packages'
   - script: |
       yarn build:site
     displayName: 'Build site'
