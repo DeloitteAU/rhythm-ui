@@ -6,14 +6,13 @@
 */
 
 import {css} from 'lit-element';
+import {bp} from '@rhythm-ui/styles';
 
 /**
  *  RuiHeader Variables
  */
 export const variables = css`
-	:host {
-		rui-header__header-breakpoint: 768px;
-	}
+	:host {}
 `;
 
 /**
@@ -28,7 +27,7 @@ export const layout = css`
 		display: none;
 	}
 
-	@media screen and (min-width: var(rui-header__header-breakpoint)) {
+	${bp('xl', css`
 		.mobile {
 			display: none;
 		}
@@ -36,7 +35,7 @@ export const layout = css`
 		.desktop {
 			display: block;
 		}
-	}
+	`)}
 `;
 
 export default [variables, layout];

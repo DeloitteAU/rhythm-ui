@@ -9,7 +9,7 @@
 * Register the Web Component with customElements
 * @param tag - The HTML tag to use
 */
-export const register = async (tag: string = 'rui-header'): Promise<boolean> => {
+export const registerHeader = async (tag: string = 'rui-header'): Promise<boolean> => {
 	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
 		// Register the new element with the DOM
 		const m = await import('./RuiHeader');
@@ -19,10 +19,34 @@ export const register = async (tag: string = 'rui-header'): Promise<boolean> => 
 	return false;
 };
 
+export const registerHeaderDesktop = async (tag: string = 'rui-header-desktop'): Promise<boolean> => {
+	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
+		// Register the new element with the DOM
+		const m = await import('./RuiHeaderDesktop');
+		customElements.define(tag, m.RuiHeaderDesktop);
+		return true;
+	}
+	return false;
+};
+
+export const registerHeaderMobile = async (tag: string = 'rui-header-mobile'): Promise<boolean> => {
+	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
+		// Register the new element with the DOM
+		const m = await import('./RuiHeaderMobile');
+		customElements.define(tag, m.RuiHeaderMobile);
+		return true;
+	}
+	return false;
+};
+
 export default {
-	register,
+	registerHeader,
+	registerHeaderDesktop,
+	registerHeaderMobile,
 };
 
 if (process.env.RUI_NO_DEFAULT_REGISTER !== 'true') {
-	register();
+	registerHeader();
+	registerHeaderDesktop();
+	registerHeaderMobile();
 }

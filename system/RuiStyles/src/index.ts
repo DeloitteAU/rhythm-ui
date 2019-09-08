@@ -39,7 +39,32 @@ export const getShadowStylesFor = (key: string): CSSResult => {
 	return _css``;
 }
 
+/**
+ * Return CSS media queries with rules
+ * @param {string} size - breakpoint size (oneOf: xs|s|m|l|xl|xxl)
+ * @param {string} rules - css rules for the breakpoint
+ */
+export const bp = (size, rules) => {
+	switch (size.toLowerCase()) {
+		case 'xs':
+			return css` @media screen and (min-width: 360px) { ${rules} } `; // Regular Phones
+		case 's':
+			return css` @media screen and (min-width: 410px) { ${rules} } `; // XL Phones
+		case 'm':
+			return css` @media screen and (min-width: 768px) { ${rules} } `; // Tablet
+		case 'l':
+			return css` @media screen and (min-width: 1024px) { ${rules} } `; // Desktop
+		case 'xl':
+			return css` @media screen and (min-width: 1440px) { ${rules} } `;
+		case 'xxl':
+			return css` @media screen and (min-width: 1920px) { ${rules} } `;
+		default:
+			return rules;
+	}
+};
+
 export default {
 	css,
-	createShadowStyles
+	createShadowStyles,
+	bp,
 };
