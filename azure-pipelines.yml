@@ -11,7 +11,7 @@ resources:
 variables:
   tag: '$(Build.BuildNumber)'
   registry: 'https://pkgs.dev.azure.com/jennasalau/_packaging/Rui/npm/registry/'
-  npmrcPath: '$(Agent.BuildDirectory)/.npmrc'
+  npmrcPath: '$(Build.Repository.LocalPath)/.npmrc'
 
 pool:
   vmImage: 'ubuntu-latest'
