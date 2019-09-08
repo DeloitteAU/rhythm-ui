@@ -11,6 +11,7 @@ resources:
 variables:
   tag: '$(Build.BuildId)'
   registry: 'https://pkgs.dev.azure.com/jennasalau/_packaging/Rui/npm/registry/'
+  npmtoken: ''
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -27,9 +28,11 @@ steps:
       yarn build:components
     displayName: 'Build @rhythm-ui components'
   - script: |
+      echo ${npmtoken} > ~/.npmrc
+      npm config list -l
       yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
       node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --registry=$(registry)"
-    displayName: 'Package @rhythm-ui components'
+    displayName: 'Deploy @rhythm-ui components'
   - script: |
       yarn build:site
     displayName: 'Build site'
