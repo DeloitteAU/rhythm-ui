@@ -22,7 +22,7 @@ steps:
     displayName: 'Install Node'
   - task: npmAuthenticate@0
     inputs:
-      workingFile: .npmrc
+      workingFile: ~/.npmrc
   - script: |
       yarn install
       yarn bootstrap
@@ -32,7 +32,7 @@ steps:
     displayName: 'Build @rhythm-ui components'
   - script: |
       yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
-      node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm config list -l && npm publish --registry=$(registry)"
+      node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm config list -l && npm publish --loglevel=verbose --registry=$(registry)"
     displayName: 'Deploy @rhythm-ui components'
   - script: |
       yarn build:site
