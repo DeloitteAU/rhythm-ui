@@ -11,7 +11,6 @@ import '@rhythm-ui/hero-banner-react';
 import '@rhythm-ui/alert-react';
 import '@rhythm-ui/icon-react';
 import '@rhythm-ui/scroll-to-react';
-import '@rhythm-ui/rui-card-react';
 import '@rhythm-ui/button-react';
 import '@rhythm-ui/story-react';
 import '@rhythm-ui/expand-collapse-react';

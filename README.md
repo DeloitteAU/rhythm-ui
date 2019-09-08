@@ -1,4 +1,13 @@
-# Rhythm UI [![Build Status](https://dev.azure.com/jennasalau/Rhythm%20UI/_apis/build/status/DeloitteDigitalAPAC.rhythm-ui?branchName=master)](https://dev.azure.com/jennasalau/Rhythm%20UI/_build/latest?definitionId=1&branchName=master)
+# Rhythm UI
+
+[![Build Status](https://dev.azure.com/jennasalau/Rhythm%20UI/_apis/build/status/DeloitteDigitalAPAC.rhythm-ui?branchName=master)](https://dev.azure.com/jennasalau/Rhythm%20UI/_build/latest?definitionId=1&branchName=master)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DeloitteDigitalAPAC_rhythm-ui&metric=alert_status)](https://sonarcloud.io/dashboard?id=DeloitteDigitalAPAC_rhythm-ui)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=DeloitteDigitalAPAC_rhythm-ui&metric=security_rating)](https://sonarcloud.io/dashboard?id=DeloitteDigitalAPAC_rhythm-ui)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=DeloitteDigitalAPAC_rhythm-ui&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=DeloitteDigitalAPAC_rhythm-ui)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=DeloitteDigitalAPAC_rhythm-ui&metric=bugs)](https://sonarcloud.io/dashboard?id=DeloitteDigitalAPAC_rhythm-ui)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=DeloitteDigitalAPAC/rhythm-ui)](https://dependabot.com)
+
+----
 
 > 👷‍ PLEASE NOTE: This library is currently still in development and all api's are subject to change.️ Please use with caution.
 
@@ -41,6 +50,13 @@ technologies. We provide clients with a full suite of digital services, covering
 content, creative, engineering and implementation across mobile, web and social media channels.
 
 [http://www.deloittedigital.com/au](http://www.deloittedigital.com/au)
+
+## Thank you
+
+Rhythm UI is made possible by the following organisations's and services.
+
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=DeloitteDigitalAPAC_rhythm-ui)
+
 
 ## LICENSE (BSD-3-Clause)
 
