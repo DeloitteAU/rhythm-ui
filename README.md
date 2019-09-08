@@ -53,9 +53,15 @@ content, creative, engineering and implementation across mobile, web and social 
 
 ## Thank you
 
-Rhythm UI is made possible by the following organisations's and services.
+Rhythm UI is made possible by the following organisations's and services 🙏.
 
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=DeloitteDigitalAPAC_rhythm-ui)
+[<img src="https://sonarcloud.io/images/project_badges/sonarcloud-white.svg" width="200">](https://sonarcloud.io/about)
+
+[<img src="https://www.browserstack.com/images/mail/browserstack-logo-footer.png" width="160">](https://www.browserstack.com/)
+
+[<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png" width="100">](https://github.com/)
+
+[<img src="https://cdn.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://cdn.productplan.com/wp-content/uploads/2017/06/azuredevops-2x.png" width="200">](https://azure.microsoft.com/en-au/services/devops/)
 
 
 ## LICENSE (BSD-3-Clause)
