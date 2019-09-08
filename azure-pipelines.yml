@@ -10,7 +10,6 @@ resources:
 
 variables:
   tag: '$(Build.BuildNumber)'
-  registry: 'https://pkgs.dev.azure.com/jennasalau/_packaging/Rui/npm/registry/'
   npmrcPath: '$(Build.Repository.LocalPath)/.npmrc'
 
 pool:
@@ -33,12 +32,24 @@ steps:
     displayName: 'Build @rhythm-ui components'
   - script: |
       yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
-      node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --loglevel=verbose --registry=$(registry) --userconfig=$(npmrcPath)"
+      node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --loglevel=verbose --userconfig=$(npmrcPath)"
     displayName: 'Deploy @rhythm-ui components'
   - script: |
       yarn build:site
     displayName: 'Build site'
+  - task: CopyFiles@2
+    inputs:
+      sourceFolder: ./www/public
+      contents: '**' 
+      targetFolder: $(Build.ArtifactStagingDirectory)/docs
+      cleanTargetFolder: true
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/docs' 
+        #includeRootFolder: true 
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-docs.zip'
+        replaceExistingArchive: true 
   - task: PublishBuildArtifacts@1
     inputs:
-      pathToPublish: www/public
-      artifactName: RUI_SITE
+      pathToPublish: $(Build.ArtifactStagingDirectory)
