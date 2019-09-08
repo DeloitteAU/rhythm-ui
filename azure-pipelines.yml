@@ -35,7 +35,7 @@ steps:
       node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
       #node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --registry=$(registry)"
       # MOVE ALL TARBALLS TO ROOT READY FOR ARTIFACTING
-      find ./**/*.tgz -exec sh -c 'mv "$@" "$0"' ./ {} \+
+      find ./**/*.tgz ! -path "./node_modules/*" ! -path "./www/*" -exec mv -t ./ {} +
     displayName: 'Package @rhythm-ui components'
   - script: |
       npm config list -l
