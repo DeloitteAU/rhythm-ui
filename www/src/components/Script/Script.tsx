@@ -2,7 +2,7 @@ import React from 'react';
 
 /**
  * A dummy component used for executing javascript on
- * MDX pages
+ * MDX page
  */
 export const Script = ({script}) => {
 	if (script) {

@@ -22,7 +22,7 @@ describe('RuiPagination', () => {
 		}, '');
 		
 		const items = ele.shadowRoot.querySelectorAll('li');
-		expect(items.length).toEqual(7) // 5 pages + prev + next
+		expect(items.length).toEqual(7) // 5 page + prev + next
 
 		items.forEach((item, i) => {
 			const a = item.querySelector('a');

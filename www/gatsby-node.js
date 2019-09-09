@@ -8,6 +8,7 @@ exports.createPages = ({actions, graphql}) => {
 
 	const componentTemplate = path.resolve('src/templates/Component/Component.tsx');
 	const guideTemplate = path.resolve('src/templates/Guide/Guide.tsx');
+	const pageTemplate = path.resolve('src/templates/Page/Page.tsx');
 
 	return graphql(`
 		{
@@ -36,7 +37,7 @@ exports.createPages = ({actions, graphql}) => {
 			const {fields, frontmatter} = node;
 			const {relativeUrlPath} = fields;
 			const {title} = frontmatter;
-			// TODO: Use a front-matter variable to opt out creating pages from .md instead eg "meta: true"
+			// TODO: Use a front-matter variable to opt out creating page from .md instead eg "meta: true"
 			// TODO: And use filter in the above query
 			if (relativeUrlPath.indexOf('.ruidocs') < 0) {
 
@@ -44,6 +45,9 @@ exports.createPages = ({actions, graphql}) => {
 				switch (relativeUrlPath.split('/')[1]) {
 					case 'components':
 						template = componentTemplate;
+						break;
+					case 'page':
+						template = pageTemplate;
 						break;
 					default:
 						template = guideTemplate;

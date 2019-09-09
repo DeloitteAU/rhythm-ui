@@ -3,5 +3,7 @@ items:
     to: /getting-started
   - title: Components
     to: /components/rui-breadcrumbs
+  - title: Pages
+    to: /page
   - title: Guides
     to: /guides
