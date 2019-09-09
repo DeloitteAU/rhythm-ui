@@ -10,7 +10,6 @@ Header is a wrapping component for the site header and primary navigation. Heade
 ```html preview
 <rui-header>
 	<rui-header-mobile slot="mobile">
-		<div slot="main-left">left main area</div>
 		<div slot="main-center">center main area</div>
 		<div slot="main-right">right main area</div>
 		<div slot="menu-top">top main area</div>

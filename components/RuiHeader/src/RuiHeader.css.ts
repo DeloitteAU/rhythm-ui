@@ -27,7 +27,7 @@ export const layout = css`
 		display: none;
 	}
 
-	${bp('xl', css`
+	${bp('m', css`
 		.mobile {
 			display: none;
 		}
