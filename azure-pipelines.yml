@@ -73,16 +73,16 @@ steps:
       archiveFile: '$(Build.ArtifactStagingDirectory)/react-docs.zip'
       replaceExistingArchive: true
     displayName: Zip React Docs
-  - script: |
-      yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
-      node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --loglevel=verbose --userconfig=$(npmrcPath)"
-    displayName: 'Deploy @rhythm-ui components'
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathToPublish: $(Build.ArtifactStagingDirectory)/docs.zip
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathToPublish: $(Build.ArtifactStagingDirectory)/react-docs.zip
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+#- script: |
+#      yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
+#      node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --loglevel=verbose --userconfig=$(npmrcPath)"
+#    displayName: 'Deploy @rhythm-ui components'
+#    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+#  - task: PublishBuildArtifacts@1
+#    inputs:
+#      pathToPublish: $(Build.ArtifactStagingDirectory)/docs.zip
+#    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+#  - task: PublishBuildArtifacts@1
+#    inputs:
+#      pathToPublish: $(Build.ArtifactStagingDirectory)/react-docs.zip
+#    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
