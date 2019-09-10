@@ -12,6 +12,11 @@ import {variables, layout} from './RuiHeaderMobile.css'
 export class RuiHeaderMobile extends LitElement {
 
 	/**
+	 * True shows all the breadcrumbs
+	 */
+	private _isMenuActive: boolean = false;
+
+	/**
 	 *
 	 * The styles for desktop header
 	 * @remarks
@@ -25,12 +30,21 @@ export class RuiHeaderMobile extends LitElement {
 
 	/* #region Methods */
 
-	_openMenu = () => {
-		console.log('opened');
+	/**
+	 * Handler for a click of the summary content
+	 */
+	private _handleMenuState(value): void {
+		this._isMenuActive = value;
+		console.log(this._isMenuActive);
+		this.requestUpdate()
 	}
 
-	_closeMenu = () => {
-		console.log('closed');
+	private _openMenu(): void {
+		this._handleMenuState(true);
+	}
+
+	private _closeMenu(): void {
+		this._handleMenuState(false);
 	}
 
 	/**
@@ -42,7 +56,7 @@ export class RuiHeaderMobile extends LitElement {
 			<div class="main">
 				<div class="content">
 					<div class="left">
-						<slot name="menu-open" @click="${this._openMenu()}"></slot>
+						<slot name="menu-open" @click="${this._openMenu}"></slot>
 					</div>
 					<div class="center">
 						<slot name="main-center"></slot>
@@ -52,10 +66,10 @@ export class RuiHeaderMobile extends LitElement {
 					</div>
 				</div>
 			</div>
-			<div class="overlay"></div>
-			<div class="menu">
+			<div class="overlay" ?active="${this._isMenuActive}"></div>
+			<div class="menu" ?active="${this._isMenuActive}"  aria-hidden="${this._isMenuActive}">
 				<div class="content">
-					<slot name="menu-close" @click="${this._closeMenu()}"></slot>
+					<slot name="menu-close" @click="${this._closeMenu}"></slot>
 					<slot name="menu-top"></slot>
 					<slot name="menu-middle"></slot>
 					<slot name="menu-bottom"></slot>

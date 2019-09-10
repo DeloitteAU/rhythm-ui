@@ -8,7 +8,6 @@ exports.createPages = ({actions, graphql}) => {
 
 	const componentTemplate = path.resolve('src/templates/Component/Component.tsx');
 	const guideTemplate = path.resolve('src/templates/Guide/Guide.tsx');
-	const pageTemplate = path.resolve('src/templates/Page/Page.tsx');
 
 	return graphql(`
 		{
@@ -45,9 +44,6 @@ exports.createPages = ({actions, graphql}) => {
 				switch (relativeUrlPath.split('/')[1]) {
 					case 'components':
 						template = componentTemplate;
-						break;
-					case 'page':
-						template = pageTemplate;
 						break;
 					default:
 						template = guideTemplate;

@@ -80,16 +80,35 @@ export const layout = css`
 		justify-content: flex-end;
 	}
 	
-	.menu {
+	.overlay {
 		display: block;
 		position: fixed;
 		left: 0;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		background: #000;
+		opacity: 0;
+		pointer-events: none;
+	}
+    .overlay[active] {
+    	opacity: 0.5;
+		pointer-events: auto;
+    }
+	
+	.menu {
+		display: block;
+		position: fixed;
+		left: -300px;
 		top: 0;
 		bottom: 0;
 		width: 300px;
 		z-index: 1100;
 		overflow: hidden;
 		background: #ccc;
+    }
+    .menu[active] {
+    	left: 0;
     }
     
     .main > .content {
