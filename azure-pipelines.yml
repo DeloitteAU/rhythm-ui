@@ -12,77 +12,94 @@ variables:
   tag: '$(Build.BuildNumber)'
   npmrcPath: '$(Build.Repository.LocalPath)/.npmrc'
 
-pool:
-  vmImage: 'ubuntu-latest'
+stages:
+- stage: Build_Solution
+  displayName: Build Solution
+  jobs:
+  - job: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - task: DeleteFiles@1
+        inputs:
+          sourceFolder: .ruidocs
+          contents: '*'
+      - script: |
+          mkdir -p .ruidocs
+        displayName: 'Prime Docs Cache' #Fix concurrent issue with multiple threads trying to create this folder
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '10.x'
+        displayName: 'Install Node'
+      - task: npmAuthenticate@0
+        inputs:
+          workingFile: $(npmrcPath)
+      - script: |
+          yarn install
+          yarn bootstrap
+        displayName: 'Install Dependencies'
+      - script: |
+          yarn build:components
+        displayName: 'Build @rhythm-ui components'
+      - script: |
+          yarn build:site
+        displayName: 'Build docs'
+      - task: CopyFiles@2
+        inputs:
+          sourceFolder: ./www/public
+          contents: '**' 
+          targetFolder: $(Build.ArtifactStagingDirectory)/docs
+          cleanTargetFolder: true
+        displayName: Stage Docs
+      - task: ArchiveFiles@2
+        inputs:
+          rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/docs' 
+          archiveType: 'zip'
+          archiveFile: '$(Build.ArtifactStagingDirectory)/docs.zip'
+          replaceExistingArchive: true
+        displayName: Zip Docs
+      - script: |
+          yarn build:storybook:react
+        displayName: 'Build react docs'
+      - task: CopyFiles@2
+        inputs:
+          sourceFolder: ./.out-react
+          contents: '**' 
+          targetFolder: $(Build.ArtifactStagingDirectory)/react-docs
+          cleanTargetFolder: true
+        displayName: Stage React Docs
+      - task: ArchiveFiles@2
+        inputs:
+          rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/react-docs' 
+          archiveType: 'zip'
+          archiveFile: '$(Build.ArtifactStagingDirectory)/react-docs.zip'
+          replaceExistingArchive: true
+        displayName: Zip React Docs
+      - task: Npm@1
+        inputs:
+          command: 'publish'
+          publishRegistry: 'useFeed'
+          publishFeed: 'dbd168c6-66b3-4d83-b3f0-73ad0bd0077b'
 
-steps:
-  - task: DeleteFiles@1
-    inputs:
-      sourceFolder: .ruidocs
-      contents: '*'
-  - script: |
-      mkdir -p .ruidocs
-    displayName: 'Prime Docs Cache' #Fix concurrent issue with multiple threads trying to create this folder
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '10.x'
-    displayName: 'Install Node'
-  - task: npmAuthenticate@0
-    inputs:
-      workingFile: $(npmrcPath)
-  - script: |
-      yarn install
-      yarn bootstrap
-    displayName: 'Install Dependencies'
-  - script: |
-      yarn build:components
-    displayName: 'Build @rhythm-ui components'
-  - script: |
-      yarn build:site
-    displayName: 'Build docs'
-  - task: CopyFiles@2
-    inputs:
-      sourceFolder: ./www/public
-      contents: '**' 
-      targetFolder: $(Build.ArtifactStagingDirectory)/docs
-      cleanTargetFolder: true
-    displayName: Stage Docs
-  - task: ArchiveFiles@2
-    inputs:
-      rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/docs' 
-      #includeRootFolder: true 
-      archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/docs.zip'
-      replaceExistingArchive: true
-    displayName: Zip Docs
-  - script: |
-      yarn build:storybook:react
-    displayName: 'Build react docs'
-  - task: CopyFiles@2
-    inputs:
-      sourceFolder: ./.out-react
-      contents: '**' 
-      targetFolder: $(Build.ArtifactStagingDirectory)/react-docs
-      cleanTargetFolder: true
-    displayName: Stage React Docs
-  - task: ArchiveFiles@2
-    inputs:
-      rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/react-docs' 
-      #includeRootFolder: true 
-      archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/react-docs.zip'
-      replaceExistingArchive: true
-    displayName: Zip React Docs
-#- script: |
-#      yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
-#      node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --loglevel=verbose --userconfig=$(npmrcPath)"
-#    displayName: 'Deploy @rhythm-ui components'
-#    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-#  - task: PublishBuildArtifacts@1
-#    inputs:
-#      pathToPublish: $(Build.ArtifactStagingDirectory)/docs.zip
-#    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-#  - task: PublishBuildArtifacts@1
-#    inputs:
-#      pathToPublish: $(Build.ArtifactStagingDirectory)/react-docs.zip
-#    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+#- stage: Push_to_feed
+#  displayName: Push to Azure Artifacts
+#  jobs:
+#  - job: Build
+#    pool:
+#      vmImage: 'ubuntu-latest'
+#    steps:
+
+
+    #- script: |
+    #      yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
+    #      node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --loglevel=verbose --userconfig=$(npmrcPath)"
+    #    displayName: 'Deploy @rhythm-ui components'
+    #    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    #  - task: PublishBuildArtifacts@1
+    #    inputs:
+    #      pathToPublish: $(Build.ArtifactStagingDirectory)/docs.zip
+    #    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    #  - task: PublishBuildArtifacts@1
+    #    inputs:
+    #      pathToPublish: $(Build.ArtifactStagingDirectory)/react-docs.zip
+    #    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
