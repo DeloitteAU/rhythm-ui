@@ -57,6 +57,7 @@ export const layout = css`
 	.main > .content {
 		position: relative;
 		display: flex;
+		flex-direction: row;
 		width: 100%;
 		max-width: var(--rui-header__mobile__content-max-width);
 		margin: 0 auto;
@@ -111,7 +112,7 @@ export const layout = css`
     	left: 0;
     }
     
-    .main > .content {
+    .menu > .content {
 		display: flex;
 		flex-direction: column;
 		position: relative;
