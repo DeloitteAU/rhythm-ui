@@ -81,22 +81,17 @@ stages:
       #    publishRegistry: 'useFeed'
       #    publishFeed: 'dbd168c6-66b3-4d83-b3f0-73ad0bd0077b'
 
-      - task: AzureFileCopy@3
+      - task: AzureCLI@1
         inputs:
-          SourcePath: '$(Build.ArtifactStagingDirectory)/docs'
-          azureSubscription: 'Managed Services Central Billing - Rhythm UI'
-          Destination: 'AzureBlob'
-          storage: 'rhythmuidocs'
-          ContainerName: 'docs'
+          azureSubscription: 'Managed Services Central Billing'
+          scriptLocation: 'inlineScript'
+          inlineScript: 'az storage blob upload-batch --destination docs --account-name rhythmuidocs --source $(Build.ArtifactStagingDirectory)/docs'
 
-      - task: AzureFileCopy@3
+      - task: AzureCLI@1
         inputs:
-          SourcePath: '$(Build.ArtifactStagingDirectory)/react-docs'
-          azureSubscription: 'Managed Services Central Billing - Rhythm UI'
-          Destination: 'AzureBlob'
-          storage: 'rhythmuidocs'
-          ContainerName: 'react-docs'
-      
+          azureSubscription: 'Managed Services Central Billing'
+          scriptLocation: 'inlineScript'
+          inlineScript: 'az storage blob upload-batch --destination react-docs --account-name rhythmuidocs --source $(Build.ArtifactStagingDirectory)/react-docs'
 
 #- stage: Push_to_feed
 #  displayName: Push to Azure Artifacts
