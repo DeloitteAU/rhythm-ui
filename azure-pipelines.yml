@@ -41,6 +41,7 @@ stages:
       - script: |
           yarn build:components
         displayName: 'Build @rhythm-ui components'
+
       - script: |
           yarn build:site
         displayName: 'Build docs'
@@ -58,6 +59,7 @@ stages:
           archiveFile: '$(Build.ArtifactStagingDirectory)/docs.zip'
           replaceExistingArchive: true
         displayName: Zip Docs
+
       - script: |
           yarn build:storybook:react
         displayName: 'Build react docs'
@@ -75,11 +77,12 @@ stages:
           archiveFile: '$(Build.ArtifactStagingDirectory)/react-docs.zip'
           replaceExistingArchive: true
         displayName: Zip React Docs
-      #- task: Npm@1
-      #  inputs:
-      #    command: 'publish'
-      #    publishRegistry: 'useFeed'
-      #    publishFeed: 'dbd168c6-66b3-4d83-b3f0-73ad0bd0077b'
+
+      - task: Npm@1
+        inputs:
+          command: 'publish'
+          publishRegistry: 'useFeed'
+          publishFeed: 'dbd168c6-66b3-4d83-b3f0-73ad0bd0077b'
 
       - task: AzureCLI@1
         inputs:
