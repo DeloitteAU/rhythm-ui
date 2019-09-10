@@ -99,7 +99,7 @@ steps:
     inputs:
       azureSubscription: $(azureSubscription)
       scriptLocation: 'inlineScript'
-      inlineScript: 'az storage blob upload-batch --destination docs --account-name $(azureAccountName) --source ./www/public'
+      inlineScript: 'az storage blob upload-batch --destination docs --account-name rhythmuidocs --source ./www/public'
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     displayName: Publish docs to Azure
 
@@ -107,6 +107,6 @@ steps:
     inputs:
       azureSubscription: $(azureSubscription)
       scriptLocation: 'inlineScript'
-      inlineScript: 'az storage blob upload-batch --destination react-docs --account-name $(azureAccountName) --source ./.out-react'
+      inlineScript: 'az storage blob upload-batch --destination react-docs --account-name rhythmuidocs --source ./.out-react'
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     displayName: Publish React docs to Azure
