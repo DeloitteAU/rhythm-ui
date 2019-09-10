@@ -11,6 +11,8 @@ resources:
 variables:
   tag: '$(Build.BuildNumber)'
   npmrcPath: '$(Build.Repository.LocalPath)/.npmrc'
+  azureSubscription: 'Managed Services Central Billing'
+  azureAccountName: 'rhythmuidocs'
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -20,69 +22,89 @@ steps:
     inputs:
       sourceFolder: .ruidocs
       contents: '*'
+
   - script: |
       mkdir -p .ruidocs
     displayName: 'Prime Docs Cache' #Fix concurrent issue with multiple threads trying to create this folder
+
   - task: NodeTool@0
     inputs:
       versionSpec: '10.x'
     displayName: 'Install Node'
+
   - task: npmAuthenticate@0
     inputs:
       workingFile: $(npmrcPath)
+
   - script: |
       yarn install
       yarn bootstrap
     displayName: 'Install Dependencies'
+
   - script: |
       yarn build:components
     displayName: 'Build @rhythm-ui components'
+
   - script: |
       yarn build:site
     displayName: 'Build docs'
-  - task: CopyFiles@2
-    inputs:
-      sourceFolder: ./www/public
-      contents: '**' 
-      targetFolder: $(Build.ArtifactStagingDirectory)/docs
-      cleanTargetFolder: true
-    displayName: Stage Docs
-  - task: ArchiveFiles@2
-    inputs:
-      rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/docs' 
-      #includeRootFolder: true 
-      archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/docs.zip'
-      replaceExistingArchive: true
-    displayName: Zip Docs
+
   - script: |
       yarn build:storybook:react
     displayName: 'Build react docs'
-  - task: CopyFiles@2
-    inputs:
-      sourceFolder: ./.out-react
-      contents: '**' 
-      targetFolder: $(Build.ArtifactStagingDirectory)/react-docs
-      cleanTargetFolder: true
-    displayName: Stage React Docs
+
+  # Disabled for now until we pick up vue again
+  # - script: |
+  #     yarn build:storybook:vue
+  #   displayName: 'Build react docs'
+
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/react-docs' 
-      #includeRootFolder: true 
+      rootFolderOrFile: './www/public' 
       archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/react-docs.zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/docs-site.zip'
+      replaceExistingArchive: true
+    displayName: Zip Docs
+
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: './.out-react' 
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/docs-react-site.zip'
       replaceExistingArchive: true
     displayName: Zip React Docs
+
+  # PUBLISH TO NPM FEEDS (Modify .nvmrc file for feed location)
   - script: |
       yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
       node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --loglevel=verbose --userconfig=$(npmrcPath)"
     displayName: 'Deploy @rhythm-ui components'
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
   - task: PublishBuildArtifacts@1
     inputs:
-      pathToPublish: $(Build.ArtifactStagingDirectory)/docs.zip
+      pathToPublish: $(Build.ArtifactStagingDirectory)/docs-site.zip
+      artifactName: docs
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
   - task: PublishBuildArtifacts@1
     inputs:
       pathToPublish: $(Build.ArtifactStagingDirectory)/react-docs.zip
+      artifactName: docsReact
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+  - task: AzureCLI@1
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptLocation: 'inlineScript'
+      inlineScript: 'az storage blob upload-batch --destination docs --account-name $(azureAccountName) --source ./www/public'
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    displayName: Publish docs to Azure
+
+  - task: AzureCLI@1
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptLocation: 'inlineScript'
+      inlineScript: 'az storage blob upload-batch --destination react-docs --account-name $(azureAccountName) --source ./.out-react'
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    displayName: Publish React docs to Azure

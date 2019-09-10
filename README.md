@@ -1,6 +1,6 @@
 # Rhythm UI
 
-[![Build Status](https://dev.azure.com/jennasalau/Rhythm%20UI/_apis/build/status/DeloitteDigitalAPAC.rhythm-ui?branchName=master)](https://dev.azure.com/jennasalau/Rhythm%20UI/_build/latest?definitionId=1&branchName=master)
+[![Build Status](https://dev.azure.com/dd-managed-services/FED-Modules/_apis/build/status/rhythm-ui?branchName=master)](https://dev.azure.com/dd-managed-services/FED-Modules/_build/latest?definitionId=45&branchName=master)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DeloitteDigitalAPAC_rhythm-ui&metric=alert_status)](https://sonarcloud.io/dashboard?id=DeloitteDigitalAPAC_rhythm-ui)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=DeloitteDigitalAPAC_rhythm-ui&metric=security_rating)](https://sonarcloud.io/dashboard?id=DeloitteDigitalAPAC_rhythm-ui)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=DeloitteDigitalAPAC_rhythm-ui&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=DeloitteDigitalAPAC_rhythm-ui)
