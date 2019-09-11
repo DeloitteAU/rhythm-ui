@@ -1,82 +1,87 @@
 ---
-package: "@rhythm-ui"
+package: "@rhythm-ui/breadcrumbs"
 title: "rui-breadcrumbs"
 ---
-#Breadcrumbs
 
-Breadcrumbs indicate location of the current page with links back to the pages navigated through to get there. 
+# Breadcrumbs
 
-```html
+A breadcrumb trail consists of a list of links to the parent pages of the current page in hierarchical order.
+It helps users find their place within a website or web application.
+
+## Accessibility
+
+This component adheres to [3.4 Breadcrumb](https://www.w3.org/TR/wai-aria-practices/#breadcrumb) in the W3C Guidelines.
+
+- To prevent screen reader announcement of the visual separators between links, they are added via CSS
+- The `aria-current="page"`attribute will be automatically added to the last child
+
+## Basic usage
+
+```html preview
 <rui-breadcrumbs>
+	<a href="#">Home</a>
+	<a href="#">Link 1</a>
+	<a href="#">Link 2</a>
+	<a href="#">Current</a>
 </rui-breadcrumbs>
-
 ```
 
-Rui-breadcrumbs can be used with a json object or by using the Rui-links component. 
+## Limit to max breadcrumbs
 
-## Array
-Pass in an array of objects with title and url.
-The last value in the array is the active page.
+You can define the maximum number of crumbs to initially display by setting the `max` attribute.
 
 ```html preview
-<rui-breadcrumbs 
-	crumbs='[
-		{"title": "Home", "url": "#"},
-		{"title": "Link 1", "url": "#"},
-		{"title": "Link 2", "url": "#"},
-		{"title": "Link 3", "url": "#"},
-		{"title": "Link 4", "url": "#" },
-		{"title": "Active Link", "url": "#" }
-	]'
-/> 
-```
-
-## Collapsed array
-Set maxCrumbs to collapse the list.
-
-```html preview
-<rui-breadcrumbs
-	maxCrumbs='3'
-	crumbs='[
-    	{"title": "Home", "url": "#"},
-    	{"title": "Link 1", "url": "#"},
-    	{"title": "Link 2", "url": "#"},
-    	{"title": "Link 3", "url": "#"},
-    	{"title": "Link 4", "url": "#" },
-        {"title": "Active Link", "url": "#" }
-	]'
-/> 
-```
-
-## Manual Links
-To use manual links you must wrap them in a list tag. Add aria-current to the link that is active.
-
-```html preview
-<rui-breadcrumbs> 
-	<li slot='crumb'> <a href="#"> Home </a> </li>
-	<li slot='crumb'> <a href="#"> Link 1 </a> </li>
-	<li slot='crumb'> <a href="#"> Link 2 </a> </li>
-	<li slot='crumb'> <a href="#"> Link 3 </a> </li>
-	<li slot='crumb'> <a href="#"> Link 4 </a> </li>
-	<li slot='crumb' aria-current="page"> Active Link </li>
+<rui-breadcrumbs max="3">
+	<a href="#">Home</a>
+	<a href="#">Link 1</a>
+	<a href="#">Link 2</a>
+	<a href="#">Link 3</a>
+	<a href="#">Link 4</a>
+	<a href="#">Link 5</a>
+	<a href="#">Current</a>
 </rui-breadcrumbs>
-
 ```
 
-## Manual Links with a collapsed array
-Collapsed list also works with manual configured links.
+## Attributes
 
-```html preview
-<rui-breadcrumbs
-	maxCrumbs='3'
-> 
-	<li slot='crumb'> <a href="#"> Home </a> </li>
-	<li slot='crumb'> <a href="#"> Link 1 </a> </li>
-	<li slot='crumb'> <a href="#"> Link 2 </a> </li>
-	<li slot='crumb'> <a href="#"> Link 3 </a> </li>
-	<li slot='crumb'> <a href="#"> Link 4 </a> </li>
-	<li slot='crumb' aria-current="page"> Active Link </li>
-</rui-breadcrumbs>
+Events triggered by actions inside the component.
 
+| Attribute | Value  | Description                                                |
+|-----------|--------|------------------------------------------------------------|
+|`max` | number | Specifies the maximum breadcrumbs allowed to initially display. |
+
+## Events
+
+Events triggered by actions inside the component.
+
+| Attribute | Value  | Description                                 |
+|-----------|--------|---------------------------------------------|
+|`onexpand` | script | Fires when hidden breadcrumbs are expanded. |
+
+## Styling
+
+> The `<a />` tag color is not styled by default and will inherit from your base styles.
+
+Use the `RuiBreadcrumbs` key to apply any custom css.
+
+```js
+import {css, createShadowStyles} from '@rhythm-ui/styles';
+
+createShadowStyles({
+	RuiBreadcrumbs: css`
+		/* Your custom css */
+	`,
+});
 ```
 
+To extend and override templates or methods
+
+```js
+import RuiBreadcrumbs from '@rhythm-ui/breadcrumbs';
+
+class MyComponent extends RuiBreadcrumbs {
+	// Your overrides
+}
+
+customElements.define('my-component', MyComponent);
+```

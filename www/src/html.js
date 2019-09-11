@@ -10,11 +10,11 @@ export default function HTML(props) {
       <head>
         <meta charSet="utf-8" />
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+        <meta name="robots" content="noindex" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"></link>
         {props.headComponents}
       </head>
       <body {...props.bodyAttributes}>

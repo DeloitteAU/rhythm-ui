@@ -21,7 +21,7 @@ export const Feature: SFC<IProps> = ({children}) => (
 	`}
 		render={data => (
 			<RuiLayout type="monet">
-				<Header />
+				<Header isFeature />
 				<main>
 					{children}
 				</main>

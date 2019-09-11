@@ -1,6 +1,6 @@
 
 {
-    "name": "@rhythm-ui/rui-breadcrumbs-react",
+    "name": "@rhythm-ui/breadcrumbs-react",
     "version": "1.0.0",
     "main": "lib/index.js",
     "scripts": {
@@ -17,7 +17,7 @@
         "react": "^16.8.6"
     },
     "dependencies": {
-        "@rhythm-ui/rui-breadcrumbs": "^1.0.0"
+        "@rhythm-ui/breadcrumbs": "^1.0.0"
     },
     "peerDependencies": {
         "react": ">= 16"
