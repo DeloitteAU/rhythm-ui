@@ -45,6 +45,7 @@
     "@rhythm-ui/breadcrumbs-react": "^1.0.0",
     "@rhythm-ui/skip-links-react": "^1.0.0",
     "@rhythm-ui/story-react": "^1.0.0",
+  	"@rhythm-ui/modal-react": "^1.0.0",
     "@webcomponents/webcomponentsjs": "^2.2.10",
     "babel-preset-gatsby": "^0.1.11",
     "dat.gui": "^0.7.6",

@@ -6,6 +6,7 @@
  */
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import {generateUUID} from '@rhythm-ui/utils';
 import {variables, layout} from './RuiExpandCollapse.css'
 
 // Update to include any possible type a value
@@ -52,7 +53,7 @@ export class RuiExpandCollapse extends LitElement {
   private _open: boolean = false;
   private _collapseableEl: HTMLDivElement | null = null;
   private _detailsSlotEl: HTMLSlotElement | null = null;
-  private _uuid: string = this._generateUUIDv4();
+  private _uuid: string = generateUUID();
 
   /**
    * 
@@ -62,15 +63,6 @@ export class RuiExpandCollapse extends LitElement {
    */
   public static get styles(): CSSResultArray {
     return [variables, layout];
-  }
-
-  // TODO: Move this to a core lib
-  private _generateUUIDv4(): string {
-    return (`${1e7}-${1e3}-${4e3}-${8e3}-${1e11}`)
-      .replace(/[018]/g, (c: string): string => {
-        const numC = parseInt(c, 10);
-        return (numC ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> numC / 4).toString(); // eslint-disable-line no-bitwise
-      });
   }
 
   /* #endregion */
