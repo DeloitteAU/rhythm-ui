@@ -22,6 +22,6 @@
 	},
 	"dependencies": {
 		"lit-element": "^2.1.0",
-		"focus-trap": "^5.0.2"
+		"@a11y/focus-trap": "^1.0.2"
 	}
 }

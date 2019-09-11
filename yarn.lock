@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@a11y/focus-trap@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@a11y/focus-trap/-/focus-trap-1.0.2.tgz#2b5deed2b0f975ddef69c7b401933f67ca05093f"
+  integrity sha512-5/Wp7UwuUxi5/3nNB+V8bj76BWsxfl9D4Y5+k8SQk/279Yrd0omxHdiU4DMhfnNowPMKWVmWnDD6b7NMqrKf4w==
+
 "@babel/cli@^7.4.4":
   version "7.4.4"
   resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.4.4.tgz#5454bb7112f29026a4069d8e6f0e1794e651966c"
@@ -8419,14 +8424,6 @@ focus-lock@^0.6.3:
   version "0.6.4"
   resolved "https://registry.yarnpkg.com/focus-lock/-/focus-lock-0.6.4.tgz#066af3ed5875d85745ab45ef4fbbb43e8a73514a"
   integrity sha512-+waElh6m7dbNmEabXQIblZjJMIRQOoHMNqB8RZkyemK+vN1XQ9uHLi740DVwTcK5fzAq3g+tBglLjIqUDHX/Og==
-
-focus-trap@^5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/focus-trap/-/focus-trap-5.0.2.tgz#31ee8a1933b972ce24577462eacefc6a09833c8f"
-  integrity sha512-jQf4ZkX9qOhiNrga4pRh9N2vMqYLRuGM7RZ6VRDLgti04cbG8m7XD4xlU/N0M0cqwDYtXbdzSBQDbRIwqn0FIg==
-  dependencies:
-    tabbable "^4.0.0"
-    xtend "^4.0.1"
 
 follow-redirects@^1.0.0:
   version "1.7.0"
@@ -18012,11 +18009,6 @@ syntax-error@^1.1.1:
   integrity sha512-YPPlu67mdnHGTup2A8ff7BC2Pjq0e0Yp/IyTFN03zWO0RcK07uLcbi7C2KpGR2FvWbaB0+bfE27a+sBKebSo7w==
   dependencies:
     acorn-node "^1.2.0"
-
-tabbable@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-4.0.0.tgz#5bff1d1135df1482cf0f0206434f15eadbeb9261"
-  integrity sha512-H1XoH1URcBOa/rZZWxLxHCtOdVUEev+9vo5YdYhC9tCY4wnybX+VQrCYuy9ubkg69fCBxCONJOSLGfw0DWMffQ==
 
 table@4.0.2:
   version "4.0.2"

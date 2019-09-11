@@ -4,13 +4,13 @@ const TestPage = () => (
 	<>
 		<rui-header>
 			<rui-header-mobile slot="mobile">
-				<rui-button slot="menu-open">open</rui-button>
+				<rui-button slot="menu-open">open menu</rui-button>
 				<div slot="main-center">center main area</div>
 				<div slot="main-right">right main area</div>
-				<rui-button slot="menu-close">close</rui-button>
-				<div slot="menu-top">top main area</div>
-				<div slot="menu-middle">middle main area</div>
-				<rui-button slot="menu-bottom" href="#">Link</rui-button>
+				<rui-button slot="menu-close" tabindex="0">close menu</rui-button>
+				<rui-button slot="menu-top" >nav button bottom</rui-button>
+				<rui-button slot="menu-middle" >nav button bottom</rui-button>
+				<rui-button slot="menu-bottom" >nav button bottom</rui-button>
 			</rui-header-mobile>
 			<rui-header-desktop slot="desktop">
 				<div slot="utilities-left">left utility area</div>
@@ -21,6 +21,7 @@ const TestPage = () => (
 				<div slot="main-right">right main area</div>
 			</rui-header-desktop>
 		</rui-header>
+		<rui-button>Page Button</rui-button>
 	</>
 );
 

@@ -6,15 +6,26 @@
  */
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import '@a11y/focus-trap';
 import {getShadowStylesFor} from '@rhythm-ui/styles';
 import {variables, layout} from './RuiHeaderMobile.css'
 
 export class RuiHeaderMobile extends LitElement {
 
 	/**
-	 * True shows all the breadcrumbs
+	 * Toggle the mobile menu
 	 */
 	private _isMenuActive: boolean = false;
+
+	/**
+	 * Toggle the mobile menu
+	 */
+	private _focusTrapEl: any = null;
+
+	/**
+	 * Toggle the mobile menu
+	 */
+	private _hamburgerEl: any = null;
 
 	/**
 	 *
@@ -35,16 +46,25 @@ export class RuiHeaderMobile extends LitElement {
 	 */
 	private _handleMenuState(value): void {
 		this._isMenuActive = value;
-		console.log(this._isMenuActive);
-		this.requestUpdate()
+		this.requestUpdate();
 	}
 
 	private _openMenu(): void {
 		this._handleMenuState(true);
+		this._focusTrapEl.focus();
 	}
 
 	private _closeMenu(): void {
 		this._handleMenuState(false);
+		this._hamburgerEl.focus();
+	}
+
+	public firstUpdated(changedProperties) {
+		// TODO: Find out how to focus shadow elements of slotted elements (e.g. set focus on `rui-button` externally)
+		this._focusTrapEl = this.shadowRoot.getElementById('menu');
+		this._hamburgerEl = this.shadowRoot.getElementById('main')
+
+		console.log(this._hamburgerEl);
 	}
 
 	/**
@@ -53,7 +73,7 @@ export class RuiHeaderMobile extends LitElement {
 	 */
 	public render(): TemplateResult {
 		return html`
-			<div class="main">
+			<div class="main" id="main" tabindex="-1">
 				<div class="content">
 					<div class="left">
 						<slot name="menu-open" @click="${this._openMenu}"></slot>
@@ -66,18 +86,23 @@ export class RuiHeaderMobile extends LitElement {
 					</div>
 				</div>
 			</div>
-			<div class="overlay" ?active="${this._isMenuActive}"></div>
-			<div class="menu" ?active="${this._isMenuActive}"  aria-hidden="${this._isMenuActive}">
-				<div class="content">
-					<slot name="menu-close" @click="${this._closeMenu}"></slot>
-					<slot name="menu-top"></slot>
-					<slot name="menu-middle"></slot>
-					<slot name="menu-bottom"></slot>
+			<focus-trap tabindex="-1" aria-hidden="${!this._isMenuActive}" ?inactive="${!this._isMenuActive}">
+				<div class="overlay" ?active="${this._isMenuActive}" @click="${this._closeMenu}"></div>
+				<div class="menu" id="menu" tabindex="${this._isMenuActive ? '0' : '-1'}" ?active="${this._isMenuActive}" aria-hidden="${!this._isMenuActive}">
+					<div class="menu-header">
+						<h2 id="main">navigation</h2>
+						<slot name="menu-logo"></slot>
+						<slot name="menu-close" @click="${this._closeMenu}"></slot>
+					</div>
+					<div class="content">
+						<slot name="menu-top"></slot>
+						<slot name="menu-middle"></slot>
+						<slot name="menu-bottom"></slot>
+					</div>
 				</div>
-			</div>
+			</focus-trap>
 		`;
 	}
-
 	/* #endregion */
 }
 
