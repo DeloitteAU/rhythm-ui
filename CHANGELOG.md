@@ -2,5 +2,5 @@
 title: "Change Log"
 ---
 
-# Change Log
-This is a change Log.
+# v0.0.0
+

@@ -1,5 +1,14 @@
 # Rhythm UI
 
+[![Build Status](https://dev.azure.com/dd-managed-services/FED-Modules/_apis/build/status/rhythm-ui?branchName=master)](https://dev.azure.com/dd-managed-services/FED-Modules/_build/latest?definitionId=45&branchName=master)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DeloitteDigitalAPAC_rhythm-ui&metric=alert_status)](https://sonarcloud.io/dashboard?id=DeloitteDigitalAPAC_rhythm-ui)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=DeloitteDigitalAPAC_rhythm-ui&metric=security_rating)](https://sonarcloud.io/dashboard?id=DeloitteDigitalAPAC_rhythm-ui)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=DeloitteDigitalAPAC_rhythm-ui&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=DeloitteDigitalAPAC_rhythm-ui)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=DeloitteDigitalAPAC_rhythm-ui&metric=bugs)](https://sonarcloud.io/dashboard?id=DeloitteDigitalAPAC_rhythm-ui)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=DeloitteDigitalAPAC/rhythm-ui)](https://dependabot.com)
+
+----
+
 > 👷‍ PLEASE NOTE: This library is currently still in development and all api's are subject to change.️ Please use with caution.
 
 Rhythm UI is a white-label product currently in development for building enterprise design systems. It enables us to create consistent and 
@@ -41,6 +50,19 @@ technologies. We provide clients with a full suite of digital services, covering
 content, creative, engineering and implementation across mobile, web and social media channels.
 
 [http://www.deloittedigital.com/au](http://www.deloittedigital.com/au)
+
+## Thank you
+
+Rhythm UI is made possible by the following organisations's and services 🙏.
+
+[<img src="https://sonarcloud.io/images/project_badges/sonarcloud-white.svg" width="200">](https://sonarcloud.io/about)
+
+[<img src="https://www.browserstack.com/images/mail/browserstack-logo-footer.png" width="160">](https://www.browserstack.com/)
+
+[<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png" width="100">](https://github.com/)
+
+[<img src="https://cdn.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://cdn.productplan.com/wp-content/uploads/2017/06/azuredevops-2x.png" width="200">](https://azure.microsoft.com/en-au/services/devops/)
+
 
 ## LICENSE (BSD-3-Clause)
 
