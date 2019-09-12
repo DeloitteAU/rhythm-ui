@@ -49,6 +49,10 @@ stages:
       displayName: 'Build @rhythm-ui components'
 
     - script: |
+        yarn build:site
+      displayName: 'Build Docs'
+
+    - script: |
         yarn build:storybook:react
       displayName: 'Build React Docs'
 
