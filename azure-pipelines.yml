@@ -14,14 +14,14 @@ variables:
   azureSubscription: 'Managed Services Central Billing'
   azureAccountName: 'rhythmuidocs'
 
-pool:
-  vmImage: 'ubuntu-latest'
-
 stages:
+
 - stage: build
   displayName: "Build"
   jobs:
   - job: buildPrimeCache
+    pool:
+      vmImage: 'ubuntu-latest'
     steps:
 
     - task: DeleteFiles@1
@@ -33,9 +33,7 @@ stages:
     - script: |
         mkdir -p .ruidocs 
       displayName: 'Prime Cache' 
-  
-  - job: buildInstallDependencies
-    steps:
+
     - task: NodeTool@0
       inputs:
         versionSpec: '10.x'
@@ -46,8 +44,6 @@ stages:
         yarn bootstrap
       displayName: 'Install Dependencies'
 
-  - job: buildArtifacts
-    steps:
     - script: |
         yarn build:components
       displayName: 'Build @rhythm-ui components'
@@ -97,6 +93,8 @@ stages:
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   jobs:
   - job: publishCanaryNPMFeed
+    pool:
+      vmImage: 'ubuntu-latest'
     steps:
 
     # - task: DownloadBuildArtifacts@0
