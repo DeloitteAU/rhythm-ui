@@ -46,7 +46,7 @@ stages:
         yarn bootstrap
       displayName: 'Install Dependencies'
 
-    - job: buildArtifacts
+  - job: buildArtifacts
     steps:
     - script: |
         yarn build:components
