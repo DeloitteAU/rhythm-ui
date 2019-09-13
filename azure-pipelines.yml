@@ -66,29 +66,30 @@ stages:
       displayName: 'Pack @rhythm-ui Components'
 
     - task: CopyFiles@2
+      displayName: 'Copy all NPM Packges to $(Build.ArtifactStagingDirectory)/npm'
       inputs:
         contents: |
-          components\*\*.tgz
-          adapters\react\*\*.tgz
-          adapters\vue\*\*.tgz
+          components/*/*.tgz
+          adapters/react/*/*.tgz
+          adapters/vue/*/*.tgz
         targetFolder: $(Build.ArtifactStagingDirectory)/npm
-      displayName: Stage NPM Packages
+      
 
     - task: ArchiveFiles@2
+      displayName: 'Archive Docs to '
       inputs:
         rootFolderOrFile: './www/public' 
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/docs/site.zip'
         replaceExistingArchive: true
-      displayName: Archive Docs
 
     - task: ArchiveFiles@2
+      displayName: 'Archive React Docs'
       inputs:
         rootFolderOrFile: './.out-react' 
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/docs/react.zip'
         replaceExistingArchive: true
-      displayName: Archive React Docs
 
     # - task: ArchiveFiles@2
     #   inputs:
