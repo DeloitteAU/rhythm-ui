@@ -96,3 +96,8 @@ export const fakeBrowswerBarStyles = css`
 	}
 `;
 
+export const liveBarStyles = css`
+    font-size: 15px; 
+    padding-top: 5px; 
+    color: red;
+`;
