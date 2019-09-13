@@ -67,15 +67,18 @@ stages:
 
     - task: CopyFiles@2
       inputs:
-        contents: '**/*.tgz'
-        targetFolder: $(Build.ArtifactStagingDirectory)
+        contents: |
+          components\*\*.tgz
+          adapters\react\*\*.tgz
+          adapters\vue\*\*.tgz
+        targetFolder: $(Build.ArtifactStagingDirectory)/npm
       displayName: Stage NPM Packages
 
     - task: ArchiveFiles@2
       inputs:
         rootFolderOrFile: './www/public' 
         archiveType: 'zip'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/docs-site.zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/docs/site.zip'
         replaceExistingArchive: true
       displayName: Archive Docs
 
@@ -83,7 +86,7 @@ stages:
       inputs:
         rootFolderOrFile: './.out-react' 
         archiveType: 'zip'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/docs-react-site.zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/docs/react.zip'
         replaceExistingArchive: true
       displayName: Archive React Docs
 
@@ -91,7 +94,7 @@ stages:
     #   inputs:
     #     rootFolderOrFile: './.out-vue' 
     #     archiveType: 'zip'
-    #     archiveFile: '$(Build.ArtifactStagingDirectory)/docs-vue-site.zip'
+    #     archiveFile: '$(Build.ArtifactStagingDirectory)/docs/vue.zip'
     #     replaceExistingArchive: true
     #   displayName: Archive Vue Docs
 
@@ -112,13 +115,6 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-
-    - task: DownloadBuildArtifacts@0
-      inputs:
-        buildType: 'current'
-        downloadType: 'single'
-        downloadPath: '$(System.ArtifactsDirectory)'
-
     - task: NodeTool@0
       inputs:
         versionSpec: '10.x'
@@ -127,6 +123,17 @@ stages:
     - task: npmAuthenticate@0
       inputs:
         workingFile: $(npmrcPath)
+
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        downloadPath: '$(System.ArtifactsDirectory)'
+        artifactName: drop
+
+    # - script: |
+    #     node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
+    #   displayName: 'Pack @rhythm-ui Components'
 
         # PUBLISH TO NPM FEEDS (Modify .nvmrc file for feed location)
     # - script: |
