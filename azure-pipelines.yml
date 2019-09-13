@@ -61,6 +61,16 @@ stages:
     #     yarn build:storybook:vue
     #   displayName: 'Build react docs'
 
+    - script: |
+        node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
+      displayName: 'Pack @rhythm-ui Components'
+
+    - task: CopyFiles@2
+      inputs:
+        contents: '**/*.tgz'
+        targetFolder: $(Build.ArtifactStagingDirectory)
+      displayName: Stage NPM Packages
+
     - task: ArchiveFiles@2
       inputs:
         rootFolderOrFile: './www/public' 
@@ -68,12 +78,6 @@ stages:
         archiveFile: '$(Build.ArtifactStagingDirectory)/docs-site.zip'
         replaceExistingArchive: true
       displayName: Archive Docs
-
-    - task: PublishBuildArtifacts@1
-      inputs:
-        pathToPublish: $(Build.ArtifactStagingDirectory)/docs-site.zip
-        artifactName: docs
-      displayName: 'Publish Docs Build Artifact'
 
     - task: ArchiveFiles@2
       inputs:
@@ -83,11 +87,19 @@ stages:
         replaceExistingArchive: true
       displayName: Archive React Docs
 
+    # - task: ArchiveFiles@2
+    #   inputs:
+    #     rootFolderOrFile: './.out-vue' 
+    #     archiveType: 'zip'
+    #     archiveFile: '$(Build.ArtifactStagingDirectory)/docs-vue-site.zip'
+    #     replaceExistingArchive: true
+    #   displayName: Archive Vue Docs
+
     - task: PublishBuildArtifacts@1
       inputs:
-        pathToPublish: $(Build.ArtifactStagingDirectory)/docs-react-site.zip
-        artifactName: docsReact
-      displayName: 'Publish React Docs Build Artifact'
+        pathToPublish: $(Build.ArtifactStagingDirectory)
+        artifactName: drop
+      displayName: 'Publish Build Artifacts'
 
 
 
@@ -101,11 +113,12 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
 
-    # - task: DownloadBuildArtifacts@0
-    #   inputs:
-    #     buildType: 'current'
-    #     downloadType: 'single'
-    #     downloadPath: '$(System.ArtifactsDirectory)'
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        downloadPath: '$(System.ArtifactsDirectory)'
+
     - task: NodeTool@0
       inputs:
         versionSpec: '10.x'
@@ -115,24 +128,29 @@ stages:
       inputs:
         workingFile: $(npmrcPath)
 
-    # PUBLISH TO NPM FEEDS (Modify .nvmrc file for feed location)
-    - script: |
-        yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
-        node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --loglevel=verbose --userconfig=$(npmrcPath)"
-      displayName: 'Publish @rhythm-ui Components'
+        # PUBLISH TO NPM FEEDS (Modify .nvmrc file for feed location)
+    # - script: |
+    #     PACKAGE_VERSION=$(cat package.json \
+    #     | grep version \
+    #     | head -1 \
+    #     | awk -F: '{ print $2 }' \
+    #     | sed 's/[",]//g')
+    #     yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
+    #     node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --loglevel=verbose --userconfig=$(npmrcPath)"
+    #   displayName: 'Publish @rhythm-ui Components'
 
-    - task: AzureCLI@1
-      inputs:
-        azureSubscription: $(azureSubscription)
-        scriptLocation: 'inlineScript'
-        inlineScript: 'az storage blob upload-batch --destination docs --account-name rhythmuidocs --source ./www/public'
-      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-      displayName: Publish docs to Azure
+    # - task: AzureCLI@1
+    #   inputs:
+    #     azureSubscription: $(azureSubscription)
+    #     scriptLocation: 'inlineScript'
+    #     inlineScript: 'az storage blob upload-batch --destination docs --account-name rhythmuidocs --source ./www/public'
+    #   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    #   displayName: Publish docs to Azure
 
-    - task: AzureCLI@1
-      inputs:
-        azureSubscription: $(azureSubscription)
-        scriptLocation: 'inlineScript'
-        inlineScript: 'az storage blob upload-batch --destination react-docs --account-name rhythmuidocs --source ./.out-react'
-      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-      displayName: Publish React docs to Azure
+    # - task: AzureCLI@1
+    #   inputs:
+    #     azureSubscription: $(azureSubscription)
+    #     scriptLocation: 'inlineScript'
+    #     inlineScript: 'az storage blob upload-batch --destination react-docs --account-name rhythmuidocs --source ./.out-react'
+    #   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    #   displayName: Publish React docs to Azure
