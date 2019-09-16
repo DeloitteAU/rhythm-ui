@@ -65,7 +65,8 @@ export class RuiAlert extends LitElement {
 					</div>
 				` : html``}
 			</div>
-		`};
+		`
+	};
 
 	/* #endregion */
 }
