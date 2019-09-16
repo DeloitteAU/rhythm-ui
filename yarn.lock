@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@a11y/focus-trap@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@a11y/focus-trap/-/focus-trap-1.0.2.tgz#2b5deed2b0f975ddef69c7b401933f67ca05093f"
+  integrity sha512-5/Wp7UwuUxi5/3nNB+V8bj76BWsxfl9D4Y5+k8SQk/279Yrd0omxHdiU4DMhfnNowPMKWVmWnDD6b7NMqrKf4w==
+
 "@babel/cli@^7.4.4":
   version "7.4.4"
   resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.4.4.tgz#5454bb7112f29026a4069d8e6f0e1794e651966c"

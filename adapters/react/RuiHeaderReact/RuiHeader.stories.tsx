@@ -1,14 +1,14 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import RuiIcon from './src';
+import RuiHeader from './src';
 import Readme from './README.md';
 
-storiesOf('RuiIcon', module)
+storiesOf('RuiHeader', module)
 	.addParameters({
 		readme: {
 			content: Readme,
 		},
 	})
 	.add('with some emoji', () => (
-		<RuiIcon> Default </RuiIcon>
+		<RuiHeader> Default </RuiHeader>
 	));

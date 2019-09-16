@@ -49,8 +49,8 @@ export class RuiPagination extends LitElement {
 	}
 
 	/**
-	 * Indcates how many pages can be shown before truncation logic applies.
-	 * If not provided, all pages will be shown
+	 * Indcates how many page can be shown before truncation logic applies.
+	 * If not provided, all page will be shown
 	 */
 	private _pagesToShow?: number;
 	@property({
@@ -67,7 +67,7 @@ export class RuiPagination extends LitElement {
 	}
 
 	/**
-	 * Indicates how many pages total are present in cases where the
+	 * Indicates how many page total are present in cases where the
 	 * user doesn't want to use the items attribute
 	 */
 	private _numberOfPages: number = 1;
@@ -211,7 +211,7 @@ export class RuiPagination extends LitElement {
 			this._prevSlottedEl = prevSlottedEl
 		}
 
-		// if no pages to show is defined we default to the total number of pages
+		// if no page to show is defined we default to the total number of page
 		if (this.pagesToShow === undefined) {
 			this.pagesToShow = this.numberOfPages || 1;
 		}
@@ -241,7 +241,7 @@ export class RuiPagination extends LitElement {
 
 	/**
 	 * _calculatePageStartEnd handles the calculation of the page start and
-	 * end indexes based on the pages to show constraints.
+	 * end indexes based on the page to show constraints.
 	 *
 	 * Note that because we always show the first and last pagination item,
 	 * the pagestart and pageend in this case refer to the items to show
@@ -251,7 +251,7 @@ export class RuiPagination extends LitElement {
 		let pageStart = 1;
 		let pageEnd = this.numberOfPages;
 
-		// if the number of pages to show is greater or equal to the number of pages
+		// if the number of page to show is greater or equal to the number of page
 		// then we should just display every page as a pagination item
 		if (
 			this.pagesToShow === undefined ||
@@ -269,10 +269,10 @@ export class RuiPagination extends LitElement {
 
 		if (this.currentPage <= leftSideThreshold) {
 			// the number of pagination items that should show is
-			// defined by pages to show + 4 where
+			// defined by page to show + 4 where
 			// the 4 comes from the start and end item which are always present,
 			// and the two ellipses slots which may or may not be actual ellipses
-			// e.g | 1 | ... | pages-to-show items | ... | n |
+			// e.g | 1 | ... | page-to-show items | ... | n |
 			const MAX_ITEMS = Math.min(this.pagesToShow + 4, this.numberOfPages);
 			pageEnd = this.currentPage + (MAX_ITEMS - 2 - this.currentPage);
 		} else {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
+import {storiesOf} from '@storybook/react';
 import RuiHeroBanner from './src';
 import Readme from './README.md';
 

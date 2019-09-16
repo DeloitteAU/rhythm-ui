@@ -36,7 +36,7 @@ exports.createPages = ({actions, graphql}) => {
 			const {fields, frontmatter} = node;
 			const {relativeUrlPath} = fields;
 			const {title} = frontmatter;
-			// TODO: Use a front-matter variable to opt out creating pages from .md instead eg "meta: true"
+			// TODO: Use a front-matter variable to opt out creating page from .md instead eg "meta: true"
 			// TODO: And use filter in the above query
 			if (relativeUrlPath.indexOf('.ruidocs') < 0) {
 

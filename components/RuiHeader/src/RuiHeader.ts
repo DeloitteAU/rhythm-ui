@@ -7,18 +7,18 @@
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
 import {getShadowStylesFor} from '@rhythm-ui/styles';
-import {variables, layout} from './{{pascalCase name}}.css'
+import {variables, layout} from './RuiHeader.css'
 
-export class {{pascalCase name}} extends LitElement {
+export class RuiHeader extends LitElement {
 
 	/**
 	*
-	* The styles for {{pascalCase name}}
+	* The styles for header
 	* @remarks
 	* If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	*/
 	public static get styles(): CSSResultArray {
-		return [variables, layout, getShadowStylesFor('{{pascalCase name}}')];
+		return [variables, layout, getShadowStylesFor('RuiHeader')];
 	}
 
 	/* #endregion */
@@ -31,11 +31,18 @@ export class {{pascalCase name}} extends LitElement {
 	*/
 	public render(): TemplateResult {
 		return html`
-			<slot> </slot>
+			<header>
+				<div class="mobile">
+					<slot name="mobile"></slot>
+				</div>
+				<div class="desktop">
+					<slot name="desktop"></slot>
+				</div>
+			</header>
 			`;
 	}
 
 	/* #endregion */
 }
 
-export default {{pascalCase name}};
+export default RuiHeader;
