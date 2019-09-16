@@ -31,7 +31,7 @@ export class Header extends React.Component {
 												title={link.title}
 												to={link.to}
 												activeClassName="active"
-												partiallyActive={true}
+												partiallyActive
 											>
 												{link.title}
 											</Link>

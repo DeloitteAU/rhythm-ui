@@ -18,16 +18,10 @@ title: "rui-alert"
 
 ```html preview
 <rui-alert>
-	<p> This is an alert </p>
+	<h3>Alert title</h3>
+	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in malesuada lectus. Quisque tristique tellus ante, vitae pharetra nulla sollicitudin tempus  </p>
+	<a href="#">This is a CTA link or action to do something</a>
 </rui-alert>
-```
-```css
---rui-alert__padding: 0.75rem 1.25rem;
---rui-alert__color: #334EAF;
---rui-alert__background-color: #E7EBF7;
---rui-alert__border-size: 1px;
---rui-alert__border-color: #B7C2E8;
---rui-alert__border-radius: 0.3125rem;
 ```
 
 ### Types
@@ -35,72 +29,28 @@ title: "rui-alert"
 ```html preview	
 
 <rui-alert type="success">
-	<rui-icon src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDBWMHoiLz48cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptMCAxOGMtNC40MSAwLTgtMy41OS04LThzMy41OS04IDgtOCA4IDMuNTkgOCA4LTMuNTkgOC04IDh6bTQuNTktMTIuNDJMMTAgMTQuMTdsLTIuNTktMi41OEw2IDEzbDQgNCA4LTh6Ii8+PC9zdmc+">
+	<rui-icon slot="icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDAwIj4KICAgICAgICA8cGF0aCBkPSJNNi41IDEyLjI2OEw5LjYxOCAxNS41bDcuODgyLTciLz4KICAgICAgICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMC41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICAgIDwvZz4KPC9zdmc+Cg==">
 	</rui-icon>
 	<p> This is a success alert </p>
 </rui-alert>
 
 <rui-alert type="warning">
-	<rui-icon src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDBWMHoiLz48cGF0aCBkPSJNMTIgNS45OUwxOS41MyAxOUg0LjQ3TDEyIDUuOTlNMTIgMkwxIDIxaDIyTDEyIDJ6bTEgMTRoLTJ2Mmgydi0yem0wLTZoLTJ2NGgydi00eiIvPjwvc3ZnPg==">
+	<rui-icon slot="icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAuNSIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICAgICAgICA8dGV4dCBmaWxsPSIjMDAwIiBmb250LWZhbWlseT0iSW50ZXItUmVndWxhciwgSW50ZXIiIGZvbnQtc2l6ZT0iMTYiIGxldHRlci1zcGFjaW5nPSItLjEyIj4KICAgICAgICAgICAgPHRzcGFuIHg9IjkuODMzIiB5PSIxOCI+ITwvdHNwYW4+CiAgICAgICAgPC90ZXh0PgogICAgPC9nPgo8L3N2Zz4K">
 	</rui-icon>
 	<p> This is a warning alert </p>
 </rui-alert>
 
 <rui-alert type="error">
-	<rui-icon src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDBWMHoiLz48cGF0aCBkPSJNMTQuNTkgOEwxMiAxMC41OSA5LjQxIDggOCA5LjQxIDEwLjU5IDEyIDggMTQuNTkgOS40MSAxNiAxMiAxMy40MSAxNC41OSAxNiAxNiAxNC41OSAxMy40MSAxMiAxNiA5LjQxIDE0LjU5IDh6TTEyIDJDNi40NyAyIDIgNi40NyAyIDEyczQuNDcgMTAgMTAgMTAgMTAtNC40NyAxMC0xMFMxNy41MyAyIDEyIDJ6bTAgMThjLTQuNDEgMC04LTMuNTktOC04czMuNTktOCA4LTggOCAzLjU5IDggOC0zLjU5IDgtOCA4eiIvPjwvc3ZnPg==">
+	<rui-icon slot="icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgogICAgICAgIDxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwLjUiLz4KICAgICAgICA8cGF0aCBkPSJNOC40NDIgOC40NjRsNy4wNzEgNy4wNzItNy4wNzEtNy4wNzJ6Ii8+CiAgICAgICAgPHBhdGggZD0iTTE1LjUxMyA4LjQ2NGwtNy4wNzEgNy4wNzIgNy4wNzEtNy4wNzJ6Ii8+CiAgICA8L2c+Cjwvc3ZnPgo=">
 	</rui-icon>
 	<p> This is an error alert </p>
 </rui-alert>
 
 <rui-alert type="info">
-	<rui-icon src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDBWMHoiLz48cGF0aCBkPSJNMTEgMThoMnYtMmgtMnYyem0xLTE2QzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0wIDE4Yy00LjQxIDAtOC0zLjU5LTgtOHMzLjU5LTggOC04IDggMy41OSA4IDgtMy41OSA4LTggOHptMC0xNGMtMi4yMSAwLTQgMS43OS00IDRoMmMwLTEuMS45LTIgMi0yczIgLjkgMiAyYzAgMi0zIDEuNzUtMyA1aDJjMC0yLjI1IDMtMi41IDMtNSAwLTIuMjEtMS43OS00LTQtNHoiLz48L3N2Zz4=">
+	<rui-icon slot="icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMS41IDEuNSkiPgogICAgICAgIDxjaXJjbGUgY3g9IjEwLjUiIGN5PSIxMC41IiByPSIxMC41IiBzdHJva2U9IiMwMDAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogICAgICAgIDx0ZXh0IGZpbGw9IiMwMDAiIGZvbnQtZmFtaWx5PSJJbnRlci1SZWd1bGFyLCBJbnRlciIgZm9udC1zaXplPSIxNiIgbGV0dGVyLXNwYWNpbmc9Ii0uMTIiPgogICAgICAgICAgICA8dHNwYW4geD0iNy4wMDMiIHk9IjE2LjUiPj88L3RzcGFuPgogICAgICAgIDwvdGV4dD4KICAgIDwvZz4KPC9zdmc+Cg==">
 	</rui-icon>
 	<p> This is an info alert </p>
 </rui-alert>
-```
-```css
-rui-alert > rui-icon {
-	--rui-icon__width: 40px;
-	--rui-icon__height: 40px;
-	margin-right: 20px;
-}
-
-rui-alert[type=success] {
-	 --rui-alert__color: #259A3F;
-	 --rui-alert__background-color: #E5F4E9;
-	 --rui-alert__border-color: #B2DFBC;
- }
-
-rui-alert[type=success] rui-icon {
-	--rui-icon__color: #259A3F;
-}
-
-rui-alert[type=warning] {
-	--rui-alert__color: #EBB206;
-	--rui-alert__background-color: #FFF8E1;
-	--rui-alert__border-color: #FFFE9A6;
-}
-rui-alert[type=warning] rui-icon {
-	--rui-icon__color: #EBB206;
-}
-
-rui-alert[type=error] {
-	--rui-alert__color: #CA313F;
-	--rui-alert__background-color: #FBE7E9;
-	--rui-alert__border-color: #F2B6BC;
-}
-rui-alert[type=error] rui-icon {
-	--rui-icon__color: #CA313F;
-}
-
-rui-alert[type=info] {
-	--rui-alert__color: #1595A9;
-	--rui-alert__background-color: #E3F4F6;
-	--rui-alert__border-color: #ABDEE5;
-}
-rui-alert[type=info] rui-icon {
-	--rui-icon__color: #1595A9;
-}
 ```
 
 ## Behaviour
@@ -108,35 +58,11 @@ rui-alert[type=info] rui-icon {
 ### Dismissible
 
 ```html preview
-<rui-alert>
+<rui-alert dismissible={true}>
 	<p> This is a dismissable alert </p>
-	<rui-button class="dismissible" slot="dismissible" label="Dismiss alert">
-		<rui-icon src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBkPSJNMCAwaDI0djI0SDBWMHoiLz48cGF0aCBkPSJNMTkgNi40MUwxNy41OSA1IDEyIDEwLjU5IDYuNDEgNSA1IDYuNDEgMTAuNTkgMTIgNSAxNy41OSA2LjQxIDE5IDEyIDEzLjQxIDE3LjU5IDE5IDE5IDE3LjU5IDEzLjQxIDEyIDE5IDYuNDF6Ii8+PC9zdmc+">
-		</rui-icon>
-	</rui-button>
+	<rui-icon slot="dismissible" label="Dismiss alert" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CgogPGc+CiAgPHRpdGxlPmJhY2tncm91bmQ8L3RpdGxlPgogIDxyZWN0IGZpbGw9Im5vbmUiIGlkPSJjYW52YXNfYmFja2dyb3VuZCIgaGVpZ2h0PSI0MDIiIHdpZHRoPSI1ODIiIHk9Ii0xIiB4PSItMSIvPgogPC9nPgogPGc+CiAgPHRpdGxlPkxheWVyIDE8L3RpdGxlPgogIDxnIHRyYW5zZm9ybT0icm90YXRlKDQ1IDEyLjAwMDAwMDAwMDAwMDAwNSwxMS45OTk5OTk5OTk5OTk5OTYpICIgaWQ9InN2Z18xIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZT0iIzAwMCIgZmlsbC1ydWxlPSJldmVub2RkIiBmaWxsPSJub25lIj4KICAgPHBhdGggaWQ9InN2Z18yIiBkPSJtMjAsMTJsLTE2LDBsMTYsMHptLTgsLThsMCwxNmwwLC0xNnoiLz4KICA8L2c+CiA8L2c+Cjwvc3ZnPg==">
+	</rui-icon>
 </rui-alert>
-```
-```css
-rui-alert rui-button {
-	margin: -12px;
-	--rui-button__padding: 12px;
-	--rui-button__background-color: transparent;
-	--rui-button__background-color-hover: transparent;
-	--rui-button__background-color-focus: transparent;
-	--rui-button__focus-outline: -webkit-focus-ring-color auto 5px;
-
-}
-
-rui-alert rui-button rui-icon {
-	--rui-icon__width: 25px;
-	--rui-icon__height: 25px;
-	--rui-icon__color: var(--global-gray-color-3, #673AB7);
-}
-
-rui-alert rui-button:hover rui-icon {
-	--rui-icon__color: var(--global-gray-color-4, #311B92);
-}
-
 ```
 
 ## Customising

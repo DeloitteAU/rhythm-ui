@@ -23,7 +23,7 @@ class IndexPage extends React.Component {
 			<Layout>
 				<div className="hero">
 					<canvas ref={ref => this._canvas = ref} />
-					<div className="wave"></div>
+					<div className="wave" />
 					<RuiGrid>
 						<div className="s-6 hero__content">
 							<h1>The shortest pathway from idea to realisation</h1>
