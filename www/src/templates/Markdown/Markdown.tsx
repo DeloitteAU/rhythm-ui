@@ -5,6 +5,8 @@ import {css} from '@emotion/core';
 
 // Import these so markdown files render if they are using these tags
 // @@ GENERATOR IMPORT COMPONENT
+import '@rhythm-ui/-navigation-group-react';
+import '@rhythm-ui/-navigation-react';
 import '@rhythm-ui/icon-react';
 import '@rhythm-ui/scroll-to-react';
 import '@rhythm-ui/rui-card-react';
