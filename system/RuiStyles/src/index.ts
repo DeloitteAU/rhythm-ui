@@ -25,7 +25,7 @@ export const createShadowStyles = (styles: IRuiStyleMap): void => {
 	for (const [key, value] of Object.entries(styles)) {
 		_styles[key] = value;
 	}
-}
+};
 
 /**
  * Get styles for rui web component
@@ -37,9 +37,22 @@ export const getShadowStylesFor = (key: string): CSSResult => {
 	}
 
 	return _css``;
-}
+};
+
+export const vh = (): CSSResult => {
+	return _css`
+		position: absolute !important;
+		height: 1px;
+		width: 1px;
+		overflow: hidden;
+		clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+		clip: rect(1px, 1px, 1px, 1px);
+		white-space: nowrap; /* added line */
+	`;
+};
 
 export default {
 	css,
-	createShadowStyles
+	createShadowStyles,
+	vh
 };
