@@ -18,7 +18,7 @@ export class RuiAlert extends LitElement {
 	public dismissible?: boolean = false;
 
 	/**
-	 * Internal has
+	 * Internal; alert has been dismissed by user
 	 */
 	private _isDismissed: boolean = false;
 
@@ -36,10 +36,6 @@ export class RuiAlert extends LitElement {
 
 	/* #region Methods */
 
-	protected createRenderRoot() {
-		return this.attachShadow({mode: 'open', delegatesFocus: true});
-	}
-
 	/**
 	 * Handler for a click of the summary content
 	 */
@@ -54,11 +50,11 @@ export class RuiAlert extends LitElement {
 	*/
 	public render(): TemplateResult {
 		return this._isDismissed ? html`` : html`
-			<div class="alert">
+			<div class="alert" role="alert">
 				<div class="icon">
 					<slot name="icon"> </slot>
 				</div>
-				<div class="content" role="alert">
+				<div class="content">
 					<slot> </slot>
 				</div>
 				${this.dismissible ? html`

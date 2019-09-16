@@ -15,12 +15,12 @@ export const variables = css`
 			/**
 			 * @variable Icon width
 			 */
-			--rui-icon__width: inherit;
+			--rui-icon__width: 36px;
 
 			/**
 			 * @variable Icon height
 			 */
-			--rui-icon__height: inherit;
+			--rui-icon__height: 36px;
 
 			/**
 			 * @variable Icon url
@@ -30,7 +30,7 @@ export const variables = css`
 			/**
 			 * @variable Icon color (does not work for IE)
 			 */
-			--rui-icon__color: inherit;
+			--rui-icon__color: blue;
 		}
 	`;
 
