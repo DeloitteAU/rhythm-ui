@@ -20,7 +20,7 @@ export const variables = css`
 		/**
 		 * @variable The alert colour
 		 */
-		--rui-alert__color: #334EAF;
+		--rui-alert__color: #000000;
 
 		/**
 		 * @variable The alert
@@ -50,6 +50,8 @@ export const variables = css`
 export const layout = css`
 	:host {
 		display: block;
+		--rui-icon__width: 32px;
+		--rui-icon__height: 32px;
 	}
 
 	.alert {
@@ -65,13 +67,41 @@ export const layout = css`
 		border-radius: var(--rui-alert__border-radius);
 		word-break: break-word;
 	}
+	
+	.icon {
+		width: auto;
+	}
+	
+	.content {
+		width: 100%;
+	}
 
 	.dismissible {
 		margin-left: auto;
 	}
-
-	::slotted(*) {
-		margin: 0;
+	
+	:host([type=success]) {
+		--rui-alert__background-color: #D4E6D5;
+		--rui-alert__border-color: #208834;
+		--rui-icon__color: #208834;
+	}
+	
+	:host([type=warning]) {
+		--rui-alert__background-color: #FFE7DE;
+		--rui-alert__border-color: #FC8C60;
+		--rui-icon__color: #FC8C60;
+	}
+	
+	:host([type=error]) {
+		--rui-alert__background-color: #FDD7DD;
+		--rui-alert__border-color: #E8385C;
+		--rui-icon__color: #E8385C;
+	}
+	
+	:host([type=info]) {
+		--rui-alert__background-color: #D4E8FC;
+		--rui-alert__border-color: #0092F0;
+		--rui-icon__color: #0092F0;
 	}
 `;
 

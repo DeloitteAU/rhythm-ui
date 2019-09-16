@@ -10,8 +10,15 @@ import {getShadowStylesFor} from '@rhythm-ui/styles';
 import {variables, layout} from './RuiAlert.css'
 
 export class RuiAlert extends LitElement {
+
+	@property({type: String})
+	public type: 'default' | 'success' | 'warning' | 'error' | 'info' = 'default';
+
+	@property({type: Boolean})
+	public dismissible?: boolean = false;
+
 	/**
-	 * Internal open state of component
+	 * Internal has
 	 */
 	private _isDismissed: boolean = false;
 
@@ -25,6 +32,14 @@ export class RuiAlert extends LitElement {
 		return [variables, layout, getShadowStylesFor('RuiAlert')]
 	}
 
+	/* #endregion */
+
+	/* #region Methods */
+
+	protected createRenderRoot() {
+		return this.attachShadow({mode: 'open', delegatesFocus: true});
+	}
+
 	/**
 	 * Handler for a click of the summary content
 	 */
@@ -33,23 +48,28 @@ export class RuiAlert extends LitElement {
 		this.requestUpdate()
 	}
 
-	/* #endregion */
-
-	/* #region Methods */
-
 	/**
 	* Render method
 		* @slot This is a slot test
 	*/
 	public render(): TemplateResult {
 		return this._isDismissed ? html`` : html`
-					<div class="alert">
-						<slot> </slot>
-						<div class="dismissible">
-							<slot name="dismissible" @click="${this._handleDismiss}"></slot>
-						</div>
+			<div class="alert">
+				<div class="icon">
+					<slot name="icon"> </slot>
+				</div>
+				<div class="content" role="alert">
+					<slot> </slot>
+				</div>
+				${this.dismissible ? html`
+					<div class = "dismissible">
+						<button @click="${this._handleDismiss}" >
+							<slot name="dismissible"> </slot>
+						</button>
 					</div>
-				`};
+				` : html``}
+			</div>
+		`};
 
 	/* #endregion */
 }
