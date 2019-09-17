@@ -24,14 +24,6 @@ title: "rui-hero-banner"
 	</p>
 </rui-hero-banner>
 ```
-```css
---rui-hero-banner__height: auto;
---rui-hero-banner__min-height: auto;
---rui-hero-banner__max-height: auto;
---rui-hero-banner__background-colour: #FEDFED;
---rui-hero-banner__content-padding: 15px 25px;
---rui-hero-banner__content-max-width: 100%;
-```
 
 
 ## Banner with image and actions
@@ -51,12 +43,6 @@ It is possible to set the image directly using CSS `--rui-hero-banner__backgroun
 		<rui-button type="secondary">Secondary</rui-button>
 	</div>
 </rui-hero-banner>
-```
-```css
---rui-hero-banner__background-position: center;
---rui-hero-banner__overlay-colour: #FFF;
---rui-hero-banner__overlay-opacity: 0.5;
-
 ```
 
 ## Customise
