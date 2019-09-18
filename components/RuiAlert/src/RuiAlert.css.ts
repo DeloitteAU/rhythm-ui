@@ -34,7 +34,7 @@ export const variables = css`
 		/**
 		 * @variable alert item alignment (icon/dismissible)
 		 */
-		--alert__align-items: top;
+		--alert__align-items: center;
 
 		/****************************
 		 * COLOR STYLES
@@ -57,7 +57,7 @@ export const variables = css`
 		/**
 		 * @variable padding
 		 */
-		--alert__dismissible-padding: -10px;
+		--alert__dismissible-margin: -10px;
  
 		/**
 		 * @variable dismissible size
@@ -107,6 +107,10 @@ export const layout = css`
 	:host {
 		display: block;
 	}
+	
+	:host ::slotted(*) {
+		color: var(--alert__font-color);
+	}
 
 	.alert {
 		display: flex;
@@ -153,6 +157,7 @@ export const layout = css`
 
 	.dismissible {
 		margin-left: auto;
+		align-self: flex-start;
 	}
 
 	.dismissible button {
@@ -161,7 +166,7 @@ export const layout = css`
 		cursor: pointer;
 		min-width: 48px;
 		min-height: 48px;
-		margin: var(--alert__dismissible-padding);
+		margin: var(--alert__dismissible-margin);
 		transition: var(--alert__dismissible-hover-transition);
 	}
 
