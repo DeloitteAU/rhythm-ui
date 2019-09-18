@@ -6,7 +6,7 @@
 */
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
-// import {variables, layout} from './RuiAccordion.css'
+import {variables, layout} from './RuiAccordion.css'
 
 export class RuiAccordion extends LitElement {
 
@@ -85,9 +85,9 @@ export class RuiAccordion extends LitElement {
 	* @remarks
 	* If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	*/
-	// public static get styles(): CSSResultArray {
-	// 	return [variables, layout];
-	// }
+	public static get styles(): CSSResultArray {
+		return [variables, layout];
+	}
 
 	/* #endregion */
 
@@ -101,10 +101,10 @@ export class RuiAccordion extends LitElement {
 
 		if (this.behaviour === 'single') {
 			return html`
-			<div>
+			<div class="outer-container">
 				<slot name="heading"></slot>
-				<slot @click="${this.onExpandCollapseOnlyOne}"></slot>
 			</div>
+			<slot @click="${this.onExpandCollapseOnlyOne}"></slot>
 			`;
 		}
 
@@ -113,12 +113,14 @@ export class RuiAccordion extends LitElement {
 			buttonCollapse.style.display = "none";
 
 			return html`
-				<div>
+				<div class="outer-container">
 					<slot name="heading"></slot>
-					<slot name="button-collapse" @click="${this.expandCollapseAll}"></slot>
-					<slot name="button-expand" @click="${this.expandCollapseAll}"></slot>
-					<slot></slot>
+					<div class="inner-container">
+						<slot name="button-collapse" @click="${this.expandCollapseAll}"></slot>
+						<slot name="button-expand" @click="${this.expandCollapseAll}"></slot>
+					</div>
 				</div>
+				<slot></slot>
 				`;
 		}
 	}

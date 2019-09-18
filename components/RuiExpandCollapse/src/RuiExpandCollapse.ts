@@ -218,15 +218,14 @@ export class RuiExpandCollapse extends LitElement {
     const expandableSectionID = `expandable-section__${this._uuid}`;
 
     return html`
-      <section class=${`expand-collapse${this.open ? ' is-open' : ''}`}>
+      <div class=${`expand-collapse${this.open ? ' is-open' : ''}`}>
         <button id=${expandTriggerID} @click="${this._handleClick}" class="summary-container" aria-expanded=${`${this.open ? 'true': 'false'}`} aria-controls=${expandableSectionID}>
           <slot name="summary-content"></slot>
-          <span class="icon-container"></span>
         </button>
         <div class="details-container" id=${expandableSectionID} role="region" aria-labelledby=${expandTriggerID}>
           <slot id="details-slot" name="details-content"></slot>
         </div>
-      </section>
+      </div>
     `;
   }
 
