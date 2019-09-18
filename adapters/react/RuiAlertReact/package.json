@@ -1,7 +1,6 @@
-
 {
 	"name": "@rhythm-ui/alert-react",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"main": "lib/index.js",
 	"scripts": {
 		"start": "yarn clean && concurrently \"yarn start:babel\" \"yarn start:declarations\"",
@@ -16,11 +15,11 @@
 		"lib/"
 	],
 	"devDependencies": {
-		"babel-preset-rhythm-ui-react": "^1.0.0",
+		"babel-preset-rhythm-ui-react": "^0.1.0",
 		"react": "^16.8.6"
 	},
 	"dependencies": {
-		"@rhythm-ui/alert": "^1.0.0"
+		"@rhythm-ui/alert": "^0.1.0"
 	},
 	"peerDependencies": {
 		"react": ">= 16"

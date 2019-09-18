@@ -1,7 +1,6 @@
-
 {
     "name": "@rhythm-ui/breadcrumbs-react",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "main": "lib/index.js",
     "scripts": {
         "start": "yarn clean && babel -w -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --copy-files",
@@ -13,11 +12,11 @@
         "lib/"
     ],
     "devDependencies": {
-        "babel-preset-rhythm-ui-react": "^1.0.0",
+        "babel-preset-rhythm-ui-react": "^0.1.0",
         "react": "^16.8.6"
     },
     "dependencies": {
-        "@rhythm-ui/breadcrumbs": "^1.0.0"
+        "@rhythm-ui/breadcrumbs": "^0.1.0"
     },
     "peerDependencies": {
         "react": ">= 16"

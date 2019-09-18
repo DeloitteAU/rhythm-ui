@@ -1,6 +1,6 @@
 {
 	"name": "@rhythm-ui/button",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"main": "./lib/index.js",
 	"license": "BSD-3-Clause",
 	"scripts": {
@@ -18,11 +18,11 @@
 		"index.d.ts"
 	],
 	"devDependencies": {
-		"babel-preset-rhythm-ui": "^1.0.0",
-		"ruidocs": "^1.0.0"
+		"babel-preset-rhythm-ui": "^0.1.0",
+		"ruidocs": "^0.1.0"
 	},
 	"dependencies": {
-		"@rhythm-ui/styles": "^1.0.0",
+		"@rhythm-ui/styles": "^0.1.0",
 		"lit-element": "^2.1.0"
 	}
 }
