@@ -103,7 +103,7 @@ stages:
     - script: |
        RUI_PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
        RUI_SHORT_VERSION=$($PACKAGE_VERSION | sed "s/\(\.[0-9]*\)$//")
-       echo -e "RUI_PACKAGE_VERSION=$RUI_PACKAGE_VERSION\RUI_SHORT_VERSION=$RUI_SHORT_VERSION" > $(Build.ArtifactStagingDirectory)/variables.txt
+       echo -e "RUI_PACKAGE_VERSION=$RUI_PACKAGE_VERSION\nRUI_SHORT_VERSION=$RUI_SHORT_VERSION" > $(Build.ArtifactStagingDirectory)/variables.txt
       displayName: 'Save Out Variables'
 
     - task: PublishBuildArtifacts@1
@@ -140,7 +140,7 @@ stages:
         artifactName: drop
 
     - script: |
-        source $(System.ArtifactsDirectory)/variables.txt
+        source $(System.ArtifactsDirectory)/drop/variables.txt
       displayName: Load Out Variables
 
     # - script: |
