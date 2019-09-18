@@ -143,23 +143,21 @@ stages:
         source $(System.ArtifactsDirectory)/drop/variables.txt
       displayName: Load Out Variables
 
-    - task: ExtractFiles@1
-      inputs:
-        archiveFilePatterns: |
-          '$(System.ArtifactsDirectory)/drop/docs/site.zip'
-        destinationFolder: $(Agent.TempDirectory)/docs/site
+    - script: |
+        unzip $(System.ArtifactsDirectory)/drop/docs/site.zip -d $(Agent.TempDirectory)
+      displayName: Extract Docs
 
-    - task: ExtractFiles@1
-      inputs:
-        archiveFilePatterns: |
-          '$(System.ArtifactsDirectory)/drop/docs/react.zip'
-        destinationFolder: $(Agent.TempDirectory)/docs/react
+    # - task: ExtractFiles@1
+    #   inputs:
+    #     archiveFilePatterns: |
+    #       $(System.ArtifactsDirectory)/drop/docs/react.zip
+    #     destinationFolder: $(Agent.TempDirectory)/docs/react
 
-    - task: ExtractFiles@1
-      inputs:
-        archiveFilePatterns: |
-          '$(System.ArtifactsDirectory)/drop/npm/*.tgz'
-        destinationFolder: $(Agent.TempDirectory)/npm
+    # - task: ExtractFiles@1
+    #   inputs:
+    #     archiveFilePatterns: |
+    #       $(System.ArtifactsDirectory)/drop/npm/*.tgz
+    #     destinationFolder: $(Agent.TempDirectory)/npm
 
     # - script: |
     #     node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
@@ -180,7 +178,7 @@ stages:
       inputs:
         azureSubscription: $(azureSubscription)
         scriptLocation: 'inlineScript'
-        inlineScript: 'az storage blob upload-batch --destination docs/$RUI_SHORT_VERSION --account-name rhythmuidocs --source $(Agent.TempDirectory)/docs/site/public'
+        inlineScript: 'az storage blob upload-batch --destination docs/$RUI_SHORT_VERSION --account-name rhythmuidocs --source $(Agent.TempDirectory)/public'
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
       displayName: Publish docs to Azure
 
