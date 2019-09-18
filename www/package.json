@@ -34,6 +34,7 @@
     "@mdx-js/mdx": "^1.0.0-rc.4",
     "@mdx-js/react": "^1.0.0-rc.5",
     "@rhythm-ui/alert-react": "^1.0.0",
+"@rhythm-ui/rich-text-react": "^1.0.0",
     "@rhythm-ui/pagination-react": "^1.0.0",
     "@rhythm-ui/button-react": "^1.0.0",
     "@rhythm-ui/styles": "^1.0.0",
