@@ -99,6 +99,13 @@ stages:
     #     replaceExistingArchive: true
     #   displayName: Archive Vue Docs
 
+    # Save reference to build variables (in a backwards way because azure doesnt allow build variables to be shared between stages)
+    - script: |
+       RUI_PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
+       RUI_SHORT_VERSION=$($PACKAGE_VERSION | sed "s/\(\.[0-9]*\)$//")
+       echo -e "RUI_PACKAGE_VERSION=$RUI_PACKAGE_VERSION\RUI_SHORT_VERSION=$RUI_SHORT_VERSION" > $(Build.ArtifactStagingDirectory)/variables.txt
+      displayName: 'Save Out Variables'
+
     - task: PublishBuildArtifacts@1
       inputs:
         pathToPublish: $(Build.ArtifactStagingDirectory)
@@ -132,6 +139,10 @@ stages:
         downloadPath: '$(System.ArtifactsDirectory)'
         artifactName: drop
 
+    - script: |
+        source $(System.ArtifactsDirectory)/variables.txt
+      displayName: Load Out Variables
+
     # - script: |
     #     node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
     #   displayName: 'Pack @rhythm-ui Components'
@@ -147,13 +158,13 @@ stages:
     #     node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm publish --loglevel=verbose --userconfig=$(npmrcPath)"
     #   displayName: 'Publish @rhythm-ui Components'
 
-    # - task: AzureCLI@1
-    #   inputs:
-    #     azureSubscription: $(azureSubscription)
-    #     scriptLocation: 'inlineScript'
-    #     inlineScript: 'az storage blob upload-batch --destination docs --account-name rhythmuidocs --source ./www/public'
-    #   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-    #   displayName: Publish docs to Azure
+    - task: AzureCLI@1
+      inputs:
+        azureSubscription: $(azureSubscription)
+        scriptLocation: 'inlineScript'
+        inlineScript: 'az storage blob upload-batch --destination docs/$RUI_SHORT_VERSION --account-name rhythmuidocs --source ./www/public'
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+      displayName: Publish docs to Azure
 
     # - task: AzureCLI@1
     #   inputs:
