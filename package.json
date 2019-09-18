@@ -61,8 +61,8 @@
       "git add"
     ],
     "*.{ts,tsx,js,jsx}": [
-      "eslint",
-      "stylelint --config .stylelintrc-ts.js",
+      "eslint --fix",
+      "stylelint --config .stylelintrc-ts.js --fix",
       "git add"
     ],
     "*.{scss,css}": [
