@@ -164,7 +164,7 @@ stages:
       displayName: 'Install Node'
 
     - script: |
-        echo "@rhythm-ui:registry=$(canaryFeed)\nalways-auth=true" > $(npmrcPath)
+        printf "@rhythm-ui:registry=$(canaryFeed)\nalways-auth=true" > $(npmrcPath)
       displayName: 'Connect to local npm feed' 
 
     - task: npmAuthenticate@0
@@ -186,7 +186,7 @@ stages:
 
     - script: |
         unzip $(System.ArtifactsDirectory)/drop/docs/site.zip -d $(Agent.TempDirectory)
-        unzip $(System.ArtifactsDirectory)/drop/docs/react.zip -d $(Agent.TempDirectory)/react
+        unzip $(System.ArtifactsDirectory)/drop/docs/react.zip -d $(Agent.TempDirectory)/public/react
       displayName: Extract Docs
 
     # Publish Canary Packages to feed
@@ -194,13 +194,14 @@ stages:
         find $(System.ArtifactsDirectory)/drop/npm -iname '*.tgz' -maxdepth 1 -type f -exec npm publish {} --loglevel=verbose --userconfig=$(npmrcPath) \;
       displayName: 'Publish @rhythm-ui Components'
 
+    # TODO: Delete folder if exists... this fails if it dosnt
+    #'az storage blob delete-batch --source staging/$(RUI_SHORT_VERSION) --account-name rhythmuidocs'
+
     - task: AzureCLI@1
       inputs:
         azureSubscription: $(azureSubscription)
         scriptLocation: 'inlineScript'
-        inlineScript: |
-          'az storage blob delete-batch --source staging/$(RUI_SHORT_VERSION) --account-name rhythmuidocs'
-          'az storage blob upload-batch --destination staging/$(RUI_SHORT_VERSION) --account-name rhythmuidocs --source $(Agent.TempDirectory)/public'
+        inlineScript: 'az storage blob upload-batch --destination staging/$(RUI_SHORT_VERSION) --account-name rhythmuidocs --source $(Agent.TempDirectory)/public'
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
       displayName: Publish docs to Azure
 
