@@ -73,7 +73,7 @@ stages:
           adapters/react/*/*.tgz
           adapters/vue/*/*.tgz
         targetFolder: $(Build.ArtifactStagingDirectory)/npm
-      
+        flattenFolders: true
 
     - task: ArchiveFiles@2
       displayName: 'Archive Docs to '
@@ -103,7 +103,8 @@ stages:
     - script: |
        RUI_PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
        RUI_SHORT_VERSION=$($PACKAGE_VERSION | sed "s/\(\.[0-9]*\)$//")
-       echo -e "RUI_PACKAGE_VERSION=$RUI_PACKAGE_VERSION\RUI_SHORT_VERSION=$RUI_SHORT_VERSION" > $(Build.ArtifactStagingDirectory)/variables.txt
+       echo -e "RUI_PACKAGE_VERSION=$RUI_PACKAGE_VERSION\nRUI_SHORT_VERSION=$RUI_SHORT_VERSION" > $(Build.ArtifactStagingDirectory)/variables.txt
+       chmod +x $(Build.ArtifactStagingDirectory)/variables.txt
       displayName: 'Save Out Variables'
 
     - task: PublishBuildArtifacts@1
@@ -140,8 +141,21 @@ stages:
         artifactName: drop
 
     - script: |
-        source $(System.ArtifactsDirectory)/variables.txt
-      displayName: Load Out Variables
+        source $(System.ArtifactsDirectory)/drop/variables.txt
+        unzip $(System.ArtifactsDirectory)/drop/docs/site.zip -d $(Agent.TempDirectory)/$RUI_SHORT_VERSION
+      displayName: Extract Docs
+
+    # - task: ExtractFiles@1
+    #   inputs:
+    #     archiveFilePatterns: |
+    #       $(System.ArtifactsDirectory)/drop/docs/react.zip
+    #     destinationFolder: $(Agent.TempDirectory)/docs/react
+
+    # - task: ExtractFiles@1
+    #   inputs:
+    #     archiveFilePatterns: |
+    #       $(System.ArtifactsDirectory)/drop/npm/*.tgz
+    #     destinationFolder: $(Agent.TempDirectory)/npm
 
     # - script: |
     #     node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
@@ -162,7 +176,7 @@ stages:
       inputs:
         azureSubscription: $(azureSubscription)
         scriptLocation: 'inlineScript'
-        inlineScript: 'az storage blob upload-batch --destination docs/$RUI_SHORT_VERSION --account-name rhythmuidocs --source ./www/public'
+        inlineScript: 'az storage blob upload-batch --destination docs --account-name rhythmuidocs --source $(Agent.TempDirectory)/public'
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
       displayName: Publish docs to Azure
 
