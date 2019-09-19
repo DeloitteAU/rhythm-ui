@@ -14,6 +14,9 @@ variables:
   AZ_SUBSCRIPTION: 'Managed Services Central Billing'
   AZ_ACCOUNT_NAME: 'rhythmuidocs'
   CANARY_FEED: https://pkgs.dev.azure.com/dd-managed-services/_packaging/rhythm-ui/npm/registry/
+  PATH_PROD: 'prod/'
+  PATH_CANARY: 'canary/'
+  PATH_BETA: 'beta/'
 
 stages:
 
@@ -69,17 +72,21 @@ stages:
 
     - script: |
         if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
-          WWW_PATH_PREFIX=production/$(RUI_SHORT_VERSION) yarn build:site
+          WWW_PATH_PREFIX=$(PATH_PROD)/$(RUI_SHORT_VERSION) yarn build:site
+        elif [ "$(Build.SourceBranch)" == "refs/heads/master" ]; then
+          WWW_PATH_PREFIX=$(CANARY)/$(RUI_SHORT_VERSION) yarn build:site
         else
-          WWW_PATH_PREFIX=staging/$(RUI_SHORT_VERSION) yarn build:site
+          yarn build:site
         fi
       displayName: 'Build Docs'
 
     - script: |
         if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
-          STORYBOOK_PATH_PREFIX=production/$(RUI_SHORT_VERSION)/react yarn build:storybook:react
+          STORYBOOK_PATH_PREFIX=$(PATH_PROD)/$(RUI_SHORT_VERSION)/react yarn build:storybook:react
+        elif [ "$(Build.SourceBranch)" == "refs/heads/master" ]; then
+          STORYBOOK_PATH_PREFIX=$(PATH_CANARY)/$(RUI_SHORT_VERSION)/react yarn build:storybook:react
         else
-          STORYBOOK_PATH_PREFIX=staging/$(RUI_SHORT_VERSION)/react yarn build:storybook:react
+          yarn build:storybook:react
         fi
       displayName: 'Build React Docs'
 
@@ -88,8 +95,6 @@ stages:
     #     yarn build:storybook:vue
     #   displayName: 'Build react docs'
 
-
-    # If Master, pack canary
     - script: |
         if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
           node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
