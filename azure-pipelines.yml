@@ -47,7 +47,7 @@ stages:
     # Read app version from package json and save to some variables
     - script: |
         RUI_PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
-        RUI_SHORT_VERSION=$($RUI_PACKAGE_VERSION | sed "s/\(\.[0-9]*\)$//" | tr . -)
+        RUI_SHORT_VERSION=$(echo $RUI_PACKAGE_VERSION | sed "s/\(\.[0-9]*\)$//" | tr . -)
         echo "##vso[task.setvariable variable=RUI_PACKAGE_VERSION]$RUI_PACKAGE_VERSION"
         echo "##vso[task.setvariable variable=RUI_SHORT_VERSION]$RUI_SHORT_VERSION"
       displayName: 'Read Version'
@@ -148,7 +148,9 @@ stages:
 
     - script: |
         source $(System.ArtifactsDirectory)/drop/variables.txt
-        unzip $(System.ArtifactsDirectory)/drop/docs/site.zip -d $(Agent.TempDirectory)/$RUI_SHORT_VERSION
+        echo "##vso[task.setvariable variable=RUI_PACKAGE_VERSION]$RUI_PACKAGE_VERSION"
+        echo "##vso[task.setvariable variable=RUI_SHORT_VERSION]$RUI_SHORT_VERSION"
+        unzip $(System.ArtifactsDirectory)/drop/docs/site.zip -d $(Agent.TempDirectory)
       displayName: Extract Docs
 
     # - task: ExtractFiles@1
@@ -182,7 +184,7 @@ stages:
       inputs:
         azureSubscription: $(azureSubscription)
         scriptLocation: 'inlineScript'
-        inlineScript: 'az storage blob upload-batch --destination docs --account-name rhythmuidocs --source $(Agent.TempDirectory)/public'
+        inlineScript: 'az storage blob upload-batch --destination docs/$(RUI_SHORT_VERSION) --account-name rhythmuidocs --source $(Agent.TempDirectory)/public'
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
       displayName: Publish docs to Azure
 
