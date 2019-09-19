@@ -41,23 +41,10 @@ stages:
         mkdir -p .ruidocs 
       displayName: 'Prime Cache' 
 
-    # Cache yarn on master branch builds
-    - task: CacheBeta@0
-      inputs:
-        key: yarn | $(Agent.OS) | yarn.lock
-        path: $(YARN_CACHE_FOLDER)
-        cacheHitVar: YARN_CACHE_RESTORED
-      displayName: Cache Yarn packages
-      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
-
     - script: |
         yarn install
-      displayName: 'Install Dependencies'
-      condition: ne(variables.YARN_CACHE_RESTORED, 'true')
-
-    - script: |
         yarn bootstrap
-      displayName: 'Bootstrap Lerna'
+      displayName: 'Install Dependencies'
 
     # - script: |
     #     yarn lint
@@ -93,7 +80,7 @@ stages:
         if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
           STORYBOOK_PATH_PREFIX=production/$(RUI_SHORT_VERSION)/react yarn build:storybook:react
         else
-          STORYBOOK_PATH_PREFIX=staging/v$(RUI_SHORT_VERSION)/react yarn build:storybook:react
+          STORYBOOK_PATH_PREFIX=staging/$(RUI_SHORT_VERSION)/react yarn build:storybook:react
         fi
       displayName: 'Build React Docs'
 
