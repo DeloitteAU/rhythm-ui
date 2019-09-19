@@ -14,9 +14,9 @@ variables:
   AZ_SUBSCRIPTION: 'Managed Services Central Billing'
   AZ_ACCOUNT_NAME: 'rhythmuidocs'
   CANARY_FEED: https://pkgs.dev.azure.com/dd-managed-services/_packaging/rhythm-ui/npm/registry/
-  PATH_PROD: 'prod/'
-  PATH_CANARY: 'canary/'
-  PATH_BETA: 'beta/'
+  BLOB_PROD: 'prod'
+  BLOB_CANARY: 'canary'
+  BLOB_BETA: 'beta'
 
 stages:
 
@@ -72,7 +72,7 @@ stages:
 
     - script: |
         if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
-          WWW_PATH_PREFIX=$(PATH_PROD)/$(RUI_SHORT_VERSION) yarn build:site
+          WWW_PATH_PREFIX=$(BLOB_PROD)/$(RUI_SHORT_VERSION) yarn build:site
         elif [ "$(Build.SourceBranch)" == "refs/heads/master" ]; then
           WWW_PATH_PREFIX=$(CANARY)/$(RUI_SHORT_VERSION) yarn build:site
         else
@@ -82,9 +82,9 @@ stages:
 
     - script: |
         if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
-          STORYBOOK_PATH_PREFIX=$(PATH_PROD)/$(RUI_SHORT_VERSION)/react yarn build:storybook:react
+          STORYBOOK_PATH_PREFIX=$(BLOB_PROD)/$(RUI_SHORT_VERSION)/react yarn build:storybook:react
         elif [ "$(Build.SourceBranch)" == "refs/heads/master" ]; then
-          STORYBOOK_PATH_PREFIX=$(PATH_CANARY)/$(RUI_SHORT_VERSION)/react yarn build:storybook:react
+          STORYBOOK_PATH_PREFIX=$(BLOB_CANARY)/$(RUI_SHORT_VERSION)/react yarn build:storybook:react
         else
           yarn build:storybook:react
         fi
@@ -207,7 +207,8 @@ stages:
       inputs:
         azureSubscription: $(AZ_SUBSCRIPTION)
         scriptLocation: 'inlineScript'
-        inlineScript: 'az storage blob upload-batch --destination staging/$(RUI_SHORT_VERSION) --account-name $(AZ_ACCOUNT_NAME) --source $(Agent.TempDirectory)/public'
+        inlineScript: 'az storage blob upload-batch --destination canary --account-name $(AZ_ACCOUNT_NAME) --source $(Agent.TempDirectory)/public'
+      #inlineScript: 'az storage blob upload-batch --destination canary/$(RUI_SHORT_VERSION) --account-name $(AZ_ACCOUNT_NAME) --source $(Agent.TempDirectory)/public'
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
       displayName: Publish docs to Azure
 
