@@ -104,6 +104,7 @@ stages:
        RUI_PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
        RUI_SHORT_VERSION=$($PACKAGE_VERSION | sed "s/\(\.[0-9]*\)$//")
        echo -e "RUI_PACKAGE_VERSION=$RUI_PACKAGE_VERSION\nRUI_SHORT_VERSION=$RUI_SHORT_VERSION" > $(Build.ArtifactStagingDirectory)/variables.txt
+       chmod +x $(Build.ArtifactStagingDirectory)/variables.txt
       displayName: 'Save Out Variables'
 
     - task: PublishBuildArtifacts@1
@@ -141,10 +142,7 @@ stages:
 
     - script: |
         source $(System.ArtifactsDirectory)/drop/variables.txt
-      displayName: Load Out Variables
-
-    - script: |
-        unzip $(System.ArtifactsDirectory)/drop/docs/site.zip -d $(Agent.TempDirectory)
+        unzip $(System.ArtifactsDirectory)/drop/docs/site.zip -d $(Agent.TempDirectory)/$RUI_SHORT_VERSION
       displayName: Extract Docs
 
     # - task: ExtractFiles@1
@@ -178,7 +176,7 @@ stages:
       inputs:
         azureSubscription: $(azureSubscription)
         scriptLocation: 'inlineScript'
-        inlineScript: 'az storage blob upload-batch --destination docs/$RUI_SHORT_VERSION --account-name rhythmuidocs --source $(Agent.TempDirectory)/public'
+        inlineScript: 'az storage blob upload-batch --destination docs --account-name rhythmuidocs --source $(Agent.TempDirectory)/public'
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
       displayName: Publish docs to Azure
 
