@@ -2,9 +2,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const rootPkg = require('./../package.json');
-
-const versionParts = rootPkg.version.split('.');
 
 // This is a temp folder, so make sure it exists before plugins load
 const docsDir = path.join(__dirname, '../', '.ruidocs');
@@ -17,7 +14,7 @@ const removeFromUrl = node => (!node.includes('-variables') ? node : null);
 
 module.exports = {
 	//https://www.gatsbyjs.org/docs/path-prefix/
-	pathPrefix: process.env.WWW_PATH_PREFIX || `/v${versionParts[0]}-${versionParts[1]}`,
+	pathPrefix: process.env.WWW_PATH_PREFIX || '/',
 
 	siteMetadata: {
 		title: 'Rhythm UI',
