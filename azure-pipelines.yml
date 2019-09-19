@@ -156,7 +156,7 @@ stages:
         versionSpec: '10.x'
       displayName: 'Install Node'
 
-      - script: |
+    - script: |
         echo "@rhythm-ui:registry=$(canaryFeed)\nalways-auth=true" > $(npmrcPath)
       displayName: 'Connect to feed' 
 
