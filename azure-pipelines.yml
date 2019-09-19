@@ -14,7 +14,6 @@ variables:
   AZ_SUBSCRIPTION: 'Managed Services Central Billing'
   AZ_ACCOUNT_NAME: 'rhythmuidocs'
   CANARY_FEED: https://pkgs.dev.azure.com/dd-managed-services/_packaging/rhythm-ui/npm/registry/
-  YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn
 
 stages:
 
@@ -196,12 +195,12 @@ stages:
         find $(System.ArtifactsDirectory)/drop/npm -iname '*.tgz' -maxdepth 1 -type f -exec npm publish {} --loglevel=verbose --userconfig=$(NPM_RC_PATH) \;
       displayName: 'Publish @rhythm-ui Components'
 
-    # TODO: Delete folder if exists... this fails if it dosnt
+    # FIXME: Delete folder... this fails if folder is missing but i would rather it just delete if exists instead of failing the whole job
     #'az storage blob delete-batch --source staging/$(RUI_SHORT_VERSION) --account-name rhythmuidocs'
 
     - task: AzureCLI@1
       inputs:
-        AZ_SUBSCRIPTION: $(AZ_SUBSCRIPTION)
+        azureSubscription: $(AZ_SUBSCRIPTION)
         scriptLocation: 'inlineScript'
         inlineScript: 'az storage blob upload-batch --destination staging/$(RUI_SHORT_VERSION) --account-name $(AZ_ACCOUNT_NAME) --source $(Agent.TempDirectory)/public'
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
