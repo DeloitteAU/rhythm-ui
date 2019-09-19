@@ -13,6 +13,7 @@ variables:
   npmrcPath: '$(Build.Repository.LocalPath)/.npmrc'
   azureSubscription: 'Managed Services Central Billing'
   azureAccountName: 'rhythmuidocs'
+  canaryFeed: https://pkgs.dev.azure.com/dd-managed-services/_packaging/rhythm-ui/npm/registry/
 
 stages:
 
@@ -44,13 +45,21 @@ stages:
         yarn bootstrap
       displayName: 'Install Dependencies'
 
-    # Read app version from package json and save to some variables
+    # If Master, Set version as canary
+    - script: |
+        echo "##vso[task.setvariable variable=RUI_PACKAGE_VERSION]0.0.0-canary-$(tag)"
+        echo "##vso[task.setvariable variable=RUI_SHORT_VERSION]canary"
+      displayName: 'Version'
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+
+    # If Release, Read app version from root package json
     - script: |
         RUI_PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
-        RUI_SHORT_VERSION=$(echo $RUI_PACKAGE_VERSION | sed "s/\(\.[0-9]*\)$//" | tr . -)
+        RUI_SHORT_VERSION=v$(echo $RUI_PACKAGE_VERSION | sed "s/\(\.[0-9]*\)$//" | tr . -)
         echo "##vso[task.setvariable variable=RUI_PACKAGE_VERSION]$RUI_PACKAGE_VERSION"
         echo "##vso[task.setvariable variable=RUI_SHORT_VERSION]$RUI_SHORT_VERSION"
-      displayName: 'Read Version'
+      displayName: 'Version'
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/release/')
 
     - script: |
         yarn build:components
@@ -69,9 +78,21 @@ stages:
     #     yarn build:storybook:vue
     #   displayName: 'Build react docs'
 
+    # If Release, pack prop and beta versions
     - script: |
         node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
+        yarn lerna version $(RUI_PACKAGE_VERSION)-beta.$(tag) --no-git-tag-version --no-push --yes
+        node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
       displayName: 'Pack @rhythm-ui Components'
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/release/')
+
+    # If Master, pack canary
+    - script: |
+        yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
+        node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
+      displayName: 'Pack @rhythm-ui Components'
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+      
 
     - task: CopyFiles@2
       displayName: 'Copy all NPM Packges to $(Build.ArtifactStagingDirectory)/npm'
@@ -135,6 +156,10 @@ stages:
         versionSpec: '10.x'
       displayName: 'Install Node'
 
+      - script: |
+        echo "@rhythm-ui:registry=$(canaryFeed)\nalways-auth=true" > $(npmrcPath)
+      displayName: 'Connect to feed' 
+
     - task: npmAuthenticate@0
       inputs:
         workingFile: $(npmrcPath)
@@ -159,15 +184,10 @@ stages:
     #       $(System.ArtifactsDirectory)/drop/docs/react.zip
     #     destinationFolder: $(Agent.TempDirectory)/docs/react
 
-    # - task: ExtractFiles@1
-    #   inputs:
-    #     archiveFilePatterns: |
-    #       $(System.ArtifactsDirectory)/drop/npm/*.tgz
-    #     destinationFolder: $(Agent.TempDirectory)/npm
-
-    # - script: |
-    #     node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
-    #   displayName: 'Pack @rhythm-ui Components'
+    # Publish Canary Packages to feed
+    - script: |
+        find $(System.ArtifactsDirectory)/drop/npm -iname '*.tgz' -maxdepth 1 -type f -exec npm publish {} --loglevel=verbose --userconfig=$(npmrcPath) \;
+      displayName: 'Publish @rhythm-ui Components'
 
         # PUBLISH TO NPM FEEDS (Modify .nvmrc file for feed location)
     # - script: |
