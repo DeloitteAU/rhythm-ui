@@ -9,11 +9,11 @@ resources:
 - repo: self
 
 variables:
-  tag: '$(Build.BuildNumber)'
-  npmrcPath: '$(Build.Repository.LocalPath)/.npmrc'
-  azureSubscription: 'Managed Services Central Billing'
-  azureAccountName: 'rhythmuidocs'
-  canaryFeed: https://pkgs.dev.azure.com/dd-managed-services/_packaging/rhythm-ui/npm/registry/
+  TAG: '$(Build.BuildNumber)'
+  NPM_RC_PATH: '$(Build.Repository.LocalPath)/.npmrc'
+  AZ_SUBSCRIPTION: 'Managed Services Central Billing'
+  AZ_ACCOUNT_NAME: 'rhythmuidocs'
+  CANARY_FEED: https://pkgs.dev.azure.com/dd-managed-services/_packaging/rhythm-ui/npm/registry/
   YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn
 
 stages:
@@ -26,6 +26,11 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
 
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '10.x'
+      displayName: 'Install Node'
+
     - task: DeleteFiles@1
       inputs:
         sourceFolder: .ruidocs
@@ -36,10 +41,14 @@ stages:
         mkdir -p .ruidocs 
       displayName: 'Prime Cache' 
 
-    - task: NodeTool@0
+    # Cache yarn on master branch builds
+    - task: CacheBeta@0
       inputs:
-        versionSpec: '10.x'
-      displayName: 'Install Node'
+        key: yarn | $(Agent.OS) | yarn.lock
+        path: $(YARN_CACHE_FOLDER)
+        cacheHitVar: YARN_CACHE_RESTORED
+      displayName: Cache Yarn packages
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
     - script: |
         yarn install
@@ -49,14 +58,6 @@ stages:
     - script: |
         yarn bootstrap
       displayName: 'Bootstrap Lerna'
-
-    - task: CacheBeta@0
-      inputs:
-        key: yarn | $(Agent.OS) | yarn.lock
-        path: $(YARN_CACHE_FOLDER)
-        cacheHitVar: YARN_CACHE_RESTORED
-      displayName: Cache Yarn packages
-      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
 
     # - script: |
     #     yarn lint
@@ -71,7 +72,7 @@ stages:
           echo "##vso[task.setvariable variable=RUI_PACKAGE_VERSION]$RUI_PACKAGE_VERSION"
           echo "##vso[task.setvariable variable=RUI_SHORT_VERSION]v$RUI_SHORT_VERSION"
         elif [ "$(Build.SourceBranch)" == "refs/heads/master" ]; then
-          echo "##vso[task.setvariable variable=RUI_PACKAGE_VERSION]0.0.0-canary-$(tag)"
+          echo "##vso[task.setvariable variable=RUI_PACKAGE_VERSION]0.0.0-canary-$(TAG)"
           echo "##vso[task.setvariable variable=RUI_SHORT_VERSION]canary"
         fi
       displayName: 'Set Version'
@@ -92,7 +93,7 @@ stages:
         if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
           STORYBOOK_PATH_PREFIX=production/$(RUI_SHORT_VERSION)/react yarn build:storybook:react
         else
-          STORYBOOK_PATH_PREFIX=staging/$(RUI_SHORT_VERSION)/react yarn build:storybook:react
+          STORYBOOK_PATH_PREFIX=staging/v$(RUI_SHORT_VERSION)/react yarn build:storybook:react
         fi
       displayName: 'Build React Docs'
 
@@ -106,10 +107,10 @@ stages:
     - script: |
         if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
           node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
-          yarn lerna version $(RUI_PACKAGE_VERSION)-beta.$(tag) --no-git-tag-version --no-push --yes
+          yarn lerna version $(RUI_PACKAGE_VERSION)-beta.$(TAG) --no-git-tag-version --no-push --yes
           node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
         elif [ "$(Build.SourceBranch)" == "refs/heads/master" ]; then
-          yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
+          yarn lerna version 0.0.0-canary.$(TAG) --no-git-tag-version --no-push --yes
           node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
         fi
       displayName: 'Pack Components'
@@ -178,12 +179,12 @@ stages:
       displayName: 'Install Node'
 
     - script: |
-        printf "@rhythm-ui:registry=$(canaryFeed)\nalways-auth=true" > $(npmrcPath)
+        printf "@rhythm-ui:registry=$(CANARY_FEED)\nalways-auth=true" > $(NPM_RC_PATH)
       displayName: 'Connect to local npm feed' 
 
     - task: npmAuthenticate@0
       inputs:
-        workingFile: $(npmrcPath)
+        workingFile: $(NPM_RC_PATH)
 
     - task: DownloadBuildArtifacts@0
       inputs:
@@ -205,7 +206,7 @@ stages:
 
     # Publish Canary Packages to feed
     - script: |
-        find $(System.ArtifactsDirectory)/drop/npm -iname '*.tgz' -maxdepth 1 -type f -exec npm publish {} --loglevel=verbose --userconfig=$(npmrcPath) \;
+        find $(System.ArtifactsDirectory)/drop/npm -iname '*.tgz' -maxdepth 1 -type f -exec npm publish {} --loglevel=verbose --userconfig=$(NPM_RC_PATH) \;
       displayName: 'Publish @rhythm-ui Components'
 
     # TODO: Delete folder if exists... this fails if it dosnt
@@ -213,9 +214,9 @@ stages:
 
     - task: AzureCLI@1
       inputs:
-        azureSubscription: $(azureSubscription)
+        AZ_SUBSCRIPTION: $(AZ_SUBSCRIPTION)
         scriptLocation: 'inlineScript'
-        inlineScript: 'az storage blob upload-batch --destination staging/$(RUI_SHORT_VERSION) --account-name rhythmuidocs --source $(Agent.TempDirectory)/public'
+        inlineScript: 'az storage blob upload-batch --destination staging/$(RUI_SHORT_VERSION) --account-name $(AZ_ACCOUNT_NAME) --source $(Agent.TempDirectory)/public'
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
       displayName: Publish docs to Azure
 
