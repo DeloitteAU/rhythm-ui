@@ -50,32 +50,37 @@ stages:
     #     yarn test
     #   displayName: 'Running tests'
 
-    # If Master, Set version as canary
-    - script: |
-        echo "##vso[task.setvariable variable=RUI_PACKAGE_VERSION]0.0.0-canary-$(tag)"
-        echo "##vso[task.setvariable variable=RUI_SHORT_VERSION]canary"
-      displayName: 'Set Version for Canary'
-      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
-
     # If Release, Read app version from root package json
     - script: |
-        RUI_PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
-        RUI_SHORT_VERSION=v$(echo $RUI_PACKAGE_VERSION | sed "s/\(\.[0-9]*\)$//" | tr . -)
-        echo "##vso[task.setvariable variable=RUI_PACKAGE_VERSION]$RUI_PACKAGE_VERSION"
-        echo "##vso[task.setvariable variable=RUI_SHORT_VERSION]v$RUI_SHORT_VERSION"
-      displayName: 'Set Version for Release'
-      condition: eq(variables['Build.SourceBranch'], 'refs/heads/release/')
+        if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
+          RUI_PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
+          RUI_SHORT_VERSION=v$(echo $RUI_PACKAGE_VERSION | sed "s/\(\.[0-9]*\)$//" | tr . -)
+          echo "##vso[task.setvariable variable=RUI_PACKAGE_VERSION]$RUI_PACKAGE_VERSION"
+          echo "##vso[task.setvariable variable=RUI_SHORT_VERSION]v$RUI_SHORT_VERSION"
+        elif [ "$(Build.SourceBranch)" == "refs/heads/master" ]; then
+          echo "##vso[task.setvariable variable=RUI_PACKAGE_VERSION]0.0.0-canary-$(tag)"
+          echo "##vso[task.setvariable variable=RUI_SHORT_VERSION]canary"
+        fi
+      displayName: 'Set Version'
 
     - script: |
         yarn build:components
-      displayName: 'Build @rhythm-ui components'
+      displayName: 'Build Components'
 
     - script: |
-        WWW_PATH_PREFIX=docs/$(RUI_SHORT_VERSION) yarn build:site
+        if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
+          WWW_PATH_PREFIX=production/$(RUI_SHORT_VERSION) yarn build:site
+        else
+          WWW_PATH_PREFIX=staging/$(RUI_SHORT_VERSION) yarn build:site
+        fi
       displayName: 'Build Docs'
 
     - script: |
-        STORYBOOK_PATH_PREFIX=staging/canary/react yarn build:storybook:react
+        if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
+          STORYBOOK_PATH_PREFIX=staging/canary/react yarn build:storybook:react
+        else
+          STORYBOOK_PATH_PREFIX=staging/$(RUI_SHORT_VERSION)/react yarn build:storybook:react
+        fi
       displayName: 'Build React Docs'
 
     # Disabled for now until we pick up vue again
@@ -86,18 +91,15 @@ stages:
 
     # If Master, pack canary
     - script: |
-        yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
-        node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
-      displayName: 'Pack Canary Components'
-      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
-
-    # If Release, pack prop and beta versions
-    - script: |
-        node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
-        yarn lerna version $(RUI_PACKAGE_VERSION)-beta.$(tag) --no-git-tag-version --no-push --yes
-        node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
-      displayName: 'Pack Beta and Release Components'
-      condition: eq(variables['Build.SourceBranch'], 'refs/heads/release/')
+        if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
+          node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
+          yarn lerna version $(RUI_PACKAGE_VERSION)-beta.$(tag) --no-git-tag-version --no-push --yes
+          node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
+        elif [ "$(Build.SourceBranch)" == "refs/heads/master" ]; then
+          yarn lerna version 0.0.0-canary.$(tag) --no-git-tag-version --no-push --yes
+          node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
+        fi
+      displayName: 'Pack Components'
 
     - task: CopyFiles@2
       displayName: 'Stage all NPM Packages'
@@ -117,13 +119,13 @@ stages:
         archiveFile: '$(Build.ArtifactStagingDirectory)/docs/site.zip'
         replaceExistingArchive: true
 
-    # - task: ArchiveFiles@2
-    #   displayName: 'Archive React Docs'
-    #   inputs:
-    #     rootFolderOrFile: './.out-react' 
-    #     archiveType: 'zip'
-    #     archiveFile: '$(Build.ArtifactStagingDirectory)/docs/react.zip'
-    #     replaceExistingArchive: true
+    - task: ArchiveFiles@2
+      displayName: 'Stage React Docs'
+      inputs:
+        rootFolderOrFile: './.out-react' 
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/docs/react.zip'
+        replaceExistingArchive: true
 
     # - task: ArchiveFiles@2
     #   inputs:
@@ -131,7 +133,7 @@ stages:
     #     archiveType: 'zip'
     #     archiveFile: '$(Build.ArtifactStagingDirectory)/docs/vue.zip'
     #     replaceExistingArchive: true
-    #   displayName: Archive Vue Docs
+    #   displayName: Stage Vue Docs
 
     # Save reference to build variables
     # (This is a backwards way because azure doesn't allow release variables to be shared between stages)
