@@ -78,7 +78,7 @@ stages:
         if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
           WWW_PATH_PREFIX=$(BLOB_PROD)/$(RUI_SHORT_VERSION) yarn build:site
         elif [ "$(Build.SourceBranch)" == "refs/heads/master" ]; then
-          WWW_PATH_PREFIX=$(CANARY) yarn build:site
+          WWW_PATH_PREFIX=$(BLOB_CANARY) yarn build:site
         else
           yarn build:site
         fi
