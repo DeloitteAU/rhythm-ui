@@ -5,42 +5,37 @@ parameters:
   npmDeployPattern: '*.tgz'
   azBlobDestination: canary
 
-jobs:
-- job: ${{ parameters.name }}
-  pool: 
-    vmImage: 'ubuntu-latest'
+steps:
+- task: DownloadBuildArtifacts@0
+  inputs:
+    buildType: 'current'
+    downloadType: 'single'
+    downloadPath: '$(System.ArtifactsDirectory)'
+    artifactName: drop
 
-  steps:
-  - task: DownloadBuildArtifacts@0
-    inputs:
-      buildType: 'current'
-      downloadType: 'single'
-      downloadPath: '$(System.ArtifactsDirectory)'
-      artifactName: drop
+- script: |
+    source $(System.ArtifactsDirectory)/drop/variables.txt
+    echo "##vso[task.setvariable variable=RUI_PACKAGE_VERSION]$RUI_PACKAGE_VERSION"
+    echo "##vso[task.setvariable variable=RUI_SHORT_VERSION]$RUI_SHORT_VERSION"
+  displayName: Read build variables
 
-  - script: |
-      source $(System.ArtifactsDirectory)/drop/variables.txt
-      echo "##vso[task.setvariable variable=RUI_PACKAGE_VERSION]$RUI_PACKAGE_VERSION"
-      echo "##vso[task.setvariable variable=RUI_SHORT_VERSION]$RUI_SHORT_VERSION"
-    displayName: Read build variables
+- script: |
+    unzip $(System.ArtifactsDirectory)/drop/docs/site.zip -d $(Agent.TempDirectory)
+    unzip $(System.ArtifactsDirectory)/drop/docs/react.zip -d $(Agent.TempDirectory)/public/react
+  displayName: Extract Docs
 
-  - script: |
-      unzip $(System.ArtifactsDirectory)/drop/docs/site.zip -d $(Agent.TempDirectory)
-      unzip $(System.ArtifactsDirectory)/drop/docs/react.zip -d $(Agent.TempDirectory)/public/react
-    displayName: Extract Docs
+# Publish Canary Packages to feed
+- script: |
+    find $(System.ArtifactsDirectory)/drop/npm -iname ${{ parameters.npmPattern }} -maxdepth 1 -type f -exec npm publish {} --loglevel=verbose --userconfig=$(NPM_RC_PATH) \;
+  displayName: 'Publish @rhythm-ui Components'
 
-  # Publish Canary Packages to feed
-  - script: |
-      find $(System.ArtifactsDirectory)/drop/npm -iname ${{ parameters.npmPattern }} -maxdepth 1 -type f -exec npm publish {} --loglevel=verbose --userconfig=$(NPM_RC_PATH) \;
-    displayName: 'Publish @rhythm-ui Components'
+# FIXME: Delete folder... this fails if folder is missing but i would rather it just delete if exists instead of failing the whole job
+#'az storage blob delete-batch --source staging/$(RUI_SHORT_VERSION) --account-name rhythmuidocs'
 
-  # FIXME: Delete folder... this fails if folder is missing but i would rather it just delete if exists instead of failing the whole job
-  #'az storage blob delete-batch --source staging/$(RUI_SHORT_VERSION) --account-name rhythmuidocs'
-
-  - task: AzureCLI@1
-    inputs:
-      azureSubscription: $(AZ_SUBSCRIPTION)
-      scriptLocation: 'inlineScript'
-      inlineScript: 'az storage blob upload-batch --destination ${{ parameters.azBlobDestination }} --account-name $(AZ_ACCOUNT_NAME) --source $(Agent.TempDirectory)/public'
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-    displayName: Publish docs to Azure
+- task: AzureCLI@1
+  inputs:
+    azureSubscription: $(AZ_SUBSCRIPTION)
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az storage blob upload-batch --destination ${{ parameters.azBlobDestination }} --account-name $(AZ_ACCOUNT_NAME) --source $(Agent.TempDirectory)/public'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  displayName: Publish docs to Azure
