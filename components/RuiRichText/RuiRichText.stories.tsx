@@ -5,14 +5,12 @@ import Readme from './readme.md';
 
 register();
 
-storiesOf('Card', module)
+storiesOf('rui-icon', module)
 	.addParameters({
 		readme: {
 			sidebar: Readme,
 		},
 	})
-	.add('Basic card', () => (
-		<rui-card>
-			<div>This is the card</div>
-		</rui-card>
+	.add('with some emoji', () => (
+		<rui-icon> Default </rui-icon>
 	));
