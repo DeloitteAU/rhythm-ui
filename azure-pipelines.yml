@@ -189,7 +189,7 @@ stages:
     - template: scripts/azure/deploy.yml
       parameters:
         name: 'deployCanary'
-        azBlobDestination: $(BLOB_CANARY)
+        azBlobDestination: 'canary'
         npmDeployPattern: '*.tgz'
 
 ##################################################
@@ -203,10 +203,10 @@ stages:
   condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
   jobs:
   - template: scripts/azure/deploy.yml
-      parameters:
-        name: 'deployBeta'
-        azBlobDestination: $(BLOB_BETA)
-        npmDeployPattern: '*beta.tgz'
+    parameters:
+      name: 'deployBeta'
+      azBlobDestination: $(BLOB_BETA)
+      npmDeployPattern: '*beta.tgz'
 
 
 # - stage: deployProd
