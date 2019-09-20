@@ -162,55 +162,58 @@ stages:
 # PUBLISH CANARY STAGE                           #
 ##################################################
 
-- stage: canary
+- stage: Canary
   displayName: 'Publish Canary'
   dependsOn: build
-  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+  condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/master')
   jobs:
-  - job: Linux
+  - deployment: DeployCanary
+    displayName: Deploy Canary
     pool:
       vmImage: 'ubuntu-latest'
     environment: rhythm-ui-canary
-    steps:
-    - task: NodeTool@0
-      inputs:
-        versionSpec: '10.x'
-      displayName: 'Install Node'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            # Connect to local npm artifact feed for publish
+          - script: |
+              printf "@rhythm-ui:registry=$(CANARY_FEED)\nalways-auth=true" > $(NPM_RC_PATH)
+            displayName: 'Connect to local npm feed' 
 
-    # Connect to local npm artifact feed for publish
-    - script: |
-        printf "@rhythm-ui:registry=$(CANARY_FEED)\nalways-auth=true" > $(NPM_RC_PATH)
-      displayName: 'Connect to local npm feed' 
+          - task: npmAuthenticate@0
+            inputs:
+              workingFile: $(NPM_RC_PATH)
 
-    - task: npmAuthenticate@0
-      inputs:
-        workingFile: $(NPM_RC_PATH)
-
-    - template: scripts/azure/deploy.yml
-      parameters:
-        name: 'deployCanary'
-        azBlobDestination: 'canary'
-        npmDeployPattern: '*.tgz'
+          - template: scripts/azure/deploy.yml
+            parameters:
+              name: 'deployCanary'
+              azBlobDestination: $(BLOB_CANARY)
+              npmDeployPattern: '*.tgz'
 
 ##################################################
 # PUBLISH BETA STAGE                             #
 ##################################################
 
-- stage: beta
+- stage: Beta
   displayName: 'Publish Beta'
-  
   dependsOn: build
   condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
   jobs:
-  - job: Linux
+  - deployment: DeployBeta
+    displayName: Deploy Web App
     pool:
       vmImage: 'ubuntu-latest'
     environment: rhythm-ui-beta
-  - template: scripts/azure/deploy.yml
-    parameters:
-      name: 'deployBeta'
-      azBlobDestination: $(BLOB_BETA)
-      npmDeployPattern: '*beta.tgz'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: scripts/azure/deploy.yml
+            parameters:
+              name: 'deployBeta'
+              azBlobDestination: $(BLOB_BETA)
+              npmDeployPattern: '*beta.tgz'
 
 
 # - stage: deployProd
