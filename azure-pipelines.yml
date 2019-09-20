@@ -189,7 +189,7 @@ stages:
     - template: scripts/azure/deploy.yml
       parameters:
         name: 'deployCanary'
-        azBlobDestination: $(BLOB_CANARY)
+        azBlobDestination: 'canary'
         npmDeployPattern: '*.tgz'
 
 ##################################################
@@ -207,10 +207,10 @@ stages:
       vmImage: 'ubuntu-latest'
     environment: rhythm-ui-beta
   - template: scripts/azure/deploy.yml
-      parameters:
-        name: 'deployBeta'
-        azBlobDestination: $(BLOB_BETA)
-        npmDeployPattern: '*beta.tgz'
+    parameters:
+      name: 'deployBeta'
+      azBlobDestination: $(BLOB_BETA)
+      npmDeployPattern: '*beta.tgz'
 
 
 # - stage: deployProd
