@@ -86,16 +86,22 @@ storiesOf('RuiAlert', module)
 
 		// TODO: find a way to make `dismissible` an optional prop. Lit-element does not see `dismissible={false}` as a false value but as a true value as it ignores the `={false}` part
 		return (
-			<rui-alert dismissible={dismissible} type={type}>
-				{withIcon && (
-					<rui-icon slot="icon" src={icon}></rui-icon>
-				)}
-				<rui-rich-text>
-					<p>{content}</p>
-				</rui-rich-text>
-				{dismissible && (
-					<rui-icon slot="dismissible" label={closeLabel} src={closeIcon}></rui-icon>
-				)}
-			</rui-alert>
+			<Fragment>
+				<rui-alert dismissible={dismissible} type={type}>
+					{withIcon && (
+						<rui-icon slot="icon" src={icon}></rui-icon>
+					)}
+					<rui-rich-text>
+						<p>{content}</p>
+					</rui-rich-text>
+					{dismissible && (
+						<rui-icon slot="dismissible" label={closeLabel} src={closeIcon}></rui-icon>
+					)}
+				</rui-alert>
+
+				<p>* please note dismissible does not work fully as intended due to a storybook constraint of injecting boolean values as properties and Lit-element constraint of taking boolean properties on a component.
+					At the moment `dismissible = false` only hides the icon but keeps the invisible button in place, where the actual behaviour is that this does not exist.
+				</p>
+			</Fragment>
 		)
 	});
