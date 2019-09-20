@@ -84,7 +84,7 @@ stages:
         if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
           STORYBOOK_PATH_PREFIX=$(BLOB_PROD)/$(RUI_SHORT_VERSION)/react yarn build:storybook:react
         elif [ "$(Build.SourceBranch)" == "refs/heads/master" ]; then
-          STORYBOOK_PATH_PREFIX=$(BLOB_CANARY)/$(RUI_SHORT_VERSION)/react yarn build:storybook:react
+          STORYBOOK_PATH_PREFIX=$(BLOB_CANARY)/react yarn build:storybook:react
         else
           yarn build:storybook:react
         fi
@@ -155,12 +155,12 @@ stages:
       displayName: 'Publish Build Artifacts'
 
 
-- stage: publishCanary
-  displayName: "Publish Canary"
+- stage: deployCanary
+  displayName: "Deploy Canary"
   dependsOn: build
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   jobs:
-  - job: publishCanaryNPMFeed
+  - job: Linux
     pool:
       vmImage: 'ubuntu-latest'
     steps:
@@ -177,38 +177,27 @@ stages:
       inputs:
         workingFile: $(NPM_RC_PATH)
 
-    - task: DownloadBuildArtifacts@0
-      inputs:
-        buildType: 'current'
-        downloadType: 'single'
-        downloadPath: '$(System.ArtifactsDirectory)'
-        artifactName: drop
+    - template: scripts/azure/deploy.yml
 
-    - script: |
-        source $(System.ArtifactsDirectory)/drop/variables.txt
-        echo "##vso[task.setvariable variable=RUI_PACKAGE_VERSION]$RUI_PACKAGE_VERSION"
-        echo "##vso[task.setvariable variable=RUI_SHORT_VERSION]$RUI_SHORT_VERSION"
-      displayName: Read build variables
+# - stage: deployBeta
+#   displayName: "Deploy Beta"
+#   dependsOn: build
+#   condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
+#   jobs:
+#   - job: Linux
+#     pool:
+#       vmImage: 'ubuntu-latest'
+#     steps:
+#       - template: scripts/azure/deploy.yml
 
-    - script: |
-        unzip $(System.ArtifactsDirectory)/drop/docs/site.zip -d $(Agent.TempDirectory)
-        unzip $(System.ArtifactsDirectory)/drop/docs/react.zip -d $(Agent.TempDirectory)/public/react
-      displayName: Extract Docs
 
-    # Publish Canary Packages to feed
-    - script: |
-        find $(System.ArtifactsDirectory)/drop/npm -iname '*.tgz' -maxdepth 1 -type f -exec npm publish {} --loglevel=verbose --userconfig=$(NPM_RC_PATH) \;
-      displayName: 'Publish @rhythm-ui Components'
-
-    # FIXME: Delete folder... this fails if folder is missing but i would rather it just delete if exists instead of failing the whole job
-    #'az storage blob delete-batch --source staging/$(RUI_SHORT_VERSION) --account-name rhythmuidocs'
-
-    - task: AzureCLI@1
-      inputs:
-        azureSubscription: $(AZ_SUBSCRIPTION)
-        scriptLocation: 'inlineScript'
-        inlineScript: 'az storage blob upload-batch --destination canary --account-name $(AZ_ACCOUNT_NAME) --source $(Agent.TempDirectory)/public'
-      #inlineScript: 'az storage blob upload-batch --destination canary/$(RUI_SHORT_VERSION) --account-name $(AZ_ACCOUNT_NAME) --source $(Agent.TempDirectory)/public'
-      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-      displayName: Publish docs to Azure
-
+# - stage: deployProd
+#   displayName: "Deploy Prod"
+#   dependsOn: deployBeta
+#   condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
+#   jobs:
+#   - job: Linux 
+#     pool:
+#       vmImage: 'ubuntu-latest'
+#     steps:
+#       - template: scripts/azure/deploy.yml
