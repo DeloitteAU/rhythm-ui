@@ -5,55 +5,25 @@ title: "{{kebabCase name}}"
 
 # {{kebabCase name}}
 
+Simple tag line here
+
+## Usage
+
 Lorem ipsum ...
 
-## Configuration
+## Install
+<pre> "@rhythm-ui/{{packageName name}}" </pre>
 
-|Prop|Values|Notes|
-|---|---|---|
-| prop | value options | Lorem ipsum... |
+## Accessibility
 
-
-## Styles
-
-### Default
+## Examples and variations
 
 ```html preview
 <rui-{{packageName name}}></rui-{{packageName name}}>
 ```
 
+## Events
 
-## Behaviour
-Lorem ipsum ...
+## Attributes
 
-
-## Customising
-
-If you want customise the CSS beyond the variables use the `createShadowStyles` utility function. This function allows you to customise any CSS property and update the CSS for the shadow dom that otherwise would not be possible.
-```js
-import {css} from 'lit-element';
-import {createShadowStyles} from '@rhythm-ui/styles';
-
-createShadowStyles({
-	{{kebabCase name}}: css`
-		.host {}
-	`
-})
-```
-
-
-## Extending
-
-For more customisation of both the HTML and CSS you can extend the component.
-
-```js
-import Rui{{kebabCase name}} from '@rhythm-ui/{{packageName name}}';
-
-export class My{{kebabCase name}} extends Rui{{kebabCase name}} {
-	static tag() {
-		return 'my-{{packageName name}}';
-	}
-}
-
-customComponents.define(My{{kebabCase name}}, My{{kebabCase name}}.tag)
-```
+## Styling variables

@@ -105,14 +105,6 @@ export const variables = css`
  */
 export const layout = css`
 	:host {
-		display: block;
-	}
-	
-	:host ::slotted(*) {
-		color: var(--alert__font-color);
-	}
-
-	.alert {
 		display: flex;
 		justify-content: flex-start;
 		align-items: var(--alert__align-items);
@@ -125,6 +117,14 @@ export const layout = css`
 		border-color: var(--alert__border-color);
 		border-radius: var(--alert__border-radius);
 		box-shadow: var(--alert__box-shadow);
+	}
+	
+	:host ::slotted(*) {
+		color: var(--alert__font-color);
+	}
+	
+	:host([role=none]) {
+		display: none;
 	}
 
 	/****************************
