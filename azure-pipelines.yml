@@ -14,11 +14,15 @@ variables:
   AZ_SUBSCRIPTION: 'Managed Services Central Billing'
   AZ_ACCOUNT_NAME: 'rhythmuidocs'
   CANARY_FEED: https://pkgs.dev.azure.com/dd-managed-services/_packaging/rhythm-ui/npm/registry/
-  BLOB_PROD: 'prod'
-  BLOB_CANARY: 'canary'
-  BLOB_BETA: 'beta'
+  BLOB_PROD: prod
+  BLOB_CANARY: canary
+  BLOB_BETA: beta
 
 stages:
+
+##################################################
+# BUILD STAGE                                    #
+##################################################
 
 - stage: build
   displayName: "Build"
@@ -38,7 +42,7 @@ stages:
         sourceFolder: .ruidocs
         contents: '*'
 
-    #Fix concurrent issue with multiple threads trying to create this folder
+    # Fix concurrent issue with multiple threads trying to create this folder
     - script: |
         mkdir -p .ruidocs 
       displayName: 'Prime Cache' 
@@ -74,7 +78,7 @@ stages:
         if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
           WWW_PATH_PREFIX=$(BLOB_PROD)/$(RUI_SHORT_VERSION) yarn build:site
         elif [ "$(Build.SourceBranch)" == "refs/heads/master" ]; then
-          WWW_PATH_PREFIX=$(CANARY)/$(RUI_SHORT_VERSION) yarn build:site
+          WWW_PATH_PREFIX=$(CANARY) yarn build:site
         else
           yarn build:site
         fi
@@ -154,9 +158,13 @@ stages:
         artifactName: drop
       displayName: 'Publish Build Artifacts'
 
+##################################################
+# PUBLISH CANARY STAGE                           #
+##################################################
 
-- stage: deployCanary
-  displayName: "Deploy Canary"
+- stage: canary
+  displayName: 'Publish Canary'
+  environment: rhythm-ui-canary
   dependsOn: build
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   jobs:
@@ -169,6 +177,7 @@ stages:
         versionSpec: '10.x'
       displayName: 'Install Node'
 
+    # Connect to local npm artifact feed for publish
     - script: |
         printf "@rhythm-ui:registry=$(CANARY_FEED)\nalways-auth=true" > $(NPM_RC_PATH)
       displayName: 'Connect to local npm feed' 
@@ -178,17 +187,26 @@ stages:
         workingFile: $(NPM_RC_PATH)
 
     - template: scripts/azure/deploy.yml
+      parameters:
+        name: 'deployCanary'
+        azBlobDestination: $(BLOB_CANARY)
+        npmDeployPattern: '*.tgz'
 
-# - stage: deployBeta
-#   displayName: "Deploy Beta"
-#   dependsOn: build
-#   condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
-#   jobs:
-#   - job: Linux
-#     pool:
-#       vmImage: 'ubuntu-latest'
-#     steps:
-#       - template: scripts/azure/deploy.yml
+##################################################
+# PUBLISH BETA STAGE                             #
+##################################################
+
+- stage: beta
+  displayName: 'Publish Beta'
+  environment: rhythm-ui-beta
+  dependsOn: build
+  condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
+  jobs:
+  - template: scripts/azure/deploy.yml
+      parameters:
+        name: 'deployBeta'
+        azBlobDestination: $(BLOB_BETA)
+        npmDeployPattern: '*beta.tgz'
 
 
 # - stage: deployProd
