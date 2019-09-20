@@ -214,6 +214,7 @@ stages:
               name: 'deployBeta'
               azBlobDestination: $(BLOB_BETA)
               npmDeployPattern: '*beta.tgz'
+              npmFlags: --beta
 
 
 # - stage: deployProd
