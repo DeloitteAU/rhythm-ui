@@ -164,13 +164,13 @@ stages:
 
 - stage: canary
   displayName: 'Publish Canary'
-  environment: rhythm-ui-canary
   dependsOn: build
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
   jobs:
   - job: Linux
     pool:
       vmImage: 'ubuntu-latest'
+    environment: rhythm-ui-canary
     steps:
     - task: NodeTool@0
       inputs:
@@ -198,10 +198,14 @@ stages:
 
 - stage: beta
   displayName: 'Publish Beta'
-  environment: rhythm-ui-beta
+  
   dependsOn: build
   condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
   jobs:
+  - job: Linux
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: rhythm-ui-beta
   - template: scripts/azure/deploy.yml
       parameters:
         name: 'deployBeta'
