@@ -3,7 +3,7 @@
 parameters:
   name: 'Deploy' 
   npmDeployPattern: '*.tgz'
-  npmRcPath: $(NPM_RC_PATH)
+  azBlobDestination: canary
 
 jobs:
 - job: ${{ parameters.name }}
@@ -31,7 +31,7 @@ jobs:
 
   # Publish Canary Packages to feed
   - script: |
-      find $(System.ArtifactsDirectory)/drop/npm -iname ${{ parameters.npmPattern }} -maxdepth 1 -type f -exec npm publish {} --loglevel=verbose --userconfig=${{ parameters.npmRcPath}} \;
+      find $(System.ArtifactsDirectory)/drop/npm -iname ${{ parameters.npmPattern }} -maxdepth 1 -type f -exec npm publish {} --loglevel=verbose --userconfig=$(NPM_RC_PATH) \;
     displayName: 'Publish @rhythm-ui Components'
 
   # FIXME: Delete folder... this fails if folder is missing but i would rather it just delete if exists instead of failing the whole job
