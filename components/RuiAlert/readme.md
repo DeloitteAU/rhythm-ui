@@ -5,16 +5,25 @@ title: "rui-alert"
 
 # Alert
 
+Simple tag line here
 
-## Configuration
+## Usage
 
-|Prop|Values|Notes|
-|---|---|---|
-|Types| **success / warning / error / info** |Sets the alert type|
+This is how you use an alert, lorem ipsum...
 
-## Styles
+## Install
+<pre> yarn install "@rhythm-ui/@rhythm-ui/alert" </pre>
+
+## Accessibility
+This component adheres to section [3.2 Alert](https://www.w3.org/TR/wai-aria-practices/#alert) from the W3C Guidelines. 
+
+The component adds the `role="alert"` to the host element as soon as it is rendered on the page, thus notifying the user of the existence of the alert. Please note that adding multiple alerts to a page will result in multiple alerts being called out to the users using screen readers.
+
+## Examples and variations
 
 ### Default
+
+The default alert component accepts any HTML element as part of it's main content section.
 
 ```html preview
 <rui-alert>
@@ -28,7 +37,7 @@ title: "rui-alert"
 
 ### Types and icons
 
-Alert knows the following types **success | warning | error | info**, and has the ability to show an icon by using the `icon` slot. When using `rui-icon` for the slot it will automatically use the provided border-color for visual coherency.
+Alert knows the following types **success | warning | error | info**, and has the ability to show an icon by using the `icon` slot. When using `rui-icon` for the slot it will automatically use the provided border-color for visual coherency unless `rui-icon` color has been set externally.
 
 ```html preview	
 
@@ -65,15 +74,13 @@ Alert knows the following types **success | warning | error | info**, and has th
 </rui-alert>
 ```
 
-## Behaviour
-
 ### Dismissible
 
-Setting the `dismissible` property allows the alert to be dismissed. Setting this property requires the `dismissible` slot to be filled with an icon or content as the close button does not have inherited styles. When using `rui-icon` for the slot it will automatically use the provided font color.
+Setting the `dismissible` property allows the alert to be dismissed. Setting this property requires the `dismissible` slot to be filled with an icon or content as the close button does not have inherited styles or content. When using `rui-icon` for the slot it will automatically use the provided font color.
 
 
 ```html preview
-<rui-alert dismissible={true}>
+<rui-alert dismissible>
 	<rui-rich-text>
 		<p> This is a dismissable alert </p>
 	</rui-rich-text>
@@ -82,33 +89,24 @@ Setting the `dismissible` property allows the alert to be dismissed. Setting thi
 </rui-alert>
 ```
 
-## Customising
+## Events
 
-If you want customise the CSS beyond the variables use the `createShadowStyles` utility function. This function allows you to customise any CSS property and update the CSS for the shadow dom that otherwise would not be possible.
-```js
-import {css} from 'lit-element';
-import {createShadowStyles} from '@rhythm-ui/styles';
-
-createShadowStyles({
-	RuiAlert: css`
-		.host {}
-	`
-})
-```
-
-
-## Extending
-
-For more customisation of both the HTML and CSS you can extend the component.
+Alert fires a `dismissed` event when the user dismisses the alert.
 
 ```js
-import RuiAlert from '@rhythm-ui/alert';
-
-export class MyAlert extends RuiAlert {
-	static tag() {
-		return 'my-alert';
-	}
-}
-
-customComponents.define(MyAlert, MyAlert.tag)
+    document.querySelector('rui-alert').addEventListener('dismissed', (e) => console.log(e));
 ```
+
+## Attributes
+
+Please see below for the list of properties accepted by alert:
+
+|Prop|Values|Notes|
+|---|---|---|
+|Types| **success / warning / error / info** | Sets the alert type |
+|dismissible| boolean | Allows the alert to be dismissed |
+
+
+## Styles
+
+
