@@ -6,6 +6,7 @@
  */
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import {getShadowStylesFor} from '@rhythm-ui/styles';
 import {variables, layout} from './RuiLayout.css';
 
 /**
@@ -26,7 +27,7 @@ export class RuiLayout extends LitElement {
    * The styles for layout
    */
   public static get styles(): CSSResultArray {
-    return [variables, layout];
+    return [variables, layout, getShadowStylesFor('RuiLayout')];
   }
 
   /* #endregion */

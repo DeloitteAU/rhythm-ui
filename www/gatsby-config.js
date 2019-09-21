@@ -13,6 +13,9 @@ const formatName = node => (node ? node.replace('rui-', '') : node);
 const removeFromUrl = node => (!node.includes('-variables') ? node : null);
 
 module.exports = {
+	//https://www.gatsbyjs.org/docs/path-prefix/
+	pathPrefix: process.env.WWW_PATH_PREFIX || '/',
+
 	siteMetadata: {
 		title: 'Rhythm UI',
 		description: 'Framework for building Design Systems',

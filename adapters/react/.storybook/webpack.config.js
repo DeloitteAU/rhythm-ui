@@ -1,4 +1,7 @@
 module.exports = ({ config }) => {
+
+	config.output.publicPath = process.STORYBOOK_PATH_PREFIX || '/';
+
 	config.module.rules.push({
 		test: /\.(ts|tsx)$/,
 		loader: require.resolve('babel-loader'),

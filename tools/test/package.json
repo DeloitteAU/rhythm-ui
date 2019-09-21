@@ -1,12 +1,12 @@
 {
 	"name": "test",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"private": true,
 	"scripts": {
 		"build": "webpack --config webpack.config.js"
 	},
 	"devDependencies": {
-		"@rhythm-ui/button": "^1.0.0",
+		"@rhythm-ui/button": "^0.1.0",
 		"webpack": "^4.31.0",
 		"webpack-cli": "^3.3.2"
 	},

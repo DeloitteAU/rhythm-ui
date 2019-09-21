@@ -1,13 +1,13 @@
 {
   "name": "@deloitte-digital-au/rhythm-ui",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "private": true,
   "author": "Deloitte Digital AU",
   "license": "BSD-3-Clause",
   "engines": {
-    "node": ">=10.0.0 <11.0.0"
+    "node": ">=10.0.0 <12.0.0"
   },
   "workspaces": {
     "packages": [
@@ -26,20 +26,23 @@
   },
   "scripts": {
     "lint": "yarn lint:scripts && yarn lint:css",
-    "lint:scripts": "yarn eslint --fix \"**/*.{ts,tsx,js,jsx,vue}\"",
-    "lint:css": "yarn stylelint \"components/**/*.ts\" --config .stylelintrc-ts.js",
+    "lint:scripts": "eslint --fix \"**/*.{ts,tsx,js,jsx,vue}\"",
+    "lint:css": "stylelint \"components/**/*.ts\" --config .stylelintrc-ts.js",
     "bootstrap": "lerna bootstrap",
     "unstrap": "lerna clean --yes",
     "clean": "lerna run clean && rimraf .ruidocs",
-    "test": "RUI_NO_DEFAULT_REGISTER='false' yarn karma start",
-    "build": "yarn build:site && yarn build:storybook",
-    "build:site": "lerna run build --scope www --include-filtered-dependencies --parallel --stream",
-    "build:vanilla": "lerna run build --stream --scope rhythm-ui --include-filtered-dependencies",
-    "build:storybook": "yarn lerna run build ---ignore www --ignore rhythm-ui --ignore test && yarn run build:storybook:react",
-    "build:storybook:react": "yarn lerna run build ---ignore www --ignore rhythm-ui --ignore test && node_modules/@storybook/react/bin/build.js -c adapters/react/.storybook -o .out-react",
-    "build:storybook:vue": "yarn lerna run build ---ignore www --ignore rhythm-ui --ignore test && node_modules/@storybook/vue/bin/build.js -c adapters/vue/.storybook -o .out-vue",
+    "test": "RUI_NO_DEFAULT_REGISTER='false' karma start",
+    "build": "yarn build:components && yarn build:site && yarn build:storybook",
+    "build:components": "lerna run build --parallel --scope \"@rhythm-ui/*\" --include-filtered-dependencies --stream",
+    "build:site": "lerna run build --scope www --stream",
+    "build:vanilla": "lerna run build --stream --scope rhythm-ui",
+    "build:storybook": "lerna run build ---ignore www --ignore rhythm-ui --ignore test && yarn run build:storybook:react",
+    "build:storybook:components": "node_modules/@storybook/react/bin/build.js -c components/.storybook -o .out-react",
+    "build:storybook:react": "node_modules/@storybook/react/bin/build.js -c adapters/react/.storybook -o .out-react",
+    "build:storybook:vue": "node_modules/@storybook/vue/bin/build.js -c adapters/vue/.storybook -o .out-vue",
     "start": "lerna run start --scope www --include-filtered-dependencies --parallel --stream",
-    "restart": "lerna run start --scope www --parallel --stream",
+    "start:site": "lerna run start --scope www --parallel --stream",
+    "start:components": "node_modules/@storybook/react/bin/index.js -p 6005 -c components/.storybook",
     "start:react": "node_modules/@storybook/react/bin/index.js -p 6006 -c adapters/react/.storybook",
     "start:vue": "node_modules/@storybook/vue/bin/index.js -p 6007 -c adapters/vue/.storybook",
     "format": "prettier --write src/**/*.{js,jsx}",
@@ -60,8 +63,8 @@
       "git add"
     ],
     "*.{ts,tsx,js,jsx}": [
-      "eslint",
-      "stylelint --config .stylelintrc-ts.js",
+      "eslint --fix",
+      "stylelint --config .stylelintrc-ts.js --fix",
       "git add"
     ],
     "*.{scss,css}": [

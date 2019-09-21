@@ -7,9 +7,9 @@ body,
 
 .hero {
 	background: #893799;
-	background: linear-gradient(to bottom, #893799 0%, #563383 100%);
+	background: linear-gradient(to bottom, #4829B2 0%, #0030AE 100%);
 	color: #FFFFFF;
-	padding: 150px 0 150px;
+	padding: 140px 0 190px;
 	position: relative;
 }
 
@@ -55,4 +55,20 @@ canvas {
 
 .feature {
 	padding: 90px 0;
+}
+
+.wave {
+	height: 200px;
+	width: 140%;
+	min-width: 2200px;
+	background-color: #FFF;
+	clip-path: ellipse(55% 125px at 22% 72%);
+	position: absolute;
+	z-index: 2;
+	bottom: -100px;
+}
+
+.feature {
+	--rui-button__color: #FFF;
+	--rui-button__background-color: #FFF;
 }

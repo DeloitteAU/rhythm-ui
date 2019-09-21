@@ -1,32 +1,50 @@
-html,
-body {
-	font: 16px/24px 'Inter', system-ui, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	font-weight: 400;
-	color: #111;
+/* html, */
 
-	/* direction: rtl; */
-}
+/* body { */
 
-@supports (font-variation-settings: normal) {
-	html,
-	body { font-family: 'Inter var', sans-serif; }
-}
+/*	font: 16px/24px 'Inter', system-ui, sans-serif; */
 
-h1 {
-	text-transform: capitalize;
-	font: 700 48px/1.2 'Inter', sans-serif;
-	margin-bottom: 10px;
+/*	-webkit-font-smoothing: antialiased; */
 
-	/* color: #802bb1; */
-}
+/*	font-weight: 400; */
 
-h1 + p {
-	font-size: 17px;
-	color: rgb(109, 109, 109);
-	line-height: 1.7;
-	max-width: 60em;
-}
+/*	color: #333; */
+
+/*	!* direction: rtl; *! */
+
+/* } */
+
+/* @supports (font-variation-settings: normal) { */
+
+/*	html, */
+
+/*	body { font-family: 'Inter var', sans-serif; } */
+
+/* } */
+
+/**  :not(rui-rich-text) h1 { */
+
+/*	text-transform: capitalize; */
+
+/*	font: 700 48px/1.2 'Inter', sans-serif; */
+
+/*	margin-bottom: 10px; */
+
+/*	!* color: #802bb1; *! */
+
+/* } */
+
+/**  :not(rui-rich-text) h1 + p { */
+
+/*	font-size: 17px; */
+
+/*	color: rgb(109, 109, 109); */
+
+/*	line-height: 1.7; */
+
+/*	max-width: 60em; */
+
+/* } */
 
 @media (min-width: 768px) {
 	p {
@@ -58,7 +76,7 @@ code {
 a,
 a:active,
 a:visited {
-	color: #673AB7;
+	color: #6C5CE7;
 }
 
 a:hover {

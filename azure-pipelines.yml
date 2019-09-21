@@ -1,0 +1,229 @@
+trigger:
+  branches:
+    include:
+    - '*'
+    exclude:
+    - dependabot/*
+
+resources:
+- repo: self
+
+variables:
+  TAG: '$(Build.BuildNumber)'
+  NPM_RC_PATH: '$(Build.Repository.LocalPath)/.npmrc'
+  AZ_SUBSCRIPTION: 'Managed Services Central Billing'
+  AZ_ACCOUNT_NAME: 'rhythmuidocs'
+  CANARY_FEED: https://pkgs.dev.azure.com/dd-managed-services/_packaging/rhythm-ui/npm/registry/
+  BLOB_PROD: prod
+  BLOB_CANARY: canary
+  BLOB_BETA: beta
+
+stages:
+
+##################################################
+# BUILD STAGE                                    #
+##################################################
+
+- stage: build
+  displayName: "Build"
+  jobs:
+  - job: buildPrimeCache
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '10.x'
+      displayName: 'Install Node'
+
+    - task: DeleteFiles@1
+      inputs:
+        sourceFolder: .ruidocs
+        contents: '*'
+
+    # Fix concurrent issue with multiple threads trying to create this folder
+    - script: |
+        mkdir -p .ruidocs 
+      displayName: 'Prime Cache' 
+
+    - script: |
+        yarn install
+        yarn bootstrap
+      displayName: 'Install Dependencies'
+
+    # - script: |
+    #     yarn lint
+    #     yarn test
+    #   displayName: 'Running tests'
+
+    # If Release, Read app version from root package json
+    - script: |
+        if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
+          RUI_PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
+          RUI_SHORT_VERSION=v$(echo $RUI_PACKAGE_VERSION | sed "s/\(\.[0-9]*\)$//" | tr . -)
+          echo "##vso[task.setvariable variable=RUI_PACKAGE_VERSION]$RUI_PACKAGE_VERSION"
+          echo "##vso[task.setvariable variable=RUI_SHORT_VERSION]v$RUI_SHORT_VERSION"
+        elif [ "$(Build.SourceBranch)" == "refs/heads/master" ]; then
+          echo "##vso[task.setvariable variable=RUI_PACKAGE_VERSION]0.0.0-canary-$(TAG)"
+          echo "##vso[task.setvariable variable=RUI_SHORT_VERSION]canary"
+        fi
+      displayName: 'Set Version'
+
+    - script: |
+        yarn build:components
+      displayName: 'Build Components'
+
+    - script: |
+        if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
+          WWW_PATH_PREFIX=$(BLOB_PROD)/$(RUI_SHORT_VERSION) yarn build:site
+        elif [ "$(Build.SourceBranch)" == "refs/heads/master" ]; then
+          WWW_PATH_PREFIX=$(BLOB_CANARY) yarn build:site
+        else
+          yarn build:site
+        fi
+      displayName: 'Build Docs'
+
+    - script: |
+        if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
+          STORYBOOK_PATH_PREFIX=$(BLOB_PROD)/$(RUI_SHORT_VERSION)/react yarn build:storybook:react
+        elif [ "$(Build.SourceBranch)" == "refs/heads/master" ]; then
+          STORYBOOK_PATH_PREFIX=$(BLOB_CANARY)/react yarn build:storybook:react
+        else
+          yarn build:storybook:react
+        fi
+      displayName: 'Build React Docs'
+
+    # Disabled for now until we pick up vue again
+    # - script: |
+    #     yarn build:storybook:vue
+    #   displayName: 'Build react docs'
+
+    - script: |
+        if [[ "$(Build.SourceBranch)" == refs/heads/release/* ]]; then
+          node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
+          yarn lerna version $(RUI_PACKAGE_VERSION)-beta.$(TAG) --no-git-tag-version --no-push --yes
+          node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
+        elif [ "$(Build.SourceBranch)" == "refs/heads/master" ]; then
+          yarn lerna version 0.0.0-canary.$(TAG) --no-git-tag-version --no-push --yes
+          node_modules/.bin/lerna exec --scope @rhythm-ui/* --stream --no-private -- "npm pack"
+        fi
+      displayName: 'Pack Components'
+
+    - task: CopyFiles@2
+      displayName: 'Stage all NPM Packages'
+      inputs:
+        contents: |
+          components/*/*.tgz
+          adapters/react/*/*.tgz
+          adapters/vue/*/*.tgz
+        targetFolder: $(Build.ArtifactStagingDirectory)/npm
+        flattenFolders: true
+
+    - task: ArchiveFiles@2
+      displayName: 'Stage Docs'
+      inputs:
+        rootFolderOrFile: './www/public' 
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/docs/site.zip'
+        replaceExistingArchive: true
+
+    - task: ArchiveFiles@2
+      displayName: 'Stage React Docs'
+      inputs:
+        rootFolderOrFile: './.out-react'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/docs/react.zip'
+        replaceExistingArchive: true
+
+    # - task: ArchiveFiles@2
+    #   inputs:
+    #     rootFolderOrFile: './.out-vue' 
+    #     archiveType: 'zip'
+    #     archiveFile: '$(Build.ArtifactStagingDirectory)/docs/vue.zip'
+    #     replaceExistingArchive: true
+    #   displayName: Stage Vue Docs
+
+    # Save reference to build variables
+    # (This is a backwards way because azure doesn't allow release variables to be shared between stages)
+    - script: |
+        echo -e "RUI_PACKAGE_VERSION=$(RUI_PACKAGE_VERSION)\nRUI_SHORT_VERSION=$(RUI_SHORT_VERSION)" > $(Build.ArtifactStagingDirectory)/variables.txt
+        chmod +x $(Build.ArtifactStagingDirectory)/variables.txt
+      displayName: 'Stage Build Out Variables'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathToPublish: $(Build.ArtifactStagingDirectory)
+        artifactName: drop
+      displayName: 'Publish Build Artifacts'
+
+##################################################
+# PUBLISH CANARY STAGE                           #
+##################################################
+
+- stage: Canary
+  displayName: 'Publish Canary'
+  dependsOn: build
+  condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/master')
+  jobs:
+  - deployment: DeployCanary
+    displayName: Deploy Canary
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: rhythm-ui-canary
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            # Connect to local npm artifact feed for publish
+          - script: |
+              printf "@rhythm-ui:registry=$(CANARY_FEED)\nalways-auth=true" > $(NPM_RC_PATH)
+            displayName: 'Connect to local npm feed' 
+
+          - task: npmAuthenticate@0
+            inputs:
+              workingFile: $(NPM_RC_PATH)
+
+          - template: scripts/azure/deploy.yml
+            parameters:
+              name: 'deployCanary'
+              azBlobDestination: $(BLOB_CANARY)
+              npmDeployPattern: '*.tgz'
+
+##################################################
+# PUBLISH BETA STAGE                             #
+##################################################
+
+- stage: Beta
+  displayName: 'Publish Beta'
+  dependsOn: build
+  condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
+  jobs:
+  - deployment: DeployBeta
+    displayName: Deploy Web App
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: rhythm-ui-beta
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: scripts/azure/deploy.yml
+            parameters:
+              name: 'deployBeta'
+              azBlobDestination: $(BLOB_BETA)
+              npmDeployPattern: '*beta.tgz'
+              npmFlags: --beta
+
+
+# - stage: deployProd
+#   displayName: "Deploy Prod"
+#   dependsOn: deployBeta
+#   condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
+#   jobs:
+#   - job: Linux 
+#     pool:
+#       vmImage: 'ubuntu-latest'
+#     steps:
+#       - template: scripts/azure/deploy.yml

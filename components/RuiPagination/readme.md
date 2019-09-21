@@ -75,7 +75,19 @@ If you have a lot of pages, you can specify how many to show before truncation v
 <rui-pagination
     current-page="10"
     pages-shown="5"
-    num-pages="20">
+    num-pages="20"
+>
+</rui-pagination>
+```
+
+## Hiding previous/next button
+You can hide the previous and next buttons using the `hide-arrows` attribute
+```html preview
+<rui-pagination
+    current-page="3"
+    num-pages="5"
+    hide-arrows={true}
+>
 </rui-pagination>
 ```
 

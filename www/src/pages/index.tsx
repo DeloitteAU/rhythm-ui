@@ -18,10 +18,12 @@ class IndexPage extends React.Component {
 	}
 
 	public render() {
+		console.log(this.props);
 		return (
 			<Layout>
 				<div className="hero">
 					<canvas ref={ref => this._canvas = ref} />
+					<div className="wave" />
 					<RuiGrid>
 						<div className="s-6 hero__content">
 							<h1>The shortest pathway from idea to realisation</h1>
@@ -31,7 +33,7 @@ class IndexPage extends React.Component {
 								community of contributors.
 							</p>
 							<Link to="/docs/components/rui-expand-collapse">
-								<RuiButton size="large" type="primary">Get Started</RuiButton>
+								<RuiButton size="large" type="primary" variant="outline" className="feature">Get Started</RuiButton>
 							</Link>
 						</div>
 					</RuiGrid>

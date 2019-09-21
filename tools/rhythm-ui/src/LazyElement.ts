@@ -66,3 +66,5 @@ export class LazyElement extends LitElement {
 	}
 
 }
+
+export default LazyElement;

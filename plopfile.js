@@ -50,7 +50,7 @@ const reactActions = [
 	// import react adaptor in gatsby site so markdown files will display
 	{
 		type: 'modify',
-		path: 'www/src/templates/Markdown/Markdown.tsx',
+		path: 'www/src/templates/Component/Component.tsx',
 		pattern: /(@@ GENERATOR IMPORT COMPONENT)/g,
 		template: "$1\nimport '@rhythm-ui/{{packageName name}}-react';",
 	},
@@ -64,8 +64,8 @@ const reactActions = [
 	{
 		type: 'modify',
 		path: 'www/package.json',
-		pattern: /("@rhythm-ui\/[a-zA-Z-]*": "\^[0-9]*.[0-9]*.[0-9]*",)/g,
-		template: "$1\n\"@rhythm-ui/{{packageName name}}-react\": \"^1.0.0\",",
+		pattern: /("@rhythm-ui\/[a-zA-Z-]*": "\^[0-9]*.[0-9]*.[0-9]*",)/,
+		template: "$1\n\"@rhythm-ui/{{packageName name}}-react\": \"^0.1.0\",",
 	}
 ];
 

@@ -1,6 +1,6 @@
 {
 	"name": "@rhythm-ui/styles",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"license": "BSD-3-Clause",
 	"main": "lib/index.js",
 	"scripts": {
@@ -10,7 +10,7 @@
 		"clean": "rimraf lib"
 	},
 	"devDependencies": {
-		"babel-preset-rhythm-ui": "^1.0.0"
+		"babel-preset-rhythm-ui": "^0.1.0"
 	},
 	"dependencies": {
 		"lit-element": "^2.1.0"

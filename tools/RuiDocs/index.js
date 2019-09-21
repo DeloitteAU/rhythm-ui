@@ -20,7 +20,12 @@ const pattern = args[fIndex + 1];
 const outDir = path.join(__dirname, '../../', '.ruidocs');
 
 if (!fs.existsSync(outDir)) {
-	fs.mkdirSync(outDir);
+	try {
+		fs.mkdirSync(outDir);
+	} catch(e) {
+		// Likely failed because concurrent threads creating the folder too
+		console.log(e);
+	}
 }
 
 let readme;

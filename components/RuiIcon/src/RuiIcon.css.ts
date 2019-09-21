@@ -15,17 +15,22 @@ export const variables = css`
 			/**
 			 * @variable Icon width
 			 */
-			--rui-icon__width: 60px;
-	
+			--rui-icon__width: 36px;
+
 			/**
 			 * @variable Icon height
 			 */
-			--rui-icon__height: 60px;
-	
+			--rui-icon__height: 36px;
+
+			/**
+			 * @variable Icon url
+			 */
+			--rui-icon__url: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+
 			/**
 			 * @variable Icon color (does not work for IE)
 			 */
-			--rui-icon__color: #114357;
+			--rui-icon__color: blue;
 		}
 	`;
 

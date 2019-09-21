@@ -6,10 +6,11 @@
 */
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import {getShadowStylesFor} from '@rhythm-ui/styles';
 import {variables, layout} from './RuiPagination.css'
 
 export class RuiPagination extends LitElement {
-	
+	/* #region Properties */
 	/**
 	 * Reference to the left shown ellipses element
 	 */
@@ -82,6 +83,12 @@ export class RuiPagination extends LitElement {
 		this._numberOfPages = numberOfPages;
 		this.requestUpdate('numberOfPages', oldVal);
 	}
+
+	/**
+	 * Show previous/next arrows
+	 */
+	@property({type: Boolean, attribute: 'hide-arrows'})
+	public hideArrows?: boolean = false;
 
 	/**
 	 * The href to direct to on previous item click,
@@ -223,7 +230,7 @@ export class RuiPagination extends LitElement {
 	 * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	 */
 	public static get styles(): CSSResultArray {
-		return [variables, layout];
+		return [variables, layout, getShadowStylesFor('RuiPagination')];
 	}
 
 	/**
@@ -413,6 +420,10 @@ export class RuiPagination extends LitElement {
 	 */
 	private _renderPrevNext = (type: 'previous' | 'next') => {
 		let tag: TemplateResult = html``;
+
+		if (this.hideArrows) {
+			return tag;
+		}
 		
 		const isPrevious  = type === 'previous';
 
