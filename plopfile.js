@@ -58,14 +58,14 @@ const reactActions = [
 	 * Adds new dependency to gatsby site package.json
 	 * ASSUMPTIONS for this to work:
 	 * 1. at least one other @rhythm-ui/some-react-component exists in file
-	 * 2. the newly added package is not the last package listed (as it adds a comma 
+	 * 2. the newly added package is not the last package listed (as it adds a comma
 	 * 	  and this will not be valid json if added at end)
 	 */
 	{
 		type: 'modify',
 		path: 'www/package.json',
 		pattern: /("@rhythm-ui\/[a-zA-Z-]*": "\^[0-9]*.[0-9]*.[0-9]*",)/,
-		template: "$1\n\"@rhythm-ui/{{packageName name}}-react\": \"^1.0.0\",",
+		template: "$1\n\"@rhythm-ui/{{packageName name}}-react\": \"^0.1.0\",",
 	}
 ];
 
