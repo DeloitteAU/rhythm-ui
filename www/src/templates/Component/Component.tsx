@@ -7,19 +7,20 @@ import React from 'react';
 
 // Import these so markdown files render if they are using these tags
 // @@ GENERATOR IMPORT COMPONENT
-import '@rhythm-ui/rich-text-react';
-import '@rhythm-ui/hero-banner-react';
+import '@rhythm-ui/accordion-react';
 import '@rhythm-ui/alert-react';
-import '@rhythm-ui/icon-react';
-import '@rhythm-ui/scroll-to-react';
+import '@rhythm-ui/breadcrumbs-react';
 import '@rhythm-ui/button-react';
-import '@rhythm-ui/story-react';
 import '@rhythm-ui/expand-collapse-react';
+import '@rhythm-ui/grid-react';
+import '@rhythm-ui/hero-banner-react';
+import '@rhythm-ui/icon-react';
+import '@rhythm-ui/layout-react';
 import '@rhythm-ui/pagination-react';
-import RuiBreadcrumbs from '@rhythm-ui/breadcrumbs-react';
-import RuiLayout from '@rhythm-ui/layout-react';
-import RuiGrid from '@rhythm-ui/grid-react';
-import RuiSkipLinks from '@rhythm-ui/skip-links-react';
+import '@rhythm-ui/rich-text-react';
+import '@rhythm-ui/scroll-to-react';
+import '@rhythm-ui/skip-links-react';
+import '@rhythm-ui/story-react';
 
 import Layout from '../../components/Layout';
 import {Header} from '../../components/Header';

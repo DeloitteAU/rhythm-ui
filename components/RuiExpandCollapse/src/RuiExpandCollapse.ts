@@ -15,9 +15,9 @@ type RuiExpandCollapsePropertyType = boolean;
 /**
  * RuiExpandCollapse
  */
-export class RuiExpandCollapse extends LitElement { 
+export class RuiExpandCollapse extends LitElement {
   /**
-   * Open property deals with the internal open/close 
+   * Open property deals with the internal open/close
    * state. Mirrors the open attribute on the root element
    */
   @property({
@@ -55,7 +55,7 @@ export class RuiExpandCollapse extends LitElement {
   private _uuid: string = this._generateUUIDv4();
 
   /**
-   * 
+   *
    * The styles for the expand collapse
    * @remarks
    * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
@@ -143,7 +143,7 @@ export class RuiExpandCollapse extends LitElement {
       this._collapseableEl.hidden = false;
       const sectionHeight = this._collapseableEl.scrollHeight;
       this._collapseableEl.style.height = `${sectionHeight}px`;
-      this._collapseableEl.classList.remove('hide-content');  
+      this._collapseableEl.classList.remove('hide-content');
       this._collapseableEl.addEventListener('transitionend', this._expandTransitionEndHandler);
     }
   }
@@ -157,14 +157,14 @@ export class RuiExpandCollapse extends LitElement {
       this._collapseableEl = this.shadowRoot.querySelector('.details-container');
 
       if (this._collapseableEl) {
-        
+
         // need to set height initially if closed without triggering animation
         if (!this.open) {
           this._collapseableEl.style.height = '0px';
           this._collapseableEl.hidden = true;
           this._collapseableEl.classList.add('hide-content');
         }
-        
+
         const expandCollapse: HTMLElement | null = this.shadowRoot.querySelector('.expand-collapse');
         if (expandCollapse) {
           expandCollapse.style.opacity = '1';
@@ -172,10 +172,10 @@ export class RuiExpandCollapse extends LitElement {
       }
     }
   }
-  
+
   /**
    * After initial render initialise expand collapse logic. Because
-   * we are animating slotted content, we have to wait for the 
+   * we are animating slotted content, we have to wait for the
    * slot to be mounted
    */
   public firstUpdated(): void {
@@ -184,7 +184,7 @@ export class RuiExpandCollapse extends LitElement {
 
       if (this._detailsSlotEl) {
         // when the slotted content changes we initialise expand collapse
-        // we need to wait for this because the animation of heigh calc 
+        // we need to wait for this because the animation of heigh calc
         // will only work once the slot and it's content have mounted and rendered
         this._detailsSlotEl.addEventListener('slotchange', (): void => {
           this._initialiseExpandCollapse();
@@ -201,7 +201,7 @@ export class RuiExpandCollapse extends LitElement {
         if (this.open && !oldValue) {
           this._triggerExpandAnimation();
         }
-         
+
         // transition from open to closed
         if (!this.open && oldValue) {
           this._triggerCollapseAnimation();
@@ -212,13 +212,13 @@ export class RuiExpandCollapse extends LitElement {
 
   /**
    * Render method
-   */  
+   */
   public render(): TemplateResult {
     const expandTriggerID = `expand-trigger__${this._uuid}`;
     const expandableSectionID = `expandable-section__${this._uuid}`;
 
     return html`
-      <section class=${`expand-collapse${this.open ? ' is-open' : ''}`}>
+      <div class=${`expand-collapse${this.open ? ' is-open' : ''}`}>
         <button id=${expandTriggerID} @click="${this._handleClick}" class="summary-container" aria-expanded=${`${this.open ? 'true': 'false'}`} aria-controls=${expandableSectionID}>
           <slot name="summary-content"></slot>
           <span class="icon-container"></span>
@@ -226,7 +226,7 @@ export class RuiExpandCollapse extends LitElement {
         <div class="details-container" id=${expandableSectionID} role="region" aria-labelledby=${expandTriggerID}>
           <slot id="details-slot" name="details-content"></slot>
         </div>
-      </section>
+      </div>
     `;
   }
 
