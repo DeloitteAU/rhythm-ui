@@ -117,6 +117,7 @@ stages:
           components/*/*.tgz
           adapters/react/*/*.tgz
           adapters/vue/*/*.tgz
+          system/*/*.tgz
         targetFolder: $(Build.ArtifactStagingDirectory)/npm
         flattenFolders: true
 
