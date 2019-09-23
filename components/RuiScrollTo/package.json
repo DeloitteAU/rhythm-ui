@@ -17,12 +17,16 @@
 		"lib/"
 	],
 	"devDependencies": {
+		"@rhythm-ui/styles": "^0.1.0",
+		"lit-element": "^2.1.0",
 		"babel-preset-rhythm-ui": "^0.1.0",
 		"ruidocs": "^0.1.0"
 	},
 	"dependencies": {
-		"@rhythm-ui/styles": "^0.1.0",
-		"lit-element": "^2.1.0",
 		"smoothscroll-polyfill": "^0.4.4"
+	},
+	"peerDependencies": {
+		"@rhythm-ui/styles": "^0.1.0",
+		"lit-element": "^2.1.0"
 	}
 }
