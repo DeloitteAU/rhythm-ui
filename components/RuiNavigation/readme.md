@@ -80,7 +80,7 @@ Readme file for rui-navigation
 </rui-navigation>
 ```
 
-The `rui-navigation-group` may be further styled to cater for specific requierements as demonstrated below:
+The `rui-navigation-group` may be further styled to cater for specific requirements as demonstrated below:
 
 ```html preview
 <style>
