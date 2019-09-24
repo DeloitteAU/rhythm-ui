@@ -6,6 +6,8 @@
  */
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import {getShadowStylesFor} from '@rhythm-ui/styles';
+import {uuid} from '@rhythm-ui/utils';
 import {variables, layout} from './RuiExpandCollapse.css'
 
 // Update to include any possible type a value
@@ -23,7 +25,6 @@ export class RuiExpandCollapse extends LitElement {
   @property({
     type : Boolean,
     reflect: true, // reflect attribute on parent element when internal state updates
-    converter: (value): boolean => value !== undefined, // check presence of open attribute
   })
   public get open(): boolean {
     return this._open;
