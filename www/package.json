@@ -45,7 +45,7 @@
     "gatsby-plugin-emotion": "^4.0.7",
     "gatsby-plugin-manifest": "^2.1.1",
     "gatsby-plugin-nprogress": "^2.0.10",
-    "gatsby-plugin-offline": "^2.1.1",
+    "gatsby-plugin-offline": "^3.0.8",
     "gatsby-plugin-react-helmet": "^3.0.12",
     "gatsby-plugin-sharp": "^2.0.37",
     "gatsby-remark-autolink-headers": "^2.0.16",
