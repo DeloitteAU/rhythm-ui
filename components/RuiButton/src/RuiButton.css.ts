@@ -275,7 +275,7 @@ export const layout = css`
 		display: inline-block;
 		box-sizing: border-box;
 
-		width: var(--rui-button__width);
+		width: var(--rui-button__width, auto);
 		min-width: var(--rui-button__min-width);
 		max-width: var(--rui-button__max-width);
 		line-height: var(--rui-button__line-height);
