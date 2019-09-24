@@ -53,7 +53,14 @@ export class RuiButton extends LitElement {
 	 * This forces the element to render using an anchor tag in the shadow dom
 	 */
 	@property({type: String})
-	public href? = undefined;
+	public href?: string;
+
+	/**
+	 * Specifies a target value to the anchor tag 
+	 * Requires href to be set or behaviour to be anchor
+	 */
+	@property({type : String})
+	public target?: '_blank' | '_parent' | '_self' | '_top';
 
 	/**
 	 * Set button aria-label
@@ -87,7 +94,7 @@ export class RuiButton extends LitElement {
 			return html`
 				<button
 					class="btn"
-					?disabled=${this.disabled}
+					?disabled="${this.disabled}"
 					aria-label="${ifDefined(this.label)}"
 				>
 					<slot></slot>
@@ -99,8 +106,9 @@ export class RuiButton extends LitElement {
 		return html`
 			<a
 				class="btn"
-				href=${ifDefined(this.href)}
+				href="${ifDefined(this.href)}"
 				aria-label="${ifDefined(this.label)}"
+				target="${ifDefined(this.target)}"
 			>
 				<slot></slot>
 			</a>
