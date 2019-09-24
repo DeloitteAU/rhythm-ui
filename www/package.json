@@ -33,6 +33,7 @@
     "@rhythm-ui/rich-text-react": "^0.1.0",
     "@rhythm-ui/scroll-to-react": "^0.1.0",
     "@rhythm-ui/skip-links-react": "^0.1.0",
+    "@rhythm-ui/hero-banner-react": "^0.1.0",
     "@rhythm-ui/story-react": "^0.1.0",
     "@rhythm-ui/styles": "^0.1.0",
     "@webcomponents/webcomponentsjs": "^2.2.10",
