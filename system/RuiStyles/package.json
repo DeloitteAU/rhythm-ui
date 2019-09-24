@@ -4,6 +4,7 @@
 	"license": "BSD-3-Clause",
 	"main": "lib/index.js",
 	"scripts": {
+		"start": "babel -w -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --copy-files",
 		"build": "yarn clean && yarn build:babel && yarn build:declarations",
 		"build:babel": "babel -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --ignore *.d.ts --copy-files",
 		"build:declarations": "tsc --declaration --emitDeclarationOnly",
