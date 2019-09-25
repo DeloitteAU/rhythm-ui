@@ -1,6 +1,7 @@
 ---
 package: "@rhythm-ui/alert"
-title: "rui-alert"
+title: "Alert"
+category: "elements"
 ---
 
 # Alert

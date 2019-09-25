@@ -2,6 +2,6 @@ items:
   - title: Getting Started
     to: /getting-started
   - title: Components
-    to: /components/rui-breadcrumbs
+    to: /components/alert
   - title: Guides
     to: /guides

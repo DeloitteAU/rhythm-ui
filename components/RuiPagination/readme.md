@@ -1,6 +1,7 @@
 ---
 package: "@rhythm-ui/pagination"
-title: "rui-pagination"
+title: "Pagination"
+category: "elements"
 ---
 
 # Pagination

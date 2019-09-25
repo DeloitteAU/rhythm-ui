@@ -1,6 +1,7 @@
 ---
-package: "@rhythm-ui"
-title: "rui-expand-collapse"
+package: "@rhythm-ui/expand-collapse"
+title: "Expand collapse"
+category: "elements"
 ---
 
 # Expand Collapse

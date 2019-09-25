@@ -1,6 +1,7 @@
 ---
 package: "@rhythm-ui/breadcrumbs"
-title: "rui-breadcrumbs"
+title: "Breadcrumbs"
+category: "elements"
 ---
 
 # Breadcrumbs

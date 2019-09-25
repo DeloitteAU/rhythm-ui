@@ -1,6 +1,7 @@
 ---
-package: "@rhythm-ui"
-title: "rui-grid"
+package: "@rhythm-ui/grid"
+title: "Grid"
+category: "layouts"
 ---
 
 # grid

@@ -1,0 +1,141 @@
+---
+title: "Moderate: Using Create Shadow Styles Hook"
+---
+
+
+# Moderate: Using Create Shadow Styles Hook
+
+The Create Shadow Styles Hook will let you completly customise the styles for our components.
+
+The hook will enable you to write CSS normally but with allot more safety. The css is encapsulated only in the
+components [shadow DOM](https://developers.google.com/web/fundamentals/web-components/shadowdom), so you don’t have to worry about css collisions.
+
+Example hook usage:
+
+```js
+import {css, createShadowStyles} from '@rhythm-ui/styles';
+
+// Declare new CSS rules for a tags inside breadcrumbs
+createShadowStyles({
+	RuiBreadcrumbs: css`
+		a {
+			color: rebeccapurple;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+	`,
+});
+```
+
+Now when ever `<rui-breadcrumbs>` is rendered on the page it will automagically include the new css rules.
+
+> Note: It's important that you create your shadow hooks before the components are defined (loaded)
+
+**When would I use this Hook?** If you are theaming a component with css variables and realise you need to add some additional css to it.
+
+## Declaring a create shadow style hook
+
+
+To create a new hook you will need to first import `createShadowStyles` and `css` from the styles module. This should already be installed if you followed the 
+getting started guide.
+
+```js
+import {css, createShadowStyles} from '@rhythm-ui/styles';
+```
+
+You must then call `createShadowStyles` with a object `{}` of key(s) that map to a component **class name** that you intend on customising.
+There can be one or many.
+
+The components *class name* can be found documented under the "styles" heading for each component.
+
+The value must be a css template literal.
+
+You can call `createShadowStyles` as many times as you like from multiple locations in your application. However component shadow styles will be overridden if the same key (class name) is declared twice.
+
+**Example** - Multiple createShadowStyles with duplicate RuiButton keys
+
+```js
+import {css, createShadowStyles} from '@rhythm-ui/styles';
+
+// Declare some css rules
+createShadowStyles({
+	RuiBreadcrumbs: css`
+		a {
+			color: rebeccapurple;
+		}
+	`,
+	RuiButton: `
+		a {
+			color: green;
+		}
+	`
+});
+
+if (someCondition === true) {
+	// Button's will now render as orange as previous RuiButton rules will now be overriden
+	// However, RuiBreadcrumbs rules remain uneffected
+	createShadowStyles({
+		RuiButton: `
+			a {
+				color: orange;
+			}
+		`
+	});
+}
+```
+
+**What does calling createShadowStyles do?** It declares "additional css" for one or more components in a store. This is a way to "preserve" the styles and once 
+the Web component is defined/ready Rhythm UI will auto inject the styles.
+
+## Styling Tips
+
+### Component-defined styles
+
+Web components can style themselves too, by using the `:host` selector.
+
+**Example** - a component styling itself
+
+```js
+createShadowStyles({
+	RuiAlert: `
+		:host {
+			padding: 30px;
+		}
+	`
+});
+```
+
+One gotcha with `:host` is that rules in the parent page have higher specificity than `:host` rules defined in the element. That is, outside styles win.
+
+### Styling slotted nodes
+
+`::slotted(<compound-selector>)` matches nodes that are distributed into a `<slot>`.
+
+Let's say we've created a RuiRichText component:
+
+```html
+<rui-rich-text>
+	<h1>Juicy</h1>
+	<span class="subHeading">Digital Nomads</span>
+</ui-rich-text>
+```
+
+The component's shadow DOM can style the user's `<h1>` and `.subHeading:`
+
+```js
+createShadowStyles({
+	RuiRichText: `
+		
+		::slotted(h1) {
+			color: green;
+		}
+
+		::slotted(.subHeading) {
+			color: black;
+		}
+
+	`
+});
+```

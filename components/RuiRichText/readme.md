@@ -1,6 +1,7 @@
 ---
 package: "@rhythm-ui/rich-text"
-title: "rui-rich-text"
+title: "Rich text"
+category: "elements"
 ---
 
 # rui-rich-text

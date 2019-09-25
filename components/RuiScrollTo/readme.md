@@ -1,6 +1,7 @@
 ---
 package: "@rhythm-ui/scroll-to"
-title: "rui-scroll-to"
+title: "Scroll to"
+category: "utilities"
 ---
 
 # Scroll to

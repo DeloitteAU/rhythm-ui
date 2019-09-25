@@ -74,10 +74,28 @@ const Template = ({
 	${process.env.GATSBY_GITHUB_URL}${replaceChar(relativeUrlPath)}/readme.md
 	`;
 
+	const unflatten = (nodes, parent, tree = null) => {
+		const children = nodes.filter(n => n.fields.parentUrlPath === parent.fields.relativeUrlPath);
+
+		if (!tree) {
+			tree = children;
+		} else {
+			parent.children = children;
+		}
+
+		children.forEach(child => {
+			unflatten(nodes, child, tree);
+		});
+
+		return tree;
+	};
+
+	const tree = unflatten(nav.nodes, nav.nodes.find(n => n.fields.parentUrlPath === ''));
+
 	return (
 		<Layout
 			title={pageTitle}
-			nav={nav.nodes}
+			nav={tree}
 			breadcrumbs={breadcrumbs}
 			tocs={pageHeadings}
 			editPath={githubUrlPath}
@@ -111,7 +129,7 @@ export const pageQuery = graphql`
 				package
 			}
 		}
-		nav: allMdx(filter: {fields: {relativeUrlPath: {regex: "/^\/guides/"}}}) {
+		nav: allMdx(filter: {fields: {relativeUrlPath: {regex: "/^/guides/"}}}) {
 			nodes {
 				id
 				frontmatter {
@@ -120,7 +138,7 @@ export const pageQuery = graphql`
 				fields {
 					relativeUrlPath
 					nodeTitle
-					relativeUrlPath
+					parentUrlPath
 				}
 			}
 		}
