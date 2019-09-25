@@ -60,19 +60,8 @@ Events triggered by actions inside the component.
 
 ## Styling
 
-> The `<a />` tag color is not styled by default and will inherit from your base styles.
+> Styles are automatically applied to the anchor element child. These styles may be overriden by targeting the anchor element through your own stylesheets.
 
-Use the `RuiBreadcrumbs` key to apply any custom css.
-
-```js
-import {css, createShadowStyles} from '@rhythm-ui/styles';
-
-createShadowStyles({
-	RuiBreadcrumbs: css`
-		/* Your custom css */
-	`,
-});
-```
 
 To extend and override templates or methods
 

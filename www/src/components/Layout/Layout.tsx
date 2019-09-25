@@ -81,7 +81,7 @@ export const Layout: React.SFC<IProps> = ({nav, breadcrumbs, tocs, editPath, mar
 						<div className="l-7">
 							<RuiRichText>
 								{breadcrumbs &&
-									<RuiBreadcrumbs>
+									<RuiBreadcrumbs class="breadcrumbs">
 										{breadcrumbs.map(b => <a>{b.label}</a>)}
 										<a href="#">{title}</a>
 									</RuiBreadcrumbs>

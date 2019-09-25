@@ -63,16 +63,21 @@ export class RuiBreadcrumbs extends LitElement {
 	 * Connected callback
 	*/
 	public connectedCallback() {
-		super.connectedCallback()
+		super.connectedCallback();
 
 		this._crumbs = 
 			[...this.children]
 			.map((c, i) => {
+				c.slot = i;
+
 				// A11y. Set the aria-current on the last element if not done so
 				if (i === this.children.length - 1 && !c.getAttribute('aria-current')) {
 					c.setAttribute('aria-current', 'page');
 				}
-				return html`<li>${c}</li>`;
+				return html`
+					<li>
+						<slot name=${i}></slot>
+					</li>`;
 			});
 	}
 

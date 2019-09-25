@@ -19,7 +19,7 @@ export const variables = css`
 		/**
 		 * @variable Separator color
 		 */
-		--rui-breadcrumbs__separator-color: inherit;
+		--rui-breadcrumbs__separator-color: #5F5F5F;
 
 		/**
 		 * @variable Separator background
@@ -35,36 +35,6 @@ export const variables = css`
 		 * @variable Expand button padding
 		 */
 		--rui-breadcrumbs__expand-btn-padding: 0 4px;
-
-		/**
-		 * @variable Crumbs font weight
-		 */
-		--rui-breadcrumbs__font-weight: normal;
-
-		/**
-		 * @variable Crumb text decoration
-		 */
-		--rui-breadcrumbs__text-decoration: none;
-
-		/**
-		 * @variable Crumb text decoration on hover
-		 */
-		--rui-breadcrumbs__text-decoration-hover: underline;
-
-		/**
-		 * @variable Current/Active Crumb font weight
-		 */
-		--rui-breadcrumbs__current-font-weight: var(--rui-breadcrumbs__font-weight);
-
-		/**
-		 * @variable Current/Active Crumb color
-		 */
-		--rui-breadcrumbs__current-color: inherit;
-
-		/**
-		 * @variable Current/Active Crumb color on hover
-		 */
-		--rui-breadcrumbs__current-color-hover: inherit;
 	}
     `;
 
@@ -86,7 +56,7 @@ export const layout = css`
 		display: inline-block;
 	}
 
-	.crumbs li:after {
+	.crumbs li::after {
 		display: inline-block;
 		padding: var(--rui-breadcrumbs__separator-padding);
 		color: var(--rui-breadcrumbs__separator-color);
@@ -94,26 +64,30 @@ export const layout = css`
 		background: var(--rui-breadcrumbs__separator-background);
 	}
 
-	.crumbs li:last-child:after {
+	.crumbs li:last-child::after {
 		display: none;
 	}
 
-	.crumbs li a {
-		font-weight: var(--rui-breadcrumbs__font-weight);
-		text-decoration: var(--rui-breadcrumbs__text-decoration);
+	::slotted(a) {
+		padding: 4px;
+		color: #208834;
+		text-decoration: none;
 	}
 
-	.crumbs li a:hover {
-		text-decoration: var(--rui-breadcrumbs__text-decoration-hover);
+	li:last-child ::slotted(a) {
+		color: #5F5F5F;
 	}
 
-	.crumbs li:last-child a {
-		font-weight: var(--rui-breadcrumbs__current-font-weight);
-		color: var(--rui-breadcrumbs__current-color);
+	::slotted(a:focus) {
+		outline: currentColor solid 1px;
 	}
 
-	.crumbs li:last-child a:hover {
-		color: var(--rui-breadcrumbs__current-color-hover);
+	::slotted(a:hover) {
+		text-decoration: underline;
+	}
+
+	li:last-child ::slotted(a:hover) {
+		text-decoration: none;
 	}
 
 	.expand-btn {
