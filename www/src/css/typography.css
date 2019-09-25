@@ -73,21 +73,11 @@ code {
 	background: rgba(255, 229, 100, 0.3);
 }
 
-a,
-a:active,
-a:visited {
-	color: #6C5CE7;
-}
-
-a:hover {
-	color: #512DA8;
-}
-
-rui-breadcrumbs a {
+.breadcrumbs a {
 	text-decoration: none;
 	color: #111 !important;
 }
 
-rui-breadcrumbs a:hover {
+.breadcrumbs a:hover {
 	text-decoration: underline;
 }
