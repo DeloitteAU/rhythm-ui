@@ -9,6 +9,7 @@
     "build": "gatsby build --prefix-paths",
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "gatsby develop --open",
+    "debug": "node --nolazy --inspect-brk node_modules/.bin/gatsby develop",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
   },

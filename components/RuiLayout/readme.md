@@ -1,6 +1,7 @@
 ---
-package: "@rhythm-ui"
-title: "rui-layout"
+package: "@rhythm-ui/layout"
+title: "Layout"
+category: "layout"
 ---
 # layout
 

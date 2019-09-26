@@ -1,6 +1,7 @@
 ---
 package: "@rhythm-ui/hero-banner"
-title: "rui-hero-banner"
+title: "Hero banner"
+category: "elements"
 ---
 
 # Hero Banner

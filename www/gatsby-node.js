@@ -74,6 +74,10 @@ exports.onCreateNode = ({node, actions, getNode}) => {
 		// Remove any prefix numbers (e.g. in 01-getting-started)
 		let relativeUrlPath = relativeFilePath.replace(/\d\d-/g, '');
 
+		if (frontmatter && frontmatter.slug) {
+			relativeUrlPath = `/${frontmatter.slug}`;
+		}
+
 		if (frontmatter && frontmatter.package && frontmatter.package.match(/^@rhythm-ui/) !== null) {
 			let slug = relativeUrlPath
 				.split('/')
@@ -86,13 +90,8 @@ exports.onCreateNode = ({node, actions, getNode}) => {
 			relativeUrlPath = `/components/${slug}`;
 		}
 
-		// setting the relative path for CHANGELOG.md
-		if (fileAbsolutePath.includes('CHANGELOG')) {
-			relativeUrlPath = '/change-log';
-		}
-
 		// Extract parent path and base name from the relative path
-		const [, , parentUrlPath = '', nodeName = ''] = relativeUrlPath.match(/^(.*)\/(.+)$/) || [];
+		const [, parentUrlPath = '', nodeName = ''] = relativeUrlPath.match(/^(.*)\/(.+)$/) || [];
 
 		// Change hyphens to spaces
 		let nodeTitle = nodeName.replace(/-/g, ' ');

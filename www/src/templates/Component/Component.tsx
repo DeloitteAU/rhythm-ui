@@ -180,7 +180,7 @@ export const pageQuery = graphql`
 				package
 			}
 		}
-		nav: allMdx(filter: {fields: {relativeUrlPath: {regex: "/^\/components/"}}}) {
+		nav: allMdx(filter: {fields: {relativeUrlPath: {regex: "/^\/components/"}}}, sort: {fields: frontmatter___title}) {
 			nodes {
 				id
 				frontmatter {

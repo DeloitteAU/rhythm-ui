@@ -1,6 +1,7 @@
 ---
-package: "@rhythm-ui"
-title: "rui-story"
+package: "@rhythm-ui/story"
+title: "Story"
+category: "elements"
 ---
 
 # Story

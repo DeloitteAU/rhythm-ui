@@ -42,6 +42,7 @@
     "build:storybook:vue": "node_modules/@storybook/vue/bin/build.js -c adapters/vue/.storybook -o .out-vue",
     "start": "yarn start:site",
     "start:site": "lerna run start --scope www --include-filtered-dependencies --parallel --stream",
+    "start:quick": "lerna run start --scope www",
     "start:components": "node_modules/@storybook/react/bin/index.js -p 6005 -c components/.storybook",
     "start:react": "node_modules/@storybook/react/bin/index.js -p 6006 -c adapters/react/.storybook",
     "start:vue": "node_modules/@storybook/vue/bin/index.js -p 6007 -c adapters/vue/.storybook",

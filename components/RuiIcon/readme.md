@@ -1,6 +1,7 @@
 ---
 package: "@rhythm-ui/icon"
-title: "rui-icon"
+title: "Icon"
+category: "elements"
 ---
 
 # Icon

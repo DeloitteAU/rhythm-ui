@@ -1,0 +1,36 @@
+---
+title: "Prevent Flash of unstyled content (FOUC)"
+---
+
+# Prevent flash of unstyled content from unresolved web components
+
+In most cases with Web components we load JavaScript asynchronously which is a good thing for performance, however you may notice a jarring change in layout as the browser loads your webpage.
+
+We refer to this as [the FOUC problem](https://webkit.org/blog/66/the-fouc-problem/)
+
+> FOUC stands for Flash of Unstyled Content. This situation occurs whenever a Web browser ends up showing your Web page’s content without having any style information yet.
+
+
+Fortunantly addressing this issue is relativley straight forward.
+
+### Using CSS (prefered)
+
+The `:defined` CSS pseudo-class represents any element that has been defined. This includes any standard element built in to the browser as well as our custom elements that have been successfully defined (i.e. with the customElements.define() method).
+
+This provides us with the opportunity to visually hide these components until they are ready using the `:not` selector.
+
+For example, putting the following in the `<head>` tag will ensure all Web components are not displayed until they are defined.
+
+```html
+<style>
+	/* Prevent FOUC */
+	*:not(:defined) {
+		visibility: hidden;
+	}
+</style>
+```
+
+**Browser Support**
+
+[Can I Use CSS Selector :defined?](https://caniuse.com/#search=%3Adefined)
+

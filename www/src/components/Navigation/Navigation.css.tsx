@@ -10,6 +10,7 @@ const navigationStyles = css`
 	li {
 		margin: 0;
 		padding: 0;
+		display: block;
 	}
 
 	a {
@@ -60,4 +61,17 @@ const navigationStyles = css`
 		opacity: 1;
 	}
 `;
+
+export const level1 = css`
+	li a {
+		font-size: 18px;
+	}
+`;
+
+export const level2 = css`
+	li a {
+		font-size: 14px;
+	}
+`;
+
 export default navigationStyles;

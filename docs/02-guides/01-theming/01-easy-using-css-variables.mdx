@@ -1,0 +1,35 @@
+---
+title: "Easy: Using CSS Variables"
+---
+
+
+# Easy: Using CSS Variables
+
+Using CSS Variables is by far the easiest way to make changes to components and should always be your starting point.
+
+Rhythm UI remains largely unopinionted on how you do your own CSS be it inline, in a css file, css in js or from a pre-proccessor. 
+As long as the CSS variables are defined on the page, Rhythm UI components will pick up your settings.
+
+You will find the available CSS variables documented at the bottom of every component page.
+
+So for example, we could set some variables on the Breadcrumbs component like this
+
+```html
+<html>
+	<head>
+		<style>
+			/*
+			* Customise breadcrumbs component
+			*/
+			--rui-breadcrumbs__separator-padding: 0 8px;
+			--rui-breadcrumbs__separator-content: ">";
+		</style>
+	</head>
+	<body>
+		<rui-breadcrumbs>
+			<a href="/">Home</a>
+			<a href="/about-us">About us</a>
+		</rui-breadcrumbs>
+	</body>
+</html>
+```
