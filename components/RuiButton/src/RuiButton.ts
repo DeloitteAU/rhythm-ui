@@ -15,6 +15,12 @@ import {variables, layout} from './RuiButton.css'
  */
 export class RuiButton extends LitElement {
 
+	/**
+	 * Button button element
+	 */
+	private _buttonEl: HTMLButtonElement;
+
+
 	/* #region Properties */
 
 	/**
@@ -56,7 +62,7 @@ export class RuiButton extends LitElement {
 	public href?: string;
 
 	/**
-	 * Specifies a target value to the anchor tag 
+	 * Specifies a target value to the anchor tag
 	 * Requires href to be set or behaviour to be anchor
 	 */
 	@property({type : String})
@@ -82,6 +88,20 @@ export class RuiButton extends LitElement {
 
 
 	/* #region Methods */
+
+	/**
+	 * LIT firstUpdated lifecycle event
+	 */
+	public firstUpdated():void {
+		this._buttonEl = this.shadowRoot.querySelector('button');
+	}
+
+	/**
+	 * Set focus to child button element
+	 */
+	public focus():void {
+		!!this._buttonEl && this._buttonEl.focus();
+	};
 
 	/**
 	 * Render method

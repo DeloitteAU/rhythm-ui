@@ -18,6 +18,23 @@ type RuiExpandCollapsePropertyType = boolean;
  * RuiExpandCollapse
  */
 export class RuiExpandCollapse extends LitElement {
+
+	/**
+	 * Internal open state of component
+	 */
+	private _open: boolean = false;
+	private _collapseableEl: HTMLDivElement | null = null;
+	private _detailsSlotEl: HTMLSlotElement | null = null;
+	private _uuid: string = this._generateUUIDv4();
+
+	/**
+	 * Button button element
+	 */
+	private _buttonEl: HTMLButtonElement;
+
+
+	/* #region Properties*/
+
 	/**
 	 * Open property deals with the internal open/close
 	 * state. Mirrors the open attribute on the root element
@@ -35,14 +52,6 @@ export class RuiExpandCollapse extends LitElement {
 		this._open = isOpen;
 		this.requestUpdate('open', oldVal);
 	}
-
-	/**
-	 * Internal open state of component
-	 */
-	private _open: boolean = false;
-	private _collapseableEl: HTMLDivElement | null = null;
-	private _detailsSlotEl: HTMLSlotElement | null = null;
-	private _uuid: string = this._generateUUIDv4();
 
 	/**
 	 *
@@ -175,6 +184,8 @@ export class RuiExpandCollapse extends LitElement {
 	 * slot to be mounted
 	 */
 	public firstUpdated(): void {
+		this._buttonEl = this.shadowRoot.querySelector('button');
+
 		if (this.shadowRoot) {
 			this._detailsSlotEl = this.shadowRoot.querySelector('#details-slot');
 
@@ -188,6 +199,13 @@ export class RuiExpandCollapse extends LitElement {
 			}
 		}
 	}
+
+	/**
+	 * Set focus to child button element
+	 */
+	public focus():void {
+		!!this._buttonEl && this._buttonEl.focus();
+	};
 
 	public updated(changedProperties: Map<string, RuiExpandCollapsePropertyType>): void {
 		changedProperties.forEach((oldValue: RuiExpandCollapsePropertyType, propName: string): void => {
