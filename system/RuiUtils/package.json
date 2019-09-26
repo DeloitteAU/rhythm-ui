@@ -1,0 +1,19 @@
+{
+	"name": "@rhythm-ui/utils",
+	"version": "0.1.0",
+	"license": "BSD-3-Clause",
+	"main": "lib/index.js",
+	"scripts": {
+		"start": "babel -w -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --copy-files",
+		"build": "yarn clean && yarn build:babel && yarn build:declarations",
+		"build:babel": "babel -s -d lib src --extensions \".ts,.tsx\" --ignore *.spec.ts --ignore *.d.ts --copy-files",
+		"build:declarations": "tsc --declaration --emitDeclarationOnly",
+		"clean": "rimraf lib"
+	},
+	"devDependencies": {
+		"babel-preset-rhythm-ui": "^0.1.0"
+	},
+	"dependencies": {
+		"lit-element": "^2.1.0"
+	}
+}
