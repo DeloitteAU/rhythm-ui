@@ -1,5 +1,5 @@
 {
-	"name": "@rhythm-ui/-navigation-group",
+	"name": "@rhythm-ui/nav",
 	"version": "1.0.0",
 	"main": "lib/index.js",
 	"license": "BSD-3-Clause",

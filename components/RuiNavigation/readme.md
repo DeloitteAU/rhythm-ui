@@ -1,15 +1,80 @@
 ---
-package: "@rhythm-ui/-navigation"
-title: "rui-navigation"
+package: "@rhythm-ui/navigation"
+title: "Menu Bar"
 ---
 
 Readme file for rui-navigation
 
-# Navigation group
+
+
+
+# Menu Bar
 
  A `rui-navigation-group` component consists of the name for the navigation group and its contents. The contents of a rui-navigation-group are hidden by default until activation of the name of the navigation of group occurs. Hovering, pressing the 'enter' key and tapping on the name of the navigation group causes its activation. 
 
+## Accessibility
+
+https://www.w3.org/TR/wai-aria-practices/examples/menubar/menubar-1/menubar-1.html
+
 ## Default rui-navigation and rui-navigation-group components
+
+
+```html preview
+<rui-menubar>
+    <rui-menubar-item href="#" active>About us</rui-menubar-item>
+    <rui-menubar-item href="#">Help</rui-menubar-item>
+    <rui-menubar-item href="#">Contact us</rui-menubar-item>
+    <rui-menubar-dropdown-item mega="true">
+        Lets go!
+        <div slot="dropdown">
+            Oh hi!
+        </div>
+    </rui-menubar-dropdown-item>
+    <rui-menubar-dropdown-item mega="true">
+        Woopa
+        <div slot="dropdown">
+            <rui-grid>
+                <div class="l-4 p-s-2">
+                    <h2>Section Heading</h2>
+                    <p>Lorem ipsum</p>
+                    <rui-button>Go there</rui-button>
+                </div>
+                <div class="l-4 p-s-6">
+                     <rui-nav stacked>
+                        <a>fdsafdsa</a>
+                        <a>fdsafdsa</a>
+                        <a>fdsafdsa</a>
+                    </rui-nav>
+                </div>
+            </rui-grid>
+        </div>
+    </rui-menubar-dropdown-item>
+     <rui-menubar-dropdown-item interaction="hover" href="#">
+        Andela!
+        <rui-nav slot="dropdown" stacked>
+            <a>fdsafdsa</a>
+            <a>fdsafdsa</a>
+            <a>fdsafdsa</a>
+        </rui-nav>
+    </rui-menubar-dropdown-item>
+</rui-menubar>
+```
+
+
+```html
+<rui-navigation>
+    <rui-menubar-item href="#">About us</rui-menubar-link>
+<rui-navigation>
+
+<rui-navigation>
+    <rui-navigation-dropdown-item interactivity="click|hover" type="fullwidth|block">
+        <rui-navigation-item slot="name" href="#">About us</rui-navigation-item>
+        <span>Drop down body</span>
+    </rui-navigation-dropdown-item>
+<rui-navigation>
+```
+
+
 
 ```html preview
 <style>

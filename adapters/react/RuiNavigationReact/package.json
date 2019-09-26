@@ -1,6 +1,6 @@
 
 {
-	"name": "@rhythm-ui/-navigation-react",
+	"name": "@rhythm-ui/navigation-react",
 	"version": "1.0.0",
 	"main": "lib/index.js",
 	"scripts": {
@@ -20,7 +20,7 @@
 		"react": "^16.8.6"
 	},
 	"dependencies": {
-		"@rhythm-ui/-navigation": "^1.0.0"
+		"@rhythm-ui/navigation": "^1.0.0"
 	},
 	"peerDependencies": {
 		"react": ">= 16"

@@ -9,11 +9,15 @@
 * Register the Web Component with customElements
 * @param tag - The HTML tag to use
 */
-export const register = async (tag: string = 'rui-navigation'): Promise<boolean> => {
-	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
+export const register = async (): Promise<boolean> => {
+	if (typeof customElements !== 'undefined') {
 		// Register the new element with the DOM
-		const m = await import('./RuiNavigation');
-		customElements.define(tag, m.RuiNavigation);
+		const {RuiMenubar} = await import('./RuiMenubar');
+		const {RuiMenubarDropDownItem} = await import('./RuiMenubarDropDownItem');
+		const {RuiMenubarItem} = await import('./RuiMenubarItem');
+		!customElements.get(RuiMenubar.tag) && customElements.define(RuiMenubar.tag, RuiMenubar);
+		!customElements.get(RuiMenubarDropDownItem.tag) && customElements.define(RuiMenubarDropDownItem.tag, RuiMenubarDropDownItem);
+		!customElements.get(RuiMenubarItem.tag) && customElements.define(RuiMenubarItem.tag, RuiMenubarItem);
 		return true;
 	}
 	return false;

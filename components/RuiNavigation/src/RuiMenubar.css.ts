@@ -21,18 +21,15 @@ export const variables = css`
 */
 export const layout = css`
     :host {
-		display: flex;
-		flex-direction: column;
-		background: white;
+		display: block;
+		position: relative;
 	}
 
-	@media (min-width: 769px) {
-		:host {
-			padding: 0 1em;
-			flex-direction: row;
-			position: relative;
-			z-index: 99;
-		}
+	ul {
+		display: flex;
+		flex-direction: row;
+		padding: 0;
+		margin: 0;
 	}
 `;
 

@@ -9,11 +9,11 @@
 * Register the Web Component with customElements
 * @param tag - The HTML tag to use
 */
-export const register = async (tag: string = 'rui-navigation-group'): Promise<boolean> => {
+export const register = async (tag: string = 'rui-nav'): Promise<boolean> => {
 	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
 		// Register the new element with the DOM
-		const m = await import('./RuiNavigationGroup');
-		customElements.define(tag, m.RuiNavigationGroup);
+		const m = await import('./RuiNav');
+		customElements.define(tag, m.RuiNav);
 		return true;
 	}
 	return false;

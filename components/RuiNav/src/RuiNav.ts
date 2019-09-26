@@ -6,9 +6,9 @@
 */
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
-import {variables, layout} from './RuiNavigation.css'
+import {variables, layout} from './RuiNav.css'
 
-export class RuiNavigation extends LitElement {
+export class RuiNav extends LitElement {
 
 	/**
 	*
@@ -22,39 +22,19 @@ export class RuiNavigation extends LitElement {
 
 	/* #endregion */
 
-	private _currentlyOpen: HTMLElement | null = null;
-
 	/* #region Methods */
-	private _onToggle(event): void {
-		const isOpen = event.target.open;
-
-		if (isOpen) {
-			const currentlyOpen = event.target;
-
-			const groups = Array.from(this.children);
-			groups.forEach(group => {
-				if (group !== currentlyOpen) {
-					group.open = false;
-				}
-			});
-
-			this._currentlyOpen = currentlyOpen;
-		}
-	}
 
 	/**
 	* Render method
 		* @slot This is a slot test
 	*/
 	public render(): TemplateResult {
-		this.addEventListener('toggle', this._onToggle, true);
-
 		return html`
-			<slot></slot>
+			<slot> </slot>
 			`;
 	}
 
 	/* #endregion */
 }
 
-export default RuiNavigation;
+export default RuiNav;

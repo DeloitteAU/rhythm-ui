@@ -6,7 +6,7 @@
 */
 
 import React from 'react';
-import '@rhythm-ui/-navigation-group';
+import '@rhythm-ui/navigation';
 
 import {IRuiNavigationGroup} from './IRuiNavigationGroup';
 

@@ -9,10 +9,10 @@
 import '../src';
 import TestUtils from '../../../TestUtils';
 
-describe('RuiNavigationGroup', () => {
+describe('RuiNav', () => {
 
 	it('Renders', async () => {
-		const ele = await TestUtils.render('rui-navigation-group', {}, '');
+		const ele = await TestUtils.render('rui-nav', {}, '');
 		expect(ele).toBeDefined();
 
 		// Enable if your component has a shadow root

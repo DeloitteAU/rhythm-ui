@@ -10,6 +10,8 @@ import {variables, layout} from './RuiNavigationGroup.css'
 
 export class RuiNavigationGroup extends LitElement {
 
+	public static tag = 'rui-navigation-group';
+
 	private _classToken: string = 'current';
 
 	/**
