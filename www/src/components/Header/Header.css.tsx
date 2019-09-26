@@ -28,13 +28,13 @@ export const nav = css`
 	}
 
 	a {
-		color: #673AB7;
+		color: #208834;
 		font-weight: 700;
 		text-decoration: none;
 		font-size: 14px;
 
 		&:hover {
-			color: #311B92;
+			color: #0c7420;
 		}
 	}
 `;
