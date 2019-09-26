@@ -1,6 +1,7 @@
 ---
 package: "@rhythm-ui/accordion"
-title: "rui-accordion"
+title: "Accordion"
+category: "elements"
 ---
 
 # Accordion

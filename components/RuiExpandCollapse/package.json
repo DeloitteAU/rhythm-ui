@@ -18,12 +18,14 @@
 	],
 	"devDependencies": {
 		"@rhythm-ui/styles": "^0.1.0",
+		"@rhythm-ui/utils": "^0.1.0",
 		"lit-element": "^2.1.0",
 		"babel-preset-rhythm-ui": "^0.1.0",
 		"ruidocs": "^0.1.0"
 	},
 	"peerDependencies": {
 		"@rhythm-ui/styles": "^0.1.0",
+		"@rhythm-ui/utils": "^0.1.0",
 		"lit-element": "^2.1.0"
 	}
 }

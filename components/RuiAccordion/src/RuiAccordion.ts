@@ -17,67 +17,10 @@ export class RuiAccordion extends LitElement {
 	public behaviour?: 'single' | 'multiple'  = 'multiple';
 
 	/**
-	 * onExpandCollapse is the handler function that is called
-	 * when the user triggers an expand/collapse. This
-	 * function should be overriden when trying to control
-	 * the component externally
-	 */
-	@property()
-	public expandCollapseAll = ():void => {
-		let elements = this.querySelectorAll('rui-expand-collapse');
-		elements = Array.from(elements);
-
-		elements.forEach(element => {
-			element.open = !this._openAll;
-		});
-
-		const buttonExpand = this.querySelector('[slot=button-expand]');
-		const buttonCollapse = this.querySelector('[slot=button-collapse]');
-
-		if (this._openAll) {
-			buttonCollapse.style.display = "none";
-			buttonExpand.style.display = "";
-		}
-		else {
-			buttonCollapse.style.display = "";
-			buttonExpand.style.display = "none";
-		}
-
-		this._openAll = !this._openAll;
-	};
-
-
-	/**
-	 * onExpandCollapse is the handler function that is called
-	 * when the user triggers an expand/collapse. This
-	 * function should be overriden when trying to control
-	 * the component externally
-	 */
-	@property()
-	private onExpandCollapseOnlyOne = (event):void => {
-		const {target} = event;
-		const expandCollapse = target.closest('rui-expand-collapse');
-
-		if (expandCollapse) {
-			const isOpen = expandCollapse.open;
-
-			if (isOpen) {
-				const accordion = event.currentTarget;
-
-				const elements = accordion.assignedElements();
-				elements.forEach(element => {
-					if (expandCollapse !== element) {
-						element.open = false;
-					}
-				});
-			}
-		}
-	};
-
-	/**
 	 * Internal open state of component
 	 */
 	private _openAll: boolean = false;
+	private _items: any[] = [];
 
 	/**
 	 *
@@ -94,35 +37,59 @@ export class RuiAccordion extends LitElement {
 	/* #region Methods */
 
 	/**
+	 */
+	private _expandCollapseAll = ():void => {
+		this._items.forEach(element => {
+			element.open = !this._openAll;
+		});
+
+		this._openAll = !this._openAll;
+		this.requestUpdate();
+	};
+
+
+	/**
+	 */
+	private _onExpandCollapseItem = (event):void => {
+		if (this.behaviour !== 'single') {
+			return;
+		}
+
+		this._items.forEach(element => {
+			element.open = false;
+		});
+
+		event.target.open = true;
+	};
+
+	/**
 	 * Render method
-	 * @slot This is a slot test
 	 */
 	public render(): TemplateResult {
+		const buttonCollapse = this.querySelector('[slot=button-collapse]');
+		const buttonExpand = this.querySelector('[slot=button-expand]');
 
-		if (this.behaviour === 'single') {
-			return html`
+		return html`
 			<div class="outer-container">
 				<slot name="heading"></slot>
+				${buttonCollapse || buttonExpand
+					? html`
+						<div class="inner-container">
+							${this._openAll
+								? html`<slot name="button-collapse" @click="${this._expandCollapseAll}"></slot>`
+								: html`<slot name="button-expand" @click="${this._expandCollapseAll}"></slot>`
+							}
+						</div>` 
+					: html``
+				}
 			</div>
-			<slot @click="${this.onExpandCollapseOnlyOne}"></slot>
-			`;
-		}
+			<slot @opened="${this._onExpandCollapseItem}"></slot>
+		 `;
+	}
 
-		else {
-			const buttonCollapse = this.querySelector('[slot=button-collapse]');
-			buttonCollapse.style.display = "none";
-
-			return html`
-				<div class="outer-container">
-					<slot name="heading"></slot>
-					<div class="inner-container">
-						<slot name="button-collapse" @click="${this.expandCollapseAll}"></slot>
-						<slot name="button-expand" @click="${this.expandCollapseAll}"></slot>
-					</div>
-				</div>
-				<slot></slot>
-				`;
-		}
+	public firstUpdated(): void {
+		const elements = this.querySelectorAll('rui-expand-collapse');
+		this._items = Array.from(elements);
 	}
 
 	/* #endregion */
