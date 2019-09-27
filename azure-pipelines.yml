@@ -166,7 +166,7 @@ stages:
 - stage: Canary
   displayName: 'Publish Canary'
   dependsOn: build
-  condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/master')
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
   jobs:
   - deployment: DeployCanary
     displayName: Deploy Canary
@@ -199,7 +199,7 @@ stages:
 - stage: Beta
   displayName: 'Publish Beta'
   dependsOn: build
-  condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))
   jobs:
   - deployment: DeployBeta
     displayName: Deploy Web App
