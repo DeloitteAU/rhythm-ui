@@ -68,7 +68,7 @@ export class RuiBreadcrumbs extends LitElement {
 		this._crumbs = 
 			[...this.children]
 			.map((c, i) => {
-				c.slot = i;
+				c.setAttribute('slot', `crumb-${i}`);
 
 				// A11y. Set the aria-current on the last element if not done so
 				if (i === this.children.length - 1 && !c.getAttribute('aria-current')) {
@@ -76,7 +76,7 @@ export class RuiBreadcrumbs extends LitElement {
 				}
 				return html`
 					<li>
-						<slot name=${i}></slot>
+						<slot name="crumb-${i}"></slot>
 					</li>`;
 			});
 	}
