@@ -30,8 +30,12 @@ export class RuiNav extends LitElement {
 	*/
 	public render(): TemplateResult {
 		return html`
-			<slot> </slot>
-			`;
+			<nav aria-label="Main Menu">
+				<ul>
+					<slot> </slot>
+				</ul>
+			</nav>
+		`;
 	}
 
 	/* #endregion */

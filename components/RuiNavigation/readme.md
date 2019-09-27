@@ -34,12 +34,12 @@ https://www.w3.org/TR/wai-aria-practices/examples/menubar/menubar-1/menubar-1.ht
         Woopa
         <div slot="dropdown">
             <rui-grid>
-                <div class="l-4 p-s-2">
+                <div class="l-3 p-s-1">
                     <h2>Section Heading</h2>
                     <p>Lorem ipsum</p>
                     <rui-button>Go there</rui-button>
                 </div>
-                <div class="l-4 p-s-6">
+                <div class="l-3 p-s-4">
                      <rui-nav stacked>
                         <a>fdsafdsa</a>
                         <a>fdsafdsa</a>
@@ -59,6 +59,52 @@ https://www.w3.org/TR/wai-aria-practices/examples/menubar/menubar-1/menubar-1.ht
     </rui-menubar-dropdown-item>
 </rui-menubar>
 ```
+
+
+
+```html preview
+<rui-menubar stacked>
+    <rui-menubar-item href="#" active>About us</rui-menubar-item>
+    <rui-menubar-item href="#">Help</rui-menubar-item>
+    <rui-menubar-item href="#">Contact us</rui-menubar-item>
+    <rui-menubar-dropdown-item mega="true">
+        Lets go!
+        <div slot="dropdown">
+            Oh hi!
+        </div>
+    </rui-menubar-dropdown-item>
+    <rui-menubar-dropdown-item mega="true">
+        Woopa
+        <div slot="dropdown">
+            <rui-grid>
+                <div class="l-3 p-s-1">
+                    <h2>Section Heading</h2>
+                    <p>Lorem ipsum</p>
+                    <rui-button>Go there</rui-button>
+                </div>
+                <div class="l-3 p-s-4">
+                     <rui-nav stacked>
+                        <a>fdsafdsa</a>
+                        <a>fdsafdsa</a>
+                        <a>fdsafdsa</a>
+                    </rui-nav>
+                </div>
+            </rui-grid>
+        </div>
+    </rui-menubar-dropdown-item>
+     <rui-menubar-dropdown-item interaction="hover" href="#">
+        Andela!
+        <rui-nav slot="dropdown" stacked>
+            <a>fdsafdsa</a>
+            <a>fdsafdsa</a>
+            <a>fdsafdsa</a>
+        </rui-nav>
+    </rui-menubar-dropdown-item>
+</rui-menubar>
+```
+
+
+
 
 
 ```html

@@ -12,8 +12,8 @@ import {css} from 'lit-element';
 */
 export const variables = css`
     :host {
-
-    }
+		--rui-menu-bar__breakpoint: 2100px;
+	}
 	`;
 
 /**
@@ -27,9 +27,23 @@ export const layout = css`
 
 	ul {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		padding: 0;
 		margin: 0;
+	}
+
+	@media only screen and (max-width: 2000px) {
+		:host(:not([stacked]))
+			ul {
+				flex-direction: row;
+			}
+	}
+
+	:host([stacked]) {
+		ul {
+			flex-direction: row;
+			background: red;
+		}
 	}
 `;
 

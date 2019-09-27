@@ -20,6 +20,10 @@ export class RuiMenubar extends LitElement {
 	 */
 	private _activeNavItemEl?: HTMLElement;
 
+
+	@property({type: Boolean})
+	public stacked: boolean = false;
+
 	/**
 	*
 	* The styles for button
@@ -72,6 +76,13 @@ export class RuiMenubar extends LitElement {
 		this.addEventListener('menu-item-click', this._handleMenuItemClick, true);
 		document.addEventListener('keydown', this._handleKeyPress);
 		document.addEventListener('click', this._handleDocumentClick, true)
+
+
+		if (this.stacked) {
+			[...this.children].forEach(c => {
+				c.setAttribute('data-stacked', 'true');
+			})
+		}
 	}
 
 	disconnectedCallback() {
@@ -86,12 +97,11 @@ export class RuiMenubar extends LitElement {
 		* @slot This is a slot test
 	*/
 	public render(): TemplateResult {
-
 		return html`
-			<nav aria-label="TODO">
-					<ul role="menubar" aria-label="TODO">
-						<slot></slot>
-					</ul>
+			<nav aria-label="Main Navigation">
+				<ul role="menubar" aria-label="Main Navigation">
+					<slot></slot>
+				</ul>
 			</nav>
 		`;
 	}
