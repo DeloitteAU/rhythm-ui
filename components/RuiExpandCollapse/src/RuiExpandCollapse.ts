@@ -6,6 +6,8 @@
  */
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
+import {getShadowStylesFor} from '@rhythm-ui/styles';
+// import {uuid} from '@rhythm-ui/utils';
 import {variables, layout} from './RuiExpandCollapse.css'
 
 // Update to include any possible type a value
@@ -15,222 +17,240 @@ type RuiExpandCollapsePropertyType = boolean;
 /**
  * RuiExpandCollapse
  */
-export class RuiExpandCollapse extends LitElement { 
-  /**
-   * Open property deals with the internal open/close 
-   * state. Mirrors the open attribute on the root element
-   */
-  @property({
-    type : Boolean,
-    reflect: true, // reflect attribute on parent element when internal state updates
-    converter: (value): boolean => value !== undefined, // check presence of open attribute
-  })
-  public get open(): boolean {
-    return this._open;
-  }
+export class RuiExpandCollapse extends LitElement {
 
-  public set open(isOpen: boolean) {
-    const oldVal = this.open;
-    this._open = isOpen;
-    this.requestUpdate('open', oldVal);
-  }
+	/**
+	 * Internal open state of component
+	 */
+	private _open: boolean = false;
 
-  /**
-   * onExpandCollapse is the handler function that is called
-   * when the user triggers an expand/collapse. This
-   * function should be overriden when trying to control
-   * the component externally
-   */
-  @property()
-  public onExpandCollapse = ():void => {
-    this.open = !this.open;
-  };
+	/**
+	 * Collapseable element
+	 */
+	private _collapseableEl: HTMLDivElement | null = null;
 
-  /**
-   * Internal open state of component
-   */
-  private _open: boolean = false;
-  private _collapseableEl: HTMLDivElement | null = null;
-  private _detailsSlotEl: HTMLSlotElement | null = null;
-  private _uuid: string = this._generateUUIDv4();
+	/**
+	 * Slot element
+	 */
+	private _detailsSlotEl: HTMLSlotElement;
 
-  /**
-   * 
-   * The styles for the expand collapse
-   * @remarks
-   * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
-   */
-  public static get styles(): CSSResultArray {
-    return [variables, layout];
-  }
+	/**
+	 * Button button element
+	 */
+	private _buttonEl: HTMLButtonElement;
 
-  // TODO: Move this to a core lib
-  private _generateUUIDv4(): string {
-    return (`${1e7}-${1e3}-${4e3}-${8e3}-${1e11}`)
-      .replace(/[018]/g, (c: string): string => {
-        const numC = parseInt(c, 10);
-        return (numC ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> numC / 4).toString(); // eslint-disable-line no-bitwise
-      });
-  }
 
-  /* #endregion */
+	/* #region Properties*/
 
-  /* #region Methods */
+	/**
+	 * Open property deals with the internal open/close
+	 * state. Mirrors the open attribute on the root element
+	 */
+	@property({
+		type: Boolean,
+		reflect: true, // reflect attribute on parent element when internal state updates
+	})
+	public get open(): boolean {
+		return this._open;
+	}
 
-  /**
-   * Handler for a click of the summary content
-   */
-  private _handleClick(): void {
-    this.onExpandCollapse();
-  }
+	public set open(isOpen: boolean) {
+		const oldVal = this.open;
+		this._open = isOpen;
+		this.requestUpdate('open', oldVal);
+	}
 
-  /**
-   * Once the collapse transition is complete we set the content to hidden for AX
-   * reasons
-   */
-  private _collapseTransitionEndHandler = () => {
-    if (this._collapseableEl) {
-      this._collapseableEl.removeEventListener('transitionend', this._collapseTransitionEndHandler);
-      this._collapseableEl.hidden = true;
-    }
-  }
+	/**
+	 *
+	 * The styles for the expand collapse
+	 * @remarks
+	 * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
+	 */
+	public static get styles(): CSSResultArray {
+		return [variables, layout, getShadowStylesFor('RuiExpandCollapse')]
+	}
 
-  /**
-   * Once the expand transition is complete, we no longer need to use an inline style to animate
-   * the height
-   */
-  private _expandTransitionEndHandler = () => {
-    if (this._collapseableEl) {
-      this._collapseableEl.style.height = '';
-      this._collapseableEl.removeEventListener('transitionend', this._expandTransitionEndHandler);
-    }
-  }
+	/* #endregion */
 
-  /**
-   * Sets height to 0 trigger collapse
-   * transition animation
-   */
-  private _triggerCollapseAnimation(): void {
-    // add back height style and then remove on next frame to trigger animation
-    requestAnimationFrame((): void => {
-      if (this._collapseableEl) {
-        // remove expand transition listener if it has not already ticked over
-        this._collapseableEl.removeEventListener('transitionend', this._expandTransitionEndHandler);
+	/* #region Methods */
 
-        const sectionHeight = this._collapseableEl.scrollHeight;
-        this._collapseableEl.style.height = `${sectionHeight}px`;
-        this._collapseableEl.classList.add('hide-content');
-        requestAnimationFrame((): void => {
-          if (this._collapseableEl) {
-            this._collapseableEl.style.height = '0px';
-            this._collapseableEl.addEventListener('transitionend', this._collapseTransitionEndHandler);
-          }
-        })
-      }
-    })
-  }
+	/**
+	 * Handler for a click of the summary content
+	 */
+	private _handleClick(): void {
+		this.open = !this.open;
+		this.dispatchEvent(
+			new CustomEvent(this.open ? 'opened' : 'closed', {
+				bubbles: true,
+				composed: true
+			})
+		);
+	}
 
-  /**
-   * Sets element height to transition to,
-   * once element height is reached it unsets height
-   * style
-   */
-  private _triggerExpandAnimation(): void {
-    if (this._collapseableEl) {
-      // remove collapse transition listener if it has not already ticked over
-      this._collapseableEl.removeEventListener('transitionend', this._collapseTransitionEndHandler);
+	/**
+	 * Once the collapse transition is complete we set the content to hidden for AX
+	 * reasons
+	 */
+	private _collapseTransitionEndHandler = () => {
+		if (this._collapseableEl) {
+			this._collapseableEl.removeEventListener('transitionend', this._collapseTransitionEndHandler);
+			this._collapseableEl.hidden = true;
+		}
+	}
 
-      this._collapseableEl.hidden = false;
-      const sectionHeight = this._collapseableEl.scrollHeight;
-      this._collapseableEl.style.height = `${sectionHeight}px`;
-      this._collapseableEl.classList.remove('hide-content');  
-      this._collapseableEl.addEventListener('transitionend', this._expandTransitionEndHandler);
-    }
-  }
+	/**
+	 * Once the expand transition is complete, we no longer need to use an inline style to animate
+	 * the height
+	 */
+	private _expandTransitionEndHandler = () => {
+		if (this._collapseableEl) {
+			this._collapseableEl.style.height = '';
+			this._collapseableEl.removeEventListener('transitionend', this._expandTransitionEndHandler);
+		}
+	}
 
-  /**
-   * Initialises the expand collapse logic and styling,
-   * once complete makes the expand collapse visible
-   */
-  private _initialiseExpandCollapse(): void {
-    if (this.shadowRoot) {
-      this._collapseableEl = this.shadowRoot.querySelector('.details-container');
+	/**
+	 * Sets height to 0 trigger collapse
+	 * transition animation
+	 */
+	private _triggerCollapseAnimation(): void {
+// add back height style and then remove on next frame to trigger animation
+		requestAnimationFrame((): void => {
+			if (this._collapseableEl) {
+// remove expand transition listener if it has not already ticked over
+				this._collapseableEl.removeEventListener('transitionend', this._expandTransitionEndHandler);
 
-      if (this._collapseableEl) {
-        
-        // need to set height initially if closed without triggering animation
-        if (!this.open) {
-          this._collapseableEl.style.height = '0px';
-          this._collapseableEl.hidden = true;
-          this._collapseableEl.classList.add('hide-content');
-        }
-        
-        const expandCollapse: HTMLElement | null = this.shadowRoot.querySelector('.expand-collapse');
-        if (expandCollapse) {
-          expandCollapse.style.opacity = '1';
-        }
-      }
-    }
-  }
-  
-  /**
-   * After initial render initialise expand collapse logic. Because
-   * we are animating slotted content, we have to wait for the 
-   * slot to be mounted
-   */
-  public firstUpdated(): void {
-    if (this.shadowRoot) {
-      this._detailsSlotEl = this.shadowRoot.querySelector('#details-slot');
+				const sectionHeight = this._collapseableEl.scrollHeight;
+				this._collapseableEl.style.height = `${sectionHeight}px`;
+				this._collapseableEl.classList.add('hide-content');
+				requestAnimationFrame((): void => {
+					if (this._collapseableEl) {
+						this._collapseableEl.style.height = '0px';
+						this._collapseableEl.addEventListener('transitionend', this._collapseTransitionEndHandler);
+					}
+				})
+			}
+		})
+	}
 
-      if (this._detailsSlotEl) {
-        // when the slotted content changes we initialise expand collapse
-        // we need to wait for this because the animation of heigh calc 
-        // will only work once the slot and it's content have mounted and rendered
-        this._detailsSlotEl.addEventListener('slotchange', (): void => {
-          this._initialiseExpandCollapse();
-         });
-      }
-    }
-  }
+	/**
+	 * Sets element height to transition to,
+	 * once element height is reached it unsets height
+	 * style
+	 */
+	private _triggerExpandAnimation(): void {
+		if (this._collapseableEl) {
+// remove collapse transition listener if it has not already ticked over
+			this._collapseableEl.removeEventListener('transitionend', this._collapseTransitionEndHandler);
 
-  public updated(changedProperties: Map<string, RuiExpandCollapsePropertyType>): void {
-    changedProperties.forEach((oldValue: RuiExpandCollapsePropertyType, propName: string): void => {
-      // detect change in open prop and trigger animation as necessary
-      if (propName === 'open' && this._collapseableEl) {
-        // transition from closed to open
-        if (this.open && !oldValue) {
-          this._triggerExpandAnimation();
-        }
-         
-        // transition from open to closed
-        if (!this.open && oldValue) {
-          this._triggerCollapseAnimation();
-        }
-      }
-    });
-  }
+			this._collapseableEl.hidden = false;
+			const sectionHeight = this._collapseableEl.scrollHeight;
+			this._collapseableEl.style.height = `${sectionHeight}px`;
+			this._collapseableEl.classList.remove('hide-content');
+			this._collapseableEl.addEventListener('transitionend', this._expandTransitionEndHandler);
+		}
+	}
 
-  /**
-   * Render method
-   */  
-  public render(): TemplateResult {
-    const expandTriggerID = `expand-trigger__${this._uuid}`;
-    const expandableSectionID = `expandable-section__${this._uuid}`;
+	/**
+	 * Initialises the expand collapse logic and styling,
+	 * once complete makes the expand collapse visible
+	 */
+	private _initialiseExpandCollapse(): void {
+		if (this.shadowRoot) {
+			this._collapseableEl = this.shadowRoot.querySelector('.details-container');
 
-    return html`
-      <section class=${`expand-collapse${this.open ? ' is-open' : ''}`}>
-        <button id=${expandTriggerID} @click="${this._handleClick}" class="summary-container" aria-expanded=${`${this.open ? 'true': 'false'}`} aria-controls=${expandableSectionID}>
-          <slot name="summary-content"></slot>
-          <span class="icon-container"></span>
-        </button>
-        <div class="details-container" id=${expandableSectionID} role="region" aria-labelledby=${expandTriggerID}>
-          <slot id="details-slot" name="details-content"></slot>
-        </div>
-      </section>
-    `;
-  }
+			if (this._collapseableEl) {
 
-  /* #endregion */
+// need to set height initially if closed without triggering animation
+				if (!this.open) {
+					this._collapseableEl.style.height = '0px';
+					this._collapseableEl.hidden = true;
+					this._collapseableEl.classList.add('hide-content');
+				}
+
+				const expandCollapse: HTMLElement | null = this.shadowRoot.querySelector('.expand-collapse');
+				if (expandCollapse) {
+					expandCollapse.style.opacity = '1';
+				}
+			}
+		}
+	}
+
+	/**
+	 * After initial render initialise expand collapse logic. Because
+	 * we are animating slotted content, we have to wait for the
+	 * slot to be mounted
+	 */
+	public firstUpdated(): void {
+		this._buttonEl = this.shadowRoot.querySelector('button');
+		this._detailsSlotEl = this.shadowRoot.querySelector('#details-slot');
+
+		if (this._detailsSlotEl) {
+			// when the slotted content changes we initialise expand collapse
+			// we need to wait for this because the animation of height calc
+			// will only work once the slot and it's content have mounted and rendered
+			this._detailsSlotEl.addEventListener('slotchange', (): void => {
+				this._initialiseExpandCollapse();
+			});
+		}
+	}
+
+	/**
+	 * Set focus to child button element
+	 */
+	public focus():void {
+		!!this._buttonEl && this._buttonEl.focus();
+	};
+
+	/**
+	 * Handle blur to child button element
+	 */
+	public blur():void {
+		!!this._buttonEl && this._buttonEl.blur();
+	};
+
+	public updated(changedProperties: Map<string, RuiExpandCollapsePropertyType>): void {
+		changedProperties.forEach((oldValue: RuiExpandCollapsePropertyType, propName: string): void => {
+// detect change in open prop and trigger animation as necessary
+			if (propName === 'open' && this._collapseableEl) {
+// transition from closed to open
+				if (this.open && !oldValue) {
+					this._triggerExpandAnimation();
+				}
+
+// transition from open to closed
+				if (!this.open && oldValue) {
+					this._triggerCollapseAnimation();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Render method
+	 */
+	public render(): TemplateResult {
+		const expandTriggerID = `expand-trigger__${this._uuid}`;
+		const expandableSectionID = `expandable-section__${this._uuid}`;
+
+		return html`
+			<div class=${`expand-collapse${this.open ? ' is-open' : ''}`}>
+				<button id="expand-trigger" @click="${this._handleClick}" class="summary-container" aria-expanded=${`${this.open ? 'true' : 'false'}`} aria-controls="expandable-section">
+					<slot name="summary-content"></slot>
+					<span class="icon-container"></span>
+				</button>
+				<div class="details-container" id="expandable-section" role="region" aria-labelledby="expand-trigger">
+					<slot id="details-slot" name="details-content"></slot>
+				</div>
+			</div>
+		`;
+	}
+
+	protected createRenderRoot() {
+		return this.attachShadow({mode: 'open', delegatesFocus: true});
+	}
+
+	/* #endregion */
 }
 
 export default RuiExpandCollapse;

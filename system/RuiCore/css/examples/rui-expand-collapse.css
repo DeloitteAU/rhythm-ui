@@ -9,31 +9,54 @@
  * An example theme sheet for rui-expand-collapse component
  */
 
-rui-expand-collapse {
-	/* SUMMARY STYLES */
-	--rui-expand-collapse__summary-font-size: 1rem;
-	--rui-expand-collapse__summary-color: #FFFFFF;
-	--rui-expand-collapse__summary-text-decoration: none;
-	--rui-expand-collapse__summary-background-color: #000000;
-	--rui-expand-collapse__summary-background-color-active: #333333;
-	--rui-expand-collapse__summary-background-color-focus: #333333;
-	--rui-expand-collapse__summary-background-color-hover: #333333;
-	--rui-expand-collapse__summary-padding: 28px 70px 28px 20px;
-	--rui-expand-collapse__summary-outline-focus: -webkit-focus-ring-color auto 5px;
-	--rui-expand-collapse__summary-cursor: pointer;
+/* rui-expand-collapse { */
 
-	/* DETAILS STYLES */
-	--rui-expand-collapse__details-background-color: #F2F2F2;
-	--rui-expand-collapse__details-color: #000000;
-	--rui-expand-collapse__details-padding: 28px 20px;
-	--rui-expand-collapse__details-transition: opacity 200ms ease-out 250ms;
-	--rui-expand-collapse__details-container-transition: height 250ms ease-out;
+/* !* SUMMARY STYLES *! */
 
-	/* ICON STYLES */
-	--rui-expand-collapse__icon-container-height: 20px;
-	--rui-expand-collapse__icon-container-width: 20px;
-	--rui-expand-collapse__icon-container-right: 20px;
-	--rui-expand-collapse__icon-container-transition: transform 300ms ease-in-out;
-	--rui-expand-collapse__icon-container-transform-expanded: rotate(180deg);
-	--rui-expand-collapse__icon-content: url("/<to assets path>");
-}
+/* --rui-expand-collapse__summary-font-size: 1rem; */
+
+/* --rui-expand-collapse__summary-color: #FFFFFF; */
+
+/* --rui-expand-collapse__summary-text-decoration: none; */
+
+/* --rui-expand-collapse__summary-background-color: #000000; */
+
+/* --rui-expand-collapse__summary-background-color-active: #333333; */
+
+/* --rui-expand-collapse__summary-background-color-focus: #333333; */
+
+/* --rui-expand-collapse__summary-background-color-hover: #333333; */
+
+/* --rui-expand-collapse__summary-padding: 28px 70px 28px 20px; */
+
+/* --rui-expand-collapse__summary-outline-focus: -webkit-focus-ring-color auto 5px; */
+
+/* --rui-expand-collapse__summary-cursor: pointer; */
+
+/* !* DETAILS STYLES *! */
+
+/* --rui-expand-collapse__details-background-color: #F2F2F2; */
+
+/* --rui-expand-collapse__details-color: #000000; */
+
+/* --rui-expand-collapse__details-padding: 28px 20px; */
+
+/* --rui-expand-collapse__details-transition: opacity 200ms ease-out 250ms; */
+
+/* --rui-expand-collapse__details-container-transition: height 250ms ease-out; */
+
+/* !* ICON STYLES *! */
+
+/* --rui-expand-collapse__icon-container-height: 20px; */
+
+/* --rui-expand-collapse__icon-container-width: 20px; */
+
+/* --rui-expand-collapse__icon-container-right: 20px; */
+
+/* --rui-expand-collapse__icon-container-transition: transform 300ms ease-in-out; */
+
+/* --rui-expand-collapse__icon-container-transform-expanded: rotate(180deg); */
+
+/* --rui-expand-collapse__icon-content: url("/<to assets path>"); */
+
+/* } */
