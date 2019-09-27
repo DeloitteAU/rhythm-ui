@@ -21,6 +21,10 @@ export class RuiAccordion extends LitElement {
 	 */
 	private _openAll: boolean = false;
 	private _items: any[] = [];
+	private _itemsLength?: number;
+
+	private _buttonCollapse?: HTMLElement;
+	private _buttonExpand?: HTMLElement;
 
 	/**
 	 *
@@ -31,6 +35,73 @@ export class RuiAccordion extends LitElement {
 	public static get styles(): CSSResultArray {
 		return [variables, layout];
 	}
+
+	/* #endregion */
+
+	/* #region A11Y */
+
+
+	/**
+	 * Add event listeners
+	 */
+	private _addEventListener = ():void => {
+		this._items.forEach(item => item.addEventListener("keydown", this._onKeyDownAccordion));
+	};
+
+	/**
+	 * Remove event listeners
+	 */
+	private _removeEventListener = ():void => {
+		this._items.forEach(item => item.removeEventListener("keydown", this._onKeyDownAccordion));
+	};
+
+	/**
+	 * A11Y behaviour for keydown
+	 */
+	private _onKeyDownAccordion = (event):void => {
+		// Intercept end(35), home(36), up(38), and down (40) for custom accordion behaviour https://www.w3.org/TR/wai-aria-practices/#accordion
+		if (event.which === 35 || event.which === 36 || event.which === 38 || event.which === 40) {
+			event.preventDefault();
+
+			const activeElement = document.activeElement;
+			const activeElementIndex = this._items.indexOf(activeElement);
+			
+			switch (event.which) {
+				case 35: // end (jump to last element)
+					if (activeElementIndex === this._itemsLength - 1) {
+						return;
+					} else {
+						this._items[this._itemsLength - 1].focus();
+					}
+				case 36: // home (jump to first element)
+					if (activeElementIndex === 0) {
+						return;
+					} else {
+						this._items[0].focus();
+					}
+				case 38: // up (move to previous element)
+					if (activeElementIndex === 0) {
+						return;
+					} else {
+						this._items[activeElementIndex - 1].focus();
+					}
+				case 40: // down (move to next element)
+					if (activeElementIndex === this._itemsLength - 1) {
+						return;
+					} else {
+						this._items[activeElementIndex + 1].focus();
+					}
+			}
+
+			console.log(event.which)
+			console.log(this._itemsLength);
+			console.log(activeElement)
+			console.log(activeElementIndex)
+			console.log(document.activeElement)
+		}
+		return;
+
+	};
 
 	/* #endregion */
 
@@ -66,13 +137,11 @@ export class RuiAccordion extends LitElement {
 	 * Render method
 	 */
 	public render(): TemplateResult {
-		const buttonCollapse = this.querySelector('[slot=button-collapse]');
-		const buttonExpand = this.querySelector('[slot=button-expand]');
 
 		return html`
 			<div class="outer-container">
 				<slot name="heading"></slot>
-				${buttonCollapse || buttonExpand
+				${this._buttonCollapse || this._buttonExpand
 					? html`
 						<div class="inner-container">
 							${this._openAll
@@ -90,6 +159,17 @@ export class RuiAccordion extends LitElement {
 	public firstUpdated(): void {
 		const elements = this.querySelectorAll('rui-expand-collapse');
 		this._items = Array.from(elements);
+		this._itemsLength = this._items.length;
+
+		this._buttonCollapse = this.querySelector('[slot=button-collapse]') || undefined;
+		this._buttonExpand = this.querySelector('[slot=button-expand]') || undefined;
+
+		this._addEventListener();
+		console.log('Custom accordion element update.');
+	}
+
+	public disconnectedCallback():void {
+		this._removeEventListener();
 	}
 
 	/* #endregion */
