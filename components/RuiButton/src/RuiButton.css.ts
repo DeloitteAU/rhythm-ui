@@ -107,7 +107,7 @@ export const variables = css`
 		/**
 		 * @variable The button accent colour
 		 */
-		--rui-button__background-color: var(--global-gray-color-3, #673AB7);
+		--rui-button__background-color: var(--global-gray-color-3, #208834);
 
 		/**
 		 * @variable The button border
@@ -126,7 +126,7 @@ export const variables = css`
 		/**
 		 * @variable The hover font colour
 		 */
-		--rui-button__background-color-hover: var(--global-gray-color-4, #311B92);
+		--rui-button__background-color-hover: var(--global-gray-color-4, #0c7420);
 
 		/**
 		 * @variable The hover border
@@ -150,7 +150,7 @@ export const variables = css`
 		/**
 		 * @variable The focused font colour
 		 */
-		--rui-button__background-color-focus: var(--global-gray-color-4, #311B92);
+		--rui-button__background-color-focus: var(--global-gray-color-4, #0c7420);
 
 		/**
 		 * @variable The focused border
@@ -179,7 +179,7 @@ export const variables = css`
 		/**
 		 * @variable The active font colour
 		 */
-		--rui-button__background-color-active: var(--global-gray-color-4, #311B92);
+		--rui-button__background-color-active: var(--global-gray-color-4, #0c7420);
 
 		/**
 		 * @variable The active border

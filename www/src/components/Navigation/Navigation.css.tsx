@@ -38,7 +38,7 @@ const navigationStyles = css`
 		opacity: 0;
 		transform: translateX(-14px);
 		width: 22px;
-		background: #6C5CE7;
+		background: #208834;
 		border-radius: 4px;
 	}
 
@@ -49,12 +49,12 @@ const navigationStyles = css`
 
 	a:hover:before {
 		transform: scale(1);
-		background: #6C5CE7;
+		background: #208834;
 	}
 
 	a.active,
 	a:hover {
-		color: #6C5CE7;
+		color: #208834;
 	}
 
 	a.active:after {
