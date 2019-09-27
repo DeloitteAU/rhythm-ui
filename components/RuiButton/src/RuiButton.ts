@@ -16,9 +16,9 @@ import {variables, layout} from './RuiButton.css'
 export class RuiButton extends LitElement {
 
 	/**
-	 * Button button element
+	 * Button element
 	 */
-	private _buttonEl: HTMLButtonElement;
+	private _buttonEl?: HTMLButtonElement;
 
 
 	/* #region Properties */
@@ -90,10 +90,12 @@ export class RuiButton extends LitElement {
 	/* #region Methods */
 
 	/**
-	 * LIT firstUpdated lifecycle event
+	 * First updated lifecycle event
 	 */
-	public firstUpdated():void {
-		this._buttonEl = this.shadowRoot.querySelector('button');
+	public firstUpdated(): void {
+		if (this.shadowRoot) {
+			this._buttonEl = this.shadowRoot.querySelector('button') || undefined;
+		}
 	}
 
 	/**
