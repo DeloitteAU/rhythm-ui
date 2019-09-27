@@ -18,6 +18,30 @@ type RuiExpandCollapsePropertyType = boolean;
  * RuiExpandCollapse
  */
 export class RuiExpandCollapse extends LitElement {
+
+	/**
+	 * Internal open state of component
+	 */
+	private _open: boolean = false;
+
+	/**
+	 * Collapseable element
+	 */
+	private _collapseableEl: HTMLDivElement | null = null;
+
+	/**
+	 * Slot element
+	 */
+	private _detailsSlotEl: HTMLSlotElement;
+
+	/**
+	 * Button button element
+	 */
+	private _buttonEl: HTMLButtonElement;
+
+
+	/* #region Properties*/
+
 	/**
 	 * Open property deals with the internal open/close
 	 * state. Mirrors the open attribute on the root element
@@ -37,14 +61,6 @@ export class RuiExpandCollapse extends LitElement {
 	}
 
 	/**
-	 * Internal open state of component
-	 */
-	private _open: boolean = false;
-	private _collapseableEl: HTMLDivElement | null = null;
-	private _detailsSlotEl: HTMLSlotElement | null = null;
-	private _uuid: string = this._generateUUIDv4();
-
-	/**
 	 *
 	 * The styles for the expand collapse
 	 * @remarks
@@ -52,15 +68,6 @@ export class RuiExpandCollapse extends LitElement {
 	 */
 	public static get styles(): CSSResultArray {
 		return [variables, layout, getShadowStylesFor('RuiExpandCollapse')]
-	}
-
-// TODO: Move this to a core lib
-	private _generateUUIDv4(): string {
-		return (`${1e7}-${1e3}-${4e3}-${8e3}-${1e11}`)
-			.replace(/[018]/g, (c: string): string => {
-				const numC = parseInt(c, 10);
-				return (numC ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> numC / 4).toString(); // eslint-disable-line no-bitwise
-			});
 	}
 
 	/* #endregion */
@@ -175,19 +182,32 @@ export class RuiExpandCollapse extends LitElement {
 	 * slot to be mounted
 	 */
 	public firstUpdated(): void {
-		if (this.shadowRoot) {
-			this._detailsSlotEl = this.shadowRoot.querySelector('#details-slot');
+		this._buttonEl = this.shadowRoot.querySelector('button');
+		this._detailsSlotEl = this.shadowRoot.querySelector('#details-slot');
 
-			if (this._detailsSlotEl) {
-// when the slotted content changes we initialise expand collapse
-// we need to wait for this because the animation of heigh calc
-// will only work once the slot and it's content have mounted and rendered
-				this._detailsSlotEl.addEventListener('slotchange', (): void => {
-					this._initialiseExpandCollapse();
-				});
-			}
+		if (this._detailsSlotEl) {
+			// when the slotted content changes we initialise expand collapse
+			// we need to wait for this because the animation of height calc
+			// will only work once the slot and it's content have mounted and rendered
+			this._detailsSlotEl.addEventListener('slotchange', (): void => {
+				this._initialiseExpandCollapse();
+			});
 		}
 	}
+
+	/**
+	 * Set focus to child button element
+	 */
+	public focus():void {
+		!!this._buttonEl && this._buttonEl.focus();
+	};
+
+	/**
+	 * Handle blur to child button element
+	 */
+	public blur():void {
+		!!this._buttonEl && this._buttonEl.blur();
+	};
 
 	public updated(changedProperties: Map<string, RuiExpandCollapsePropertyType>): void {
 		changedProperties.forEach((oldValue: RuiExpandCollapsePropertyType, propName: string): void => {
@@ -215,15 +235,19 @@ export class RuiExpandCollapse extends LitElement {
 
 		return html`
 			<div class=${`expand-collapse${this.open ? ' is-open' : ''}`}>
-				<button id=${expandTriggerID} @click="${this._handleClick}" class="summary-container" aria-expanded=${`${this.open ? 'true' : 'false'}`} aria-controls=${expandableSectionID}>
+				<button id="expand-trigger" @click="${this._handleClick}" class="summary-container" aria-expanded=${`${this.open ? 'true' : 'false'}`} aria-controls="expandable-section">
 					<slot name="summary-content"></slot>
 					<span class="icon-container"></span>
 				</button>
-				<div class="details-container" id=${expandableSectionID} role="region" aria-labelledby=${expandTriggerID}>
+				<div class="details-container" id="expandable-section" role="region" aria-labelledby="expand-trigger">
 					<slot id="details-slot" name="details-content"></slot>
 				</div>
 			</div>
 		`;
+	}
+
+	protected createRenderRoot() {
+		return this.attachShadow({mode: 'open', delegatesFocus: true});
 	}
 
 	/* #endregion */
