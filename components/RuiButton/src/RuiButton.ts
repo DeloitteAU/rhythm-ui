@@ -104,6 +104,13 @@ export class RuiButton extends LitElement {
 	};
 
 	/**
+	 * Handle blur to child button element
+	 */
+	public blur():void {
+		!!this._buttonEl && this._buttonEl.blur();
+	};
+
+	/**
 	 * Render method
 	 * @slot This is a slot test
 	 */
@@ -133,6 +140,10 @@ export class RuiButton extends LitElement {
 				<slot></slot>
 			</a>
 		`;
+	}
+
+	protected createRenderRoot() {
+		return this.attachShadow({mode: 'open', delegatesFocus: true});
 	}
 
 	/* #endregion */
