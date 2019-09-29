@@ -6,7 +6,8 @@
  */
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
-import {variables, layout} from './RuiAccordion.css'
+import {getShadowStylesFor} from '@rhythm-ui/styles';
+import {variables, layout} from './RuiAccordion.css';
 
 export class RuiAccordion extends LitElement {
 
@@ -20,9 +21,11 @@ export class RuiAccordion extends LitElement {
 	 * Internal open state of component
 	 */
 	private _openAll: boolean = false;
-	private _items: any[] = [];
-	private _itemsLength?: number;
 
+	private _items: any[] = [];
+	private _itemsLength?: number = 0;
+
+	private _hasHeading?: boolean = false;
 	private _buttonCollapse?: HTMLElement;
 	private _buttonExpand?: HTMLElement;
 
@@ -33,7 +36,7 @@ export class RuiAccordion extends LitElement {
 	 * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	 */
 	public static get styles(): CSSResultArray {
-		return [variables, layout];
+		return [variables, layout, getShadowStylesFor('RuiAccordion')];
 	}
 
 	/* #endregion */
@@ -65,39 +68,29 @@ export class RuiAccordion extends LitElement {
 
 			const activeElement = document.activeElement;
 			const activeElementIndex = this._items.indexOf(activeElement);
-			
+
 			switch (event.which) {
 				case 35: // end (jump to last element)
-					if (activeElementIndex === this._itemsLength - 1) {
-						return;
-					} else {
+					if (activeElementIndex !== this._itemsLength - 1) {
 						this._items[this._itemsLength - 1].focus();
 					}
+					return;
 				case 36: // home (jump to first element)
-					if (activeElementIndex === 0) {
-						return;
-					} else {
+					if (activeElementIndex !== 0) {
 						this._items[0].focus();
 					}
+					return;
 				case 38: // up (move to previous element)
-					if (activeElementIndex === 0) {
-						return;
-					} else {
-						this._items[activeElementIndex - 1].focus();
+					if (activeElementIndex !== 0) {
+						this._items[(activeElementIndex - 1)].focus();
 					}
+					return;
 				case 40: // down (move to next element)
-					if (activeElementIndex === this._itemsLength - 1) {
-						return;
-					} else {
+					if (activeElementIndex !== this._itemsLength - 1) {
 						this._items[activeElementIndex + 1].focus();
 					}
+					return;
 			}
-
-			console.log(event.which)
-			console.log(this._itemsLength);
-			console.log(activeElement)
-			console.log(activeElementIndex)
-			console.log(document.activeElement)
 		}
 		return;
 
@@ -137,10 +130,11 @@ export class RuiAccordion extends LitElement {
 	 * Render method
 	 */
 	public render(): TemplateResult {
-
 		return html`
 			<div class="outer-container">
-				<slot name="heading"></slot>
+				<div id="accordion-heading">
+					<slot name="heading"></slot>
+				</div>
 				${this._buttonCollapse || this._buttonExpand
 					? html`
 						<div class="inner-container">
@@ -152,20 +146,32 @@ export class RuiAccordion extends LitElement {
 					: html``
 				}
 			</div>
-			<slot @opened="${this._onExpandCollapseItem}"></slot>
+			${this._hasHeading
+				? html`
+					<div role="region" aria-labelledby="accordion-heading">
+						<slot @opened="${this._onExpandCollapseItem}"></slot>
+					</div>`
+				: html`
+					<div>
+						<slot @opened="${this._onExpandCollapseItem}"></slot>
+					</div>`
+			}
 		 `;
 	}
 
 	public firstUpdated(): void {
-		const elements = this.querySelectorAll('rui-expand-collapse');
+		const elements = this.querySelectorAll('rui-accordion-item');
 		this._items = Array.from(elements);
 		this._itemsLength = this._items.length;
 
+		this._hasHeading = !!this.querySelector('[slot=heading]');
+		// @ts-ignore
 		this._buttonCollapse = this.querySelector('[slot=button-collapse]') || undefined;
+		// @ts-ignore
 		this._buttonExpand = this.querySelector('[slot=button-expand]') || undefined;
 
 		this._addEventListener();
-		console.log('Custom accordion element update.');
+		this.requestUpdate(); // required to feed back the values from above
 	}
 
 	public disconnectedCallback():void {

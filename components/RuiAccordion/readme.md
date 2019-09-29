@@ -18,6 +18,12 @@ An accordion component may optionally have a heading and a button that expands o
 <pre> "@rhythm-ui/accordion" </pre>
 
 ## Accessibility
+This component adheres to section [3.1 Accordion (Sections With Show/Hide Functionality)](https://www.w3.org/TR/wai-aria-practices/#accordion) from the W3C Guidelines. 
+
+The `accordion` component in combination with `accordion-item` support the keyboard behaviour as specified in the W3C guideline. While one of the the accordion items is in focus the `keydown` event listener on the component will prevent the default key behaviour of the home, end, up, and down keys and substitute it with the behaviour as listed in the spec.
+
+As mentioned above the `accordion-item` is an `expand-collapse` component
+ 
 
 ## Example
 
@@ -25,10 +31,7 @@ An accordion component may optionally have a heading and a button that expands o
 
 ```html preview
 <rui-accordion behaviour="single">
-    <span slot="heading">
-        Accordion heading
-    </span>
-    <rui-expand-collapse open>
+    <rui-accordion-item open>
         <span slot="summary-content">
             Expander summary
             <svg width="8px" height="5px" viewBox="0 0 8 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" slot="icon" class="icon">
@@ -40,8 +43,8 @@ An accordion component may optionally have a heading and a button that expands o
             </svg>
         </span>
         <p slot="details-content">Expanded content</p>
-    </rui-expand-collapse>
-    <rui-expand-collapse>
+    </rui-accordion-item>
+    <rui-accordion-item>
         <span slot="summary-content">
             Expander summary
             <svg width="8px" height="5px" viewBox="0 0 8 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" slot="icon" class="icon">
@@ -53,8 +56,8 @@ An accordion component may optionally have a heading and a button that expands o
             </svg>
         </span>
         <p slot="details-content">Expanded content</p>
-    </rui-expand-collapse>
-    <rui-expand-collapse>
+    </rui-accordion-item>
+    <rui-accordion-item>
         <span slot="summary-content">
             Expander summary
             <svg width="8px" height="5px" viewBox="0 0 8 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" slot="icon" class="icon">
@@ -66,7 +69,33 @@ An accordion component may optionally have a heading and a button that expands o
             </svg>
         </span>
         <p slot="details-content">Expanded content</p>
-    </rui-expand-collapse>
+    </rui-accordion-item>
+    <rui-accordion-item>
+        <span slot="summary-content">
+            Expander summary
+            <svg width="8px" height="5px" viewBox="0 0 8 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" slot="icon" class="icon">
+                <g stroke="none" stroke-width="1" fill-rule="evenodd">
+                    <g transform="translate(-4.000000, -6.000000)" fill-rule="nonzero">
+                        <path d="M7.99975,10.74975 C7.80775,10.74975 7.61575,10.67675 7.46975,10.52975 L4.21975,7.27975 C3.92675,6.98675 3.92675,6.51275 4.21975,6.21975 C4.51275,5.92675 4.98675,5.92675 5.27975,6.21975 L7.99975,8.93875 L10.71975,6.21975 C11.01275,5.92675 11.48675,5.92675 11.77975,6.21975 C12.07275,6.51275 12.07275,6.98675 11.77975,7.27975 L8.52975,10.52975 C8.38375,10.67675 8.19175,10.74975 7.99975,10.74975" fill="currentColor"></path>
+                    </g>
+                </g>
+            </svg>
+        </span>
+        <p slot="details-content">Expanded content</p>
+    </rui-accordion-item>
+    <rui-accordion-item>
+        <span slot="summary-content">
+            Expander summary
+            <svg width="8px" height="5px" viewBox="0 0 8 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" slot="icon" class="icon">
+                <g stroke="none" stroke-width="1" fill-rule="evenodd">
+                    <g transform="translate(-4.000000, -6.000000)" fill-rule="nonzero">
+                        <path d="M7.99975,10.74975 C7.80775,10.74975 7.61575,10.67675 7.46975,10.52975 L4.21975,7.27975 C3.92675,6.98675 3.92675,6.51275 4.21975,6.21975 C4.51275,5.92675 4.98675,5.92675 5.27975,6.21975 L7.99975,8.93875 L10.71975,6.21975 C11.01275,5.92675 11.48675,5.92675 11.77975,6.21975 C12.07275,6.51275 12.07275,6.98675 11.77975,7.27975 L8.52975,10.52975 C8.38375,10.67675 8.19175,10.74975 7.99975,10.74975" fill="currentColor"></path>
+                    </g>
+                </g>
+            </svg>
+        </span>
+        <p slot="details-content">Expanded content</p>
+    </rui-accordion-item>
 </rui-accordion> 
 ```
 
@@ -103,7 +132,7 @@ Please note that there are two slots allocated for a button. The `button-collaps
             </svg>
         </rui-button>
     </p>
-    <rui-expand-collapse class="accordion__item">
+    <rui-accordion-item class="accordion__item">
         <span slot="summary-content">
             Expander summary
             <svg width="8px" height="5px" viewBox="0 0 8 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" slot="icon" class="icon">
@@ -115,8 +144,8 @@ Please note that there are two slots allocated for a button. The `button-collaps
             </svg>
         </span>
         <p slot="details-content">Expanded content</p>
-    </rui-expand-collapse>
-    <rui-expand-collapse class="accordion__item">
+    </rui-accordion-item>
+    <rui-accordion-item class="accordion__item">
         <span slot="summary-content">
             Expander summary
             <svg width="8px" height="5px" viewBox="0 0 8 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" slot="icon" class="icon">
@@ -128,8 +157,8 @@ Please note that there are two slots allocated for a button. The `button-collaps
             </svg>
         </span>
         <p slot="details-content">Expanded content</p>
-    </rui-expand-collapse>
-    <rui-expand-collapse class="accordion__item">
+    </rui-accordion-item>
+    <rui-accordion-item class="accordion__item">
         <span slot="summary-content">
             Expander summary
             <svg width="8px" height="5px" viewBox="0 0 8 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" slot="icon" class="icon">
@@ -141,7 +170,7 @@ Please note that there are two slots allocated for a button. The `button-collaps
             </svg>
         </span>
         <p slot="details-content">Expanded content</p>
-    </rui-expand-collapse>
+    </rui-accordion-item>
 </rui-accordion> 
 ```
 

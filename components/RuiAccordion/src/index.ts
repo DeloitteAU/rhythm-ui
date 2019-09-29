@@ -19,10 +19,22 @@ export const register = async (tag: string = 'rui-accordion'): Promise<boolean> 
 	return false;
 };
 
+export const registerItem = async (tag: string = 'rui-accordion-item'): Promise<boolean> => {
+	if (typeof customElements !== 'undefined' && !customElements.get(tag)) {
+		// Register the new element with the DOM
+		const m = await import('./RuiAccordionItem');
+		customElements.define(tag, m.RuiAccordionItem);
+		return true;
+	}
+	return false;
+};
+
 export default {
 	register,
+	registerItem
 };
 
 if (process.env.RUI_NO_DEFAULT_REGISTER !== 'true') {
 	register();
+	registerItem();
 }

@@ -15,7 +15,7 @@ export const variables = css`
 		/**
 		 * @variable The padding of the box that contains the accordion heading and the optional expand/collapse button.
 		 */
-		--rui-accordion__padding: 24px 0;
+		--accordion__padding: 24px 0;
 	}
 `;
 
@@ -37,7 +37,7 @@ export const layout = css`
 	}
 
 	.inner-container {
-		padding: --rui-accordion__padding;
+		padding: --accordion__padding;
 		margin-left: auto;
 	}
 
