@@ -12,50 +12,86 @@ import {variables, layout} from './RuiAccordion.css';
 export class RuiAccordion extends LitElement {
 
 	/**
-	 * The underlying type of the button.
+	 * Accordion component behaviour; Allow only 1 item to be open (single) or allow multiple to be open.
+	 * @type {string}
 	 */
 	@property({type : String})
 	public behaviour?: 'single' | 'multiple'  = 'multiple';
 
 	/**
-	 * Internal open state of component
+	 * Have all items been opened or not.
+	 * @type {boolean}
+	 * @private
 	 */
 	private _openAll: boolean = false;
 
+	/**
+	 * Accordion-items
+	 * @type {any[]}
+	 * @private
+	 */
 	private _items: any[] = [];
-	private _itemsLength?: number = 0;
 
+	/**
+	 * Does the accordion have a heading
+	 * @type {boolean}
+	 * @private
+	 */
 	private _hasHeading?: boolean = false;
+
+	/**
+	 * Button to collapse all accordion items
+	 * @type {HTMLElement}
+	 * @private
+	 */
 	private _buttonCollapse?: HTMLElement;
+
+	/**
+	 * Button to expand all accordion items
+	 * @type {HTMLElement}
+	 * @private
+	 */
 	private _buttonExpand?: HTMLElement;
 
 	/**
-	 *
-	 * The styles for button
+	 * The styles for Accordion
 	 * @remarks
 	 * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	 */
 	public static get styles(): CSSResultArray {
-		return [variables, layout, getShadowStylesFor('RuiAccordion')];
+		return [variables, layout, getShadowStylesFor('RuiAccordion')] as CSSResultArray;
 	}
 
 	/* #endregion */
 
 	/* #region A11Y */
 
+	public constructor() {
+		super();
+
+		const elements = this.querySelectorAll('rui-accordion-item');
+		this._items = Array.from(elements);
+
+		this._hasHeading = !!this.querySelector('[slot=heading]');
+		this._buttonCollapse = this.querySelector('[slot=button-collapse]') as HTMLElement;
+		this._buttonExpand = this.querySelector('[slot=button-expand]') as HTMLElement;
+	}
+
 
 	/**
 	 * Add event listeners
 	 */
-	private _addEventListener = ():void => {
+	public connectedCallback():void {
+		super.connectedCallback();
 		this._items.forEach(item => item.addEventListener("keydown", this._onKeyDownAccordion));
 	};
 
 	/**
 	 * Remove event listeners
 	 */
-	private _removeEventListener = ():void => {
+	public disconnectedCallback():void {
 		this._items.forEach(item => item.removeEventListener("keydown", this._onKeyDownAccordion));
+		super.disconnectedCallback();
 	};
 
 	/**
@@ -71,8 +107,8 @@ export class RuiAccordion extends LitElement {
 
 			switch (event.which) {
 				case 35: // end (jump to last element)
-					if (activeElementIndex !== this._itemsLength - 1) {
-						this._items[this._itemsLength - 1].focus();
+					if (activeElementIndex !== this._items.length - 1) {
+						this._items[this._items.length - 1].focus();
 					}
 					return;
 				case 36: // home (jump to first element)
@@ -86,7 +122,7 @@ export class RuiAccordion extends LitElement {
 					}
 					return;
 				case 40: // down (move to next element)
-					if (activeElementIndex !== this._itemsLength - 1) {
+					if (activeElementIndex !== this._items.length - 1) {
 						this._items[activeElementIndex + 1].focus();
 					}
 					return;
@@ -101,6 +137,8 @@ export class RuiAccordion extends LitElement {
 	/* #region Methods */
 
 	/**
+	 * Expand/collapse all accordions items using the expand/collapse button
+	 * @private
 	 */
 	private _expandCollapseAll = ():void => {
 		this._items.forEach(element => {
@@ -108,11 +146,13 @@ export class RuiAccordion extends LitElement {
 		});
 
 		this._openAll = !this._openAll;
-		this.requestUpdate();
+		this.requestUpdate(); // update component so the button changes state
 	};
 
 
 	/**
+	 * Collapse other accordions when behaviour is set to `single`
+	 * @private
 	 */
 	private _onExpandCollapseItem = (event):void => {
 		if (this.behaviour !== 'single') {
@@ -122,12 +162,12 @@ export class RuiAccordion extends LitElement {
 		this._items.forEach(element => {
 			element.open = false;
 		});
-
 		event.target.open = true;
 	};
 
 	/**
 	 * Render method
+	 * @returns {TemplateResult}
 	 */
 	public render(): TemplateResult {
 		return html`
@@ -157,25 +197,6 @@ export class RuiAccordion extends LitElement {
 					</div>`
 			}
 		 `;
-	}
-
-	public firstUpdated(): void {
-		const elements = this.querySelectorAll('rui-accordion-item');
-		this._items = Array.from(elements);
-		this._itemsLength = this._items.length;
-
-		this._hasHeading = !!this.querySelector('[slot=heading]');
-		// @ts-ignore
-		this._buttonCollapse = this.querySelector('[slot=button-collapse]') || undefined;
-		// @ts-ignore
-		this._buttonExpand = this.querySelector('[slot=button-expand]') || undefined;
-
-		this._addEventListener();
-		this.requestUpdate(); // required to feed back the values from above
-	}
-
-	public disconnectedCallback():void {
-		this._removeEventListener();
 	}
 
 	/* #endregion */

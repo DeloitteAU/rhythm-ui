@@ -17,7 +17,6 @@ type RuiExpandCollapsePropertyType = boolean;
  * RuiExpandCollapse
  */
 export class RuiExpandCollapse extends LitElement {
-
 	/**
 	 * Collapsible element
 	 */
@@ -211,7 +210,7 @@ export class RuiExpandCollapse extends LitElement {
 		if (this.shadowRoot) {
 			this._buttonEl = this.shadowRoot.querySelector('button') || undefined;
 			this._detailsSlotEl = this.shadowRoot.querySelector('#details-slot') as HTMLSlotElement || undefined;
-	
+
 			if (this._detailsSlotEl) {
 				// when the slotted content changes we initialise expand collapse
 				// we need to wait for this because the animation of height calc
