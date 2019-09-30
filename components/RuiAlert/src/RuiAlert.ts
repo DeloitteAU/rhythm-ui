@@ -10,13 +10,11 @@ import {getShadowStylesFor} from '@rhythm-ui/styles';
 import {variables, layout} from './RuiAlert.css'
 
 export class RuiAlert extends LitElement {
-	public constructor() {
-		super();
-		this.role = 'alert';
-	}
 
 	/**
-	 * @property role: A11Y role that is set on the host element
+	 * Alert role (https://www.w3.org/TR/wai-aria-practices/#alert)
+	 * @type {string}
+	 * @private
 	 */
 	private _role: string = '';
 	@property({type : String, reflect: true})
@@ -30,19 +28,23 @@ export class RuiAlert extends LitElement {
 	}
 
 	/**
-	 * @property type: Alert component type
+	 * Alert type
+	 * @type {string}
 	 */
 	@property({type: String})
 	public type: 'default' | 'success' | 'warning' | 'error' | 'info' = 'default';
 
 	/**
-	 * @property dismissible: Can the alert be dismissed
+	 * Allow the alert to be dismissed
+	 * @type {boolean}
 	 */
 	@property({type: Boolean})
 	public dismissible?: boolean = false;
 
 	/**
-	 * Internal; alert has been dismissed by user
+	 * Has the alert been dismissed
+	 * @type {boolean}
+	 * @private
 	 */
 	private _isDismissed: boolean = false;
 
@@ -51,18 +53,23 @@ export class RuiAlert extends LitElement {
 	* @remarks If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	*/
 	public static get styles(): CSSResultArray {
-		return [variables, layout, getShadowStylesFor('RuiAlert')]
+		return [variables, layout, getShadowStylesFor('RuiAlert')] as CSSResultArray;
 	}
 
 	/* #endregion */
 
 	/* #region Methods */
 
+	public constructor() {
+		super();
+		this.role = 'alert';
+	}
+
 	/**
-	 * LIT: Render method
-	 * @slot <icon>: Slot for alert icon
-	 * @slot <>: Slot for alert content
-	 * @slot <dismissible>: Slot for dismissible button icon/text
+	 * Render
+	 * @slot <icon>: Alert icon
+	 * @slot <>: Alert content
+	 * @slot <dismissible>: Alert dismissible button icon/text
 	*/
 	public render(): TemplateResult {
 		return this._isDismissed ? html`` : html`
@@ -74,7 +81,7 @@ export class RuiAlert extends LitElement {
 			</div>
 			${this.dismissible ? html`
 				<div class = "dismissible">
-					<button @click="${this._handleDismiss}" >
+					<button @click="${this._onDismiss}" >
 						<slot name="dismissible"> </slot>
 					</button>
 				</div>
@@ -83,16 +90,17 @@ export class RuiAlert extends LitElement {
 	};
 
 	/**
-	 * Handler for a click of the summary content
+	 * Action when user dismisses the alert
+	 * @private
 	 */
-	private _handleDismiss(): void {
+	private _onDismiss(): void {
 		this._isDismissed = true;
 		this.role = 'none';
 		this.dispatchEvent(
 			new CustomEvent('dismissed', {
 				bubbles: true,
 				composed: true
-			})
+			} as CustomEventInit)
 		);
 	}
 

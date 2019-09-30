@@ -16,7 +16,7 @@ export class RuiAccordion extends LitElement {
 	 * @type {string}
 	 */
 	@property({type : String})
-	public behaviour?: 'single' | 'multiple'  = 'multiple';
+	public behaviour: 'single' | 'multiple'  = 'multiple';
 
 	/**
 	 * Have all items been opened or not.
@@ -31,13 +31,6 @@ export class RuiAccordion extends LitElement {
 	 * @private
 	 */
 	private _items: any[] = [];
-
-	/**
-	 * Does the accordion have a heading
-	 * @type {boolean}
-	 * @private
-	 */
-	private _hasHeading?: boolean = false;
 
 	/**
 	 * Button to collapse all accordion items
@@ -55,8 +48,7 @@ export class RuiAccordion extends LitElement {
 
 	/**
 	 * The styles for Accordion
-	 * @remarks
-	 * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
+	 * @remarks If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	 */
 	public static get styles(): CSSResultArray {
 		return [variables, layout, getShadowStylesFor('RuiAccordion')] as CSSResultArray;
@@ -71,8 +63,6 @@ export class RuiAccordion extends LitElement {
 
 		const elements = this.querySelectorAll('rui-accordion-item');
 		this._items = Array.from(elements);
-
-		this._hasHeading = !!this.querySelector('[slot=heading]');
 		this._buttonCollapse = this.querySelector('[slot=button-collapse]') as HTMLElement;
 		this._buttonExpand = this.querySelector('[slot=button-expand]') as HTMLElement;
 	}
@@ -83,14 +73,14 @@ export class RuiAccordion extends LitElement {
 	 */
 	public connectedCallback():void {
 		super.connectedCallback();
-		this._items.forEach(item => item.addEventListener("keydown", this._onKeyDownAccordion));
+		this._items.forEach(item => item.addEventListener("keydown", this._onKeyDownAccordion, true));
 	};
 
 	/**
 	 * Remove event listeners
 	 */
 	public disconnectedCallback():void {
-		this._items.forEach(item => item.removeEventListener("keydown", this._onKeyDownAccordion));
+		this._items.forEach(item => item.removeEventListener("keydown", this._onKeyDownAccordion, true));
 		super.disconnectedCallback();
 	};
 
@@ -167,6 +157,10 @@ export class RuiAccordion extends LitElement {
 
 	/**
 	 * Render method
+	 * @slot <>: Accordion item
+	 * @slot <heading>: Accordion heading
+	 * @slot <button-collapse>: Accordion expand all button
+	 * @slot <button-expand>: Accordion collapse all button
 	 * @returns {TemplateResult}
 	 */
 	public render(): TemplateResult {
@@ -186,16 +180,9 @@ export class RuiAccordion extends LitElement {
 					: html``
 				}
 			</div>
-			${this._hasHeading
-				? html`
-					<div role="region" aria-labelledby="accordion-heading">
-						<slot @opened="${this._onExpandCollapseItem}"></slot>
-					</div>`
-				: html`
-					<div>
-						<slot @opened="${this._onExpandCollapseItem}"></slot>
-					</div>`
-			}
+			<div role="tablist" aria-multiselectable="${this.behaviour === 'single' ? false : true}">
+				<slot @opened="${this._onExpandCollapseItem}"></slot>
+			</div>
 		 `;
 	}
 

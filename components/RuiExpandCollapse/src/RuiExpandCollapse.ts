@@ -10,7 +10,7 @@ import {getShadowStylesFor} from '@rhythm-ui/styles';
 import {variables, layout} from './RuiExpandCollapse.css'
 
 // Update to include any possible type a value
-// can take, currenlty only have boolean open property
+// can take, currently only have boolean open property
 type RuiExpandCollapsePropertyType = boolean;
 
 /**
@@ -85,7 +85,7 @@ export class RuiExpandCollapse extends LitElement {
 	 * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	 */
 	public static get styles(): CSSResultArray {
-		return [variables, layout, getShadowStylesFor('RuiExpandCollapse')];
+		return [variables, layout, getShadowStylesFor('RuiExpandCollapse')] as CSSResultArray;
 	}
 
 	/* #endregion */
@@ -95,9 +95,9 @@ export class RuiExpandCollapse extends LitElement {
 	/**
 	 * Specify render root
 	 */
-	protected createRenderRoot() {
-		return this.attachShadow({mode: 'open', delegatesFocus: true});
-	}
+	// protected createRenderRoot() {
+	// 	return this.attachShadow({mode: 'open', delegatesFocus: true});
+	// }
 
 	/**
 	 * Handler for a click of the summary content
@@ -108,7 +108,7 @@ export class RuiExpandCollapse extends LitElement {
 			new CustomEvent(this.open ? 'opened' : 'closed', {
 				bubbles: true,
 				composed: true
-			})
+			} as CustomEventInit)
 		);
 	}
 
@@ -258,18 +258,17 @@ export class RuiExpandCollapse extends LitElement {
 	 */
 	public render(): TemplateResult {
 		return html`
-			<div role="heading" aria-level="${this.level}">
-				<button
-					id="expand-trigger"
-					@click="${this._handleClick}"
-					class="summary-container"
-					aria-expanded="${this.open}"
-					aria-controls="expandable-section"
-					aria-disabled="${this.open && this.disabled}"
-				>
-					<slot name="summary-content"></slot>
-				</button>
-			</div>
+			<button
+				id="expand-trigger"
+				@click="${this._handleClick}"
+				class="summary-container"
+				aria-expanded="${this.open}"
+				aria-controls="expandable-section"
+				aria-disabled="${this.open && this.disabled}"
+				role="tab"
+			>
+				<slot name="summary-content"></slot>
+			</button>
 			<div
 				class="details-container"
 				id="expandable-section"
