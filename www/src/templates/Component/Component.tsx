@@ -54,7 +54,8 @@ const preToCodeBlock = (preProps: any) => {
 		return {
 			codeString: codeString.trim(),
 			language: preProps.children.props.className && preProps.children.props.className.split('-')[1],
-			preview: !!preProps.children.props.preview,
+            preview: !!preProps.children.props.preview,
+            live: !!preProps.children.props.live,
 			...props,
 		};
 	}
