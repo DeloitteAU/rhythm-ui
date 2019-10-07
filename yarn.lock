@@ -7969,9 +7969,9 @@ eslint-plugin-jsx-a11y@^6.0.3:
     jsx-ast-utils "^2.0.1"
 
 eslint-plugin-lit@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-lit/-/eslint-plugin-lit-1.0.0.tgz#ec5561e07f06ecbecbfdc0ec68e599c8333d0187"
-  integrity sha512-jFD2t6iPvOlqMTau6zssszICJQSBm41dbuxeENmjItA6YeSBgmig7R1lFncMegkRE3bspj9fRM+e6+OIWQMQkQ==
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-lit/-/eslint-plugin-lit-1.2.0.tgz#57ec9c82c1d9fc0477de4d858527ff183c3044c9"
+  integrity sha512-Y80R6ajNygpq8HsLzh6oEVPrUR0POP75oYb/kLxHkZe1DhZAZJ29DQiih9SktiFxv1AbZR7vN6p6ab5USe+cyQ==
   dependencies:
     parse5 "^5.1.0"
     parse5-htmlparser2-tree-adapter "^5.1.0"
