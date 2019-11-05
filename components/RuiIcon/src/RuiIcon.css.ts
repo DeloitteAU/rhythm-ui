@@ -53,6 +53,9 @@ export const layout = css`
 		mask-position: center;
 		/* stylelint-disable-next-line property-no-vendor-prefix */
 		-webkit-mask-position: center;
+		mask-repeat: no-repeat;
+		/* stylelint-disable-next-line property-no-vendor-prefix */
+		-webkit-mask-repeat: no-repeat;
 	}
 	
 	/* stylelint-disable-next-line */
