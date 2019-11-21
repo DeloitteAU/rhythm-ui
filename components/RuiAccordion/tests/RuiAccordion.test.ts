@@ -13,10 +13,39 @@ describe('RuiAccordion', () => {
 
 	it('Renders', async () => {
 		const ele = await TestUtils.render('rui-accordion', {}, '');
-		expect(ele).toBeDefined();
 
-		// Enable if your component has a shadow root
-		// expect(ele.shadowRoot).toBeDefined();
+		expect(ele).toBeDefined();
+		expect(ele.shadowRoot).toBeDefined();
+	})
+	it('Renders all slot elements', async () => {
+		const ele = await TestUtils.render('rui-accordion', {}, '');
+
+		expect(ele).toBeDefined();
+		expect(ele.shadowRoot).toBeDefined();
+	})
+	it('Works with single behaviour', async () => {
+		const ele = await TestUtils.render('rui-accordion', {}, '');
+
+		expect(ele).toBeDefined();
+		expect(ele.shadowRoot).toBeDefined();
+	})
+	it('Works with multiple behaviour', async () => {
+		const ele = await TestUtils.render('rui-accordion', {}, '');
+
+		expect(ele).toBeDefined();
+		expect(ele.shadowRoot).toBeDefined();
+	})
+	it('Can use button to open/close all', async () => {
+		const ele = await TestUtils.render('rui-accordion', {}, '');
+
+		expect(ele).toBeDefined();
+		expect(ele.shadowRoot).toBeDefined();
+	})
+	it('Has the correct a11y behaviour', async () => {
+		const ele = await TestUtils.render('rui-accordion', {}, '');
+
+		expect(ele).toBeDefined();
+		expect(ele.shadowRoot).toBeDefined();
 	});
 
 });

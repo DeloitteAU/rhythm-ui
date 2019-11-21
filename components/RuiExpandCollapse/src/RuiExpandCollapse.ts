@@ -39,7 +39,7 @@ export class RuiExpandCollapse extends LitElement {
 	 * The aria-level of the accordion item, defaults to to 3
 	 */
 	@property({type : Number})
-	public level?: number = 3;
+	public level: number = 3;
 
 	/**
 	 * Open property deals with the internal open/close state.
