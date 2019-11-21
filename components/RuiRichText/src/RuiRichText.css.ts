@@ -311,6 +311,10 @@ export const layout = css`
 	 * :host ::slotted(mark) {}
 	 *
 	 * :host ::slotted(wbr) {}
+	 *
+	 * :host ::slotted(dd) {}
+	 *
+	 * :host ::slotted(dt) {}
 	 */
 `;
 

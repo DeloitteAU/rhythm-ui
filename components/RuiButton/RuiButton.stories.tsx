@@ -27,7 +27,7 @@ const optionsObj = {
 
 register();
 
-storiesOf('Button', module)
+storiesOf('RuiButton', module)
 	.addParameters({
 		readme: {
 			// Show readme at the addons panel

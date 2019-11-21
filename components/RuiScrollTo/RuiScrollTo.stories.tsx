@@ -6,7 +6,7 @@ import Readme from './readme.md';
 
 register();
 
-storiesOf('rui-scroll-to', module)
+storiesOf('RuiScrollTo', module)
 	.addParameters({
 		readme: {
 			sidebar: Readme,

@@ -10,23 +10,17 @@ import {getShadowStylesFor} from '@rhythm-ui/styles';
 import {variables, layout} from './RuiExpandCollapse.css'
 
 // Update to include any possible type a value
-// can take, currenlty only have boolean open property
+// can take, currently only have boolean open property
 type RuiExpandCollapsePropertyType = boolean;
 
 /**
  * RuiExpandCollapse
  */
 export class RuiExpandCollapse extends LitElement {
-
-	/**
-	 * Internal open state of component
-	 */
-	private _open: boolean = false;
-
 	/**
 	 * Collapsible element
 	 */
-	private _collapseableEl?: HTMLDivElement;
+	private _collapsibleEl?: HTMLDivElement;
 
 	/**
 	 * Slot element
@@ -42,9 +36,16 @@ export class RuiExpandCollapse extends LitElement {
 	/* #region Properties*/
 
 	/**
-	 * Open property deals with the internal open/close
-	 * state. Mirrors the open attribute on the root element
+	 * The aria-level of the accordion item, defaults to to 3
 	 */
+	@property({type : Number})
+	public level?: number = 3;
+
+	/**
+	 * Open property deals with the internal open/close state.
+	 * Mirrors the open attribute on the root element
+	 */
+	private _open: boolean = false;
 	@property({
 		type: Boolean,
 		reflect: true, // reflect attribute on parent element when internal state updates
@@ -60,25 +61,36 @@ export class RuiExpandCollapse extends LitElement {
 	}
 
 	/**
-	 *
+	 * Disabled property
+	 * Mirrors the open attribute on the root element
+	 */
+	private _disabled: boolean = false;
+	@property({
+		type: Boolean,
+		reflect: true, // reflect attribute on parent element when internal state updates
+	})
+	public get disabled(): boolean {
+		return this._disabled;
+	}
+
+	public set disabled(isOpen: boolean) {
+		const oldVal = this.disabled;
+		this._disabled = isOpen;
+		this.requestUpdate('disabled', oldVal);
+	}
+
+	/**
 	 * The styles for the expand collapse
 	 * @remarks
 	 * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	 */
 	public static get styles(): CSSResultArray {
-		return [variables, layout, getShadowStylesFor('RuiExpandCollapse')]
+		return [variables, layout, getShadowStylesFor('RuiExpandCollapse')] as CSSResultArray;
 	}
 
 	/* #endregion */
 
 	/* #region Methods */
-
-	/**
-	 * Specify render root
-	 */
-	protected createRenderRoot() {
-		return this.attachShadow({mode: 'open', delegatesFocus: true});
-	}
 
 	/**
 	 * Handler for a click of the summary content
@@ -98,9 +110,9 @@ export class RuiExpandCollapse extends LitElement {
 	 * reasons
 	 */
 	private _collapseTransitionEndHandler = (): void => {
-		if (this._collapseableEl) {
-			this._collapseableEl.removeEventListener('transitionend', this._collapseTransitionEndHandler);
-			this._collapseableEl.hidden = true;
+		if (this._collapsibleEl) {
+			this._collapsibleEl.removeEventListener('transitionend', this._collapseTransitionEndHandler);
+			this._collapsibleEl.hidden = true;
 		}
 	}
 
@@ -109,9 +121,9 @@ export class RuiExpandCollapse extends LitElement {
 	 * the height
 	 */
 	private _expandTransitionEndHandler = (): void => {
-		if (this._collapseableEl) {
-			this._collapseableEl.style.height = '';
-			this._collapseableEl.removeEventListener('transitionend', this._expandTransitionEndHandler);
+		if (this._collapsibleEl) {
+			this._collapsibleEl.style.height = '';
+			this._collapsibleEl.removeEventListener('transitionend', this._expandTransitionEndHandler);
 		}
 	}
 
@@ -122,17 +134,17 @@ export class RuiExpandCollapse extends LitElement {
 	private _triggerCollapseAnimation(): void {
 		// add back height style and then remove on next frame to trigger animation
 		requestAnimationFrame((): void => {
-			if (this._collapseableEl) {
+			if (this._collapsibleEl) {
 				// remove expand transition listener if it has not already ticked over
-				this._collapseableEl.removeEventListener('transitionend', this._expandTransitionEndHandler);
+				this._collapsibleEl.removeEventListener('transitionend', this._expandTransitionEndHandler);
 
-				const sectionHeight = this._collapseableEl.scrollHeight;
-				this._collapseableEl.style.height = `${sectionHeight}px`;
-				this._collapseableEl.classList.add('hide-content');
+				const sectionHeight = this._collapsibleEl.scrollHeight;
+				this._collapsibleEl.style.height = `${sectionHeight}px`;
+				this._collapsibleEl.classList.add('hide-content');
 				requestAnimationFrame((): void => {
-					if (this._collapseableEl) {
-						this._collapseableEl.style.height = '0px';
-						this._collapseableEl.addEventListener('transitionend', this._collapseTransitionEndHandler);
+					if (this._collapsibleEl) {
+						this._collapsibleEl.style.height = '0px';
+						this._collapsibleEl.addEventListener('transitionend', this._collapseTransitionEndHandler);
 					}
 				})
 			}
@@ -145,15 +157,15 @@ export class RuiExpandCollapse extends LitElement {
 	 * style
 	 */
 	private _triggerExpandAnimation(): void {
-		if (this._collapseableEl) {
+		if (this._collapsibleEl) {
 			// remove collapse transition listener if it has not already ticked over
-			this._collapseableEl.removeEventListener('transitionend', this._collapseTransitionEndHandler);
+			this._collapsibleEl.removeEventListener('transitionend', this._collapseTransitionEndHandler);
 
-			this._collapseableEl.hidden = false;
-			const sectionHeight = this._collapseableEl.scrollHeight;
-			this._collapseableEl.style.height = `${sectionHeight}px`;
-			this._collapseableEl.classList.remove('hide-content');
-			this._collapseableEl.addEventListener('transitionend', this._expandTransitionEndHandler);
+			this._collapsibleEl.hidden = false;
+			const sectionHeight = this._collapsibleEl.scrollHeight;
+			this._collapsibleEl.style.height = `${sectionHeight}px`;
+			this._collapsibleEl.classList.remove('hide-content');
+			this._collapsibleEl.addEventListener('transitionend', this._expandTransitionEndHandler);
 		}
 	}
 
@@ -163,15 +175,15 @@ export class RuiExpandCollapse extends LitElement {
 	 */
 	private _initialiseExpandCollapse(): void {
 		if (this.shadowRoot) {
-			this._collapseableEl = this.shadowRoot.querySelector('.details-container') as HTMLDivElement || undefined;
+			this._collapsibleEl = this.shadowRoot.querySelector('.details-container') as HTMLDivElement || undefined;
 
-			if (this._collapseableEl) {
+			if (this._collapsibleEl) {
 
 				// need to set height initially if closed without triggering animation
 				if (!this.open) {
-					this._collapseableEl.style.height = '0px';
-					this._collapseableEl.hidden = true;
-					this._collapseableEl.classList.add('hide-content');
+					this._collapsibleEl.style.height = '0px';
+					this._collapsibleEl.hidden = true;
+					this._collapsibleEl.classList.add('hide-content');
 				}
 
 				const expandCollapse: HTMLElement | null = this.shadowRoot.querySelector('.expand-collapse');
@@ -191,7 +203,7 @@ export class RuiExpandCollapse extends LitElement {
 		if (this.shadowRoot) {
 			this._buttonEl = this.shadowRoot.querySelector('button') || undefined;
 			this._detailsSlotEl = this.shadowRoot.querySelector('#details-slot') as HTMLSlotElement || undefined;
-	
+
 			if (this._detailsSlotEl) {
 				// when the slotted content changes we initialise expand collapse
 				// we need to wait for this because the animation of height calc
@@ -220,7 +232,7 @@ export class RuiExpandCollapse extends LitElement {
 	public updated(changedProperties: Map<string, RuiExpandCollapsePropertyType>): void {
 		changedProperties.forEach((oldValue: RuiExpandCollapsePropertyType, propName: string): void => {
 			// detect change in open prop and trigger animation as necessary
-			if (propName === 'open' && this._collapseableEl) {
+			if (propName === 'open' && this._collapsibleEl) {
 				// transition from closed to open
 				if (this.open && !oldValue) {
 					this._triggerExpandAnimation();
@@ -239,7 +251,7 @@ export class RuiExpandCollapse extends LitElement {
 	 */
 	public render(): TemplateResult {
 		return html`
-			<div class=${`expand-collapse${this.open ? ' is-open' : ''}`}>
+			<div role="heading" aria-level="${this.level}">
 				<button
 					id="expand-trigger"
 					@click="${this._handleClick}"
@@ -248,16 +260,15 @@ export class RuiExpandCollapse extends LitElement {
 					aria-controls="expandable-section"
 				>
 					<slot name="summary-content"></slot>
-					<span class="icon-container"></span>
 				</button>
-				<div
-					class="details-container"
-					id="expandable-section"
-					role="region"
-					aria-labelledby="expand-trigger"
-				>
-					<slot id="details-slot" name="details-content"></slot>
-				</div>
+			</div>
+			<div
+				class="details-container"
+				id="expandable-section"
+				role="region"
+				aria-labelledby="expand-trigger"
+			>
+				<slot id="details-slot" name="details-content"></slot>
 			</div>
 		`;
 	}

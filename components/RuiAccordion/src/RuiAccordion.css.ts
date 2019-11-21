@@ -13,9 +13,9 @@ import {css} from 'lit-element';
 export const variables = css`
 	:host {
 		/**
-		 * @variable The padding of the box that contains the accordion heading and the optional expand/collapse button.
+		 * @variable The accordion items padding;
 		 */
-		--rui-accordion__padding: 24px 0;
+		--accordion__header--padding: 0 0 24px 0;
 	}
 `;
 
@@ -23,29 +23,15 @@ export const variables = css`
  * RuiAccordion CSS
  */
 export const layout = css`
-	::slotted(p) {
-		margin: 0;
-	}
-
 	::slotted(rui-expand-collapse:not(:last-of-type)) {
 		border-bottom: none;
 	}
 
-	slot[name=heading]::slotted(*) {
-		font-size: 28px;
-		font-weight: bold;
-	}
-
-	.inner-container {
-		padding: --rui-accordion__padding;
-		margin-left: auto;
-	}
-
-	.outer-container {
+	.accordion-heading {
 		display: flex;
-		padding: 24px 0;
+		padding: var(--accordion__header--padding);
 		justify-content: space-between;
-		align-items: center;
+		align-items: flex-end;
 		flex-wrap: wrap;
 	}
 `;

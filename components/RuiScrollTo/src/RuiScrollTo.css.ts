@@ -31,7 +31,7 @@ export const layout = css`
 	}
 
 	::slotted(a:hover) {
-		color: #0c7420;
+		color: #0C7420;
 	}
 `;
 

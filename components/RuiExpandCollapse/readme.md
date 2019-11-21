@@ -23,6 +23,7 @@ If you do not need to implement any custom logic, then you just need to provide 
 	</span>
 	<p slot="details-content">
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		<button>button</button>
 	</p>
 </rui-expand-collapse>
 ```

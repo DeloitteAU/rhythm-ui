@@ -131,7 +131,7 @@ export const variables = css`
 		/**
 		 * @variable The hover font colour
 		 */
-		--rui-button__background-color-hover: var(--global-gray-color-4, #0c7420);
+		--rui-button__background-color-hover: var(--global-gray-color-4, #0C7420);
 
 		/**
 		 * @variable The hover border
@@ -160,7 +160,7 @@ export const variables = css`
 		/**
 		 * @variable The focused font colour
 		 */
-		--rui-button__background-color-focus: var(--global-gray-color-4, #0c7420);
+		--rui-button__background-color-focus: var(--global-gray-color-4, #0C7420);
 
 		/**
 		 * @variable The focused border
@@ -194,7 +194,7 @@ export const variables = css`
 		/**
 		 * @variable The active font colour
 		 */
-		--rui-button__background-color-active: var(--global-gray-color-4, #0c7420);
+		--rui-button__background-color-active: var(--global-gray-color-4, #0C7420);
 
 		/**
 		 * @variable The active border
