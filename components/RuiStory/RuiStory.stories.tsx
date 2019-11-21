@@ -5,7 +5,7 @@ import Readme from './readme.md';
 
 register();
 
-storiesOf('Story', module)
+storiesOf('RuiStory', module)
 	.addParameters({
 		readme: {
 			// Show readme at the addons panel

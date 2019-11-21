@@ -5,7 +5,7 @@ import Readme from './readme.md';
 
 register();
 
-storiesOf('Skip Links', module)
+storiesOf('RuiSkipLinks', module)
 	.addParameters({
 		readme: {
 			// Show readme at the addons panel

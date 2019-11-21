@@ -37,10 +37,10 @@ export class RuiExpandCollapse extends LitElement {
 	/* #region Properties*/
 
 	/**
-	 * The aria-level of the accordion item, defaults to to 2
+	 * The aria-level of the accordion item, defaults to to 3
 	 */
 	@property({type : Number})
-	public level?: number = 2;
+	public level?: number = 3;
 
 	/**
 	 * Open property deals with the internal open/close state.
@@ -266,7 +266,6 @@ export class RuiExpandCollapse extends LitElement {
 					class="summary-container"
 					aria-expanded="${this.open}"
 					aria-controls="expandable-section"
-					aria-disabled="${this.open && this.disabled}"
 				>
 					<slot name="summary-content"></slot>
 				</button>

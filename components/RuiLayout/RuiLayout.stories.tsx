@@ -5,7 +5,7 @@ import Readme from './readme.md';
 
 register();
 
-storiesOf('Layout', module)
+storiesOf('RuiLayout', module)
 	.addParameters({
 		readme: {
 			// Show readme at the addons panel

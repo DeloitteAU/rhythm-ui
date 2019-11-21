@@ -9,7 +9,7 @@ const locationArray = JSON.stringify([
 	{title: 'Home', url: '/my/rul'},
 	{title: 'Active page', url: '/my/rul'},
 ]);
-storiesOf('Breadcrumbs', module)
+storiesOf('RuiBreadcrumbs', module)
 	.addParameters({
 		readme: {
 			sidebar: Readme,

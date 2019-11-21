@@ -22,8 +22,9 @@ This component adheres to section [3.1 Accordion (Sections With Show/Hide Functi
 
 The `accordion` component in combination with `accordion-item` support the keyboard behaviour as specified in the W3C guideline. While one of the the accordion items is in focus the `keydown` event listener on the component will prevent the default key behaviour of the home, end, up, and down keys and substitute it with the behaviour as listed in the spec.
 
-As mentioned above the `accordion-item` is an `expand-collapse` component
- 
+As a best practice it is advised to provide a heading for the accordion group and provide the correct aria-level to the `accordion-item` using the `level` attribute based on the content hierarchy of your website. By default this is set to 3, based on the assumption that there will be a section heading, however if this is not the case this should be overwritten.
+
+For more details on the `accordion-item` please review the `expand-collapse` component
 
 ## Example
 
@@ -31,7 +32,7 @@ As mentioned above the `accordion-item` is an `expand-collapse` component
 
 ```html preview
 <rui-accordion behaviour="single">
-    <rui-accordion-item open>
+    <rui-accordion-item level="2" open>
         <span slot="summary-content">
             Expander summary
             <svg width="8px" height="5px" viewBox="0 0 8 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" slot="icon" class="icon">
@@ -44,7 +45,7 @@ As mentioned above the `accordion-item` is an `expand-collapse` component
         </span>
         <p slot="details-content">Expanded content</p>
     </rui-accordion-item>
-    <rui-accordion-item>
+    <rui-accordion-item level="2">
         <span slot="summary-content">
             Expander summary
             <svg width="8px" height="5px" viewBox="0 0 8 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" slot="icon" class="icon">
@@ -57,7 +58,7 @@ As mentioned above the `accordion-item` is an `expand-collapse` component
         </span>
         <p slot="details-content">Expanded content</p>
     </rui-accordion-item>
-    <rui-accordion-item>
+    <rui-accordion-item level="2">
         <span slot="summary-content">
             Expander summary
             <svg width="8px" height="5px" viewBox="0 0 8 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" slot="icon" class="icon">
@@ -70,7 +71,7 @@ As mentioned above the `accordion-item` is an `expand-collapse` component
         </span>
         <p slot="details-content">Expanded content</p>
     </rui-accordion-item>
-    <rui-accordion-item>
+    <rui-accordion-item level="2">
         <span slot="summary-content">
             Expander summary
             <svg width="8px" height="5px" viewBox="0 0 8 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" slot="icon" class="icon">
@@ -105,33 +106,19 @@ Please note that there are two slots allocated for a button. The `button-collaps
 
 ```html preview
 <rui-accordion behaviour="multiple">
-    <span slot="heading">
+    <h2 slot="heading">
         Accordion heading
-    </span>
-    <p slot="button-collapse">
-        <rui-button behaviour="button" class="button">
-            Collapse all
-             <svg width="8px" height="5px" viewBox="0 0 8 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="button__icon">
-                <g stroke="none" stroke-width="1" fill-rule="evenodd">
-                    <g transform="translate(-4.000000, -6.000000)" fill-rule="nonzero">
-                        <path d="M7.99975,10.74975 C7.80775,10.74975 7.61575,10.67675 7.46975,10.52975 L4.21975,7.27975 C3.92675,6.98675 3.92675,6.51275 4.21975,6.21975 C4.51275,5.92675 4.98675,5.92675 5.27975,6.21975 L7.99975,8.93875 L10.71975,6.21975 C11.01275,5.92675 11.48675,5.92675 11.77975,6.21975 C12.07275,6.51275 12.07275,6.98675 11.77975,7.27975 L8.52975,10.52975 C8.38375,10.67675 8.19175,10.74975 7.99975,10.74975" fill="currentColor"></path>
-                    </g>
-                </g>
-            </svg>
-        </rui-button>
-    </p>
-    <p slot="button-expand">
-        <rui-button behaviour="button" class="button">
-            Expand all
-             <svg width="8px" height="5px" viewBox="0 0 8 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="button__icon">
-                <g stroke="none" stroke-width="1" fill-rule="evenodd">
-                    <g transform="translate(-4.000000, -6.000000)" fill-rule="nonzero">
-                        <path d="M7.99975,10.74975 C7.80775,10.74975 7.61575,10.67675 7.46975,10.52975 L4.21975,7.27975 C3.92675,6.98675 3.92675,6.51275 4.21975,6.21975 C4.51275,5.92675 4.98675,5.92675 5.27975,6.21975 L7.99975,8.93875 L10.71975,6.21975 C11.01275,5.92675 11.48675,5.92675 11.77975,6.21975 C12.07275,6.51275 12.07275,6.98675 11.77975,7.27975 L8.52975,10.52975 C8.38375,10.67675 8.19175,10.74975 7.99975,10.74975" fill="currentColor"></path>
-                    </g>
-                </g>
-            </svg>
-        </rui-button>
-    </p>
+    </h2>
+    <rui-button behaviour="button" className="button" slot="button-toggle">
+		Expand/Collapse all
+		<svg width="8px" height="5px" viewBox="0 0 8 5" slot="icon" className="icon">
+			<g stroke="none" stroke-width="1" fill-rule="evenodd">
+				<g transform="translate(-4.000000, -6.000000)" fill-rule="nonzero">
+					<path d="M7.99975,10.74975 C7.80775,10.74975 7.61575,10.67675 7.46975,10.52975 L4.21975,7.27975 C3.92675,6.98675 3.92675,6.51275 4.21975,6.21975 C4.51275,5.92675 4.98675,5.92675 5.27975,6.21975 L7.99975,8.93875 L10.71975,6.21975 C11.01275,5.92675 11.48675,5.92675 11.77975,6.21975 C12.07275,6.51275 12.07275,6.98675 11.77975,7.27975 L8.52975,10.52975 C8.38375,10.67675 8.19175,10.74975 7.99975,10.74975" fill="currentColor"></path>
+				</g>
+			</g>
+		</svg>
+	</rui-button>
     <rui-accordion-item class="accordion__item">
         <span slot="summary-content">
             Expander summary

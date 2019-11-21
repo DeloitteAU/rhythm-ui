@@ -18,16 +18,21 @@ export class RuiAccordion extends LitElement {
 	public behaviour?: 'single' | 'multiple'  = 'multiple';
 
 	/**
-	 * Internal open state of component
+	 * Internal: open state of component
 	 */
 	private _openAll: boolean = false;
-
+	/**
+	 * Internal: array of <rui-accordion-items>
+	 */
 	private _items: any[] = [];
-	private _itemsLength?: number = 0;
-
+	/**
+	 * Internal: component has Heading slotted element
+	 */
 	private _hasHeading?: boolean = false;
-	private _buttonCollapse?: HTMLElement;
-	private _buttonExpand?: HTMLElement;
+	/**
+	 * Internal: component has button-toggle slotted element
+	 */
+	private _hasButtonToggle?: boolean = false;
 
 	/**
 	 *
@@ -71,8 +76,8 @@ export class RuiAccordion extends LitElement {
 
 			switch (event.which) {
 				case 35: // end (jump to last element)
-					if (activeElementIndex !== this._itemsLength - 1) {
-						this._items[this._itemsLength - 1].focus();
+					if (activeElementIndex !== this._items.length - 1) {
+						this._items[this._items.length - 1].focus();
 					}
 					return;
 				case 36: // home (jump to first element)
@@ -80,20 +85,23 @@ export class RuiAccordion extends LitElement {
 						this._items[0].focus();
 					}
 					return;
-				case 38: // up (move to previous element)
+				case 38: // up (move to previous element, or last when focused el is the first)
 					if (activeElementIndex !== 0) {
 						this._items[(activeElementIndex - 1)].focus();
+					} else {
+						this._items[this._items.length - 1].focus();
 					}
 					return;
-				case 40: // down (move to next element)
-					if (activeElementIndex !== this._itemsLength - 1) {
+				case 40: // down (move to next element. or first when focused el is the last)
+					if (activeElementIndex !== this._items.length - 1) {
 						this._items[activeElementIndex + 1].focus();
+					} else {
+						this._items[0].focus()
 					}
 					return;
 			}
 		}
 		return;
-
 	};
 
 	/* #endregion */
@@ -101,6 +109,8 @@ export class RuiAccordion extends LitElement {
 	/* #region Methods */
 
 	/**
+	 * Expand all accordion items
+	 * @private
 	 */
 	private _expandCollapseAll = ():void => {
 		this._items.forEach(element => {
@@ -113,6 +123,9 @@ export class RuiAccordion extends LitElement {
 
 
 	/**
+	 * Collapse all accordion items
+	 * @param event
+	 * @private
 	 */
 	private _onExpandCollapseItem = (event):void => {
 		if (this.behaviour !== 'single') {
@@ -131,44 +144,23 @@ export class RuiAccordion extends LitElement {
 	 */
 	public render(): TemplateResult {
 		return html`
-			<div class="outer-container">
-				<div id="accordion-heading">
+			${this._hasHeading || this._hasButtonToggle ? html`
+				<div class="accordion-heading">
 					<slot name="heading"></slot>
+					<slot name="button-toggle" @click="${this._expandCollapseAll}"></slot>
 				</div>
-				${this._buttonCollapse || this._buttonExpand
-					? html`
-						<div class="inner-container">
-							${this._openAll
-								? html`<slot name="button-collapse" @click="${this._expandCollapseAll}"></slot>`
-								: html`<slot name="button-expand" @click="${this._expandCollapseAll}"></slot>`
-							}
-						</div>` 
-					: html``
-				}
+			` : html``}
+			<div class="item-area">
+				<slot @opened="${this._onExpandCollapseItem}"></slot>
 			</div>
-			${this._hasHeading
-				? html`
-					<div role="region" aria-labelledby="accordion-heading">
-						<slot @opened="${this._onExpandCollapseItem}"></slot>
-					</div>`
-				: html`
-					<div>
-						<slot @opened="${this._onExpandCollapseItem}"></slot>
-					</div>`
-			}
 		 `;
 	}
 
 	public firstUpdated(): void {
 		const elements = this.querySelectorAll('rui-accordion-item');
 		this._items = Array.from(elements);
-		this._itemsLength = this._items.length;
-
 		this._hasHeading = !!this.querySelector('[slot=heading]');
-		// @ts-ignore
-		this._buttonCollapse = this.querySelector('[slot=button-collapse]') || undefined;
-		// @ts-ignore
-		this._buttonExpand = this.querySelector('[slot=button-expand]') || undefined;
+		this._hasButtonToggle = !!this.querySelector('[slot=button-toggle]');
 
 		this._addEventListener();
 		this.requestUpdate(); // required to feed back the values from above
