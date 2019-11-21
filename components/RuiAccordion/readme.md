@@ -21,6 +21,11 @@ An accordion component may optionally have a heading and a button that expands o
 This component adheres to section [3.1 Accordion (Sections With Show/Hide Functionality)](https://www.w3.org/TR/wai-aria-practices/#accordion) from the W3C Guidelines. 
 
 The `accordion` component in combination with `accordion-item` support the keyboard behaviour as specified in the W3C guideline. While one of the the accordion items is in focus the `keydown` event listener on the component will prevent the default key behaviour of the home, end, up, and down keys and substitute it with the behaviour as listed in the spec.
+Supported keyboard interactions are:
+- <kbd>Tab</kbd>, <kbd>Shift</kbd> + <kbd>Tab</kbd>, <kbd>Up</kbd>, and <kbd>Down</kbd> to navigate between adjacent accordion items
+- <kbd>Home</kbd> to navigate to the first accordion item
+- <kbd>End</kbd> to navigate to the last accordion item
+- <kbd>Space</kbd> and <kbd>Enter</kbd> to open or close an accordion item
 
 As a best practice it is advised to provide a heading for the accordion group and provide the correct aria-level to the `accordion-item` using the `level` attribute based on the content hierarchy of your website. By default this is set to 3, based on the assumption that there will be a section heading, however if this is not the case this should be overwritten.
 

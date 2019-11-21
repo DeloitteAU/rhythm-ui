@@ -33,10 +33,8 @@ export class RuiAccordion extends LitElement {
 	 * Internal: component has button-toggle slotted element
 	 */
 	private _hasButtonToggle?: boolean = false;
-
 	/**
-	 *
-	 * The styles for button
+	 * The styles for Accordion
 	 * @remarks
 	 * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	 */

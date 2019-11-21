@@ -10,14 +10,13 @@ import {getShadowStylesFor} from '@rhythm-ui/styles';
 import {variables, layout} from './RuiExpandCollapse.css'
 
 // Update to include any possible type a value
-// can take, currenlty only have boolean open property
+// can take, currently only have boolean open property
 type RuiExpandCollapsePropertyType = boolean;
 
 /**
  * RuiExpandCollapse
  */
 export class RuiExpandCollapse extends LitElement {
-
 	/**
 	 * Collapsible element
 	 */
@@ -86,19 +85,12 @@ export class RuiExpandCollapse extends LitElement {
 	 * If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	 */
 	public static get styles(): CSSResultArray {
-		return [variables, layout, getShadowStylesFor('RuiExpandCollapse')];
+		return [variables, layout, getShadowStylesFor('RuiExpandCollapse')] as CSSResultArray;
 	}
 
 	/* #endregion */
 
 	/* #region Methods */
-
-	/**
-	 * Specify render root
-	 */
-	protected createRenderRoot() {
-		return this.attachShadow({mode: 'open', delegatesFocus: true});
-	}
 
 	/**
 	 * Handler for a click of the summary content
@@ -211,7 +203,7 @@ export class RuiExpandCollapse extends LitElement {
 		if (this.shadowRoot) {
 			this._buttonEl = this.shadowRoot.querySelector('button') || undefined;
 			this._detailsSlotEl = this.shadowRoot.querySelector('#details-slot') as HTMLSlotElement || undefined;
-	
+
 			if (this._detailsSlotEl) {
 				// when the slotted content changes we initialise expand collapse
 				// we need to wait for this because the animation of height calc
