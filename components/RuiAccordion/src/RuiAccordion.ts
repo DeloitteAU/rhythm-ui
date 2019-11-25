@@ -28,11 +28,11 @@ export class RuiAccordion extends LitElement {
 	/**
 	 * Internal: component has Heading slotted element
 	 */
-	private _hasHeading?: boolean = false;
+	private _hasHeading: boolean = false;
 	/**
 	 * Internal: component has button-toggle slotted element
 	 */
-	private _hasButtonToggle?: boolean = false;
+	private _hasButtonToggle: boolean = false;
 	/**
 	 * The styles for Accordion
 	 * @remarks
