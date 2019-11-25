@@ -114,6 +114,11 @@ export const variables = css`
 		 */
 		--rui-button__border: none;
 
+		/**
+		 * @variable The text decoration
+		 */
+		--rui-button__text-decoration: none;
+
 		/****************************
 		 * HOVER STYLES
 		 ***************************/
@@ -137,6 +142,11 @@ export const variables = css`
 		 * @variable The button transform when hovering
 		 */
 		--rui-button__transform-hover: none;
+
+		/**
+		 * @variable The text decoration when hovering
+		 */
+		--rui-button__text-decoration-hover: none;
 
 		/****************************
 		 * FOCUS STYLES
@@ -166,6 +176,11 @@ export const variables = css`
 		 * @variable  The button outline when focused
 		 */
 		--rui-button__focus-outline: 1px solid transparent;
+
+		/**
+		 * @variable The focused text decoration
+		 */
+		--rui-button__text-decoration-focus: none;
 
 		/****************************
 		 * ACTIVE STYLES
@@ -267,7 +282,7 @@ export const layout = css`
 		outline: none;
 		pointer-events: auto;
 		text-align: center;
-		text-decoration: none;
+		text-decoration: var(--rui-button__text-decoration);
 		text-overflow: ellipsis;
 		user-select: none;
 		white-space: nowrap;
@@ -299,6 +314,7 @@ export const layout = css`
 		background-color: var(--rui-button__background-color-hover);
 		border: var(--rui-button__border-hover);
 		transform: var(--rui-button__transform-hover);
+		text-decoration: var(--rui-button__text-decoration-hover);
 	}
 
 	.btn:focus {
@@ -307,6 +323,7 @@ export const layout = css`
 		border: var(--rui-button__border-focus);
 		transform: var(--rui-button__transform-focus);
 		outline: var(--rui-button__focus-outline);
+		text-decoration: var(--rui-button__text-decoration-focus);
 	}
 
 	.btn:active {
