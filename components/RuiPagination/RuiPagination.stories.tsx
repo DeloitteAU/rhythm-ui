@@ -6,7 +6,7 @@ import Readme from './readme.md';
 
 register();
 
-storiesOf('Pagination', module)
+storiesOf('RuiPagination', module)
 	.addParameters({
 		readme: {
 			sidebar: Readme,
