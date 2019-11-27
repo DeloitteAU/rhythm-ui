@@ -6,10 +6,6 @@ category: "elements"
 
 # Accordion
 
-Single tag line here.
-
-## Usage
-
 The purpose of the accordion component is to control `accordion-item` components. Any number of expand-collapse components may be nested inside an accordion component. This component behaves in two different ways according to the `behaviour` attribute. The value of this attribute is either `single` or `multiple`, where `multiple` is the default. A value of `single` indicates that only one expand-collapse component can be expanded at once. A value of `multiple` indicates that there are no restrictions when it comes to the number of expanded expanded-collapse components that can be expanded.
 
 An accordion component may optionally have a heading and a button that expands or collapses each expand-collapse component nested. Please note that it only makes sense to display the aforementioned button when the value of the behaviour attribute is `multiple`.

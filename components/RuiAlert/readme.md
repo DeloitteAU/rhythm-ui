@@ -6,11 +6,7 @@ category: "elements"
 
 # Alert
 
-Simple tag line here
-
-## Usage
-
-This is how you use an alert, lorem ipsum...
+The alert component is used when you want to convey an important message to the user
 
 ## Install
 <pre> yarn install "@rhythm-ui/@rhythm-ui/alert" </pre>
@@ -18,7 +14,7 @@ This is how you use an alert, lorem ipsum...
 ## Accessibility
 This component adheres to section [3.2 Alert](https://www.w3.org/TR/wai-aria-practices/#alert) from the W3C Guidelines. 
 
-The component adds the `role="alert"` to the host element as soon as it is rendered on the page, thus notifying the user of the existence of the alert. Please note that adding multiple alerts to a page will result in multiple alerts being called out to the users using screen readers.
+The component adds the `role="alert"` and `aria-live="polite"` to the host element as soon as it is rendered on the page, thus notifying the user of the existence of the alert. Please note that adding multiple alerts to a page will result in multiple alerts being called out to the users using screen readers.
 
 ## Examples and variations
 
