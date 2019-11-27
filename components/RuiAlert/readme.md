@@ -6,7 +6,7 @@ category: "elements"
 
 # Alert
 
-The alert component is used when you want to convey an important message to the user
+Provide important contextual information to your users.
 
 ## Install
 <pre> yarn install "@rhythm-ui/@rhythm-ui/alert" </pre>
