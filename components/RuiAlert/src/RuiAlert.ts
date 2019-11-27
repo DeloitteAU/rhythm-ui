@@ -28,6 +28,22 @@ export class RuiAlert extends LitElement {
 	}
 
 	/**
+	 * Alert role (https://www.w3.org/TR/wai-aria-practices/#alert)
+	 * @type {string}
+	 * @private
+	 */
+	private _ariaLive: string = '';
+	@property({type : String, reflect: true, attribute: 'aria-live',})
+	public get ariaLive(): string {
+		return this._ariaLive;
+	}
+	public set ariaLive(newRole: string) {
+		const oldVal = this.ariaLive;
+		this._ariaLive = newRole;
+		this.requestUpdate('ariaLive', oldVal);
+	}
+
+	/**
 	 * Alert type
 	 * @type {string}
 	 */
@@ -63,6 +79,7 @@ export class RuiAlert extends LitElement {
 	public constructor() {
 		super();
 		this.role = 'alert';
+		this.ariaLive = 'polite';
 	}
 
 	/**

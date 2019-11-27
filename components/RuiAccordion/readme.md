@@ -6,11 +6,7 @@ category: "elements"
 
 # Accordion
 
-Single tag line here.
-
-## Usage
-
-The purpose of the accordion component is to control expand-collapse components. Any number of expand-collapse components may be nested inside an accordion component. This component behaves in two different ways according to the `behaviour` attribute. The value of this attribute is either `single` or `multiple`. A value of `single` indicates that only one expand-collapse component can be expanded at once. Only one. A value of `multiple` indicates that there are no restrictions when it comes to the number of expanded expanded-collapse components. This is the default value of the `behaviour` attribute.
+The purpose of the accordion component is to control `accordion-item` components. Any number of expand-collapse components may be nested inside an accordion component. This component behaves in two different ways according to the `behaviour` attribute. The value of this attribute is either `single` or `multiple`, where `multiple` is the default. A value of `single` indicates that only one expand-collapse component can be expanded at once. A value of `multiple` indicates that there are no restrictions when it comes to the number of expanded expanded-collapse components that can be expanded.
 
 An accordion component may optionally have a heading and a button that expands or collapses each expand-collapse component nested. Please note that it only makes sense to display the aforementioned button when the value of the behaviour attribute is `multiple`.
 
@@ -29,7 +25,7 @@ Supported keyboard interactions are:
 
 As a best practice it is advised to provide a heading for the accordion group and provide the correct aria-level to the `accordion-item` using the `level` attribute based on the content hierarchy of your website. By default this is set to 3, based on the assumption that there will be a section heading, however if this is not the case this should be overwritten.
 
-For more details on the `accordion-item` please review the `expand-collapse` component
+For more details on the `accordion-item` please review the `expand-collapse` component as this is a wrapper for this component
 
 ## Example
 

@@ -7,7 +7,7 @@
 
 import {LitElement, html, property, CSSResultArray, TemplateResult} from 'lit-element';
 import {getShadowStylesFor} from '@rhythm-ui/styles';
-import {variables, layout} from './RuiRichText.css'
+// import {variables, layout} from './RuiRichText.css'
 
 export class RuiRichText extends LitElement {
 
@@ -17,9 +17,9 @@ export class RuiRichText extends LitElement {
 	* @remarks
 	* If you are extending this class you can extend the base styles with super. Eg `return [super(), myCustomStyles]`
 	*/
-	public static get styles(): CSSResultArray {
-		return [variables, layout, getShadowStylesFor('RuiRichText')];
-	}
+	// public static get styles(): CSSResultArray {
+	// 	return [variables, layout, getShadowStylesFor('RuiRichText')];
+	// }
 
 	/* #endregion */
 

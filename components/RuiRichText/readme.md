@@ -4,17 +4,19 @@ title: "Rich text"
 category: "elements"
 ---
 
-# rui-rich-text
+# Rich Text
 
-Lorem ipsum ...
+Rich text styles are 
 
+## Install
+<pre> "import @rhythm-ui/system/RuiCore/typography.css" </pre>
 
 ## Styles
 
 ### Default
 
 ```html preview
-<rui-rich-text>
+<div>
 	<h1>H1 Designing with repetition, pattern, and rhythm</h1>
 	<p>Let’s look at three subjects that, at first glance, may strike you as being incredibly basic and self-explanatory. However, although they may seem like they should need no introduction, we should study them.</p>
 	<h2>H2 More effective designs</h2>
@@ -30,38 +32,11 @@ Lorem ipsum ...
 	<h6>H6 Designing with repetition, pattern, and rhythm</h6>
 	<p>The use of repeated visual elements is a technique designers commonly employ in web design. You can repeat design elements, for example, to provide a consistent visual experience. It will make it easier for users to focus on the content because they know where they can find specific types of content or navigation options.</p>
 	<a href="#">Button five types of visual rhythm</a>
-</rui-rich-text>
+</div>
 ```
 
 
 
 ## Customising
 
-If you want customise the CSS beyond the variables use the `createShadowStyles` utility function. This function allows you to customise any CSS property and update the CSS for the shadow dom that otherwise would not be possible.
-```js
-import {css} from 'lit-element';
-import {createShadowStyles} from '@rhythm-ui/styles';
-
-createShadowStyles({
-	rui-rich-text: css`
-		.host {}
-	`
-})
-```
-
-
-## Extending
-
-For more customisation of both the HTML and CSS you can extend the component.
-
-```js
-import Ruirui-rich-text from '@rhythm-ui/rich-text';
-
-export class Myrui-rich-text extends Ruirui-rich-text {
-	static tag() {
-		return 'my-rich-text';
-	}
-}
-
-customComponents.define(Myrui-rich-text, Myrui-rich-text.tag)
-```
+As rich text is a plain CSS file you can customise it by 

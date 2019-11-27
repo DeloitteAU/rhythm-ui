@@ -5,7 +5,7 @@ import Readme from './readme.md';
 
 register();
 
-storiesOf('Expand Collapse', module)
+storiesOf('RuiExpandCollapse', module)
 	.addParameters({
 		readme: {
 			// Show readme at the addons panel
