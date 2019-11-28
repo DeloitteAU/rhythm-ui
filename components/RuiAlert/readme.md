@@ -6,10 +6,10 @@ category: "elements"
 
 # Alert
 
-Provide important contextual information to your users.
+The purpose of the alert component is to provide important contextual information to your users.
 
 ## Install
-<pre> yarn install "@rhythm-ui/@rhythm-ui/alert" </pre>
+<pre> yarn install "@rhythm-ui/alert" </pre>
 
 ## Accessibility
 This component adheres to section [3.2 Alert](https://www.w3.org/TR/wai-aria-practices/#alert) from the W3C Guidelines. 
@@ -96,12 +96,12 @@ Alert fires a `dismissed` event when the user dismisses the alert.
 
 ## Attributes
 
-Please see below for the list of properties accepted by alert:
+The following attributes are used by Alert:
 
-|Prop|Values|Notes|
-|---|---|---|
-|Types| **success / warning / error / info** | Sets the alert type |
-|dismissible| boolean | Allows the alert to be dismissed |
+| Attribute | Values | Optional | Notes |
+| --- | --- | --- | --- |
+| type | **success / warning / error / info** | yes | Sets the alert type |
+| dismissible | boolean | yes | Allows the alert to be dismissed |
 
 
 ## Styles

@@ -6,8 +6,10 @@ category: "elements"
 
 # Breadcrumbs
 
-A breadcrumb trail consists of a list of links to the parent pages of the current page in hierarchical order.
-It helps users find their place within a website or web application.
+A breadcrumb trail consists of a list of links to the parent pages of the current page in hierarchical order. It helps users find their place within a website or web application.
+
+## Install
+<pre> yarn install "@rhythm-ui/breadcrumbs" </pre>
 
 ## Accessibility
 
@@ -16,7 +18,8 @@ This component adheres to [3.4 Breadcrumb](https://www.w3.org/TR/wai-aria-practi
 - To prevent screen reader announcement of the visual separators between links, they are added via CSS
 - The `aria-current="page"`attribute will be automatically added to the last child
 
-## Basic usage
+## Example
+### Default
 
 ```html preview
 <rui-breadcrumbs>
@@ -27,7 +30,7 @@ This component adheres to [3.4 Breadcrumb](https://www.w3.org/TR/wai-aria-practi
 </rui-breadcrumbs>
 ```
 
-## Limit to max breadcrumbs
+### Limit to max breadcrumbs
 
 You can define the maximum number of crumbs to initially display by setting the `max` attribute.
 
@@ -43,23 +46,24 @@ You can define the maximum number of crumbs to initially display by setting the 
 </rui-breadcrumbs>
 ```
 
-## Attributes
-
-Events triggered by actions inside the component.
-
-| Attribute | Value  | Description                                                |
-|-----------|--------|------------------------------------------------------------|
-|`max` | number | Specifies the maximum breadcrumbs allowed to initially display. |
-
 ## Events
 
-Events triggered by actions inside the component.
+Alert fires an `expanded` event when the user expands the collapsed breadcrumbs .
 
-| Attribute | Value  | Description                                 |
-|-----------|--------|---------------------------------------------|
-|`onexpand` | script | Fires when hidden breadcrumbs are expanded. |
+```js
+    document.querySelector('rui-breadcrumb').addEventListener('expanded', (e) => console.log(e));
+```
 
-## Styling
+## Attributes
+
+The following attributes are used by Alert:
+
+| Attribute | Values | Optional | Notes |
+| --- | --- | --- | --- |
+| max | number | yes | Specifies the maximum breadcrumbs allowed to initially display |
+
+
+## Styles
 
 > Styles are automatically applied to the anchor element child. These styles may be overriden by targeting the anchor element through your own stylesheets.
 

@@ -86,7 +86,12 @@ export class RuiBreadcrumbs extends LitElement {
 	 */
 	private _handleExpandButtonClick = () => {
 		this.expanded = true;
-		this.dispatchEvent(new Event('onexpand'));
+		this.dispatchEvent(
+			new CustomEvent('expanded', {
+				bubbles: true,
+				composed: true
+			})
+		);
 	}
 
 	/**

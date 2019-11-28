@@ -164,6 +164,15 @@ Please note that there are two slots allocated for a button. The `button-collaps
 
 ## Events
 
+Accordion does not emit an event.
+
 ## Attributes
 
-## Styling variables
+The following attributes are used by Accordion:
+
+| Attribute | Values | Optional | Notes |
+| --- | --- | --- | --- |
+| behaviour | **single / multiple** | yes | Determines how many `accordion-items` can be open at once |
+
+
+## Styles
