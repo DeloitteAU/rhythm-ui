@@ -21,6 +21,7 @@ const navigationStyles = css`
 		width: 100%;
 		display: block;
 		text-decoration: none;
+		text-transform: capitalize;
 	}
 
 	a:before,

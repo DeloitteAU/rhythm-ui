@@ -138,7 +138,7 @@ const Template = ({
 			editPath={githubUrlPath}
 			markdown={doc.code.body}
 		>
-			<pre>yarn install {doc.frontmatter.package}</pre>
+			{/*<pre>yarn install {doc.frontmatter.package}</pre>*/}
 			{ruidocs.nodes.map(n => {
 				return (
 					<>
