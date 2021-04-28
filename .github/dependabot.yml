@@ -1,0 +1,27 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: "19:30"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: gatsby-plugin-sharp
+    versions:
+    - 2.13.1
+  - dependency-name: "@babel/core"
+    versions:
+    - 7.12.7
+  - dependency-name: gatsby-remark-autolink-headers
+    versions:
+    - 2.3.15
+  - dependency-name: elliptic
+    versions:
+    - 6.5.3
+  - dependency-name: react-dom
+    versions:
+    - 16.13.1
+  - dependency-name: handlebars
+    versions:
+    - 4.7.6
