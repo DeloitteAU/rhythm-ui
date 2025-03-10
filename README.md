@@ -7,7 +7,7 @@
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=DeloitteDigitalAPAC_rhythm-ui&metric=bugs)](https://sonarcloud.io/dashboard?id=DeloitteDigitalAPAC_rhythm-ui)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=DeloitteDigitalAPAC/rhythm-ui)](https://dependabot.com)
 
-----
+---- 
 
 > 👷‍ PLEASE NOTE: This library is currently still in development and all api's are subject to change.️ Please use with caution.
 
